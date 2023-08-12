@@ -17,8 +17,6 @@
       .catch((err) => {
         console.log('Ocorreu um erro na requisição', err);
       });
-
-
 </script>
 
 <template>
