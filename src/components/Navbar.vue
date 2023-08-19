@@ -93,6 +93,7 @@ onBeforeUnmount(() => {
   .nav-name-logo {
     font-weight: 600;
   }
+
   .nav #logo-url {
     margin: auto;
     margin-left: 0;
@@ -129,8 +130,8 @@ onBeforeUnmount(() => {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     z-index: 9999999999999;
   }
 </style>
