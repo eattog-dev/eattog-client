@@ -1,39 +1,70 @@
- <template>
+<template>
   <div>
-    <el-header class="nav">
+    <el-header v-if="isDesktop" class="nav desktop">
       <router-link id="logo-url" to="/">
         <span class="nav-name-logo">Eattog</span>
         <img class="logo" :src="logo" :alt="alt" />
       </router-link>
-      <router-link to="/" class="nav-active">Inicio</router-link>
-      <router-link to="/Restaurantes">Restaurantes</router-link>
+      <router-link to="/" :class="[$route.path === '/' ? 'nav-active' : '']">Inicio</router-link>
+      <router-link to="/restaurants" :class="[$route.path === '/restaurants' ? 'nav-active' : '']">Restaurantes</router-link>
+
       <el-button class="location-input" @click="openModal">
-        <span class="location-input__address">Bonito - MS</span>
-        <i class="el-icon-arrow-down location-input__icon-arrow"></i>
+        <span class="location-input__address">{{ userCity ? userCity : 'Localização' }}</span>
+        <i class="el-icon-caret-bottom location-input__icon-arrow"></i>
       </el-button>
     </el-header>
+    <el-header v-else class="nav nav-mobile">
+      <el-button class="location-input" @click="openModal">
+        <span class="location-input__address">{{ userCity ? userCity : 'Localização' }}</span>
+        <i class="el-icon-caret-bottom location-input__icon-arrow"></i>
+      </el-button>
+    </el-header>
+
     <div v-if="modalOpen" class="custom-modal">
-      <Modal />
+      <Modal @update-user-city="updateUserCity" />
     </div>
   </div>
 </template>
 
 <script setup>
-    import { ref } from 'vue';
-    import Modal from './Modal.vue';
+import { ref, onMounted, onBeforeUnmount, provide, reactive } from 'vue';
+import Modal from './Modal.vue';
+import logoImage from '@/assets/quadrado.png';
 
-    const logo = ref('/assets/quadrado.png');
-    const alt = ref('Eattog');
-    const modalOpen = ref(false);
+const logo = ref(logoImage);
+const alt = ref('Eattog');
+const modalOpen = ref(false);
 
-    const openModal = () => {
-        modalOpen.value = true;
-    };
+const state = reactive({
+  userCity: ''
+});
 
-    const closeModal = () => {
-        modalOpen.value = false;
-    };
+provide('navbarState', { userCity: state.userCity, modalOpen });
+
+const openModal = () => {
+  modalOpen.value = true;
+};
+
+const isDesktop = ref(window.innerWidth >= 768);
+
+const handleResize = () => {
+  isDesktop.value = window.innerWidth >= 768;
+};
+
+const updateUserCity = (newUserCity) => {
+  state.userCity = newUserCity;
+  modalOpen.value = false;
+};
+
+onMounted(() => {
+  window.addEventListener('resize', handleResize);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleResize);
+});
 </script>
+
 
 <style scoped>
   .nav {
@@ -44,7 +75,6 @@
     grid-column-gap: 24px;
     -moz-column-gap: 24px;
     column-gap: 24px;
-    width: 100vw;
     height: 80px;
     background-color: #fff;
     box-shadow: inset 0 -1px 0 #dcdcdc;
@@ -52,7 +82,14 @@
     z-index: 9997;
     padding: 20px 32px;
   }
-
+  .nav-mobile{
+    display: flex;
+    justify-content: center;
+  }
+  .nav a {
+    color: black;
+    text-decoration: none;
+  }
   .nav-name-logo {
     font-weight: 600;
   }
@@ -61,18 +98,16 @@
     margin: auto;
     margin-left: 0;
   }
-
   .logo {
     width: 10px;
     height: 10px;
     position: relative;
     bottom: -8px;
   }
-
   .nav-active {
     border-bottom: 1px solid #ffe500;
   }
-  .location-input {
+  .location-input, .location-input:hover{
     background-color: transparent;
     border: none;
   }
@@ -83,13 +118,11 @@
     position: relative;
     margin-left: 4px;
   }
-
   .location-input__address {
     font-size: 14px;
     color: #ffe500;
     font-weight: 600;
   }
-
   .custom-modal {
     display: flex;
     align-items: center;
@@ -97,8 +130,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 9999999999999;
   }
 </style>
