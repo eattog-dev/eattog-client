@@ -9,6 +9,7 @@ const app = createApp(App);
 app.use(ElementPlus);
 app.use(router); 
 app.mount('#app');
+new Vue().$mount('#app')
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('../public/service-worker.js')

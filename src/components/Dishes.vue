@@ -11,7 +11,9 @@
                     <span>{{ prato.title }}</span>
                     <div class="bottom clearfix">
                         <time class="time">{{ tempos[index] }} min</time>
-                        <el-button type="text" class="button">Adicionar</el-button>
+
+                        <el-button type="text" class="button" :to="{ name: 'Plates', query: { id: prato.id } }">Adicionar</el-button>
+
                     </div>
                 </div>
             </el-card>
@@ -21,6 +23,14 @@
 </template>
 
 <script setup>
+  import { useRouter } from 'vue-router';
+  
+  const adicionarPrato = (pratoId) => {
+    const router = useRouter();
+    router.push({ name: 'Plates', query: { id: pratoId } });
+  };
+
+
     import { ref} from 'vue';
 
     const apiKey = '0a727021fc924cd9b2ea52e03ccd461e';
