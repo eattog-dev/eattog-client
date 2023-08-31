@@ -18,5 +18,6 @@
     position: relative;
     border-bottom: 1px solid #ffe5009c;
     width: fit-content;
+    font-size: 28px;
 }
 </style>
