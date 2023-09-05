@@ -11,7 +11,6 @@
 <script setup>
 import { ref } from 'vue'
 import Title from '../components/Title.vue';
-
 import Restaurant from '../components/Restaurant.vue'
 
 const restaurants = ref([
@@ -133,4 +132,5 @@ const restaurants = ref([
 .description {
     text-align: left;
     font-size: 14px;
-}</style>
+}
+</style>

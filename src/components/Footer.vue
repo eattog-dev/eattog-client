@@ -6,15 +6,13 @@
             <el-col :xs="8" :sm="6" :md="4" :lg="6" :xl="6">
                 <router-link to="/" class="cmp-footer-link">Termos e condições de uso</router-link>
             </el-col>
-            <el-col :xs="4" :sm="6" :md="8" :lg="6" :xl="6">
+            <el-col :xs="8" :sm="6" :md="8" :lg="6" :xl="6">
                 <router-link to="/" class="cmp-footer-link">Código de conduta</router-link>
             </el-col>
-            <el-col :xs="4" :sm="6" :md="8" :lg="6" :xl="6">
+            <el-col :xs="8" :sm="6" :md="8" :lg="6" :xl="6">
                 <router-link to="/" class="cmp-footer-link">Privacidade</router-link>
             </el-col>
-            <el-col :xs="8" :sm="6" :md="4" :lg="6" :xl="6">
-                <router-link to="/" class="cmp-footer-link">Dicas de Segurança</router-link>
-            </el-col>
+            
           </el-row>
         </el-col>
       </el-row>
@@ -22,7 +20,7 @@
         <div class="cmp-footer-logo">
           <img src="../assets/icon _stop.svg" alt="Logo Eattog" />
         </div>
-        <p>
+        <p >
           © Copyright 2023 - Eattog - Todos os direitos reservados Eattog com
           Agência de Restaurantes Online S.A.
         </p>
@@ -32,6 +30,7 @@
 </template>
 
 <style setup>
+@media (max-width: 768px) {
     .cmp-footer {
         border-top: 1px solid #dcdcdc;
     }
@@ -54,4 +53,7 @@
     .cmp-footer-logo {
         left: -100px;
     }
+    
+  
+  }
 </style>

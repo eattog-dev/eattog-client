@@ -1,113 +1,68 @@
-<template>
-  <el-row>
-    <el-col
-      :span="8"
-      v-for="(o, index) in 1"
-      :key="o"
-      :offset="index > 0 ? 2 : 0"
-    >
-      <el-card :body-style="{ padding: '0px' }">
-        <img src="../assets/img-pratos/pacu-recheado.jpg" class="image" />
-        <div style="padding: 14px">
-          <p
-            class="dish-content_container dish-contentdetails"
-            data-test-id="dish-content_details"
-          >
-            Marmitex: Pacu recheado, com farofa
-          </p>
-          <div class="dish-info">
-            <span class="dish-info-serves__title">Serve 1 pessoa</span>
-          </div>
-          <div class="dish-price">
-            <span
-              class="dish-price__discount"
-              data-test-id="dish-content-discount-price"
-            >
-              R$ 45,00 <span class="dish-price__original">R$ 57,00</span>
-            </span>
-          </div>
-          <div class="dish-restaurant" href="">
-            <!--colocar o endereço-->
-            <div class="dish-restaurante__header">
-              <div class="dish-restaurant__descripition">
-                <div id="app">
-                  <i class="el-icon-s-shop"></i>
-                </div>
-                <span class="dish-restaurant__title">Pacuzinho da Ceara</span>
-                <div class="dish-restaurant__divisor"></div>
-              </div>
-            </div>
-          </div>
-          <div class="bottom clearfix">
-            <el-button type="text" class="button">Adicionar</el-button>
-          </div>
-        </div>
-      </el-card>
-    </el-col>
-  </el-row>
-</template>
-<!--
-  <script>
-  export default {
-    data() {
-      return {
-          Image: [
-              "../assets/img-pratos/pacu-recheado.jpg",
-              "../assets/img-pratos/lanche.jpg",
-              "../assets/img-pratos/feijao-tropeiro.jpg",
-              "../assets/img-pratos/moqueca-pantaneira.jpg",
-              "../assets/img-pratos/pintado-na-telha.jpg",
-              "../assets/img-pratos/soba-pantaneiro.jpg",
-              "../assets/img-pratos/salada-pantaneira.jpg"
-          ]
-      }
+<script setup>
+const props = defineProps({
+    plate: {
+        id: Number,
+        image: String,
+        logo: String,
+        title: String,
+        rating: Number,
+        type: String,
+        price: String,
+        distance: String,
+        retiring: String,
+        description: String
     }
-  }
-  </script>
-  -->
+});
+console.log(props); 
+</script>
+<template>
+    <el-col :xs="12" :sm="12" :md="8" :lg="6" :span="8">
+        <router-link :to="{
+            name: 'SinglePlates',
+            params: {
+                id: plate.id
+            },
+
+        }">
+            <div class="grid-content">
+                <div class="image" :style="{ background: 'url(' + props.plate.image + ')' }">
+                    <div class="plate-data">
+                        <img :src='plate.logo' alt="">
+                        <div>
+                            <h6 class="titleName">{{ plate.title }}</h6>
+                            <el-rate disabled v-model="plate.rating" />
+                        </div>
+                    </div>
+                </div>
+                <div class="details">
+                    <div>
+
+                        <span class="type">{{ plate.type }}</span>
+                        <span class="price">{{ plate.price }}</span>
+                        <span>{{ plate.distance }}</span>
+                        <span>{{ plate.retiring }}</span>
+                    </div>
+                    <p class="description">
+                        {{ plate.description }}
+                    </p>
+                </div>
+            </div>
+        </router-link>
+    </el-col>
+</template>
 <style>
-.time {
-  font-size: 13px;
-  color: #999;
+.plate-data img {
+    width: 60px;
+    height: 60px;
 }
 
-.bottom {
-  margin-top: 13px;
-  line-height: 12px;
+.titleName {
+    font-size: 14px;
 }
 
-.button {
-  padding: 0;
-  float: right;
-}
+.price {
 
-.image {
-  width: 100%;
-  display: block;
-}
-
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-}
-
-.clearfix:after {
-  clear: both;
-}
-.dish-price__discount {
-  color: #50a773;
-  margin-bottom: 10px;
-}
-.dish-price__original {
-  position: relative;
-  font-size: 0.75rem;
-  color: #dbdad9;
-  text-decoration: line-through;
-  margin-left: 6px;
-}
-.dish-restaurant__divisor {
-  border-top: 2px dashed #f2f2f2;
-  margin: 8px 0;
+    color: #50a773;
+    margin-bottom: 10px;
 }
 </style>
