@@ -1,5 +1,6 @@
 <script setup>
-import Title from './Title.vue';
+import Title from '../components/Title.vue';
+import Filtro from '../components/Filter.vue'
 
 const props = defineProps({
     dishes: {
@@ -7,32 +8,45 @@ const props = defineProps({
         title: String,
         description: String,
         price: Number,
-        sale_price: Number
+        sale_price: Number,
+        id: Number
     }
 });
-console.log(props.dishes.length/6);
-
-
-
 
 </script>
 <template>
     <section id="menu">
-        <Title text="Cardápio"></Title>
         <el-row justify="center">
-            <el-col class="col" :span="20">
+            <el-col class="title-and-filter" :span=20>
+                <Title text="Cardápio"></Title>
+                <Filtro :dishes="dishes" />
+            </el-col>
+        </el-row>
+        <el-row justify="center">
+            <el-col :span="20">
                 <el-row :gutter=10 justify="start">
                     <el-col :xs="24" :sm="12" :md="12" :lg=12 :span="12" v-for="dish in dishes" :dish="dish">
-                        <div class="grid-content dish">
-                            <img :src="dish.image" alt="">
-                            <div class="info">
-                                <div>
-                                    <h3>{{ dish.title }}</h3>
-                                    <span>R${{ dish.price }}</span>
+                        <router-link :to="{
+                            name: 'SingleDish',
+                            params: {
+                                id_dish: dish.id,
+                                title: dish.title
+                            },
+                            query: {
+                                data: JSON.stringify(dish)
+                            }
+                        }">
+                            <div class="grid-content dish">
+                                <img :src="dish.image" alt="">
+                                <div class="info">
+                                    <div>
+                                        <h3>{{ dish.title }}</h3>
+                                        <span>R${{ dish.price }}</span>
+                                    </div>
+                                    <p>{{ dish.description }}</p>
                                 </div>
-                                <p>{{ dish.description }}</p>
                             </div>
-                        </div>
+                        </router-link>
                     </el-col>
                 </el-row>
             </el-col>
@@ -48,6 +62,14 @@ console.log(props.dishes.length/6);
 #menu .el-row,
 #menu .grid-content {
     text-align: unset !important;
+}
+#menu a{
+    text-decoration: none;
+}
+#menu .title-and-filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 #menu .grid-content {

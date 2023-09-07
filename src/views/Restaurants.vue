@@ -1,6 +1,11 @@
 <template>
     <section id="restaurants">
-        <Title text="Restaurantes"></Title>
+        <el-row justify="center">
+            <el-col :span="20">
+                <Title text="Restaurantes"></Title>
+
+            </el-col>
+        </el-row>
         <el-row justify="center">
             <el-col :span="20">
                 <el-row :gutter=8>

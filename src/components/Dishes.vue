@@ -3,7 +3,7 @@
         <el-row :gutter="5" justify="center">
             <el-col :xs="24" :sm="12" :md="8" :lg="6" :span="8" v-for="(prato, index) in pratos" :key="prato.id">
                 <el-card :body-style="{ padding: '0px' }">
-                    <img :src="prato.image" class="image">
+                    <img :src="prato.image" id="image">
                     <template v-if="tagsAlimentos[index] !== 'Alimentos Processados'">
                         <tag class="tag-aliment">{{ tagsAlimentos[index] }}</tag>
                     </template>
@@ -124,7 +124,7 @@ const pratos = ref([
     font-weight: 600;
 }
 
-.image {
+#image {
     height: 200px;
     width: 100%;
     object-fit: cover;
