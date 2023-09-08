@@ -27,7 +27,7 @@ const bannerData = {
         <router-link :to="{
             name: 'SingleRestaurant',
             params: {
-                id: restaurant.id,
+                id: restaurant.id
             },
             query: {
                 banner: JSON.stringify(bannerData)

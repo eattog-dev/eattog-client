@@ -57,7 +57,6 @@ defineProps({
 
 #banner .data p {
     font-size: 20px;
-    color: #ffffff;
 }
 
 #banner .data img {

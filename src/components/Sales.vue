@@ -3,12 +3,10 @@
 import { Swiper, SwiperSlide } from 'swiper/vue';
 // Import Swiper styles
 import 'swiper/css';
-//import 'swiper/swiper-bundle.min.css';
+
 import Title from './Title.vue';
 
-import { Autoplay } from 'swiper/modules';
 
-const modulo = [Autoplay];
 const props = defineProps({
     dishes: {
         image: String,
@@ -16,8 +14,7 @@ const props = defineProps({
         description: String,
         price: Number,
         isSale: Boolean,
-        sale_price: Number,
-        id: Number
+        sale_price: Number
     }
 });
 
@@ -26,40 +23,13 @@ const sales = props.dishes.filter(sale => sale.isSale == true) || []
 
 <template>
     <section id="sales" v-if="!sales.length == false">
-        <el-row justify="center">
-            <el-col :span="20">
-                <Title text="Promoções"></Title>
-
-            </el-col>
-        </el-row>
+        <Title text="Promoções"></Title>
         <el-row justify="center">
             <el-col class="col" :span="20">
                 <el-row :gutter=10>
                     <el-col :span="24">
-                        <Swiper 
-                        loop= true
-                        :autoplay="{
-                            delay: 2500,
-                            disableOnInteraction: false,
-                        }" 
-                        :pagination="{
-                            clickable: true,
-                        }" :navigation="true" 
-                        :slides-per-view="3.3" 
-                        :modules="modulo" 
-                        space-between="30"
-                            >
+                        <Swiper :autoplay="{delay: 50}" :slides-per-view="3.3" space-between="30">
                             <SwiperSlide v-for="sale in sales">
-                                <router-link :to="{
-                                    name: 'SingleDish',
-                                    params: {
-                                        id_dish: sale.id,
-                                        title: sale.title
-                                    },
-                                    query: {
-                                        data: JSON.stringify(sale)
-                                    }
-                                }">
                                 <div class="grid-content">
                                     <div class="image" :style="{ background: 'url(' + sale.image + ')' }">
                                     </div>
@@ -72,7 +42,6 @@ const sales = props.dishes.filter(sale => sale.isSale == true) || []
                                         </div>
                                     </div>
                                 </div>
-                                </router-link>
                             </SwiperSlide>
                         </Swiper>
                     </el-col>
@@ -87,7 +56,7 @@ const sales = props.dishes.filter(sale => sale.isSale == true) || []
 #sales .grid-content {
     text-align: unset !important;
 }
-#sales a{text-decoration: none;}
+
 #sales .details p {
     margin: 0;
 }
