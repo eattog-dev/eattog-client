@@ -54,5 +54,6 @@
   }
   .el-progress-circle__track{
     color: #E6A23C;
+    background-color: aqua;
   }
   </style>
