@@ -1,6 +1,6 @@
 <script setup>
     import Carousel from '../components/Carousel.vue';
-    import Dishes from '../components/Dishes.vue';
+    import Dishes from '../components/ListDishes.vue';
     import Title from '../components/Title.vue';
 </script>
 <template>
@@ -11,4 +11,4 @@
             <Dishes/>
         </el-col>
     </el-row>
-</template>
+</template>      
