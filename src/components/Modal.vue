@@ -1,27 +1,27 @@
 <template>
-  <div class="modal-content" v-if="modalOpen" :style="customModal">
-    <h3 class="modal-title">Onde você quer receber seu pedido?</h3>
+  <div class="cmp-modal-content" v-if="modalOpen" :style="customModal">
+    <h3 class="cmp-modal-title">Onde você quer receber seu pedido?</h3>
     <el-input
       placeholder="Endereço atual"
       v-model="userCity"
-      class="modal-input"
+      class="cmp-modal-input"
       :suffix-icon="loadingLocation ? 'el-icon-loading' : ''"
       @click.native="getUserLocation"
     ></el-input>
-    <div class="modal-btn">
-      <el-button class="modal-btn-address" @click="getUserLocation">
+    <div class="cmp-modal-btn">
+      <el-button class="cmp-modal-btn-address" @click="getUserLocation">
         Usar minha localização
       </el-button>
       <div class="" v-if="userCity">
-        <el-button class="modal-btn-close" @click="updateUserCityAndCloseModal">Finalizar</el-button>
+        <el-button class="cmp-modal-btn-close" @click="updateUserCityAndCloseModal">Finalizar</el-button>
       </div>
     </div>
 
-    <div class="modal-address-login">
-      <span class="modal-address-login__description">
+    <div class="cmp-modal-address-login">
+      <span class="cmp-modal-address-login__description">
         Possui um endereço registrado? Aproveite para fazer o login e escolher seu endereço salvo, ou cadastre-se para salvar seu endereço.
       </span>
-      <el-button type="text" class="modal-btn-login">Login ou Cadastrar</el-button>
+      <el-button type="text" class="cmp-modal-btn-login">Login ou Cadastrar</el-button>
     </div>
   </div>
 </template>
@@ -91,7 +91,7 @@ const customModal = computed(() => ({
 </script>
 
 <style scoped>
-.modal-content {
+.cmp-modal-content {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
@@ -100,14 +100,12 @@ const customModal = computed(() => ({
   z-index: 9999;
   position: absolute;
 }
-.custom-modal {
-  z-index: 9999999999999;
-}
-.modal-title {
+
+.cmp-modal-title {
   margin-top: 0;
 }
 
-.modal-input {
+.cmp-modal-input {
   width: 100%;
   margin-top: 10px;
   border: 1px solid #ccc;
@@ -115,14 +113,14 @@ const customModal = computed(() => ({
   color: gray;
   height: 40px;
 }
-.modal-btn {
+.cmp-modal-btn {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.modal-btn-address,
-.modal-btn-login {
+.cmp-modal-btn-address,
+.cmp-modal-btn-login {
   background-color: #f39c12;
   color: white;
   padding: 10px 20px;
@@ -132,7 +130,7 @@ const customModal = computed(() => ({
   margin-top: 10px;
 }
 
-.modal-btn-close {
+.cmp-modal-btn-close {
   color: #f39c12;
   padding: 10px 20px;
   border: 1px solid #f39c12;
@@ -142,12 +140,12 @@ const customModal = computed(() => ({
   margin-left: 40px;
 }
 
-.modal-btn-login {
+.cmp-modal-btn-login {
   color: #f39c12;
   background-color: transparent;
   margin: 0;
 }
-.modal-address-login {
+.cmp-modal-address-login {
   margin-top: 20px;
   font-size: 12px;
   color: gray;
