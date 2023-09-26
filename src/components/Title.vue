@@ -1,5 +1,5 @@
 <template>
-    <h2 class="title">{{ text }}</h2>
+    <h2 class="cmp-title">{{ text }}</h2>
 </template>
 
 <script setup>
@@ -10,7 +10,7 @@
 </script>
 
 <style>
-.title{
+.cmp-title{
     left: 8.5%;
     font-weight: 700;
     padding-top: 20px;
