@@ -66,6 +66,8 @@
     }
 
     .cmp-plash-logo {
+        font-family: cursive;
+        font-weight: bold;
         position: relative;
         display: inline-block;
         bottom: -20px;
