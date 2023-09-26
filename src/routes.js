@@ -5,9 +5,13 @@ import Splash from './components/Splash.vue';
 import Admin from './views/Admin.vue';
 import Plates from './components/Plate.vue';
 import StateOrder from './views/StateOrder.vue';
+import Cadastro from './views/Cadastro.vue';
+import Notification from './views/Notification.vue';
 
 const routes = [
     { path: '/', component: Splash },
+    { path: '/cadastro', component: Cadastro},
+    { path:'/notification', component: Notification},
     { path: '/inicio', component: Home },
     { path: '/restaurants', component: Restaurants },
     { path: '/admin', component: Admin },
