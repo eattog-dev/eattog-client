@@ -21,7 +21,7 @@ const routes = [
     { path: '/restaurants/:id', name: 'SingleRestaurant', props: true, query: true, component: SingleRestaurant },
     { path: '/admin', component: Admin },
     { path: '/dishes', name: Dishes, component: Dishes },
-    { path: '/dishes/:id_dish/:title', name: 'SingleDish', props: true, query: true, component: SingleDish }
+    { path: '/dishes/:id_dish/:nome', name: 'SingleDish', props: true, query: true, component: SingleDish }
 ];
 
 

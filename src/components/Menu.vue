@@ -60,7 +60,7 @@ const props = defineProps({
                             name: 'SingleDish',
                             params: {
                                 id_dish: dish.id,
-                                title: dish.nome
+                                nome: dish.nome
                             }
                         }">
                             <div class="grid-content dish">

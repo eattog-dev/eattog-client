@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted} from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 import { usePratosStore } from '../store/pratos'
@@ -9,45 +9,50 @@ const route = useRoute()
 
 
 
-let quantity = ref(1)
 
-let realPrice = ref(0);
 
-// if (prato.isSale) {
-//     realPrice = prato.sale_price
-// } else {
-//     realPrice = prato.price
-// }
-// let totalValue = realPrice;
-
-// const add = () => {
-//     quantity.value++;
-//     document.querySelector(".subtract").removeAttribute("disabled");
-//     totalValue = realPrice * quantity.value;
-// }
-
-// const subtract = () => {
-//     if (quantity.value <= 1) {
-//         document.querySelector(".subtract").setAttribute("disabled", "disabled");
-//     }
-//     else {
-//         quantity.value--;
-//         totalValue -= realPrice;
-//     }
-// }
 console.log(route.params.id_dish)
 const pratosStore = usePratosStore();
 
 
 const prato = computed(() => pratosStore.prato)
-onMounted(()=> pratosStore.getPrato(route.params.id_dish))
+onMounted(() => pratosStore.getPrato(route.params.id_dish))
+
+let quantity = ref(1)
+
+let realPrice = ref(0);
 
 
+if (prato.desconto) {
+    realPrice = prato.valor_desconto
+} else {
+    realPrice = prato.valor
+}
+
+let totalValue = realPrice;
+console.log(totalValue)
+
+const add = () => {
+    quantity.value++;
+    document.querySelector(".subtract").removeAttribute("disabled");
+    totalValue = realPrice * quantity.value;
+    console.log(totalValue)
+}
+
+const subtract = () => {
+    if (quantity.value <= 1) {
+        document.querySelector(".subtract").setAttribute("disabled", "disabled");
+    }
+    else {
+        quantity.value--;
+        totalValue -= realPrice;
+    }
+}
 </script>
 <template>
     <section id="dish-detail">
         <el-row justify="center">
-            <el-col span="14"> 
+            <el-col span="14">
                 <el-card class="dish">
                     <div style="align-items: center; display: flex;">
                         <img :src=prato.imagem alt="">
@@ -56,16 +61,17 @@ onMounted(()=> pratosStore.getPrato(route.params.id_dish))
                         <div class="data-dish">
                             <div class="title-and-price">
                                 <h2>{{ prato.nome }}</h2>
-                                <!-- <div v-if="prato.isSale" class="sale-pricing">
-                                    <span class="sale-price">{{ prato.valor.toFixed(2) }}</span>
-                                    <span class="price">{{ prato.valor.toFixed(2) }}</span>
-                                </div> -->
-                                <span class="real-price" >{{ prato.valor }}</span>
+                                <div v-if="prato.isSale" class="sale-pricing">
+                                    <span class="sale-price">{{ prato.valor }}</span>
+                                    <span class="price">{{ prato.valor }}</span>
+                                </div>
+                                <span class="real-price">{{ prato.valor }}</span>
                             </div>
                             <p>{{ prato.igredientes }}</p>
                             <form action="">
                                 <textarea name="obs" id="obs" cols="30" rows="10" placeholder="Observações"></textarea>
-                                <div style="display: flex; justify-content: space-between; align-content: center; padding: 20px 0;">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-content: center; padding: 20px 0;">
                                     <div class="quantity">
                                         <button @click.prevent="add">+</button>
                                         <input type="number" v-model="quantity" />
@@ -76,7 +82,7 @@ onMounted(()=> pratosStore.getPrato(route.params.id_dish))
                                     </div>
                                 </div>
                             </form>
-                            <!-- <span class="total-value">Valor Total: R${{ totalValue.toFixed(2) }}</span> -->
+                            <span class="total-value">Valor Total: R${{ prato.valor }}</span>
                         </div>
                     </div>
                 </el-card>
@@ -98,6 +104,7 @@ onMounted(()=> pratosStore.getPrato(route.params.id_dish))
 #dish-detail .el-card__body {
     display: flex;
 }
+
 #dish-detail .data-dish {
     background-color: #fff;
     border-radius: 0 0 8px 8px;
@@ -142,10 +149,10 @@ onMounted(()=> pratosStore.getPrato(route.params.id_dish))
 }
 
 .cart {
-    width: 44px!important;
-    height: 44px!important;
+    width: 44px !important;
+    height: 44px !important;
     object-fit: cover;
-    border-radius: 8px!important;
+    border-radius: 8px !important;
     background-color: #ffe500;
     padding: 8px;
 }
@@ -165,7 +172,7 @@ onMounted(()=> pratosStore.getPrato(route.params.id_dish))
 }
 
 #dish-detail .data-dish .quantity input,
-#dish-detail .data-dish .quantity button{
+#dish-detail .data-dish .quantity button {
     width: 44px;
     height: 44px;
 }
@@ -186,8 +193,8 @@ onMounted(()=> pratosStore.getPrato(route.params.id_dish))
 
 }
 
-.total-value{
+.total-value {
     float: right;
-    font-size: 1.1rem    
+    font-size: 1.1rem
 }
 </style>
