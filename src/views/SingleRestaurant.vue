@@ -268,10 +268,116 @@ const dishes = [
 
     ]
 ]
+
+// const pratos = [
+//   {
+//     "nome": "Feijoada",
+//     "valor": 25.99,
+//     "imagem": "https://www.sabornamesa.com.br/media/k2/items/cache/7b98703f48b0025160f2b9b5aad2a874_XL.jpg",
+//     "ingredientes": ["Feijão Preto", "Carne de Porco", "Arroz"],
+//     "restaurante": 6,
+//     "categoria_prato": 0, 
+//     "desconto": false,
+//     "valor_desconto": 0
+//   },
+//   {
+//     "nome": "Sushi de Salmão",
+//     "valor": 18.50,
+//     "imagem": "https://www.sabornamesa.com.br/media/k2/items/cache/7b98703f48b0025160f2b9b5aad2a874_XL.jpg",
+//     "ingredientes": ["Salmão Fresco", "Arroz de Sushi", "Alga Nori"],
+//     "restaurante": 5, // Associando com o restaurante de índice 5
+//     "categoria_prato": 1, // Associando com a categoria de índice 1 (Comida Japonesa)
+//     "desconto": false,
+//     "valor_desconto": 0
+//   },
+//   {
+//     "nome": "Couscous Marroquino",
+//     "valor": 12.99,
+//     "imagem": "https://www.sabornamesa.com.br/media/k2/items/cache/7b98703f48b0025160f2b9b5aad2a874_XL.jpg",
+//     "ingredientes": ["Couscous", "Vegetais", "Temperos"],
+//     "restaurante": 4, // Associando com o restaurante de índice 4
+//     "categoria_prato": 2, // Associando com a categoria de índice 2 (Comida Africana)
+//     "desconto": false,
+//     "valor_desconto": 0
+//   },
+//   {
+//     "nome": "Pizza Margherita",
+//     "valor": 15.99,
+//     "imagem": "https://www.sabornamesa.com.br/media/k2/items/cache/7b98703f48b0025160f2b9b5aad2a874_XL.jpg",
+//     "ingredientes": ["Molho de Tomate", "Mozzarella", "Manjericão"],
+//     "restaurante": 3, // Associando com o restaurante de índice 3
+//     "categoria_prato": 0, // Associando com a categoria de índice 0 (Comida Brasileira)
+//     "desconto": true,
+//     "valor_desconto": 2.00
+//   },
+//   {
+//     "nome": "Bobotie Sul-Africano",
+//     "valor": 17.50,
+//     "imagem": "https://www.sabornamesa.com.br/media/k2/items/cache/7b98703f48b0025160f2b9b5aad2a874_XL.jpg",
+//     "ingredientes": ["Carne Moída", "Ovo", "Leite"],
+//     "restaurante": 7, // Associando com o restaurante de índice 7
+//     "categoria_prato": 2, // Associando com a categoria de índice 2 (Comida Africana)
+//     "desconto": true,
+//     "valor_desconto": 1.50
+//   },
+//   {
+//     "nome": "Taco de Carne",
+//     "valor": 8.99,
+//     "imagem": "https://www.sabornamesa.com.br/media/k2/items/cache/7b98703f48b0025160f2b9b5aad2a874_XL.jpg",
+//     "ingredientes": ["Carne de Bovino", "Tortilha", "Vegetais"],
+//     "restaurante": 8, // Associando com o restaurante de índice 8
+//     "categoria_prato": 2, // Associando com a categoria de índice 2 (Comida Africana)
+//     "desconto": false,
+//     "valor_desconto": 0
+//   },
+//   {
+//     "nome": "Tempurá de Camarão",
+//     "valor": 21.99,
+//     "imagem": "https://www.sabornamesa.com.br/media/k2/items/cache/7b98703f48b0025160f2b9b5aad2a874_XL.jpg",
+//     "ingredientes": ["Camarão", "Vegetais", "Molho de Tempurá"],
+//     "restaurante": 1, // Associando com o restaurante de índice 1
+//     "categoria_prato": 1, // Associando com a categoria de índice 1 (Comida Japonesa)
+//     "desconto": false,
+//     "valor_desconto": 0
+//   },
+//   {
+//     "nome": "Acarajé",
+//     "valor": 7.50,
+//     "imagem": "https://www.sabornamesa.com.br/media/k2/items/cache/7b98703f48b0025160f2b9b5aad2a874_XL.jpg",
+//     "ingredientes": ["Feijão Fradinho", "Camarão Seco", "Dendê"],
+//     "restaurante": 0, // Associando com o restaurante de índice 0
+//     "categoria_prato": 0, // Associando com a categoria de índice 0 (Comida Brasileira)
+//     "desconto": true,
+//     "valor_desconto": 1.00
+//   },
+//   {
+//     "nome": "Sobá Japonês",
+//     "valor": 14.99,
+//     "imagem": "https://www.sabornamesa.com.br/media/k2/items/cache/7b98703f48b0025160f2b9b5aad2a874_XL.jpg",
+//     "ingredientes": ["Macarrão", "Caldo Dashi", "Vegetais"],
+//     "restaurante": 2, // Associando com o restaurante de índice 2
+//     "categoria_prato": 1, // Associando com a categoria de índice 1 (Comida Japonesa)
+//     "desconto": true,
+//     "valor_desconto": 1.50
+//   },
+//   {
+//     "nome": "Baião de Dois",
+//     "valor": 11.99,
+//     "imagem": "https://www.sabornamesa.com.br/media/k2/items/cache/7b98703f48b0025160f2b9b5aad2a874_XL.jpg",
+//     "ingredientes": ["Arroz", "Feijão Verde", "Queijo Coalho"],
+//     "restaurante": 6, // Associando com o restaurante de índice 6
+//     "categoria_prato": 0, // Associando com a categoria de índice 0 (Comida Brasileira)
+//     "desconto": false,
+//     "valor_desconto": 0
+//   }
+// ];
+
+
 </script>
 <template>
     <Banner :banner="banner" />
-    <!--<Promocao :dishes="pratos" />-->   
+    <Promocao :dishes="pratos" />
+    <!---->   
     <Cardapio :dishes="pratos" />
 </template>
 

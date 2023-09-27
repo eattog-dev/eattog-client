@@ -1,8 +1,14 @@
+
 <template>
-    <section id="list-dishes" v-if="!filtredCategory.length  == false">
-        <Title :text="categoria" />
+    <section id="list-dishes">
+        <el-row justify="center">
+            <el-col :span="20">
+                <Title :text="categoria" />
+
+            </el-col>
+        </el-row>
         <el-row :gutter=12  >
-            <Dish v-for="prato in filtredCategory" :dish="prato"/>
+            <Dish v-for="prato in pratos" :dish="prato"/>
         </el-row>
     </section>
 </template>
@@ -10,8 +16,22 @@
 <script setup>
 import Title from './Title.vue' 
 import Dish from './Dish.vue'
+// v-if="!filtredCategory.length  == false"
+import { computed, onMounted } from 'vue'
+
 
 import { useRouter } from 'vue-router';
+
+import {useHomeStore} from '../store/home'
+
+const homeStore = useHomeStore();
+
+const pratos = computed(() => homeStore.pratos)
+
+onMounted(() => {
+    homeStore.listaPratos()
+})
+
 
 const adicionarPrato = (pratoId) => {
     const router = useRouter();
@@ -50,14 +70,13 @@ const props = defineProps({
 
 });
 console.log(props.categoria)
-const filtredCategory = props.pratos.filter(prato => prato.tag == props.categoria) || []
-console.log(filtredCategory)
+// const filtredCategory = props.pratos.filter(prato => prato.tag == props.categoria) || []
+// console.log(filtredCategory)
 </script> 
 <style>
 #list-dishes .el-row {
     text-align: center;
     margin: unset!important;
-    padding-bottom: 4rem;
 }
 
 #list-dishes a{text-decoration: none;}

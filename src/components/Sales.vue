@@ -9,6 +9,24 @@ import Title from './Title.vue';
 import { Autoplay } from 'swiper/modules';
 
 const modulo = [Autoplay];
+import { useRouter, useRoute } from 'vue-router'
+
+import { ref, computed, onMounted } from 'vue'
+
+import { useDescontoStore } from '../store/sales'
+
+const descontoStore = useDescontoStore();
+
+const pratos = computed(() => descontoStore.pratosRestaurante)
+
+onMounted(()=> {
+
+    descontoStore.listaPratosRestaurante(route.params.id);
+
+})
+
+const route = useRoute()
+
 const props = defineProps({
     dishes: {
         image: String,
@@ -25,7 +43,7 @@ const sales = props.dishes.filter(sale => sale.isSale == true) || []
 </script>
 
 <template>
-    <section id="sales" v-if="!sales.length == false">
+    <section id="sales" v-if="!pratos.length == false">
         <el-row justify="center">
             <el-col :span="20">
                 <Title text="Promoções"></Title>
@@ -49,26 +67,25 @@ const sales = props.dishes.filter(sale => sale.isSale == true) || []
                         :modules="modulo" 
                         space-between="30"
                             >
-                            <SwiperSlide v-for="sale in sales">
+                            <SwiperSlide v-for="sale in pratos">
                                 <router-link :to="{
                                     name: 'SingleDish',
                                     params: {
                                         id_dish: sale.id,
-                                        title: sale.title
+                                        nome: sale.nome
                                     },
-                                    query: {
-                                        data: JSON.stringify(sale)
-                                    }
+
                                 }">
                                 <div class="grid-content">
-                                    <div class="image" :style="{ background: 'url(' + sale.image + ')' }">
+                                    <div class="image" :style="{ background: 'url(' + sale.imagem + ')' }">
                                     </div>
                                     <div class="details">
-                                        <h6>{{ sale.title }}</h6>
-                                        <p>{{ sale.description }}</p>
+                                        <h6>{{ sale.nome }}</h6>
+                                        <!-- <p>{{ sale.ingredientes }}</p> -->
                                         <div class="prices">
-                                            <span class="original">De: R${{ sale.price }}</span>
-                                            <span class="sale">Por: R${{ sale.sale_price }}</span>
+                                            <span  v-if=sale.desconto class="original">De: R${{ sale.valor }}</span>
+                                            <span v-else > R${{ sale.valor }}</span>
+                                            <span v-if=sale.desconto class="sale">Por: R${{ sale.valor_desconto }}</span>
                                         </div>
                                     </div>
                                 </div>

@@ -23,7 +23,7 @@ const bannerData = {
 
 </script>
 <template>
-    <el-col :xs="24" :sm="12" :md="8" :lg="8" :span="8">
+    <el-col :xs="24" :sm="12" :md="8" :lg="8" :span="8" class="card" >
         <router-link :to="{
             name: 'SingleRestaurant',
             params: {
@@ -58,8 +58,9 @@ const bannerData = {
     </el-col>
 </template>
 <style>
-#restaurants .el-col {
+#restaurants .el-col .card {
     margin: 12px 0;
+    height: 300px !important;
 }
 
 #restaurants a {
@@ -67,6 +68,7 @@ const bannerData = {
 }
 
 #restaurants .grid-content {
+    height: 100%;
     text-align: center;
     background-color: #ffffff;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);

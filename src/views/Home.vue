@@ -5,8 +5,12 @@
 </script>
 <template>
     <Carousel/>
-    <Title text="Pratos típicos da região"></Title>
     <el-row justify="center">
+    </el-row>
+    <el-row justify="center">
+        <el-col :span="20">
+            <Title text="Destaque"></Title>
+        </el-col>
         <el-col :span="20">
             <Dishes/>
         </el-col>

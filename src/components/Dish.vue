@@ -3,13 +3,13 @@ const props = defineProps({
   dish: {
     id: Number,
     image: String,
-    title: String,
-    ingredients: String,
+    nome: String,
+    ingredientes: String,
     time: Number,
-    tag: String,
+    prato_categoria: String,
     price: Number,
-    isSale: Boolean,
-    sale_price: Number
+    desconto: Boolean,
+    valor_desconto: Number
   }
 });
 </script>
@@ -19,23 +19,23 @@ const props = defineProps({
         name: 'SingleDish',
         params: {
           id_dish: dish.id,
-          title: dish.title
+          nome: dish.nome
         },
        
       }">
       <el-card :body-style="{ padding: '0px' }">
-        <img :src="dish.image" class="image">
-        <span class="tag-aliment">{{ dish.tag }}</span>
+        <img :src="dish.imagem" class="image">
+        <!-- <span class="tag-aliment">{{ dish.prato_categoria }}</span> -->
         <div style="padding: 14px; text-align: center;">
-          <span>{{ dish.title }}</span>
+          <span>{{ dish.nome }}</span>
           <div class="dish-price">
             <span class="dish-price__discount">
-              R$ {{ dish.price.toFixed(2) }}
-              <span v-if=dish.isSale class="dish-price__original">R$ {{ dish.sale_price.toFixed(2) }}</span>
+              R$ {{ dish.valor }}
+              <span v-if=dish.desconto class="dish-price__original">R$ {{ dish.valor_desconto }}</span>
             </span>
           </div>
           <div class="clearfix">
-            <time class="time">{{ dish.time }} min</time>
+            <!-- <time class="time">{{ dish.time }} min</time> -->
             <el-button type="text" class="button">Adicionar</el-button>
           </div>
         </div>
@@ -45,8 +45,11 @@ const props = defineProps({
 </template>
 
 <style>
-/*#list-dishes a{text-decoration: none;}
-
+#list-dishes a{text-decoration: none;}
+#list-dishes .el-card {
+   margin: 1rem 0;
+   height: 300px;
+  }
 #list-dishes .time {
   font-size: 13px;
   color: #999;
@@ -57,9 +60,11 @@ const props = defineProps({
   float: right;
 }
 
-#list-dishes .image {
+#list-dishes .image{
   width: 100%;
   display: block;
+  object-fit: cover;
+    height: 200px
 }
 
 #list-dishes .tag-aliment {text-align: center;}
@@ -87,5 +92,5 @@ const props = defineProps({
 #list-dishes .dish-restaurant__divisor {
   border-top: 2px dashed #f2f2f2;
   margin: 8px 0;
-}*/
+}
 </style>
