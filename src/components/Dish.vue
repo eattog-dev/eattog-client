@@ -77,7 +77,7 @@ const props = defineProps({
 
 
 #list-dishes .dish-price__discount {
-  color: #50a773;
+  color: #f39c12;
   margin-bottom: 10px;
 }
 

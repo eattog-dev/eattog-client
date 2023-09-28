@@ -139,7 +139,9 @@ onBeforeUnmount(() => {
   .nav-name-logo {
     font-weight: 600;
   }
-
+  .location-input {
+    padding-top: 0;
+  }
   .nav #logo-url {
     left: 120px;
     position: relative;
@@ -196,7 +198,7 @@ onBeforeUnmount(() => {
   }
 
   .el-sub-menu {
-    margin: -12px 0;
+    margin: -16px 0;
   }
   .none-margem {
     margin: auto 0px;
