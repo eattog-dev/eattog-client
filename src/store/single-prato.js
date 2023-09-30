@@ -4,12 +4,13 @@ export const useSinglPratoStore = defineStore('single-prato', {
     state: () => ({
         prato: {},
         quantidade: 1,
-        valorTotal: 0
+        valorTotal : 0
     }),
     actions: {
         async carregarPrato(id) {
             const resposta = await fetch(`http://localhost:3000/prato/${id}`);
             this.prato = await resposta.json();
+            this.valorPrato()
         },
         somar() {
             this.quantidade++
