@@ -1,17 +1,4 @@
 <script setup>
-const props = defineProps({
-  dish: {
-    id: Number,
-    image: String,
-    nome: String,
-    ingredientes: String,
-    time: Number,
-    prato_categoria: String,
-    price: Number,
-    desconto: Boolean,
-    valor_desconto: Number
-  }
-});
 </script>
 <template>
   <el-col :xs="24" :sm="12" :md="8" :lg="6" :span="8">
@@ -25,7 +12,8 @@ const props = defineProps({
       }">
       <el-card :body-style="{ padding: '0px' }">
         <img :src="dish.imagem" class="image">
-        <!-- <span class="tag-aliment">{{ dish.prato_categoria }}</span> -->
+        <span class="tag-aliment" v-if="dish.prato_categoria.categoria == null">celta</span> 
+        <span class="tag-aliment" v-else>{{ dish.prato_categoria.categoria }}</span> 
         <div style="padding: 14px; text-align: center;">
           <span>{{ dish.nome }}</span>
           <div class="dish-price">

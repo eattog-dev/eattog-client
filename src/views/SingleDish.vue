@@ -2,57 +2,23 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
-import { usePratosStore } from '../store/pratos'
+import { useSinglPratoStore } from '../store/single-prato'
 
+const route = useRoute();
 
-const route = useRoute()
-
-
-
-
+const singlePratoStore = useSinglPratoStore();
 
 console.log(route.params.id_dish)
-const pratosStore = usePratosStore();
 
+const prato = computed(() => singlePratoStore.prato);
 
-const prato = computed(() => pratosStore.prato)
-onMounted(() => pratosStore.getPrato(route.params.id_dish))
+onMounted(() =>  singlePratoStore.carregarPrato(route.params.id_dish))
 
-let quantity = ref(1)
-
-let realPrice = ref(0);
-
-
-if (prato.desconto) {
-    realPrice = prato.valor_desconto
-} else {
-    realPrice = prato.valor
-}
-
-let totalValue = realPrice;
-console.log(totalValue)
-
-const add = () => {
-    quantity.value++;
-    document.querySelector(".subtract").removeAttribute("disabled");
-    totalValue = realPrice * quantity.value;
-    console.log(totalValue)
-}
-
-const subtract = () => {
-    if (quantity.value <= 1) {
-        document.querySelector(".subtract").setAttribute("disabled", "disabled");
-    }
-    else {
-        quantity.value--;
-        totalValue -= realPrice;
-    }
-}
 </script>
 <template>
     <section id="dish-detail">
         <el-row justify="center">
-            <el-col span="14">
+            <el-col :span="14">
                 <el-card class="dish">
                     <div style="align-items: center; display: flex;">
                         <img :src=prato.imagem alt="">
@@ -61,28 +27,28 @@ const subtract = () => {
                         <div class="data-dish">
                             <div class="title-and-price">
                                 <h2>{{ prato.nome }}</h2>
-                                <div v-if="prato.isSale" class="sale-pricing">
-                                    <span class="sale-price">{{ prato.valor }}</span>
-                                    <span class="price">{{ prato.valor }}</span>
+                                <div v-if="prato.desconto" class="sale-pricing">
+                                    <span class="sale-price">R$ {{ prato.valor_desconto }}</span>
+                                    <span class="price">R$ {{ prato.valor }}</span>
                                 </div>
-                                <span class="real-price">{{ prato.valor }}</span>
+                                <span v-else class="real-price">{{ prato.valor }}</span>
                             </div>
-                            <p>{{ prato.igredientes }}</p>
+                            <p>{{ prato.descricao }}</p>
                             <form action="">
                                 <textarea name="obs" id="obs" cols="30" rows="10" placeholder="Observações"></textarea>
                                 <div
                                     style="display: flex; justify-content: space-between; align-content: center; padding: 20px 0;">
                                     <div class="quantity">
-                                        <button @click.prevent="add">+</button>
-                                        <input type="number" v-model="quantity" />
-                                        <button @click.prevent="subtract" class="subtract">-</button>
+                                        <button @click.prevent="singlePratoStore.somar()">+</button>
+                                        <input type="number" v-model="singlePratoStore.quantidade" />
+                                        <button @click.prevent="singlePratoStore.subtrair()" class="subtract">-</button>
                                     </div>
                                     <div>
                                         <img class="cart" src="../assets/cart-shopping-solid.svg" alt="">
                                     </div>
                                 </div>
                             </form>
-                            <span class="total-value">Valor Total: R${{ prato.valor }}</span>
+                            <span class="total-value">Valor Total: R${{ singlePratoStore.valorTotal }}</span>
                         </div>
                     </div>
                 </el-card>

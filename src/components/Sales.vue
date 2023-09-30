@@ -1,49 +1,24 @@
 <script setup>
-// Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue';
-// Import Swiper styles
 import 'swiper/css';
-//import 'swiper/swiper-bundle.min.css';
 import Title from './Title.vue';
-
 import { Autoplay } from 'swiper/modules';
+import { useRouter, useRoute } from 'vue-router'
+import { ref, computed, onMounted } from 'vue'
+import { useSingleRestauranteStore } from '../store/single-restaurante'
 
 const modulo = [Autoplay];
-import { useRouter, useRoute } from 'vue-router'
-
-import { ref, computed, onMounted } from 'vue'
-
-import { useDescontoStore } from '../store/sales'
-
-const descontoStore = useDescontoStore();
-
-const pratos = computed(() => descontoStore.pratosRestaurante)
-
-onMounted(()=> {
-
-    descontoStore.listaPratosRestaurante(route.params.id);
-
-})
 
 const route = useRoute()
 
-const props = defineProps({
-    dishes: {
-        image: String,
-        title: String,
-        description: String,
-        price: Number,
-        isSale: Boolean,
-        sale_price: Number,
-        id: Number
-    }
-});
+const singleRestaurante = useSingleRestauranteStore();
 
-const sales = props.dishes.filter(sale => sale.isSale == true) || []
+onMounted(()=> singleRestaurante.listarDescontos(route.params.id))
+
 </script>
 
 <template>
-    <section id="sales" v-if="!pratos.length == false">
+    <section id="sales" v-if="!singleRestaurante.filtroDesconto.length == false ">
         <el-row justify="center">
             <el-col :span="20">
                 <Title text="Promoções"></Title>
@@ -67,25 +42,25 @@ const sales = props.dishes.filter(sale => sale.isSale == true) || []
                         :modules="modulo" 
                         space-between="30"
                             >
-                            <SwiperSlide v-for="sale in pratos">
+                            <SwiperSlide v-for="prato in singleRestaurante.filtroDesconto">
                                 <router-link :to="{
                                     name: 'SingleDish',
                                     params: {
-                                        id_dish: sale.id,
-                                        nome: sale.nome
+                                        id_dish: prato.id,
+                                        nome: prato.nome
                                     },
 
                                 }">
                                 <div class="grid-content">
-                                    <div class="image" :style="{ background: 'url(' + sale.imagem + ')' }">
+                                    <div class="image" :style="{ background: 'url(' + prato.imagem + ')' }">
                                     </div>
                                     <div class="details">
-                                        <h6>{{ sale.nome }}</h6>
-                                        <!-- <p>{{ sale.ingredientes }}</p> -->
+                                        <h6>{{ prato.nome }}</h6>
+                                        <!-- <p>{{ prato.ingredientes }}</p> -->
                                         <div class="prices">
-                                            <span  v-if=sale.desconto class="original">De: R${{ sale.valor }}</span>
-                                            <span v-else > R${{ sale.valor }}</span>
-                                            <span v-if=sale.desconto class="sale">Por: R${{ sale.valor_desconto }}</span>
+                                            <span  v-if=prato.desconto class="original">De: R${{ prato.valor }}</span>
+                                            <span v-else > R${{ prato.valor }}</span>
+                                            <span v-if=prato.desconto class="sale">Por: R${{ prato.valor_desconto }}</span>
                                         </div>
                                     </div>
                                 </div>

@@ -4,40 +4,21 @@ import Filtro from '../components/Filter.vue'
 
 import { ref, computed, onMounted } from 'vue'
 
-import { usePratosStore } from '../store/pratos'
+import {useSingleRestauranteStore} from '../store/single-restaurante'
 import { useRouter, useRoute } from 'vue-router'
 
 const route = useRoute()
 
-const pratosStore = usePratosStore();
+const singleRestauranteStore = useSingleRestauranteStore();
+const cardapio = computed (() => singleRestauranteStore.cardapio)
 
-const pratos = computed(() => pratosStore.pratosRestaurante)
+onMounted(()=> singleRestauranteStore.listarCardapio(route.params.id))
 
-onMounted(()=> {
-
-    pratosStore.listaPratosRestaurante(route.params.id);
-    handleMaisBarato();
-    handleMaisCaro();
-    handleOrdemAlfabetica();
-})
-const handleMaisCaro = () => pratosStore.ordenarMaisCaro;
-const handleMaisBarato = () => pratosStore.ordenarMaisBarato;
-const handleOrdemAlfabetica = () => pratosStore.ordenarAlfbeto;
-
+const handleMaisCaro = () => singleRestauranteStore.ordenarMaisCaro;
+const handleMaisBarato = () => singleRestauranteStore.ordenarMaisBarato;
+const handleOrdemAlfabetica = () => singleRestauranteStore.ordenarAlfbeto;
 
 const value = ref('Selecione')
-
-const props = defineProps({
-    dishes: {
-        imagem: String,
-        nome: String,
-        description: String,
-        price: Number,
-        sale_price: Number,
-        id: Number
-    }
-});
-
 </script>
 <template>
     <section class="menu">
@@ -55,7 +36,7 @@ const props = defineProps({
         <el-row justify="center">
             <el-col :span="20">
                 <el-row :gutter=10 justify="start">
-                    <el-col :xs="24" :sm="12" :md="12" :lg=12 :span="12" v-for="dish in pratos" :dish="dish">
+                    <el-col :xs="24" :sm="12" :md="12" :lg=12 :span="12" v-for="dish in cardapio" :dish="dish">
                         <router-link :to="{
                             name: 'SingleDish',
                             params: {
@@ -68,6 +49,7 @@ const props = defineProps({
                                 <div class="info">
                                     <div>
                                         <h3>{{ dish.nome }}</h3>
+                                        <span v-if="dish.desconto">R$ {{ dish.valor_desconto }}</span>
                                         <span>R${{ dish.valor }}</span>
                                     </div>
                                     <p>{{ dish.igredientes }}</p>

@@ -30,9 +30,7 @@ const newRestaurants = computed (()=> restaurantesStore.restaurantes)
 
 onMounted(() => {
     restaurantesStore.listaRestaurantes()
-}),
-console.log(newRestaurants)
-
+})
 
 const restaurants = ref([
     {

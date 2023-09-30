@@ -1,14 +1,15 @@
 <script setup>
-defineProps({
-    banner: {
-        titulo: String,
-        imagem: String,
-        logo: String,
-        descricao: String,
-        avaliacao: Number
-    }
-});
+import { useRouter, useRoute } from 'vue-router'
+import { ref, computed, onMounted } from 'vue'
 
+const route = useRoute()
+import {useSingleRestauranteStore} from '../store/single-restaurante'
+
+const singleRestaurante = useSingleRestauranteStore();
+
+const banner = computed (()=> singleRestaurante.banner);
+
+onMounted(()=> singleRestaurante.carregarBanner(route.params.id))
 </script>
 <template>
     <section id="banner" :style="{ background: 'url(' + banner.imagem + ')' }">
