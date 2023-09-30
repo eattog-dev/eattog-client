@@ -28,50 +28,9 @@ const homeStore = useHomeStore();
 
 const pratos = computed(() => homeStore.pratos)
 
-onMounted(() => {
-    homeStore.listaPratos()
-})
+onMounted(() => homeStore.listaPratos())
 
 
-const adicionarPrato = (pratoId) => {
-    const router = useRouter();
-    router.push({ name: 'Plates', query: { id: pratoId } });
-};
-
-
-import { ref } from 'vue';
-
-const apiKey = '0a727021fc924cd9b2ea52e03ccd461e';
-const apiUrl = 'https://api.spoonacular.com/recipes/complexSearch';
-
-const tempos = [35, 40, 30, 45, 35, 40, 30, 50, 50];
-const tagsAlimentos = ['Alimentos Saudáveis', 'Alimentos Processados', 'Alimentos Saudáveis', 'Alimentos Saudáveis', 'Alimentos Saudáveis', 'Alimentos Processados', 'Alimentos Saudáveis', 'Alimentos Saudáveis', 'Alimentos Saudáveis', 'Alimentos Saudáveis']
-//   const pratos = ref([]);
-//   fetch(`${apiUrl}?apiKey=${apiKey}`)
-//         .then((res) => res.json())
-//         .then((json) => {
-//         console.log('Requisição bem-sucedida');
-//         pratos.value = json.results;
-//         })
-//         .catch((err) => {
-//         console.log('Ocorreu um erro na requisição', err);
-//         });
-
-const props = defineProps({
-    categoria: String,
-    pratos:{
-        id: Number,
-        image: String,
-        title: String,
-        ingredients: String,
-        time: Number,
-        tag: String,
-    }
-
-});
-console.log(props.categoria)
-// const filtredCategory = props.pratos.filter(prato => prato.tag == props.categoria) || []
-// console.log(filtredCategory)
 </script> 
 <style>
 #list-dishes .el-row {
