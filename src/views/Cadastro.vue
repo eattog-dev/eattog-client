@@ -207,4 +207,7 @@
     color: black;
     border-color: #ffe600;
 }
+#cadastro  .el-form-item{
+  margin-bottom: 0 !important;
+}
 </style>
