@@ -34,7 +34,13 @@ const textarea = ref('')
 
 <style>
 .states-order{
-    margin-left: 40%;
+    display: inline-flex;
+    /* text-align: center; */
+    width: 50em;
+    align-content: flex-end;
+    flex-direction: column;
+    flex-wrap: wrap;
+
 }
 .components-state{
     margin-left: 40%;

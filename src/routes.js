@@ -8,9 +8,8 @@ import Dishes from './views/Dishes.vue'
 import SingleDish from './views/SingleDish.vue'
 import Cadastro from './views/Cadastro.vue';
 import Notification from './views/Notification.vue';
-
-
-
+import ProfileUser from './views/ProfileUser.vue';
+import PlateOrder from './views/PlateOrder.vue';
 
 const routes = [
     { path: '/', component: Splash },
@@ -21,7 +20,9 @@ const routes = [
     { path: '/restaurants/:id', name: 'SingleRestaurant', props: true, query: true, component: SingleRestaurant },
     { path: '/admin', component: Admin },
     { path: '/dishes', name: Dishes, component: Dishes },
-    { path: '/dishes/:id_dish/:nome', name: 'SingleDish', props: true, query: true, component: SingleDish }
+    { path: '/dishes/:id_dish/:nome', name: 'SingleDish', props: true, query: true, component: SingleDish },
+    { path:'/profileuser', component: ProfileUser},
+    { path:'/plateorder', component: PlateOrder},
 ];
 
 

@@ -22,16 +22,11 @@
 </template>
 
 <style>
-.cmp-states-order{
-    text-align: center;
-    width: 20em;
-    border-bottom: 1px dashed #dcdcdc;
+.el-checkbox-grou{
+    justify-items:initial ;
 }
-
-.cmp-state-item {
-    display: flex;
-    gap: 8px;
-    border-bottom: 2px #ccc dashed;
+.cmp-state-item {   
+    border-bottom: 1px #ccc dashed;
 }
 
 </style>
