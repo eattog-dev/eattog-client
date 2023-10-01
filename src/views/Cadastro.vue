@@ -258,4 +258,7 @@ const errorMsgPassword = ref("");
   padding: 0;
   color: #888;
 }
+#cadastro  .el-form-item{
+  margin-bottom: 0 !important;
+}
 </style>
