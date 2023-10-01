@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <el-carousel :autoplay="false" :indicator-position="'none'" :arrow="'hover'" :loop="true" class="custom-carousel">
+  <div class="cmp-banner">
+    <el-carousel :autoplay="false" :indicator-position="'none'" :arrow="'hover'" :loop="true" class="cmp-banner-customcarousel">
       <el-carousel-item v-for="(banner, index) in banners" :key="index">
-        <div class="banner-wrapper">
-          <img class="banner-format" :src="banner.image" alt="Banner" />
+        <div class="cmp-banner-wrapper">
+          <img class="cmp-banner-format" :src="banner.image" alt="Banner" />
         </div>
       </el-carousel-item>
     </el-carousel>
@@ -16,57 +16,55 @@ import Banner2 from '@/assets/img-banner/banner-2.jpg';
 import Banner3 from '@/assets/img-banner/banner-3.jpg';
 
 export default {
-  data() {
-    return {
-      banners: [
-        { image: Banner1 },
-        { image: Banner2 },
-        { image: Banner3 },
-      ],
-    };
-  },
+    data() {
+        return {
+            banners: [
+                { image: Banner1 },
+                { image: Banner2 },
+                { image: Banner3 },
+            ],
+        };
+    },
 };
 </script>
 
 <style>
-.banner-format {
-  object-fit: cover;
-  width: 100%;
-  height: 200px;
+.cmp-banner-format {
+    object-fit: cover;
+    width: 100%;
+    height: 12.5rem;
 }
-.custom-carousel {
-  position: relative;
+.cmp-banner-customcarousel {
+    position:relative;
 }
-
-.banner-wrapper {
-  position: relative;
+.cmp-banner-wrapper {
+    position: relative;
 }
-
-.el-carousel__container {
-    height: 200px;
+.cmp-banner .el-carousel__container {
+    height: 12.5rem;
 }
-.el-carousel__arrow--left,
-.el-carousel__arrow--right {
-  bottom: 20px; 
-  background-color: rgba(255, 255, 0, 0.642); 
+.cmp-banner .el-carousel__arrow--left,
+.cmp-banner .el-carousel__arrow--right {
+    bottom: 1.25rem; 
+    background-color: var(--rgba-yellow); 
 }
-.el-carousel__arrow--left{
-  right: auto;
-  left: 46%;
+.cmp-banner .el-carousel__arrow--left{
+    right: auto;
+    left: 46%;
 }
-.el-carousel__arrow--right {
-  left: auto;
-  right: 46%;
+.cmp-banner .el-carousel__arrow--right {
+    left: auto;
+    right: 46%;
 }
 @media (max-width: 768px) {
-  .el-carousel__arrow--left{
-    right: auto;
-    left: 38%;
-  }
-  .el-carousel__arrow--right {
-    left: auto;
-    right: 38%;
-  }
+    .cmp-banner .el-carousel__arrow--left{
+        right: auto;
+        left: 38%;
+    }
+    .cmp-banner .el-carousel__arrow--right {
+        left: auto;
+        right: 38%;
+    }
 }
 </style>
 
