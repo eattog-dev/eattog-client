@@ -32,7 +32,7 @@ export default {
 .cmp-banner-format {
     object-fit: cover;
     width: 100%;
-    height: 200px;
+    height: 12.5rem;
 }
 .cmp-banner-customcarousel {
     position:relative;
@@ -41,12 +41,12 @@ export default {
     position: relative;
 }
 .cmp-banner .el-carousel__container {
-    height: 200px;
+    height: 12.5rem;
 }
 .cmp-banner .el-carousel__arrow--left,
 .cmp-banner .el-carousel__arrow--right {
-    bottom: 20px; 
-    background-color: rgba(255, 255, 0, 0.642); 
+    bottom: 1.25rem; 
+    background-color: var(--rgba-yellow); 
 }
 .cmp-banner .el-carousel__arrow--left{
     right: auto;
