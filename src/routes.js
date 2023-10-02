@@ -10,11 +10,12 @@ import Cadastro from './views/Cadastro.vue';
 import Notification from './views/Notification.vue';
 import ProfileUser from './views/ProfileUser.vue';
 import PlateOrder from './views/PlateOrder.vue';
-
+import Login from './views/Login.vue';
 const routes = [
     { path: '/', component: Splash },
-    { path: '/cadastro', component: Cadastro},
-    { path:'/notification', component: Notification},
+    { path: '/cadastro', component: Cadastro },
+    { path: '/login', component: Login },
+    { path:'/notification', component: Notification },
     { path: '/inicio', component: Home },
     { path: '/restaurants', component: Restaurants },
     { path: '/restaurants/:id', name: 'SingleRestaurant', props: true, query: true, component: SingleRestaurant },
