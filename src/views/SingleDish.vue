@@ -11,8 +11,11 @@ const singlePratoStore = useSinglPratoStore();
 console.log(route.params.id_dish)
 
 const prato = computed(() => singlePratoStore.prato);
+const valorTotal = computed (() => singlePratoStore.valorTotal)
 
-onMounted(() =>  singlePratoStore.carregarPrato(route.params.id_dish))
+onMounted(() =>  {
+    singlePratoStore.carregarPrato(route.params.id_dish);
+})
 
 </script>
 <template>
@@ -48,7 +51,7 @@ onMounted(() =>  singlePratoStore.carregarPrato(route.params.id_dish))
                                     </div>
                                 </div>
                             </form>
-                            <span class="total-value">Valor Total: R${{ singlePratoStore.valorTotal }}</span>
+                            <span class="total-value">Valor Total: R${{ valorTotal }}</span>
                         </div>
                     </div>
                 </el-card>

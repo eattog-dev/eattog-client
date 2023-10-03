@@ -1,4 +1,18 @@
 <script setup>
+const props = defineProps({
+  dish: {
+    id: Number,
+    image: String,
+    nome: String,
+    ingredientes: String,
+    time: Number,
+    prato_categoria: String,
+    price: Number,
+    desconto: Boolean,
+    valor_desconto: Number
+  }
+});
+console.log(props.dish)
 </script>
 <template>
   <el-col :xs="24" :sm="12" :md="8" :lg="6" :span="8">
