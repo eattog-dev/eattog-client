@@ -9,8 +9,8 @@
           <el-form class="login-container-form" ref="loginForm" :model="formData" label-width="100px" label-position="top">
             <el-header>
               <el-divider content-position="center">Welcome to Eattog</el-divider>
-              <p class="login-account">Login to your account</p>
             </el-header>
+            <div class="login-account">Login to your account
             <el-form-item label="E-mail" prop="email" :rules="emailRules">
               <el-input type="email" v-model="formData.email"></el-input>
             </el-form-item>
@@ -24,6 +24,7 @@
             <el-form-item>
               <el-button type="primary" @click="submitForm">Login</el-button>
             </el-form-item>
+          </div>
             <el-form-item>
               <el-alert v-if="errorMsg" title="Please fill in all required fields." type="error" show-icon></el-alert>
             </el-form-item>
@@ -109,7 +110,7 @@
   
   #login .login-container-form {
     width: 80%;
-    height: 80vh;
+    height: 99vh;
     margin: 200px auto 0 0;
     text-align: center;
     font-family: "Roboto", sans-serif;

@@ -6,8 +6,7 @@
         <p class="cadastro-slogan">Delicious Food, Delivered Fast</p>
       </el-col>
       <el-col :span="12">
-        <el-form class="cadastro-container-form" ref="cadastroForm" :model="formulario" label-width="100px"
-          label-position="top">
+        <el-form class="cadastro-container-form" ref="cadastroForm" :model="formulario" label-width="6.25rem" label-position="top">
           <el-header>
             <el-divider content-position="center">Welcome to Eattog</el-divider>
             <p>Create your account</p>
@@ -49,7 +48,7 @@
             <el-alert v-if="errorMsg" title="Please fill in all required fields." type="error" show-icon></el-alert>
           </el-form-item>
           <el-form-item>
-            <router-link to="/login">Já tem uma conta?</router-link>
+            <router-link to="/login">Já tem uma conta? Faça Login</router-link>
           </el-form-item>
         </el-form>
       </el-col>
@@ -177,6 +176,7 @@ const errorMsg = ref("");
 const errorMsgPassword = ref("");
 </script>
 
+
 <style setup>
 #cadastro {
   --el-color-primary: #ffe500;
@@ -187,35 +187,40 @@ const errorMsgPassword = ref("");
 }
 
 #cadastro .cadastro-container-form {
-  width: 80%;
-  height: 80vh;
-  margin: 200px auto 0;
+  width: 50rem;
+  height: 65.8rem;
+  margin: 12.5rem auto 0;
   text-align: center;
   font-family: "Roboto", sans-serif;
 }
 
+.cadastro-container-form p {
+  z-index: 9999;
+
+}
+
 #cadastro .cadastro-slogan {
-  font-size: 16px;
+  font-size: 1rem;
   color: #888;
-  margin: 10px 30% 0 30%;
+  margin: 0.625rem 30% 0 30%;
 }
 
 #cadastro .el-form {
-  width: 80%;
+  width: 60rem;
   margin: auto;
 }
 
 #cadastro .el-date-table th {
-  padding: 2px;
+  padding: 0.125rem;
   font-weight: 400;
-  border-bottom: solid 1px;
+  border-bottom: solid 0.0625rem;
 }
 
 #cadastro .el-alert {
   display: flex;
   justify-content: center;
   position: fixed;
-  top: 80%;
+  top: 50rem;
   left: 60%;
   width: 30%;
   z-index: 999999;
@@ -226,17 +231,16 @@ const errorMsgPassword = ref("");
   border-color: transparent !important;
   width: auto !important;
   margin: 0px !important;
-
 }
 
 #cadastro .el-button {
   background-color: #ffe600;
   color: rgba(0, 0, 0, 0.813);
   border-color: #ffe600;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   width: 50%;
-  margin: 20px auto;
-  padding: 16px 0;
+  margin: 1.25rem auto;
+  padding: 1rem 0;
 }
 
 #cadastro .el-button:hover,
@@ -248,17 +252,88 @@ const errorMsgPassword = ref("");
 
 .password-toggle-button {
   position: absolute;
-  right: 10px;
+  right: 0.625rem;
   top: 50%;
   transform: translateY(-50%);
   background-color: transparent;
   border: none;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 1.25rem;
   padding: 0;
   color: #888;
 }
-#cadastro  .el-form-item{
+
+.el-divider {
+
+  margin: 5rem 0 0 0;
+}
+
+.el-divider__text.is-center {
+    display: flex;
+    margin: 0 0 5rem 0;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+
+#cadastro .el-form-item {
   margin-bottom: 0 !important;
 }
+
+@media (max-width: 1221px) {
+
+  #cadastro .el-form {
+   
+     width: 100%;
+  }
+
+  #cadastro .cadastro-bg-white {
+   width: 100%;
+  
+  }
+
+  #cadastro .cadastro-container-form {
+  width: 50rem;
+  height: 80.8rem;
+  margin: 12.5rem auto 0;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+}
+}
+
+@media (max-width: 800px) {
+  #cadastro .el-form {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    width: 200%; 
+  }
+
+  #cadastro .cadastro-slogan {
+
+  font-size: 1rem;
+  color: #888;
+  margin: 0.625rem 30% 0 30%;
+}
+
+  .el-divider__text.is-center {
+    display: flex;
+    margin: 0 0 5rem 0;
+    transform: translateX(-30%) translateY(-30%);
+}
+
+#cadastro .cadastro-bg-white {
+   display: none;
+  
+  }
+ 
+
+  #cadastro .el-alert {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    width: 100%;
+  }
+}
+
+
 </style>

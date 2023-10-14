@@ -13,8 +13,8 @@
 <style setup>
 
 .logotipo{
-    font-size: 68px;
-    margin: 30% 50px 0 30%;
+    font-size: 80px;
+    margin: 35% 40px 0 30%;
     font-family: cursive;
     font-weight: bold;
 }
