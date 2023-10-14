@@ -10,26 +10,30 @@ import { useRouter, useRoute } from 'vue-router'
 const route = useRoute()
 
 const singleRestauranteStore = useSingleRestauranteStore();
-const cardapio = computed (() => singleRestauranteStore.cardapio)
+const cardapio = computed (() => singleRestauranteStore.cardapio);
+const temItens = computed (() => singleRestauranteStore.temItens);
+const pagina = computed(() => singleRestauranteStore.pagina)
 
-onMounted(()=> singleRestauranteStore.listarCardapio(route.params.id))
+const quantidadePratos = computed(() => singleRestauranteStore.quantidadePratos)
 
-const handleMaisCaro = () => singleRestauranteStore.ordenarMaisCaro;
-const handleMaisBarato = () => singleRestauranteStore.ordenarMaisBarato;
-const handleOrdemAlfabetica = () => singleRestauranteStore.ordenarAlfbeto;
+onMounted(()=>{  
+    singleRestauranteStore.listarCardapio(route.params.id)
+    singleRestauranteStore.qtdPratos
+})
 
-const value = ref('Selecione')
+const value = ref('Selecione');
 </script>
 <template>
     <section class="menu">
+
         <el-row justify="center">
             <el-col class="title-and-filter" :span=20>
                 <Title text="Cardápio"></Title>
                 <!--<Filtro :dishes="dishes" />-->
                 <el-select v-model="value" class="m-2" placeholder="Select" size="large">
-                    <el-option label="Mais Caro" value="Mais Caro" @click="handleMaisCaro()"/>
-                    <el-option label="Mais Barato" value="Mais Barato" @click="handleMaisBarato()"/>
-                    <el-option label="Ordem Alfabética" value="Ordem Alfabética" @click="handleOrdemAlfabetica()"/>
+                    <el-option label="Mais Caro" value="Mais Caro" @click="singleRestauranteStore.ordenarMaisCaro()"/>
+                    <el-option label="Mais Barato" value="Mais Barato" @click="singleRestauranteStore.ordenarMaisBarato()"/>
+                    <el-option label="Ordem Alfabética" value="Ordem Alfabética" @click="singleRestauranteStore.ordenarAlfbeto()"/>
                 </el-select>
             </el-col>
         </el-row>
@@ -59,6 +63,11 @@ const value = ref('Selecione')
                     </el-col>
                 </el-row>
             </el-col>
+        </el-row>
+        <el-row justify="center">
+            <button @click="singleRestauranteStore.voltarPagina()">Anterior</button>
+            <span>{{ pagina }}</span>
+            <button @click="singleRestauranteStore.passarPagina()">Próximo</button>
         </el-row>
     </section>
 </template>
