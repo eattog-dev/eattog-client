@@ -1,20 +1,20 @@
 <script setup>
-import { ref } from 'vue'
 import { computed, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
-
-import ListDishes from '../components/ListDishes.vue'
 import Dish from '../components/Dish.vue'
-
 import Title from '../components/Title.vue'
 
 import { usePratosStore } from '../store/pratos'
 
-const pratosStore = usePratosStore();
+const router = useRouter()
 
+const pratosStore = usePratosStore();
 const todosPratos = computed(() => pratosStore.todosPratos)
 
 onMounted(() => pratosStore.listarPratosPorCategoria())
+
+const irPraCategoria = (id, nome) => router.push(`/categorias/${id}/${nome}`)
 
 // const pratos = ref([
 //     {
@@ -116,6 +116,7 @@ onMounted(() => pratosStore.listarPratosPorCategoria())
                 <el-row :gutter=12>
                     <Dish v-for="prato in sessao.categoria_prato" :dish="prato" />
                 </el-row>
+                <span @click="irPraCategoria(sessao.id, sessao.categoria)" style="float: right; cursor: pointer; padding: 0 6px;">Ver mais pratos</span>
             </el-col>
         </el-row>
     </section>

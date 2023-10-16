@@ -5,8 +5,6 @@ import Banner from '../components/Banner.vue';
 import Promocao from '../components/Sales.vue'
 import Cardapio from '../components/Menu.vue'
 
-import { useRouter, useRoute } from 'vue-router'
-
 /*const pratos = [
 {
   "nome": "Feijoada",
