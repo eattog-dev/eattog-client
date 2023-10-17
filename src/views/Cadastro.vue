@@ -6,7 +6,8 @@
         <p class="cadastro-slogan">Delicious Food, Delivered Fast</p>
       </el-col>
       <el-col :span="12">
-        <el-form class="cadastro-container-form" ref="cadastroForm" :model="formulario" label-width="6.25rem" label-position="top">
+        <el-form class="cadastro-container-form" ref="cadastroForm" :model="formulario" label-width="6.25rem"
+          label-position="top">
           <el-header>
             <el-divider content-position="center">Welcome to Eattog</el-divider>
             <p>Create your account</p>
@@ -19,10 +20,11 @@
               placeholder="Select Date" format="DD/MM/YYYY"></el-date-picker>
           </el-form-item>
           <el-form-item label="Phone number" prop="numberPhone" :rules="phoneRules">
-            <el-input type="text" v-model="formulario.numberPhone"></el-input>
+            <el-input type="text" v-mask="'(##) #####-####'" v-model="formulario.numberPhone"></el-input>
           </el-form-item>
           <el-form-item label="CPF or CNPJ" prop="cpf_cnpj" :rules="cpfCnpjRules">
-            <el-input type="text" v-model="formulario.cpf_cnpj"></el-input>
+            <el-input type="text" v-mask="'###.###.###-##', '##.###.###/####-##'" v-model="formulario.cpf_cnpj">
+            </el-input>
           </el-form-item>
           <el-form-item label="E-mail" prop="email" :rules="emailRules">
             <el-input type="email" v-model="formulario.email"></el-input>
@@ -44,11 +46,14 @@
           <el-form-item>
             <el-button type="primary" @click="submitForm">Sign Up</el-button>
           </el-form-item>
+          <div class="loading-cadastro" v-if="loading">
+            <div class="loading-spinner-cadastro"></div>
+          </div>
           <el-form-item>
             <el-alert v-if="errorMsg" title="Please fill in all required fields." type="error" show-icon></el-alert>
           </el-form-item>
           <el-form-item>
-            <router-link to="/login">Já tem uma conta? Faça Login</router-link>
+            <router-link class="link-login" to="/login">Já tem uma conta? Faça Login</router-link>
           </el-form-item>
         </el-form>
       </el-col>
@@ -94,7 +99,6 @@ const phoneRules = [
   { required: true, message: "Please enter your phone number", trigger: "blur" },
 ];
 
-
 const cpfCnpjRules = [
   { required: true, message: "Please enter your CPF or CNPJ", trigger: "blur" },
   {
@@ -112,7 +116,6 @@ const cpfCnpjRules = [
   },
 ];
 
-
 const emailRules = [
   { required: true, message: "Please enter your email", trigger: "blur" },
   { type: "email", message: "Please enter a valid email address", trigger: "blur" },
@@ -122,7 +125,7 @@ const passwordRules = [
   { required: true, message: "Please enter a password", trigger: "blur" },
   {
     validator: (rule, value, callback) => {
-      const regex = /^(?=.[a-z])(?=.[A-Z])(?=.[!@#$%^&])[\w!@#$%^&*]{6,}$/;
+      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&]).{6,}$/;
       if (!regex.test(value)) {
         callback(new Error("A senha deve ter pelo menos 6 caracteres, uma letra maiúscula, uma letra minúscula e um caractere especial"));
       } else {
@@ -148,14 +151,15 @@ const confirmPasswordRules = [
 ];
 
 const showPassword = ref(false);
+const loading = ref(false);
 
 const togglePassword = () => {
   showPassword.value = !showPassword.value;
 };
 
-
-
 const submitForm = () => {
+  loading.value = true;
+
   cadastroForm.value.validate((valid) => {
     if (valid) {
       console.log("Dados do formulário:", formulario.value);
@@ -163,10 +167,12 @@ const submitForm = () => {
     } else {
       errorMsgPassword.value = "";
       errorMsg.value = "Please fill in all required fields.";
+      loading.value = false;
     }
 
     setTimeout(() => {
       errorMsg.value = "";
+      loading.value = false;
     }, 3000);
   });
 };
@@ -175,7 +181,6 @@ const cadastroForm = ref(null);
 const errorMsg = ref("");
 const errorMsgPassword = ref("");
 </script>
-
 
 <style setup>
 #cadastro {
@@ -188,32 +193,72 @@ const errorMsgPassword = ref("");
 
 #cadastro .cadastro-container-form {
   width: 50rem;
-  height: 65.8rem;
+  height: 65.5rem;
   margin: 12.5rem auto 0;
   text-align: center;
   font-family: "Roboto", sans-serif;
 }
 
-.cadastro-container-form p {
-  z-index: 9999;
+ .el-date-table th {
+  padding: 4px !important;
+}
+
+#cadastro .cadastro-container-form p {
+  margin: 22px 0 0 0;
 
 }
 
 #cadastro .cadastro-slogan {
   font-size: 1rem;
   color: #888;
-  margin: 0.625rem 30% 0 30%;
+  display: flex;
+  margin: 0.625rem 0% 0 0%;
+  justify-content: center;
 }
+
+
+#cadastro .loading-cadastro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 254, 212, 0.409);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+ #cadastro .loading-spinner-cadastro {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid var(--rgba-yellow);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+#cadastro .el-form--default 
+.el-form--label-top 
+.el-form-item 
+.el-form-item__label {
+  margin-bottom: 8px;
+  margin-top: 27px;
+  line-height: 22px;
+}
+
 
 #cadastro .el-form {
-  width: 60rem;
+  width: 90%;
   margin: auto;
-}
-
-#cadastro .el-date-table th {
-  padding: 0.125rem;
-  font-weight: 400;
-  border-bottom: solid 0.0625rem;
 }
 
 #cadastro .el-alert {
@@ -263,69 +308,115 @@ const errorMsgPassword = ref("");
   color: #888;
 }
 
-.el-divider {
+.loading-cadastro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 254, 212, 0.409);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-spinner-cadastro {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid var(--rgba-yellow);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#cadastro.el-divider {
 
   margin: 5rem 0 0 0;
 }
 
-.el-divider__text.is-center {
-    display: flex;
-    margin: 0 0 5rem 0;
-    transform: translateX(-50%) translateY(-50%);
+#cadastro.el-divider__text.is-center {
+  display: flex;
+  margin: 0 0 5rem 0;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 
-#cadastro .el-form-item {
-  margin-bottom: 0 !important;
-}
-
-@media (max-width: 1221px) {
+@media (width: 1192px) {
 
   #cadastro .el-form {
-   
-     width: 100%;
+    margin: 26px 0 0 0;
+    width: 80%;
   }
 
   #cadastro .cadastro-bg-white {
-   width: 100%;
-  
+    width: 100%;
+
   }
 
   #cadastro .cadastro-container-form {
-  width: 50rem;
-  height: 80.8rem;
-  margin: 12.5rem auto 0;
-  text-align: center;
-  font-family: "Roboto", sans-serif;
-}
+    padding: 2rem;
+    width: 50rem;
+    height: 80.8rem;
+    margin: 12.5rem auto 0;
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+  }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   #cadastro .el-form {
     padding: 2rem;
     display: flex;
     flex-direction: column;
-    width: 200%; 
+    width: 200%;
+  }
+
+  .logotipo {
+    font-size: 29px;
+    display: flex;
+    margin: 15% 0px 20px 0%;
+    font-family: cursive;
+    font-weight: bold;
+    justify-content: center;
+  }
+
+  #cadastro .el-header {
+    --el-header-padding: -1 20px;
   }
 
   #cadastro .cadastro-slogan {
-
-  font-size: 1rem;
-  color: #888;
-  margin: 0.625rem 30% 0 30%;
-}
-
-  .el-divider__text.is-center {
+    font-size: 1rem;
+    color: #888;
+    margin: 0.625rem 0% 36px 0%;
     display: flex;
-    margin: 0 0 5rem 0;
-    transform: translateX(-30%) translateY(-30%);
-}
-
-#cadastro .cadastro-bg-white {
-   display: none;
-  
+    justify-content: center;
   }
- 
+
+
+
+  #cadastro.el-divider {
+    margin: 2rem 0 0 0;
+  }
+
+  #cadastro.el-divider__text {
+    position: absolute;
+    padding: 0px 0px 0px 0px !important;
+
+  }
+
+  #cadastro.el-divider__text.is-center {
+    transform: translate(-52%, -32%);
+  }
+
+  #cadastro.cadastro-container-form p {
+    margin: 37px 0 0 0;
+  }
 
   #cadastro .el-alert {
     display: flex;
@@ -333,7 +424,25 @@ const errorMsgPassword = ref("");
     align-self: center;
     width: 100%;
   }
+
+  .link-login {
+    margin: -43px 0px 10rem 0;
+    font-style: italic;
+  }
+
+  .el-row,
+  .el-col {
+    width: 100% !important;
+    max-width: 100%;
+  }
+
+  .el-col-12 {
+    flex: 0 0 100%;
+  }
+
+  #cadastro .el-form {
+    width: 100%;
+   
+  }
 }
-
-
 </style>

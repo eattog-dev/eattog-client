@@ -11,7 +11,6 @@ import Notification from './views/Notification.vue';
 import Login from './views/Login.vue';
 
 
-
 const routes = [
     { path: '/', component: Splash },
     { path: '/cadastro', component: Cadastro },

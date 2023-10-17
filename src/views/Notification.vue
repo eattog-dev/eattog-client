@@ -172,24 +172,17 @@ export default {
 
 @media (max-width: 900px) {
   .store-name {
-    font-size: large;
-  }
+    font-size: xx-large;
+}
 
   .el-timeline-item__content {
     font-size: large;
-  }
-}
-
-@media (max-width: 900px) {
-  .store-name {
-    font-size: medium;
   }
 
   .el-button span {
     font-size: small;
   }
-
-
 }
+
 </style>
 

@@ -12,11 +12,13 @@
 
 <style setup>
 
-.logotipo{
+.logotipo {
     font-size: 80px;
-    margin: 35% 40px 0 30%;
+    display: flex;
+    margin: 35% 0px 18px 0%;
     font-family: cursive;
     font-weight: bold;
+    justify-content: center;
 }
 
 </style>
