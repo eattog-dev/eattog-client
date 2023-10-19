@@ -11,6 +11,7 @@
 
 <style>
 .cmp-title{
+    left: 8.5%;
     font-weight: 700;
     padding-top: 20px;
     margin-bottom: 20px;

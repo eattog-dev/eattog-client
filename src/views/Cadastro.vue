@@ -398,8 +398,6 @@ const errorMsgPassword = ref("");
     justify-content: center;
   }
 
-
-
   #cadastro.el-divider {
     margin: 2rem 0 0 0;
   }
