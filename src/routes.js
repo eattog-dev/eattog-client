@@ -9,12 +9,14 @@ import SingleDish from './views/SingleDish.vue'
 import Cadastro from './views/Cadastro.vue';
 import Notification from './views/Notification.vue';
 import Login from './views/Login.vue';
+import CardAdd from './components/CardAdd.vue';
 
 
 const routes = [
     { path: '/', component: Splash },
     { path: '/cadastro', component: Cadastro },
     { path: '/login', component: Login },
+    { path: '/cardadd', component: CardAdd},
     { path:'/notification', component: Notification },
     { path: '/inicio', component: Home },
     { path: '/restaurants', component: Restaurants },
