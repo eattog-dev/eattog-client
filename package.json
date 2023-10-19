@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@vue/cli-plugin-pwa": "^5.0.8",
+    "@vueuse/core": "^10.5.0",
     "element-plus": "^2.3.9",
     "pinia": "^2.1.6",
     "swiper": "^10.3.0",

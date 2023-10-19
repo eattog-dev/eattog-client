@@ -1,5 +1,4 @@
 <script setup>
-import { reactive } from 'vue'
 const props = defineProps({
   dish: {
     id: Number,
@@ -21,7 +20,7 @@ const handlePratoClicado = () => {
 }
 </script>
 <template>
-  <el-col :xs="24" :sm="12" :md="6" :lg="6" :span="8">
+  <el-col :xs="24" :sm="12" :md="8" :lg="6" :span="8">
     <el-card :body-style="{ padding: '0px' }">
       <img :src="dish.imagem" class="image">
       <!-- <span class="tag-aliment" v-if="dish.prato_categoria.categoria == null">celta</span> 
@@ -83,7 +82,7 @@ const handlePratoClicado = () => {
 
 
 #list-dishes .dish-price__discount {
-  color: #f39c12;
+  color: #50a773;
   margin-bottom: 10px;
 }
 
