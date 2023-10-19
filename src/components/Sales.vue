@@ -15,6 +15,11 @@ const singleRestaurante = useSingleRestauranteStore();
 
 onMounted(()=> singleRestaurante.listarDescontos(route.params.id))
 
+const emits = defineEmits('pratoClicado');
+
+const handlePratoClicado = () => {
+  emits('pratoClicado', props.dish)
+}
 </script>
 
 <template>
@@ -43,15 +48,7 @@ onMounted(()=> singleRestaurante.listarDescontos(route.params.id))
                         space-between="30"
                             >
                             <SwiperSlide v-for="prato in singleRestaurante.filtroDesconto">
-                                <router-link :to="{
-                                    name: 'SingleDish',
-                                    params: {
-                                        id_dish: prato.id,
-                                        nome: prato.nome
-                                    },
-
-                                }">
-                                <div class="grid-content">
+                                <div class="grid-content" @click="handlePratoClicado()">
                                     <div class="image" :style="{ background: 'url(' + prato.imagem + ')' }">
                                     </div>
                                     <div class="details">
@@ -64,7 +61,6 @@ onMounted(()=> singleRestaurante.listarDescontos(route.params.id))
                                         </div>
                                     </div>
                                 </div>
-                                </router-link>
                             </SwiperSlide>
                         </Swiper>
                     </el-col>

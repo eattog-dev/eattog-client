@@ -1,4 +1,9 @@
-<script setup>
+<template>
+    <div>
+        flamengo
+    </div>
+</template>
+<!-- <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
@@ -166,4 +171,4 @@ onMounted(() =>  {
     float: right;
     font-size: 1.1rem
 }
-</style>
+</style> -->

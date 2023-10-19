@@ -38,4 +38,3 @@ export const useRestaurantesStore = defineStore('restaurantes', {
         }
     }
 })
-
