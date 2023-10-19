@@ -1,15 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from './views/Home.vue';
 import Restaurants from './views/Restaurants.vue';
+
+import SingleRestaurant from './views/SingleRestaurant.vue';
 import Splash from './components/Splash.vue';
 import Admin from './views/Admin.vue';
-import Dishes from './views/Dishes.vue';
-import SingleRestaurant from './views/SingleRestaurant.vue';
-import SingleDish from './views/SingleDish.vue';
+import Dishes from './views/Dishes.vue'
+import Cadastro from './views/Cadastro.vue';
+import Notification from './views/Notification.vue';
+import Login from './views/Login.vue';
+import CardAdd from './components/CardAdd.vue';
+
 import SingleCategoria from './views/SingleCategoria.vue'
 
 const routes = [
     { path: '/', component: Splash },
+    { path: '/cadastro', component: Cadastro },
+    { path: '/login', component: Login },
+    { path: '/cardadd', component: CardAdd},
+    { path:'/notification', component: Notification },
     { path: '/inicio', component: Home },
     { path: '/restaurants', component: Restaurants },
     { path: '/restaurants/:id', name: 'SingleRestaurant', props: true, query: true, component: SingleRestaurant },

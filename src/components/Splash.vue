@@ -66,6 +66,8 @@
     }
 
     .cmp-plash-logo {
+        font-family: cursive;
+        font-weight: bold;
         position: relative;
         display: inline-block;
         bottom: -20px;
@@ -84,4 +86,37 @@
         opacity: 0;
         transition: ease-in-out 0.5s;
     }
+
+    @media (max-width: 800px) {
+
+    .cmp-splash {
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        transition: 1s;
+    }    
+    
+    .cmp-plash-title {
+        position: absolute;
+        margin: 0 0 0 0;
+        transform: translate(-10%, -10%);
+        color: #373737;
+    }
+
+    .cmp-plash-logo {
+        font-family: cursive;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        bottom: -20px;
+        font-size: 2rem;
+        opacity: 0;
+    }
+    
+    }
+
 </style>

@@ -44,8 +44,8 @@ const bannerData = {
                     </div>
                 </div>
                 <div class="details">
-                    <div>
-                        <span>{{ restaurant.tipoRefeicao }}</span>
+                    <div class="details-item">
+                        <span class="details-item--type">{{ restaurant.tipoRefeicao }}</span>
                         <span>{{ restaurant.distancia }}</span>
                         <span>{{ restaurant.tipoRetirada }}</span>
                     </div>
@@ -112,7 +112,7 @@ const bannerData = {
 }
 
 #restaurants .details {
-    padding: 4px 20px 32px 20px;
+    padding: 8px 20px 32px 20px;
 }
 
 #restaurants .details div {
@@ -127,5 +127,14 @@ const bannerData = {
 #restaurants .descricao {
     text-align: left;
     font-size: 14px;
+    padding-top: 16px;
+}
+
+.details-item{
+    font-weight: 500;
+}
+
+.details-item--type {
+    text-transform: capitalize;
 }
 </style>

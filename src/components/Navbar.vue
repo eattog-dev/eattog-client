@@ -1,17 +1,52 @@
 <template>
   <div>
     <el-header v-if="isDesktop" class="nav desktop">
-      <router-link id="logo-url" to="/">
-        <span class="nav-name-logo">Eattog</span>
-        <img class="logo" :src="logo" :alt="alt" />
-      </router-link>
-      <router-link to="/" :class="[$route.path === '/' ? 'nav-active' : '']">Inicio</router-link>
-      <router-link to="/restaurants" :class="[$route.path === '/restaurants' ? 'nav-active' : '']">Restaurantes</router-link>
-
-      <el-button class="location-input" @click="openModal">
-        <span class="location-input__address">{{ userCity ? userCity : 'Localização' }}</span>
-        <i class="el-icon-caret-bottom location-input__icon-arrow"></i>
-      </el-button>
+      <el-row type="flex" class=" none-margem">
+        <el-col :span="12"> 
+          <router-link id="logo-url" to="/">
+            <span class="nav-name-logo">Eattog</span>
+            <img class="logo" :src="logo" :alt="alt" />
+          </router-link>
+        </el-col>
+        <el-col :span="3">
+          <router-link to="/" :class="[$route.path === '/' ? 'nav-active' : '']">Inicio</router-link>
+        </el-col>
+        <el-col :span="3">
+          <router-link to="/restaurants" :class="[$route.path === '/restaurants' ? 'nav-active' : '']">Restaurantes</router-link>
+        </el-col>
+        <el-col :span="3">
+          <el-button class="location-input" @click="openModal">
+            <span class="location-input__address"> {{ userCity ? userCity : 'Localização' }}</span>
+            <i class="el-icon-caret-bottom location-input__icon-arrow"></i>
+          </el-button>
+        </el-col>
+      <el-col :span="3">
+        <el-menu
+        default-active="2"
+        class="el-menu-vertical-demo cmp-menu-car"
+        @open="handleOpen"
+        @close="handleClose"
+        position="absolute">
+            <el-sub-menu index="1">
+                <template #title>
+                  <el-icon><Goods /></el-icon>
+                </template>
+                <el-menu-item-group title="Restaurante João">
+                  <el-menu-item index="1-1" class="cmp-menu-item">Sobá Pantaneiro  <span class="">R$22,00</span></el-menu-item>
+                </el-menu-item-group>
+                <el-menu-item-group title="Restaurante Maria">
+                  <el-menu-item index="1-1" class="cmp-menu-item">Pacu Assado <span class="">R$29,00</span></el-menu-item>
+                </el-menu-item-group>
+                <router-link
+                  to="/finalizepurchase"
+                  custom
+                  v-slot="{ navigate }">
+                  <el-button class="cmp-button-yellow" @click="navigate" role="link">Finalizar Pedido</el-button>
+                </router-link>
+            </el-sub-menu>
+      </el-menu>
+      </el-col>
+</el-row>
     </el-header>
     <el-header v-else class="nav nav-mobile">
       <el-button class="location-input" @click="openModal">
@@ -29,8 +64,21 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, provide, reactive } from 'vue';
 import Modal from './Modal.vue';
-import logoImage from '@/assets/quadrado.png';
+import {
+  Document,
+  Menu as IconMenu,
+  Location,
+  Goods,
+} from '@element-plus/icons-vue';
+//import logoImage from '@/assets/quadrado.png';
 
+const handleOpen = (key, keyPath) => {
+  console.log(key, keyPath)
+}
+const handleClose = (key, keyPath) => {
+  console.log(key, keyPath)
+}
+const logoImage = '../assets/quadrado.png';
 const logo = ref(logoImage);
 const alt = ref('Eattog');
 const modalOpen = ref(false);
@@ -68,23 +116,21 @@ onBeforeUnmount(() => {
 
 <style scoped>
   .nav {
-    display: flex;
-    position: sticky;
-    flex-direction: row;
-    align-items: center;
-    grid-column-gap: 24px;
-    -moz-column-gap: 24px;
-    column-gap: 24px;
     height: 80px;
     background-color: #fff;
     box-shadow: inset 0 -1px 0 #dcdcdc;
     top: 0;
     z-index: 9997;
-    padding: 20px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   .nav-mobile{
     display: flex;
     justify-content: center;
+  }
+  .cmp-menu-car .el-sub-menu__title:hover {
+      background-color: #fff !important;
   }
   .nav a {
     color: black;
@@ -93,10 +139,13 @@ onBeforeUnmount(() => {
   .nav-name-logo {
     font-weight: 600;
   }
-
+  .location-input {
+    padding-top: 0;
+  }
   .nav #logo-url {
-    margin: auto;
-    margin-left: 0;
+    left: 120px;
+    position: relative;
+    display: flex;
   }
   .logo {
     width: 10px;
@@ -133,5 +182,60 @@ onBeforeUnmount(() => {
     width: 100%;
     height: 100%;
     z-index: 9999999999999;
+  }
+  .el-menu {
+    position: absolute !important;
+    border-right: none;
+    top: 2px !important;
+    right: 0;
+    z-index: 9999 !important;
+    text-align: left;
+  }
+  .el-sub-menu__title {
+    display: flex;
+    top: -15px;
+    position: relative;
+  }
+
+  .el-sub-menu {
+    margin: -16px 0;
+  }
+  .none-margem {
+    margin: auto 0px;
+  }
+
+  .cmp-button-yellow {
+    margin: 16px 12px;
+    border: 1px solid white;
+    background: #ffe500;
+    color: white;
+    font-weight: bolder;
+    width: -moz-available;
+  }
+
+  .cmp-button-yellow:hover{
+    margin: 16px 12px;
+    border: 1px solid #ffe500;
+    background: #fff;
+    color: #ffe500;
+  }
+  .cmp-menu-item {
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .el-sub-menu__title:hover {
+      background-color: #fff !important;
+  }
+  .cmp-menu-item:hover {
+    background-color: #fff;
+    color: #ffe500;
+  }
+
+  .cmp-menu-item span {
+    margin-left: 5px;
+    color: #ffe500;
+    font-weight: 800;
   }
 </style>
