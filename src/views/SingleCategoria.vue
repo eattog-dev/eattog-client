@@ -3,7 +3,9 @@ import { useRouter, useRoute } from 'vue-router';
 import { ref, computed, onMounted } from 'vue'
 
 import Title from '../components/Title.vue';
-import Dish from '../components/Dish.vue'
+import Dish from '../components/Dish.vue';
+import Navbar from '../components/Navbar.vue';
+import Footer from '../components/Footer.vue';
 
 import { useSingleCategoriaStore } from '../store/single-categoria'
 
@@ -50,6 +52,7 @@ const subtrair = () => {
 
 </script>
 <template>
+    <Navbar logo="../assets/logo.svg" alt="Logo" />
     <section id="list-dishes">
         <el-row justify="center">
             <el-col :span=20>
@@ -88,4 +91,5 @@ const subtrair = () => {
             </form>
         </div>
     </el-dialog>
+    <Footer></Footer>
 </template>

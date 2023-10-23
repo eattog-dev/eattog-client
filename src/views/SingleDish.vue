@@ -1,8 +1,16 @@
 <template>
+    <Navbar logo="/assets/logo.svg" alt="Logo" />
     <div>
         flamengo
     </div>
+    <Footer></Footer>
 </template>
+
+<script setup>
+    import Navbar from '../components/Navbar.vue'
+    import Footer from '../components/Footer.vue'
+</script>
+
 <!-- <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
