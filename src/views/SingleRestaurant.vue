@@ -3,8 +3,10 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 import Title from '../components/Title.vue';
-
 import Banner from '../components/Banner.vue';
+import Navbar from '../components/Navbar.vue';
+import Footer from '../components/Footer.vue';
+
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import 'swiper/css';
@@ -148,6 +150,7 @@ onMounted(() => {
 })
 </script>
 <template>
+    <Navbar logo="../assets/logo.svg" alt="Logo"></Navbar>
     <Banner />
     <!--<Promocao />
    <Cardapio /> -->
@@ -265,6 +268,7 @@ onMounted(() => {
             </form>
         </div>
     </el-dialog>
+    <Footer></Footer>
 </template>
 
 <style>

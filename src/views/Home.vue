@@ -4,6 +4,8 @@ import { ref, computed, onMounted , reactive} from 'vue'
 import Carousel from '../components/Carousel.vue';
 import Dish from '../components/DishHome.vue';
 import Title from '../components/Title.vue';
+import Navbar from '../components/Navbar.vue';
+import Footer from '../components/Footer.vue';
 
 import { useHomeStore } from '../store/home'
 const homeStore = useHomeStore();
@@ -46,6 +48,7 @@ const subtrair = () => {
 }
 </script>
 <template>
+    <Navbar logo="../assets/logo.svg" alt="Logo" />
     <Carousel />
     <section id="list-dishes">
         <el-row justify="center">
@@ -84,4 +87,5 @@ const subtrair = () => {
             </form>
         </div>
     </el-dialog>
+    <Footer></Footer>
 </template>      
