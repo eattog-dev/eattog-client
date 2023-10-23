@@ -3,8 +3,9 @@ import { ref, computed, onMounted } from 'vue'
 import { useRestaurantesStore } from '../store/restaurantes'
 
 import Title from '../components/Title.vue';
-
 import Restaurant from '../components/Restaurant.vue'
+import Navbar from '../components/Navbar.vue';
+import Footer from '../components/Footer.vue';
 
 const restaurantesStore = useRestaurantesStore();
 
@@ -87,6 +88,8 @@ const value = ref('Selecione');
 
 </script>
 <template>
+    <Navbar logo="../assets/logo.svg" alt="Logo" />
+
     <section id="restaurants">
 
         <el-row justify="center">
@@ -112,4 +115,5 @@ const value = ref('Selecione');
             </el-col>
         </el-row>
     </section>
+    <Footer></Footer>
 </template>
