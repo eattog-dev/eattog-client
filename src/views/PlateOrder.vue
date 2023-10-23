@@ -1,3 +1,4 @@
+<Navbar logo="/assets/logo.svg" alt="Logo" />
 <template>
     <div class="states-order">
         <h2 class="title-state">Estado do pedido</h2>
