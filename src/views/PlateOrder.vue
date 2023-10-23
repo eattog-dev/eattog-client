@@ -1,5 +1,5 @@
-<Navbar logo="/assets/logo.svg" alt="Logo" />
 <template>
+    <Navbar logo="/assets/logo.svg" alt="Logo" />
     <div class="states-order">
         <h2 class="title-state">Estado do pedido</h2>
 
@@ -11,22 +11,23 @@
         <h3 class="title-state">Previsão de entrega</h3>
         <span class="title-state">13:10</span>
     </div>
-<!--comanda-->
-<el-descriptions title="Sua comanda">
-    <el-descriptions-item label="Cliente">Ana</el-descriptions-item>
-    <el-descriptions-item label="Prato">Bife com cebolas</el-descriptions-item>
-    <el-descriptions-item label="Preço">15.90</el-descriptions-item>
-   </el-descriptions>
+    <!--comanda-->
+    <el-descriptions title="Sua comanda">
+        <el-descriptions-item label="Cliente">Ana</el-descriptions-item>
+        <el-descriptions-item label="Prato">Bife com cebolas</el-descriptions-item>
+        <el-descriptions-item label="Preço">15.90</el-descriptions-item>
+    </el-descriptions>
 
-  
+  <footer></footer>
 </template>
 
 <script setup>
 //checklist
-import { ref } from 'vue';
-import OrderStates from '../components/OrderStates.vue';
+import { ref } from 'vue'
+import OrderStates from '../components/OrderStates.vue'
 import AvaliationPlate from '../components/AvaliationPlate.vue'
-
+import Navbar from '../components/Navbar.vue'
+import Footer from '../components/Footer.vue'
 //star-avalation
 const value = ref()
 //coments
