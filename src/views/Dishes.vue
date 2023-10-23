@@ -4,6 +4,8 @@ import { useRouter, useRoute } from 'vue-router'
 
 import Dish from '../components/Dish.vue'
 import Title from '../components/Title.vue'
+import Navbar from '../components/Navbar.vue'
+import Footer from '../components/Footer.vue'
 
 import { usePratosStore } from '../store/pratos'
 
@@ -52,6 +54,7 @@ const subtrair = () => {
 
 </script>
 <template>
+    <Navbar logo="../assets/logo.svg" alt="Logo"></Navbar>
     <section id="list-dishes" v-for="sessao in todosPratos">
         <el-row justify="center" v-if="!sessao.categoria_prato.length == false">
             <el-col :span=20>
@@ -92,6 +95,7 @@ const subtrair = () => {
             </form>
         </div>
     </el-dialog>
+    <Footer></Footer>
 </template>
 
 <style>
