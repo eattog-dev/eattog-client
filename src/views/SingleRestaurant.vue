@@ -1,23 +1,23 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+    import { ref, computed, onMounted } from 'vue'
+    import { useRouter, useRoute } from 'vue-router'
 
-import Title from '../components/Title.vue';
-import Banner from '../components/Banner.vue';
-import Navbar from '../components/Navbar.vue';
-import Footer from '../components/Footer.vue';
+    import Title from '../components/Title.vue';
+    import Banner from '../components/Banner.vue';
+    import Navbar from '../components/Navbar.vue';
+    import Footer from '../components/Footer.vue';
 
-import { Swiper, SwiperSlide } from 'swiper/vue';
+    import { Swiper, SwiperSlide } from 'swiper/vue';
 
-import 'swiper/css';
+    import 'swiper/css';
 
-import { Autoplay } from 'swiper/modules';
+    import { Autoplay } from 'swiper/modules';
 
-import { useSingleRestauranteStore } from '../store/single-restaurante'
+    import { useSingleRestauranteStore } from '../store/single-restaurante'
 
-const modulo = [Autoplay];
+    const modulo = [Autoplay];
 
-const route = useRoute()
+    const route = useRoute()
 /*import Promocao from '../components/Sales.vue'
 import Cardapio from '../components/Menu.vue'*/
 
@@ -135,20 +135,21 @@ import Cardapio from '../components/Menu.vue'*/
 ];
 */
 
-const singleRestaurante = useSingleRestauranteStore();
+    const singleRestaurante = useSingleRestauranteStore();
 
-onMounted(() => singleRestaurante.listarDescontos(route.params.id))
+    onMounted(() => singleRestaurante.listarDescontos(route.params.id))
 
 
-const singleRestauranteStore = useSingleRestauranteStore();
-const cardapio = computed(() => singleRestauranteStore.cardapio);
-const pagina = computed(() => singleRestauranteStore.pagina)
+    const singleRestauranteStore = useSingleRestauranteStore();
+    const cardapio = computed(() => singleRestauranteStore.cardapio);
+    const pagina = computed(() => singleRestauranteStore.pagina)
 
-onMounted(() => {
-    singleRestauranteStore.listarCardapio(route.params.id)
-    singleRestauranteStore.qtdPratos
-})
+    onMounted(() => {
+        singleRestauranteStore.listarCardapio(route.params.id)
+        singleRestauranteStore.qtdPratos
+    })
 </script>
+
 <template>
     <Navbar logo="../assets/logo.svg" alt="Logo"></Navbar>
     <Banner />
@@ -354,7 +355,6 @@ onMounted(() => {
     .menu .dish .info {
         width: 100%;
         padding-left: 8px;
-
     }
 
     .menu .dish img {
@@ -368,7 +368,6 @@ onMounted(() => {
         display: flex;
         justify-content: space-between;
     }
-
 
     .menu .grid-content {
         text-align: center;

@@ -222,7 +222,7 @@
     padding: 10px;
     border-radius: 10px;
     border: 1px solid rgba(0, 0, 0, .3);
-    color: #444;
+    color: var(--gray500);
 }
 
 .container form .flexbox {
@@ -340,7 +340,7 @@
     height: 3.125rem;
     padding: 10px;
     margin-top: .313rem;
-    color: #333;
+    color: var(--gray800);
     background-color: var(--white100);
     border-radius: .313rem;
     width: 100%;

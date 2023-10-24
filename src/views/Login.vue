@@ -137,7 +137,7 @@ const errorMsg = ref("");
 #login .login-slogan {
   display: flex;
   font-size: 16px;
-  color: #888;
+  color: var(--gray400);
   margin: 10px 0% 0 0%;
   justify-content: center;
 }
@@ -179,9 +179,9 @@ const errorMsg = ref("");
 }
 
 #login .el-button {
-  background-color: #ffe600;
+  background-color: var(--yellow400);
   color: rgba(0, 0, 0, 0.813);
-  border-color: #ffe600;
+  border-color: var(--yellow400);
   border-radius: 10px;
   width: 50%;
   margin: 20px auto;
@@ -192,7 +192,7 @@ const errorMsg = ref("");
 .el-button:focus {
   background-color: rgba(255, 255, 0, 0.418);
   color: var(--black100);
-  border-color: #ffe600;
+  border-color: var(--yellow400);
 }
 
 #login .loading-overlay {
@@ -209,7 +209,7 @@ const errorMsg = ref("");
 }
 
 #login .loading-spinner {
-  border: 6px solid #f3f3f3;
+  border: 6px solid var(--white200);
   border-top: 6px solid var(--rgba-yellow);
   border-radius: 50%;
   width: 50px;
@@ -231,7 +231,7 @@ const errorMsg = ref("");
   #login .login-slogan {
     font-size: 16px;
     display: flex;
-    color: #888;
+    color: var(--gray400);
     margin: 10px 0% 18px 0%;
     justify-content: center;
   }
