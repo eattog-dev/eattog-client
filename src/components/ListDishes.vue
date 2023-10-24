@@ -59,8 +59,8 @@ const props = defineProps({
 #list-dishes .tag-aliment {
     position: relative;
     bottom: 16px;
-    background-color: #ffe500e8;
-    color: #ffffff;
+    background-color: var(--yellow200);
+    color: var(--white100);
     padding: 5px;
     border-radius: 4px;
     font-weight: 600;
@@ -95,7 +95,7 @@ const props = defineProps({
 #list-dishes .el-button--text {
     border-color: transparent;
     background: 0 0;
-    color: #f39c12;
+    color: var(--orange100);
     padding-left: 0;
     padding-right: 0;
 }

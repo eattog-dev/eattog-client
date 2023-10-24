@@ -212,7 +212,7 @@
 
 .container form .inputBox span {
     display: block;
-    color: #999;
+    color: var(--gray400);
     padding-bottom: .313rem;
 }
 

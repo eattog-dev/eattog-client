@@ -92,7 +92,7 @@ const customModal = computed(() => ({
 
 <style scoped>
 .cmp-modal-content {
-  background-color: white;
+  background-color: var(--white100);
   padding: 20px;
   border-radius: 10px;
   text-align: center;
@@ -121,8 +121,8 @@ const customModal = computed(() => ({
 
 .cmp-modal-btn-address,
 .cmp-modal-btn-login {
-  background-color: #f39c12;
-  color: white;
+  background-color: var(--orange100);
+  color: var(--white100);
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -131,9 +131,9 @@ const customModal = computed(() => ({
 }
 
 .cmp-modal-btn-close {
-  color: #f39c12;
+  color: var(--orange100);
   padding: 10px 20px;
-  border: 1px solid #f39c12;
+  border: 1px solid var(--orange100);
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
@@ -141,7 +141,7 @@ const customModal = computed(() => ({
 }
 
 .cmp-modal-btn-login {
-  color: #f39c12;
+  color: var(--orange100);
   background-color: transparent;
   margin: 0;
 }

@@ -117,7 +117,7 @@ onBeforeUnmount(() => {
 <style scoped>
   .nav {
     height: 80px;
-    background-color: #fff;
+    background-color: var(--white100);
     box-shadow: inset 0 -1px 0 #dcdcdc;
     top: 0;
     z-index: 9997;
@@ -130,7 +130,7 @@ onBeforeUnmount(() => {
     justify-content: center;
   }
   .cmp-menu-car .el-sub-menu__title:hover {
-      background-color: #fff !important;
+      background-color: var(--white100) !important;
   }
   .nav a {
     color: black;
@@ -206,9 +206,9 @@ onBeforeUnmount(() => {
 
   .cmp-button-yellow {
     margin: 16px 12px;
-    border: 1px solid white;
-    background: #ffe500;
-    color: white;
+    border: 1px solid var(--white100);
+    background-color: #ffe500;
+    color: var(--white100);
     font-weight: bolder;
     width: -moz-available;
   }
@@ -216,7 +216,7 @@ onBeforeUnmount(() => {
   .cmp-button-yellow:hover{
     margin: 16px 12px;
     border: 1px solid #ffe500;
-    background: #fff;
+    background: var(--white100);
     color: #ffe500;
   }
   .cmp-menu-item {
@@ -226,10 +226,10 @@ onBeforeUnmount(() => {
   }
 
   .el-sub-menu__title:hover {
-      background-color: #fff !important;
+      background-color: var(--white100) !important;
   }
   .cmp-menu-item:hover {
-    background-color: #fff;
+    background-color: var(--white100);
     color: #ffe500;
   }
 

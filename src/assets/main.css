@@ -2,12 +2,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
 
 :root {
-    --white100: #fff;  
+    --white100: #ffffff;  
+    --white200: #f2f2f2;
     --black100: #000;  
+    --orange100: #f39c12;
+    --yellow200: #ffe500e8;
     --yellow300: #ffe5009c; 
     --gray200: #ccc;
-    --gray300: #dcdcdc30;
-    --gray400: #cccccc1c;
+    --gray300: #dbdad9;
+    --gray400: #999;
+    --gray500: #dcdcdc30;
+    --gray600: #cccccc1c;
+    --gray800: #303133;
 
     --rgba-yellow:rgba(255, 255, 0, 0.642);
 }

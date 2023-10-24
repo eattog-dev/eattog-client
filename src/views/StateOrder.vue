@@ -41,7 +41,7 @@
 
 .title-state {
   font-weight: bold;
-  color: #ffe500e8;
+  color: var(--yellow200);
   margin-bottom: 15px;
 }
 
@@ -67,11 +67,11 @@
 .botao-default {
   background-color: #FFC048;
   padding: 5px 10px;
-  color: #FFFFFF;
+  color: var(--white100);
   border-radius: 7px;
 }
 
 .botao-default:hover {
-  color: #FFFFFF;
+  color: var(--white100);
 }
 </style>

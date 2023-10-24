@@ -64,7 +64,7 @@ const textarea = ref('')
     align-items: center;
 }
 .el-descriptions__title{
-    color:#ffe500e8;
+    color: var(--yellow200);
     align-items: center;
 }
 .el-descriptions__body .el-descriptions__table{

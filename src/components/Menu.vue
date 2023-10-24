@@ -125,58 +125,57 @@ const subtrair = () => {
     </el-dialog>
 </template>
 <style>
-.menu .el-col {
-    margin: 6px 0;
-    /* height: 360px; */
-}
+    .menu .el-col {
+        margin: 6px 0;
+        /* height: 360px; */
+    }
 
-.menu .el-row,
-.menu .grid-content {
-    text-align: unset !important;
-}
+    .menu .el-row,
+    .menu .grid-content {
+        text-align: unset !important;
+    }
 
-.menu a {
-    text-decoration: none;
-}
+    .menu a {
+        text-decoration: none;
+    }
 
-.menu .title-and-filter {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+    .menu .title-and-filter {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-.menu .grid-content {
-    display: flex;
-    padding: 12px;
-}
+    .menu .grid-content {
+        display: flex;
+        padding: 12px;
+    }
 
-.menu .dish .info {
-    width: 100%;
-    padding-left: 8px;
+    .menu .dish .info {
+        width: 100%;
+        padding-left: 8px;
 
-}
+    }
 
-.menu .dish img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 4px;
-}
+    .menu .dish img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
 
-.menu .dish .info div {
-    display: flex;
-    justify-content: space-between;
-}
+    .menu .dish .info div {
+        display: flex;
+        justify-content: space-between;
+    }
 
-
-.menu .grid-content {
-    text-align: center;
-    background-color: #ffffff;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
-    border-radius: 4px;
-    border: 1px solid #e4e7ed;
-    color: #303133;
-    text-decoration: none !important;
-    ;
-}
+    .menu .grid-content {
+        text-align: center;
+        background-color: var(--white100);
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+        border-radius: 4px;
+        border: 1px solid #e4e7ed;
+        color: var(--gray800);
+        text-decoration: none !important;
+        ;
+    }
 </style>
