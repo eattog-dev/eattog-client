@@ -100,7 +100,7 @@ const subtrair = () => {
 
 <style>
 .dish-detail {
-    color: #000000;
+    color: var(--black100);
     width: 46rem;
     /* position: fixed;
     bottom: 1rem;
@@ -123,7 +123,7 @@ const subtrair = () => {
 }
 
 .dish-detail .data-dish {
-    background-color: #fff;
+    background-color: var(--white100);
     border-radius: 0 0 8px 8px;
     padding: 0 1.5rem;
 }
@@ -173,12 +173,12 @@ const subtrair = () => {
     height: 44px !important;
     object-fit: cover;
     border-radius: 8px !important;
-    background-color: #ffe500;
+    background-color: var(--yellow100);
     padding: 8px;
 }
 
 .dish-detail .data-dish .quantity input {
-    color: #000000;
+    color: var(--black100);
     margin: 0 8px;
     text-align: center;
 }
@@ -205,7 +205,7 @@ const subtrair = () => {
 
 .dish-detail .quantity button {
     padding: 16px;
-    background-color: #ffe500;
+    background-color: var(--yellow100);
     border: none;
     border-radius: 8px;
     text-transform: uppercase;
@@ -215,7 +215,7 @@ const subtrair = () => {
     flex-direction: row;
     display: flex;
     align-items: center;
-    background-color: #ffe500;
+    background-color: var(--yellow100);
     border: none;
     border-radius: 8px;
     text-transform: uppercase;

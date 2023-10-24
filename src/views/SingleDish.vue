@@ -80,7 +80,7 @@ onMounted(() =>  {
 
 #dish-detail {
     padding: 20px 0;
-    color: #000000;
+    color: var(--black100);
 }
 
 #dish-detail .el-card__body {
@@ -135,12 +135,12 @@ onMounted(() =>  {
     height: 44px !important;
     object-fit: cover;
     border-radius: 8px !important;
-    background-color: #ffe500;
+    background-color: var(--yellow100);
     padding: 8px;
 }
 
 #dish-detail .data-dish .quantity input {
-    color: #000000;
+    color: var(--black100);
     margin: 0 8px;
     text-align: center;
 }
@@ -167,7 +167,7 @@ onMounted(() =>  {
 
 #dish-detail .data-dish button {
     padding: 16px;
-    background-color: #ffe500;
+    background-color: var(--yellow100);
     border: none;
     border-radius: 8px;
     text-transform: uppercase;

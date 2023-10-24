@@ -180,7 +180,7 @@
 
 .container {
     min-height: 100vh;
-    background: var(--gray200);
+    background: var(--gray100);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -212,7 +212,7 @@
 
 .container form .inputBox span {
     display: block;
-    color: var(--gray400);
+    color: var(--gray300);
     padding-bottom: .313rem;
 }
 
@@ -321,7 +321,7 @@
 }
 
 .container .card-container .back .stripe {
-    background: #000;
+    background-color: var(--black100);
     width: 100%;
     margin: 10px 0;
     height: 3.125rem;
