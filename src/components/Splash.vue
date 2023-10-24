@@ -62,7 +62,7 @@
         top: 40%;
         left: 50%;
         transform: translate(-50%, -50%);
-        color: #373737;
+        color: var(--gray800);
     }
 
     .cmp-plash-logo {
@@ -104,7 +104,7 @@
         position: absolute;
         margin: 0 0 0 0;
         transform: translate(-10%, -10%);
-        color: #373737;
+        color: var(--gray800);
     }
 
     .cmp-plash-logo {

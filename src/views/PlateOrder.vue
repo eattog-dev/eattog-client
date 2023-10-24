@@ -48,25 +48,31 @@ const textarea = ref('')
 .avalation-state {
     width: 30em;
 }
+
 .prevision{
     margin-left: 40%;
     align-items: center;
 }
+
 .prevision_title-test{
     display:flex ;
 }
+
 .el-descriptions {
     margin-left: 40%;
 }
+
 .el-descriptions__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .el-descriptions__title{
     color: var(--yellow200);
     align-items: center;
 }
+
 .el-descriptions__body .el-descriptions__table{
     width: 60%;
 }
