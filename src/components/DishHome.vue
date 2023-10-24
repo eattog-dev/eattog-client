@@ -55,7 +55,7 @@ const handlePratoClicado = () => {
 
 #list-dishes .time {
   font-size: 13px;
-  color: #999;
+  color: var(--gray400);
 }
 
 #list-dishes .button {
@@ -89,12 +89,12 @@ const handlePratoClicado = () => {
 #list-dishes .dish-price__original {
   position: relative;
   font-size: 0.75rem;
-  color: #dbdad9;
+  color: var(--gray300);
   text-decoration: line-through;
   margin-left: 6px;
 }
 
 #list-dishes .dish-restaurant__divisor {
-  border-top: 2px dashed #f2f2f2;
+  border-top: 2px dashed var(--white200);
   margin: 8px 0;
 }</style>

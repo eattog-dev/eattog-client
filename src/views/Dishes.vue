@@ -149,7 +149,7 @@ const subtrair = () => {
 
 .dish-detail .data-dish .title-and-price .sale-pricing .price {
     font-size: 1rem;
-    color: #dbdad9;
+    color: var(--gray300);
     text-decoration: line-through;
     margin-left: 6px;
 }
@@ -157,7 +157,7 @@ const subtrair = () => {
 .dish-detail .data-dish textarea {
     width: 100%;
     border-radius: 4px;
-    border: 1px solid #dbdad9;
+    border: 1px solid  var(--gray300);
     font-size: 1rem;
     height: 5rem;
     margin: 0.5rem 0;
@@ -209,7 +209,7 @@ const subtrair = () => {
     border: none;
     border-radius: 8px;
     text-transform: uppercase;
-    color: #ffffff;
+    color: var(--white100);
 }
  .add-carrinho{
     flex-direction: row;
@@ -219,7 +219,7 @@ const subtrair = () => {
     border: none;
     border-radius: 8px;
     text-transform: uppercase;
-    color: #ffffff;
+    color: var(--white100);
     padding: 0.25rem 0.5rem;
 } 
 .total-value {

@@ -292,11 +292,11 @@ onMounted(() => {
 
 #sales .grid-content {
     text-align: center;
-    background-color: #ffffff;
+    background-color: var(--white100);
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
     border-radius: 4px;
     border: 1px solid #e4e7ed;
-    color: #303133;
+    color: var(--gray800);
     text-decoration: none !important;
     height: 332px;
 }
@@ -373,11 +373,11 @@ onMounted(() => {
 
 .menu .grid-content {
     text-align: center;
-    background-color: #ffffff;
+    background-color: var(--white100);
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
     border-radius: 4px;
     border: 1px solid #e4e7ed;
-    color: #303133;
+    color: var(--gray800);
     text-decoration: none !important;
     ;
 }

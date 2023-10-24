@@ -29,7 +29,7 @@
   display: flex;
   justify-content: space-between;
   padding: 24px;
-  background-color: #ffffff;
+  background-color: var(--white100);
   border-radius: 20px 20px 0 0 ;
 }
 

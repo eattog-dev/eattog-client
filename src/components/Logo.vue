@@ -11,12 +11,10 @@
 </script>
 
 <style setup>
-
-.logotipo{
-    font-size: 68px;
-    margin-top: 20%;
-    font-family: cursive;
-    font-weight: bold;
-}
-
+    .logotipo{
+        font-size: 4.25rem;
+        margin-top: 20%;
+        font-family: cursive;
+        font-weight: bold;
+    }
 </style>
