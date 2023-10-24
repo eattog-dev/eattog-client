@@ -56,7 +56,7 @@
 
     #list-dishes .time {
         font-size: 0.813rem;
-        color: var(--gray400);
+        color: var(--gray300);
     }
 
     #list-dishes .button {
@@ -89,7 +89,7 @@
     #list-dishes .dish-price__original {
         position: relative;
         font-size: 0.75rem;
-        color: var(--gray300);
+        color: var(--gray200);
         text-decoration: line-through;
         margin-left: 0.375rem;
     }

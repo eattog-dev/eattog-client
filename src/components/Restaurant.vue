@@ -73,10 +73,9 @@ const bannerData = {
     background-color: var(--white100);
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
     border-radius: 4px;
-    border: 1px solid #e4e7ed;
+    border: 1px solid var(--white300);
     color: var(--gray800);
     text-decoration: none !important;
-    ;
 }
 
 #restaurants .imagem {

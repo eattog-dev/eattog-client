@@ -4,16 +4,22 @@
 :root {
     --white100: #ffffff;  
     --white200: #f2f2f2;
-    --black100: #000;  
+    --white300: #e4e7ed;
+    --black100: #000000;  
     --orange100: #f39c12;
+    --yellow100: #ffe500;
     --yellow200: #ffe500e8;
     --yellow300: #ffe5009c; 
-    --gray200: #ccc;
-    --gray300: #dbdad9;
-    --gray400: #999;
+    --gray100: #ccc;
+    --gray200: #dbdad9;
+    --gray300: #999;
+    --gray400: #808080;
     --gray500: #dcdcdc30;
     --gray600: #cccccc1c;
     --gray800: #303133;
+    
+
+    --green100: #50a773;
 
     --rgba-yellow:rgba(255, 255, 0, 0.642);
 }

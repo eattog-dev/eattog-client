@@ -201,7 +201,6 @@ onMounted(() => {
         </el-row>
     </section>
     <section class="menu">
-
         <el-row justify="center">
             <el-col class="title-and-filter" :span=20>
                 <Title text="Cardápio"></Title>
@@ -272,113 +271,112 @@ onMounted(() => {
 </template>
 
 <style>
-#sales .el-row,
-#sales .grid-content {
-    text-align: unset !important;
-}
-#sales a{text-decoration: none;}
-#sales .details p {
-    margin: 0;
-}
+    #sales .el-row,
+    #sales .grid-content {
+        text-align: unset !important;
+    }
+    #sales a{text-decoration: none;}
+    #sales .details p {
+        margin: 0;
+    }
 
-#sales .prices {
-    display: grid;
-    text-align: end;
-}
+    #sales .prices {
+        display: grid;
+        text-align: end;
+    }
 
-#sales .prices .original {
-    text-decoration: line-through
-}
+    #sales .prices .original {
+        text-decoration: line-through
+    }
 
-#sales .grid-content {
-    text-align: center;
-    background-color: var(--white100);
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
-    border-radius: 4px;
-    border: 1px solid #e4e7ed;
-    color: var(--gray800);
-    text-decoration: none !important;
-    height: 332px;
-}
+    #sales .grid-content {
+        text-align: center;
+        background-color: var(--white100);
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+        border-radius: 4px;
+        border: 1px solid var(--white300);
+        color: var(--gray800);
+        text-decoration: none !important;
+        height: 332px;
+    }
 
-#sales .image {
-    height: 180px !important;
-    background-size: cover !important;
-    background-repeat: no-repeat;
-    display: grid;
-    align-content: end;
-}
+    #sales .image {
+        height: 180px !important;
+        background-size: cover !important;
+        background-repeat: no-repeat;
+        display: grid;
+        align-content: end;
+    }
 
-#sales .details {
-    padding: 4px 20px 32px 20px;
-}
+    #sales .details {
+        padding: 4px 20px 32px 20px;
+    }
 
-#restaurants .details div {
-    display: flex;
-    justify-content: space-between;
-}
+    #restaurants .details div {
+        display: flex;
+        justify-content: space-between;
+    }
 
-#sales .details h6 {
-    font-size: 16px;
-    font-weight: 700;
-}
+    #sales .details h6 {
+        font-size: 16px;
+        font-weight: 700;
+    }
 
-#sales .details span {
-    font-size: 13px;
-}
+    #sales .details span {
+        font-size: 13px;
+    }
 
-.menu .el-col {
-    margin: 6px 0;
-    /* height: 360px; */
-}
+    .menu .el-col {
+        margin: 6px 0;
+        /* height: 360px; */
+    }
 
-.menu .el-row,
-.menu .grid-content {
-    text-align: unset !important;
-}
+    .menu .el-row,
+    .menu .grid-content {
+        text-align: unset !important;
+    }
 
-.menu a {
-    text-decoration: none;
-}
+    .menu a {
+        text-decoration: none;
+    }
 
-.menu .title-and-filter {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+    .menu .title-and-filter {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-.menu .grid-content {
-    display: flex;
-    padding: 12px;
-}
+    .menu .grid-content {
+        display: flex;
+        padding: 12px;
+    }
 
-.menu .dish .info {
-    width: 100%;
-    padding-left: 8px;
+    .menu .dish .info {
+        width: 100%;
+        padding-left: 8px;
 
-}
+    }
 
-.menu .dish img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 4px;
-}
+    .menu .dish img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
 
-.menu .dish .info div {
-    display: flex;
-    justify-content: space-between;
-}
+    .menu .dish .info div {
+        display: flex;
+        justify-content: space-between;
+    }
 
 
-.menu .grid-content {
-    text-align: center;
-    background-color: var(--white100);
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
-    border-radius: 4px;
-    border: 1px solid #e4e7ed;
-    color: var(--gray800);
-    text-decoration: none !important;
-    ;
-}
+    .menu .grid-content {
+        text-align: center;
+        background-color: var(--white100);
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+        border-radius: 4px;
+        border: 1px solid var(--white300);
+        color: var(--gray800);
+        text-decoration: none !important;
+    }
 </style>
