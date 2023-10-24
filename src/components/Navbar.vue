@@ -117,7 +117,7 @@ onBeforeUnmount(() => {
 <style scoped>
   .nav {
     height: 80px;
-    background-color: #fff;
+    background-color: var(--white100);
     box-shadow: inset 0 -1px 0 #dcdcdc;
     top: 0;
     z-index: 9997;
@@ -130,10 +130,10 @@ onBeforeUnmount(() => {
     justify-content: center;
   }
   .cmp-menu-car .el-sub-menu__title:hover {
-      background-color: #fff !important;
+      background-color: var(--white100) !important;
   }
   .nav a {
-    color: black;
+    color: var(--black100);
     text-decoration: none;
   }
   .nav-name-logo {
@@ -154,7 +154,7 @@ onBeforeUnmount(() => {
     bottom: -8px;
   }
   .nav-active {
-    border-bottom: 1px solid #ffe500;
+    border-bottom: 1px solid var(--yellow100);
   }
   .location-input, .location-input:hover{
     background-color: transparent;
@@ -169,7 +169,7 @@ onBeforeUnmount(() => {
   }
   .location-input__address {
     font-size: 14px;
-    color: #ffe500;
+    color: var(--yellow100);
     font-weight: 600;
   }
   .custom-modal {
@@ -206,18 +206,18 @@ onBeforeUnmount(() => {
 
   .cmp-button-yellow {
     margin: 16px 12px;
-    border: 1px solid white;
-    background: #ffe500;
-    color: white;
+    border: 1px solid var(--white100);
+    background-color: var(--yellow100);
+    color: var(--white100);
     font-weight: bolder;
     width: -moz-available;
   }
 
   .cmp-button-yellow:hover{
     margin: 16px 12px;
-    border: 1px solid #ffe500;
-    background: #fff;
-    color: #ffe500;
+    border: 1px solid var(--yellow100);
+    background-color: var(--white100);
+    color: var(--yellow100);
   }
   .cmp-menu-item {
     font-size: 12px;
@@ -226,16 +226,16 @@ onBeforeUnmount(() => {
   }
 
   .el-sub-menu__title:hover {
-      background-color: #fff !important;
+      background-color: var(--white100) !important;
   }
   .cmp-menu-item:hover {
-    background-color: #fff;
-    color: #ffe500;
+    background-color: var(--white100);
+    color: var(--yellow100);
   }
 
   .cmp-menu-item span {
     margin-left: 5px;
-    color: #ffe500;
+    color: var(--yellow100);
     font-weight: 800;
   }
 </style>

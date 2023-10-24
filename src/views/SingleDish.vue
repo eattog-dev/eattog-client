@@ -80,7 +80,7 @@ onMounted(() =>  {
 
 #dish-detail {
     padding: 20px 0;
-    color: #000000;
+    color: var(--black100);
 }
 
 #dish-detail .el-card__body {
@@ -88,7 +88,7 @@ onMounted(() =>  {
 }
 
 #dish-detail .data-dish {
-    background-color: #fff;
+    background-color: var(--white100);
     border-radius: 0 0 8px 8px;
     padding: 0 12px;
 }
@@ -113,7 +113,7 @@ onMounted(() =>  {
 
 #dish-detail .data-dish .title-and-price .sale-pricing .price {
     font-size: 1rem;
-    color: #dbdad9;
+    color:  var(--gray300);
     text-decoration: line-through;
     margin-left: 6px;
 }
@@ -121,7 +121,7 @@ onMounted(() =>  {
 #dish-detail .data-dish textarea {
     width: 100%;
     border-radius: 4px;
-    border: 1px solid #dbdad9;
+    border: 1px solid  var(--gray300);
     font-size: 1rem;
 }
 
@@ -135,12 +135,12 @@ onMounted(() =>  {
     height: 44px !important;
     object-fit: cover;
     border-radius: 8px !important;
-    background-color: #ffe500;
+    background-color: var(--yellow100);
     padding: 8px;
 }
 
 #dish-detail .data-dish .quantity input {
-    color: #000000;
+    color: var(--black100);
     margin: 0 8px;
     text-align: center;
 }
@@ -167,11 +167,11 @@ onMounted(() =>  {
 
 #dish-detail .data-dish button {
     padding: 16px;
-    background-color: #ffe500;
+    background-color: var(--yellow100);
     border: none;
     border-radius: 8px;
     text-transform: uppercase;
-    color: #ffffff;
+    color: var(--white100);
 
 }
 

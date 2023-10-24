@@ -70,13 +70,12 @@ const bannerData = {
 #restaurants .grid-content {
     height: 100%;
     text-align: center;
-    background-color: #ffffff;
+    background-color: var(--white100);
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
     border-radius: 4px;
-    border: 1px solid #e4e7ed;
-    color: #303133;
+    border: 1px solid var(--white300);
+    color: var(--gray800);
     text-decoration: none !important;
-    ;
 }
 
 #restaurants .imagem {
@@ -91,7 +90,7 @@ const bannerData = {
 #restaurants .imagem .restaurant-data {
     text-align: left;
     display: flex;
-    color: #ffffff;
+    color: var(--white100);
     padding-left: 20px;
     padding-bottom: 12px;
     background: rgb(0, 0, 0);

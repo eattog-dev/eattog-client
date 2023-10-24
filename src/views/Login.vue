@@ -119,7 +119,7 @@ const errorMsg = ref("");
 @import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Indie+Flower&display=swap");
 
 #login {
-  --el-color-primary: #ffe500;
+  --el-color-primary: var(--yellow100);
 }
 
 #login .login-bg-white {
@@ -191,7 +191,7 @@ const errorMsg = ref("");
 #login .el-button:hover,
 .el-button:focus {
   background-color: rgba(255, 255, 0, 0.418);
-  color: black;
+  color: var(--black100);
   border-color: #ffe600;
 }
 

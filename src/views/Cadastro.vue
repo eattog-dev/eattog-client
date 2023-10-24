@@ -184,7 +184,7 @@ const errorMsgPassword = ref("");
 
 <style setup>
 #cadastro {
-  --el-color-primary: #ffe500;
+  --el-color-primary: var(--yellow100);
 }
 
 #cadastro .cadastro-bg-white {
@@ -291,7 +291,7 @@ const errorMsgPassword = ref("");
 #cadastro .el-button:hover,
 .el-button:focus {
   background-color: rgba(255, 255, 0, 0.418);
-  color: black;
+  color: var(--black100);
   border-color: #ffe600;
 }
 
