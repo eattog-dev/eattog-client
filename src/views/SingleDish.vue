@@ -113,7 +113,7 @@ onMounted(() =>  {
 
 #dish-detail .data-dish .title-and-price .sale-pricing .price {
     font-size: 1rem;
-    color:  var(--gray300);
+    color:  var(--gray200);
     text-decoration: line-through;
     margin-left: 6px;
 }
@@ -121,7 +121,7 @@ onMounted(() =>  {
 #dish-detail .data-dish textarea {
     width: 100%;
     border-radius: 4px;
-    border: 1px solid  var(--gray300);
+    border: 1px solid  var(--gray200);
     font-size: 1rem;
 }
 

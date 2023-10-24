@@ -31,7 +31,7 @@
     }
 
     .cmp-navigator-item {
-        color: #bea1d1;
+        color: var(--rgba-yellow);
         margin: 0 8px;
         display: grid;
         text-align: center;
@@ -42,6 +42,6 @@
     }
 
     .cmp-navigator-item:hover {
-        color: #7625ab;
+        color: var(--yellow100);
     }
 </style>

@@ -64,7 +64,7 @@
                 cursor: pointer;
             }
             li.active {
-                border-bottom: 3px solid #4d54dd;
+                border-bottom: 3px solid var(--blue100);
                 animation: show 0.7s ease-in-out;
             }
         }
@@ -77,11 +77,11 @@
             margin-top: 30px;
         
             h2 {
-                color: #4d54dd;
+                color: var(--blue100);
             }
         
             p {
-                color: #231f60;
+                color: var(--blue200);
             }
         }
     }
@@ -91,7 +91,7 @@
         border-color: transparent;
         }
         to {
-        border-color: #4d54dd;
+        border-color: var(--blue100);
         }
     }
     

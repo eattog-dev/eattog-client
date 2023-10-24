@@ -118,7 +118,7 @@ onBeforeUnmount(() => {
   .nav {
     height: 80px;
     background-color: var(--white100);
-    box-shadow: inset 0 -1px 0 #dcdcdc;
+    box-shadow: inset 0 -1px 0 var(--gray200);
     top: 0;
     z-index: 9997;
     display: flex;

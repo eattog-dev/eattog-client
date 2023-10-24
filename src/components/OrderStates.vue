@@ -25,7 +25,7 @@
 .cmp-states-order{
     text-align: center;
     width: 20em;
-    border-bottom: 1px dashed #dcdcdc;
+    border-bottom: 1px dashed var(--gray200);
 }
 
 .cmp-state-item {
