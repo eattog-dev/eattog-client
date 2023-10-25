@@ -27,3 +27,10 @@ npm run dev
 ```sh
 npm run build
 ```
+
+
+## Padrão de desenvolvimento recomendado
+
+-Nomeação de classe, seguindo a regra BEM.
+-Estilos do CSS em REM. Caso estejam em pixels (px), convertê-los para REM. A equivalência é de 16px para 1 REM.
+-Os códigos de cores estão em variáveis no arquivo main.css; utilize var(--namexxx).
