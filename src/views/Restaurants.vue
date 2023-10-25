@@ -97,8 +97,10 @@ const value = ref('Selecione');
                 <Title text="Restaurantes"></Title>
 
                 <el-select v-model="value" class="m-2" placeholder="Select" size="large">
-                    <el-option label="Ordem Alfabética" value="Ordem Alfabética" @click="restaurantesStore.ordenarAlfabeto()" />
-                    <el-option label="Melhor Avaliado" value="Melhor Avaliado" @click="restaurantesStore.ordenarAvaliacao()" />
+                    <el-option label="Ordem Alfabética" value="Ordem Alfabética"
+                        @click="restaurantesStore.ordenarAlfabeto()" />
+                    <el-option label="Melhor Avaliado" value="Melhor Avaliado"
+                        @click="restaurantesStore.ordenarAvaliacao()" />
                 </el-select>
             </el-col>
         </el-row>
@@ -107,13 +109,29 @@ const value = ref('Selecione');
                 <el-row :gutter=8>
                     <Restaurant v-for="restaurante in restaurantes" :restaurant="restaurante" />
                 </el-row>
-                <el-row justify=center>
+                <!-- <el-row justify=center>
                     <button @click="restaurantesStore.voltarPagina()">Anterior</button>
                     <span>{{ paginaAtual }}</span>
                     <button @click="restaurantesStore.passarPagina()">Próximo</button>
-                </el-row>
+                </el-row> -->
+                <div class="paginacao-config">
+                    <button @click="restaurantesStore.voltarPagina()">Anterior</button>
+                    <span>{{ paginaAtual }}</span>
+                    <button @click="restaurantesStore.passarPagina()">Próximo</button>
+
+                </div>
             </el-col>
         </el-row>
     </section>
     <Footer></Footer>
 </template>
+
+<style>
+#restaurants .paginacao-config {
+    display: flex;
+    position: relative;
+    bottom: -155px;
+    justify-content: center;
+
+}
+</style>

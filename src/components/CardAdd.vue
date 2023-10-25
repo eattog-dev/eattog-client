@@ -107,7 +107,6 @@
             },
             submitForm() {
                 if (this.validateForm()) {
-                    // Lógica a ser executada quando o formulário for válido
                     console.log('Formulário válido');
                 }
             },
@@ -165,18 +164,6 @@
     };
 </script>
 <style setup>
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
-
-* {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    border: none;
-    text-decoration: none;
-    text-transform: uppercase;
-} */
 
 .container {
     min-height: 100vh;
@@ -186,8 +173,6 @@
     justify-content: center;
     flex-flow: column;
     padding-bottom: 3.75rem;
-
-    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -243,6 +228,7 @@
     color: var(--white100);
     border-radius: 10px;
     cursor: pointer;
+    border: none;
     transition: .2s linear;
 }
 
