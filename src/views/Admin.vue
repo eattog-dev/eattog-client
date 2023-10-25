@@ -548,6 +548,7 @@
         align-content: center;
     }
     .cmp-admin-content {
+        width: 100%;
         text-align: center;
         padding: 20px;
         font-size: 18px;
