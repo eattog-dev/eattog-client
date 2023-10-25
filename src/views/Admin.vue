@@ -153,7 +153,8 @@
                     </div>
             </div>
             <div v-else-if="activeTab === 'ajuda'">
-                Conteúdo da aba 'Ajuda'
+                <div class="cmp-admin_containerbanner-title">Dúvidas Frequentes</div>
+                Em breve conteúdo da aba 'Ajuda'
             </div>
             </div>
         </el-main>
@@ -612,6 +613,7 @@
 
 <script>
     import { ref } from 'vue'
+    import axios from 'axios'
     const showPratoModal = ref(true);
     const showRemover = ref(true);
     export default {
@@ -689,18 +691,30 @@
 
             if (!this.cnpjValidationFailed) {
                 const formData = {
-                restaurantName: this.restaurantName,
-                restaurantMealType: this.restaurantMealType,
-                restaurantAddress: {
-                    cep: this.restaurantAddress.cep,
-                    street: this.restaurantAddress.street,
-                    city: this.restaurantAddress.city,
-                },
-                restaurantTakeawayType: this.restaurantTakeawayType,
-                restaurantDescription: this.restaurantDescription,
+                    imagem: this.restaurantImage,
+                    logo: this.restaurantBanner,
+                    titulo: this.restaurantName,
+                    avaliacao: '',
+                    tipoRefeicao: this.restaurantMealType,
+                    distancia: '', 
+                    // restaurantAddress: {
+                    //         cep: this.restaurantAddress.cep,
+                    //         street: this.restaurantAddress.street,
+                    //         city: this.restaurantAddress.city,
+                    // },
+                    tipoRetirada: this.restaurantTakeawayType,
+                    descricao: this.restaurantDescription,
                 };
 
-                console.log(formData);
+                console.log("dados:"+formData);
+
+                axios.post('http://54.233.122.212/criar/restaurante', formData)
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
             }else{
                 this.$message.error('CNPJ inválido');
             }
@@ -713,20 +727,34 @@
         adicionarNovoPrato() {
             this.showPratoModal = true;
             if (this.novoPrato.nome && this.novoPrato.valor && this.novoPrato.imagem) {
-                this.pratos.push(this.novoPrato); 
-                this.showPratoModal = false;
-                this.novoPrato = {
-                    nome: '',
-                    valor: '',
-                    imagem: '',
-                    ingredientes: '',
-                    time: '',
+                const novoPrato = {
+                    nome: this.novoPrato.nome,
+                    valor: this.novoPrato.valor,
+                    imagem: this.novoPrato.imagem,
+                    ingredientes: this.novoPrato.ingredientes,
+                    restauranteId: 1,
                 };
+
+                axios.post('http://54.233.122.212/criar/prato', novoPrato)
+                    .then(response => {
+                        console.log('Prato criado com sucesso:', response.data);
+
+                        this.novoPrato = {
+                            nome: '',
+                            valor: '',
+                            imagem: '',
+                            ingredientes: '',
+                            time: '',
+                        };
+                        this.showPratoModal = false;
+                    })
+                    .catch(error => {
+                        console.error('Erro ao criar o prato:', error);
+                    });
             } else {
                 this.$message.error('Por favor, preencha todos os campos do prato.');
             }
-        },
-
+        }
     },
     };
 </script>
