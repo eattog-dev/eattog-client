@@ -66,3 +66,12 @@ npm run build
 {
     "categoria_prato": "comida mexicana"
 }
+
+## criar usuário pela url http://54.233.122.212/users/sign-up ex: 
+{
+    "nome": "Gabigol Bruno Henrique De Arrascaeta",
+    "email": "flamengoJJ2019@gmail.com",
+    "cpf": "23112019185",
+    "numero_celular": "11111111111",
+    "senha": "biLibertadores19"
+}
