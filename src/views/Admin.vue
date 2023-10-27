@@ -200,32 +200,32 @@
     .cmp-admin_addmenu-function {
         position: absolute;
         z-index: 999;
-        top: 5px;
+        top: 0.313rem;
     }
 
     .cmp-admin_addmenu-item-ingredients{
-        border-top: 1px solid var(--gray200);
+        border-top: 0.063rem solid var(--gray200);
         text-align: left;
         margin-top: 0.2rem;
         padding: .5rem 0 0;
     }
 
     .cmp-admin_addmenu-item-formattext {
-        font-size: 14px;
-        padding: 16px;
+        font-size: 0.875rem;
+        padding: 1rem;
         text-align: center;
     }
 
     .cmp-admin_addmenu-function-btn {
         background-color: rgba(255, 254, 212, 0.409);
         color: var(--black100);
-        border: 1px solid rgba(255, 254, 212, 0.409);
+        border: 0.063rem solid rgba(255, 254, 212, 0.409);
     }
 
     .cmp-admin_addmenu-function-btn:hover{
         background-color: rgba(255, 251, 5, 0.409);
         color: var(--black100);
-        border: 1px solid  rgba(255, 251, 5, 0.409);
+        border: 0.063rem solid  rgba(255, 251, 5, 0.409);
     }
 
     .cmp-admin_addmenu-item-name {
@@ -257,18 +257,18 @@
 
     .cmp-admin_addmenu-formattext {
         display: flex;
-        border-top: 1px solid var(--gray200);
+        border-top: 0.063rem solid var(--gray200);
     }
 
     .cmp-admin_addmenu-title {
-        margin: 16px 0;
-        font-size: 16px;
+        margin: 1rem 0;
+        font-size: 1rem;
         font-weight: 700;
         color: var(--yellow500);
     }
 
     .cmp-admin-form-file .el-input__inner{
-        padding: 16px 0;
+        padding: 1rem 0;
         height: 4rem;
     }
 
@@ -280,14 +280,14 @@
     }
 
     .cmp-admin_addmenu-add span{
-        font-size: 14px;
+        font-size: 0.875rem;
     }
 
     .cmp-admin_addmenu-add .el-button {
-        border-radius: 8px;
+        border-radius: 0.5rem;
         background-color: var(--yellow500);
         border-color: var(--yellow500);
-        padding: 16px 24px;
+        padding: 1rem 1.5rem;
         align-items: center;
         color: var(--white100);
     }
@@ -307,31 +307,31 @@
     
     .cmp-admin .content {
         text-align: center;
-        padding: 20px;
+        padding: 1.25rem;
         width: 100%;
     }
 
     .cmp-modaldialog--adddishes {
-        border-radius: 8px !important;
+        border-radius: 0.5rem !important;
     }
 
     .cmp-modaldialog--adddishes .el-dialog {
-        border-radius: 8px !important;
+        border-radius: 0.5rem !important;
         display: flex;
         flex-direction: column;
     }
 
     .cmp-modaldialog--adddishes .el-dialog__header {
         display: flex;
-        height: 58px;
-        padding: 8px 24px;
+        height: 3.625rem;
+        padding: 0.5rem 1.5rem;
         margin-right: 0;
         align-items: center;
         background-color: var(--yellow500);
     }
 
     .cmp-modaldialog--adddishes  .el-dialog__title {
-        font-size: 16px;
+        font-size: 1rem;
         font-weight: 600;
         color: var(--white100);
     }
@@ -344,18 +344,18 @@
     .cmp-modaldialog--adddishes .el-form-item__label {
         justify-content: flex-start;
         align-items: inherit;
-        font-size: 14px;
+        font-size: 0.875rem;
         font-weight: 600;
         color: var(--gray400);
     }
 
     .cmp-modaldialog--adddishes .el-form-item {
         display: grid;
-        margin-bottom: 8px !important;
+        margin-bottom: 0.5rem !important;
     }
 
     .cmp-modaldialog--adddishes .el-dialog__body {
-        padding: 16px 24px !important;
+        padding: 1rem 1.5rem !important;
     }
 
     .cmp-modaldialog--adddishes .el-input__inner:focus ,  .cmp-modaldialog--adddishes .el-input__wrapper:focus  {
@@ -367,23 +367,23 @@
     }
 
     .cmp-modaldialog--adddishes .el-input__wrapper:hover {
-        box-shadow: 0 0 0 1px var(--yellow100) inset;
+        box-shadow: 0 0 0 0.063rem var(--yellow100) inset;
     }
 
     .cmp-modaldialog-btnsalve {
-        border-radius: 8px;
+        border-radius: 0.5rem;
         background-color: var(--yellow500);
         border-color: var(--yellow500);
-        padding: 8px 16px;
+        padding: 0.5rem 1rem;
         align-items: center;
         color: var(--white100);
     }
 
     .cmp-modaldialog-btncancel {
-        border-radius: 8px;
+        border-radius: 0.5rem;
         background-color: var(--white100);
         border-color: var(--yellow500);
-        padding: 8px 16px;
+        padding: 0.5rem 1rem;
         align-items: center;
         color: var(--yellow500);
     }
@@ -404,15 +404,15 @@
         width: -webkit-fill-available;
         position: absolute;
         top: 0;
-        left: 300px;
-        padding: 10px;
+        left: 18.75rem;
+        padding: 0.625rem;
         text-align: center;
         color: var(--yellow500);
-        border-bottom: 1px solid var(--el-menu-border-color);
+        border-bottom: 0.063rem solid var(--el-menu-border-color);
         background-color: var(--el-menu-bg-color);
         background-repeat: no-repeat;
         background-size: 100%;
-        font-size: 16px;
+        font-size: 1rem;
         font-weight: 700;
         z-index: 99;
         background-image: url(../assets/img-banner/imagebackground.png)
@@ -421,9 +421,9 @@
     .cmp-admin_containerbanner-backgroundimage {
         position: absolute;
         top: 0;
-        left: 300px;
+        left: 18.75rem;
         color: var(--yellow500);
-        border-bottom: 1px solid var(--el-menu-border-color);
+        border-bottom: 0.063rem solid var(--el-menu-border-color);
         background-image: url(../assets/img-banner/imagebanner.png);
         z-index: 99;
         height: 5rem;
@@ -444,7 +444,7 @@
 
     .cmp-admin-form-submit  .el-button {
         background-color: var(--yellow500);
-        border: 1px solid var(--yellow500);
+        border: 0.063rem solid var(--yellow500);
         color: var(--white100);
         padding: 1rem 2rem;
         border-radius: 0.5rem;
@@ -452,7 +452,7 @@
     }
 
     .cmp-admin-image-upload-descripition {
-        font-size: 14px;
+        font-size: 0.875rem;
         position: relative;
         display: flex;
     }
@@ -472,7 +472,7 @@
 
     .cmp-admin-image-upload {
         color: var(--yellow500);
-        border: 1px solid  var(--yellow500);
+        border: 0.063rem solid  var(--yellow500);
         background-color:  var(--white100);
         padding: .5rem 2rem;                   
         border-radius: 0.5rem;
@@ -480,7 +480,7 @@
     }
 
     .cmp-admin-image-upload:hover {
-        border: 1px solid #f9f9f9;
+        border: 0.063rem solid #f9f9f9;
         background-color: #f9f9f9;
     }
 
@@ -499,15 +499,15 @@
     }
     .cmp-admin-form-input {
         width: 100%;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 14px;
+        border: 0.063rem solid #ccc;
+        border-radius: 0.25rem;
+        font-size: 0.875rem;
         margin: .5rem 0;
     }
     .cmp-admin-form-select {
         width: 100%;
-        border: 1px solid #ccc;
-        border-radius: 4px;
+        border: 0.063rem solid #ccc;
+        border-radius: 0.25rem;
         font-size: 1rem;
     }
     .cmp-admin-form-checkbox-group {
@@ -522,21 +522,21 @@
     }
     .cmp-admin-form-textarea {
         width: 100%;
-        border: 1px solid #ccc;
-        border-radius: 4px;
+        border: 0.063rem solid #ccc;
+        border-radius: 0.25rem;
         font-size: 1rem;
     }
     .cmp-admin-custom-upload-button {
-        font-size: 14px;
+        font-size: 0.875rem;
     }
 
     .cmp-admin-form-item {
         margin-bottom: .8rem;
     }
     .cmp-admin-restaurant-information{
-        font-size: 14px;
+        font-size: 0.875rem;
         text-align: start;
-        padding-top: 30px;
+        padding-top: 1.875rem;
         color: var(--el-text-color-regular);
     }
     .cmp-admin-content-container {
@@ -551,8 +551,8 @@
     .cmp-admin-content {
         width: 100%;
         text-align: center;
-        padding: 20px;
-        font-size: 18px;
+        padding: 1.25rem;
+        font-size: 1.125rem;
         color: var(--brack);
     }
     .cmp-admin-menu-aside {
@@ -570,10 +570,10 @@
         width: 5rem;
         height: 5rem;
         margin: 1rem 0;
-        border-radius: 8px;
+        border-radius: 0.5rem;
     }
     .cmp-admin-restaurant-name {
-        font-size: 18px;
+        font-size: 1.125rem;
         color: #575656;
         font-weight: 600;
         font-variant-caps: all-small-caps;
@@ -585,7 +585,7 @@
     .cmp-admin-user-info {
         display: flex;
         align-items: center;
-        padding: 10px 20px;
+        padding: 0.625rem 1.25rem;
         color: var(--white100);
         justify-content: center;
         flex-direction: column;
@@ -594,8 +594,8 @@
         height: 98%;
     }
     .cmp-admin .el-menu-item i {
-        font-size: 18px;
-        margin-right: 10px;
+        font-size: 1.125rem;
+        margin-right: 0.625rem;
     }
     .cmp-admin .el-form {
         margin: 1.25rem 0;

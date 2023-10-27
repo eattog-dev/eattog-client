@@ -50,7 +50,7 @@
     }
 
     .butao-state {
-        border-top: 1px dashed var(--gray200);
+        border-top: 0.063rem dashed var(--gray200);
         margin-top: 3.125rem;
     }
 

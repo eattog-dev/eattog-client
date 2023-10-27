@@ -140,7 +140,7 @@
     .order-status-gif {
         display: flex;
         margin: 0 0 2rem 0;
-        width: 100px;
+        width: 6.25rem;
         height: auto;  
     }
 
