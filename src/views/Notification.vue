@@ -20,8 +20,7 @@
       </div>
       <div class="order-timeline">
         <img class="order-status-gif" src="https://i.gifer.com/4vsk.gif" alt="GIF status" />
-        <!-- https://i.gifer.com/DBN.gif -->
-        <el-timeline>
+        <el-timeline class="order-status-timeline">
           <el-timeline-item v-for="(status, index) in orderTimeline" :key="index" :timestamp="status.timestamp"
             placement="top">
             <img v-if="status.image" :src="status.image" alt="Imagem do Status do Pedido" class="order-status-image" />
@@ -145,7 +144,7 @@
   .order-status-gif {
     display: flex;
     margin: 0 0 2rem 0;
-    width: 100px;
+    width: 6.25rem;
     height: auto;  
   }
   
@@ -155,16 +154,16 @@
     font-size: 1.8rem;
   }
   
-  .el-timeline-item__content {
+    .el-timeline-item__content {
     font-size: x-large;
   }
   
-  .order-timeline {
+    .order-timeline {
     margin-bottom: 1.7em; 
     padding: 1.25rem;
   }
   
-  .el-timeline {
+    .order-status-timeline{
     margin: 0;
     --el-timeline-node-color: var(--rgba-yellow);
     list-style: none;
@@ -172,16 +171,19 @@
   
   @media (max-width: 900px) {
     .store-name {
-      font-size: xx-large;
+        font-size: xx-large;
   }
   
     .el-timeline-item__content {
-      font-size: large;
+        font-size: large;
     }
   
-    .el-button span {
-      font-size: small;
+    .icon-back-header span {
+        font-size: small;
     }
+    .order-status-delivery {
+        font-size: small;
+}
   }
   
   </style>
