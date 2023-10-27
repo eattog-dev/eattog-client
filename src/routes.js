@@ -12,7 +12,7 @@ import CardAdd from './components/CardAdd.vue';
 import SingleCategoria from './views/SingleCategoria.vue';
 import StateOrder from './views/StateOrder.vue';
 import ManageSysten from './views/ManageSystem.vue';
-// teste
+
 const routes = [
     { path: '/', component: Splash },
     { path: '/cadastro', component: Cadastro },
