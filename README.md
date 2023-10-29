@@ -28,46 +28,64 @@ npm run dev
 npm run build
 ```
 
+## Padrões de Desenvolvimento Recomendados
 
-## Padrão de desenvolvimento recomendado
+- Nomeação de classes seguindo a regra BEM.
+- Use REM para estilos CSS. Se estiver usando pixels (px), converta-os para REM, sendo 16px equivalente a 1 REM.
+- Os códigos de cores são definidos como variáveis no arquivo main.css; use `var(--namexxx)`.
 
--Nomeação de classe, seguindo a regra BEM.
--Estilos do CSS em REM. Caso estejam em pixels (px), convertê-los para REM. A equivalência é de 16px para 1 REM.
--Os códigos de cores estão em variáveis no arquivo main.css; utilize var(--namexxx).
+## Criar um Restaurante via URL
 
-## criar restaurante pela url  http://54.233.122.212/criar/restaurante ex: 
+Você pode criar um restaurante fazendo uma solicitação POST para o seguinte URL: `http://54.233.122.212/criar/restaurante`. Exemplo de carga JSON:
+
+```json
 {
-        "imagem": "https://rioandlearn.com/wp-content/uploads/Vocabulário-Lanchonete.png",
-        "logo": "https://img.freepik.com/vetores-gratis/uma-estrela-restaurante-icon-ilustracao_53876-40629.jpg?w=2000",
-        "banner": "https://img.freepik.com/vetores-gratis/uma-estrela-restaurante-icon-ilustracao_53876-40629.jpg?w=2000",
-        "titulo": "pit lanches",
-        "avaliacao": 5.0,
-        "tipoRefeicao": "refeição",
-        "distancia": "2,5km",
-        "tipoRetirada": "Local e retirada",
-        "descricao": "Lanchonete tradicional de campo grnade",
-        "localizacao": "Avenida Mascarenhas de Moraes"
+    "imagem": "https://rioandlearn.com/wp-content/uploads/Vocabulário-Lanchonete.png",
+    "logo": "https://img.freepik.com/vetores-gratis/uma-estrela-restaurante-icon-ilustracao_53876-40629.jpg?w=2000",
+    "banner": "https://img.freepik.com/vetores-gratis/uma-estrela-restaurante-icon-ilustracao_53876-40629.jpg?w=2000",
+    "titulo": "pit lanches",
+    "avaliacao": 5.0,
+    "tipoRefeicao": "refeição",
+    "distancia": "2.5km",
+    "tipoRetirada": "Local e retirada",
+    "descricao": "Lanchonete tradicional de Campo Grande",
+    "localizacao": "Avenida Mascarenhas de Moraes"
 }
+```
 
-## criar prato pela url http://54.233.122.212/criar/prato ex:
+## Criar um Prato via URL
+
+Você pode criar um prato fazendo uma solicitação POST para o seguinte URL: `http://54.233.122.212/criar/prato`. Exemplo de carga JSON:
+
+```json
 {
-  "nome": "Feijoada",
-  "valor": 25.99,
-  "imagem": "https://www.sabornamesa.com.br/media/k2/items/cache/7b98703f48b0025160f2b9b5aad2a874_XL.jpg",
-  "ingredientes": ["Feijão Preto", "Carne de Porco", "Arroz"],
-  "restaurante": 2,
-  "categoria_prato": 0, 
-  "desconto": false,
-  "valor_desconto": 0,
-  "descricao": "A feijoada é um prato brasileiro clássico, preparado com feijão preto e diversas carnes de porco, como linguiça e bacon. É um prato rico em sabor, acompanhado de arroz, couve e laranja."
+    "nome": "Feijoada",
+    "valor": 25.99,
+    "imagem": "https://www.sabornamesa.com.br/media/k2/items/cache/7b98703f48b0025160f2b9b5aad2a874_XL.jpg",
+    "ingredientes": ["Feijão Preto", "Carne de Porco", "Arroz"],
+    "restaurante": 2,
+    "categoria_prato": 0, 
+    "desconto": false,
+    "valor_desconto": 0,
+    "descricao": "A feijoada é um prato brasileiro clássico, preparado com feijão preto e diversas carnes de porco, como linguiça e bacon. É um prato rico em sabor, acompanhado de arroz, couve e laranja."
 }
+```
 
-## criar categoria pela url http://54.233.122.212/criar/categoria ex: 
+## Criar uma Categoria via URL
+
+Você pode criar uma categoria fazendo uma solicitação POST para o seguinte URL: `http://54.233.122.212/criar/categoria`. Exemplo de carga JSON:
+
+```json
 {
     "categoria_prato": "comida mexicana"
 }
+```
 
-## criar usuário pela url http://54.233.122.212/users/sign-up ex: 
+## Criar um Usuário via URL
+
+Você pode criar um usuário fazendo uma solicitação POST para o seguinte URL: `http://54.233.122.212/users/sign-up`. Exemplo de carga JSON:
+
+```json
 {
     "nome": "Gabigol Bruno Henrique De Arrascaeta",
     "email": "flamengoJJ2019@gmail.com",
@@ -75,3 +93,7 @@ npm run build
     "numero_celular": "11111111111",
     "senha": "biLibertadores19"
 }
+```
+
+```
+
