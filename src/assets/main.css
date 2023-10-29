@@ -22,7 +22,7 @@
     --gray200: #dbdad9;
     --gray300: #999;
     --gray400: #808080;
-    --gray500: #dcdcdc30;
+    --gray500: #3f3f3fe0; 
     --gray600: #cccccc1c;
     --gray800: #303133; 
 
@@ -33,5 +33,5 @@
 
     --aqua100: #00FFFF;
 
-    --rgba-yellow:rgba(21, 21, 12, 0.642);
+    --rgba-yellow:rgba(255, 255, 0, 0.642);
 }

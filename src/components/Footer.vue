@@ -21,7 +21,7 @@
         <div class="cmp-footer-text">
             <div class="cmp-footer-inline">
                 <div class="cmp-footer-logo">
-                    <img src="../assets/icon _stop.svg" alt="Logo Eattog" />
+                    <img src="../assets/icon_stop.png" alt="Logo Eattog" />
                 </div>
                 <p>© Copyright 2023 - Eattog - Todos os direitos reservados Eattog com Agência de Restaurantes Online S.A.</p>
             </div>
