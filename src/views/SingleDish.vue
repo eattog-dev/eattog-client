@@ -53,7 +53,7 @@ onMounted(() =>  {
                             <form action="">
                                 <textarea name="obs" id="obs" cols="30" rows="10" placeholder="Observações"></textarea>
                                 <div
-                                    style="display: flex; justify-content: space-between; align-content: center; padding: 20px 0;">
+                                    style="display: flex; justify-content: space-between; align-content: center; padding: 1.25rem 0;">
                                     <div class="quantity">
                                         <button @click.prevent="singlePratoStore.somar()">+</button>
                                         <input type="number" v-model="singlePratoStore.quantidade" />
@@ -79,7 +79,7 @@ onMounted(() =>  {
 }
 
 #dish-detail {
-    padding: 20px 0;
+    padding: 1.25rem 0;
     color: var(--black100);
 }
 
@@ -89,15 +89,15 @@ onMounted(() =>  {
 
 #dish-detail .data-dish {
     background-color: var(--white100);
-    border-radius: 0 0 8px 8px;
-    padding: 0 12px;
+    border-radius: 0 0 0.5rem 0.5rem;
+    padding: 0 0.75rem;
 }
 
 #dish-detail .el-card__body img {
     display: flex;
     place-items: center;
-    height: 250px;
-    width: 300px;
+    height: 15.625rem;
+    width: 18.75rem;
     object-fit: cover;
 }
 
@@ -115,13 +115,13 @@ onMounted(() =>  {
     font-size: 1rem;
     color:  var(--gray200);
     text-decoration: line-through;
-    margin-left: 6px;
+    margin-left: 0.375rem;
 }
 
 #dish-detail .data-dish textarea {
     width: 100%;
-    border-radius: 4px;
-    border: 1px solid  var(--gray200);
+    border-radius: 0.25rem;
+    border: 0.063rem solid  var(--gray200);
     font-size: 1rem;
 }
 
@@ -131,17 +131,17 @@ onMounted(() =>  {
 }
 
 .cart {
-    width: 44px !important;
-    height: 44px !important;
+    width: 2.75rem !important;
+    height: 2.75rem !important;
     object-fit: cover;
-    border-radius: 8px !important;
+    border-radius: 0.5rem !important;
     background-color: var(--yellow100);
-    padding: 8px;
+    padding: 0.5rem;
 }
 
 #dish-detail .data-dish .quantity input {
     color: var(--black100);
-    margin: 0 8px;
+    margin: 0 0.5rem;
     text-align: center;
 }
 
@@ -155,8 +155,8 @@ onMounted(() =>  {
 
 #dish-detail .data-dish .quantity input,
 #dish-detail .data-dish .quantity button {
-    width: 44px;
-    height: 44px;
+    width: 2.75rem;
+    height: 2.75rem;
 }
 
 #dish-detail input::-webkit-outer-spin-button,
@@ -166,10 +166,10 @@ onMounted(() =>  {
 }
 
 #dish-detail .data-dish button {
-    padding: 16px;
+    padding: 1rem;
     background-color: var(--yellow100);
     border: none;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     text-transform: uppercase;
     color: var(--white100);
 

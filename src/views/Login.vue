@@ -129,16 +129,16 @@ const errorMsg = ref("");
 #login .login-container-form {
   width: 80%;
   height: 99vh;
-  margin: 200px auto 0 0;
+  margin: 12.5rem auto 0 0;
   text-align: center;
   font-family: "Roboto", sans-serif;
 }
 
 #login .login-slogan {
   display: flex;
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--gray400);
-  margin: 10px 0% 0 0%;
+  margin: 0.625rem 0% 0 0%;
   justify-content: center;
 }
 
@@ -175,17 +175,17 @@ const errorMsg = ref("");
   background-color: transparent !important;
   border-color: transparent !important;
   width: auto !important;
-  margin: 0px !important;
+  margin: 0rem!important;
 }
 
 #login .el-button {
   background-color: var(--yellow400);
   color: rgba(0, 0, 0, 0.813);
   border-color: var(--yellow400);
-  border-radius: 10px;
+  border-radius: 0.625rem;
   width: 50%;
-  margin: 20px auto;
-  padding: 16px 0;
+  margin: 1.25rem auto;
+  padding: 1rem 0;
 }
 
 #login .el-button:hover,
@@ -209,11 +209,11 @@ const errorMsg = ref("");
 }
 
 #login .loading-spinner {
-  border: 6px solid var(--white200);
-  border-top: 6px solid var(--rgba-yellow);
+  border: 0.375rem solid var(--white200);
+  border-top: 0.375rem solid var(--rgba-yellow);
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 3.125rem;
+  height: 3.125rem;
   animation: spin 2s linear infinite;
 }
 
@@ -229,16 +229,16 @@ const errorMsg = ref("");
 
 @media (max-width: 800px) {
   #login .login-slogan {
-    font-size: 16px;
+    font-size: 1rem;
     display: flex;
     color: var(--gray400);
-    margin: 10px 0% 18px 0%;
+    margin: 0.625rem 0% 1.125rem 0%;
     justify-content: center;
   }
 
   #login .login-account {
     display: block;
-    margin: 27px 0 0px 0;
+    margin: 1.688rem 0 0rem 0;
   }
 
   #login .login-container-form {
@@ -247,11 +247,11 @@ const errorMsg = ref("");
   }
 
   #login .el-header {
-    height: 30px;
+    height: 1.875rem;
   }
 
   #login .el-form-item__label {
-    margin-top: 15px;
+    margin-top: 0.938rem;
   }
 
   #login .el-divider {
@@ -259,7 +259,7 @@ const errorMsg = ref("");
   }
 
   #login .el-divider__text {
-    padding: 0 2px;
+    padding: 0 0.125rem;
   }
 
   #login.el-divider__text.is-center {

@@ -293,16 +293,16 @@ import Cardapio from '../components/Menu.vue'*/
     #sales .grid-content {
         text-align: center;
         background-color: var(--white100);
-        box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
-        border-radius: 4px;
-        border: 1px solid var(--white300);
+        box-shadow: 0 0 0.75rem rgba(0, 0, 0, 0.12);
+        border-radius: 0.25rem;
+        border: 0.063rem solid var(--white300);
         color: var(--gray800);
         text-decoration: none !important;
-        height: 332px;
+        height: 20.75rem;
     }
 
     #sales .image {
-        height: 180px !important;
+        height: 11.25rem !important;
         background-size: cover !important;
         background-repeat: no-repeat;
         display: grid;
@@ -310,7 +310,7 @@ import Cardapio from '../components/Menu.vue'*/
     }
 
     #sales .details {
-        padding: 4px 20px 32px 20px;
+        padding: 0.25rem 1.25rem 2rem 1.25rem;
     }
 
     #restaurants .details div {
@@ -319,17 +319,17 @@ import Cardapio from '../components/Menu.vue'*/
     }
 
     #sales .details h6 {
-        font-size: 16px;
+        font-size: 1rem;
         font-weight: 700;
     }
 
     #sales .details span {
-        font-size: 13px;
+        font-size: 0.813rem;
     }
 
     .menu .el-col {
-        margin: 6px 0;
-        /* height: 360px; */
+        margin: 0.375rem 0;
+        /* height: 22.5rem; */
     }
 
     .menu .el-row,
@@ -349,19 +349,19 @@ import Cardapio from '../components/Menu.vue'*/
 
     .menu .grid-content {
         display: flex;
-        padding: 12px;
+        padding: 0.75rem;
     }
 
     .menu .dish .info {
         width: 100%;
-        padding-left: 8px;
+        padding-left: 0.5rem;
     }
 
     .menu .dish img {
-        width: 100px;
-        height: 100px;
+        width: 6.25rem;
+        height: 6.25rem;
         object-fit: cover;
-        border-radius: 4px;
+        border-radius: 0.25rem;
     }
 
     .menu .dish .info div {
@@ -372,9 +372,9 @@ import Cardapio from '../components/Menu.vue'*/
     .menu .grid-content {
         text-align: center;
         background-color: var(--white100);
-        box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
-        border-radius: 4px;
-        border: 1px solid var(--white300);
+        box-shadow: 0 0 0.75rem rgba(0, 0, 0, 0.12);
+        border-radius: 0.25rem;
+        border: 0.063rem solid var(--white300);
         color: var(--gray800);
         text-decoration: none !important;
     }
