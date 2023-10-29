@@ -4,7 +4,7 @@
             <el-menu :default-active="activeTab">
                 <div class="cmp-admin-user-conteiner">
                     <div class="cmp-admin-user-info">
-                        <img :src="restaurantImage" alt="Logo do Restaurante" class="cmp-admin-restaurant-logo">
+                        <img :src="restaurantImages" alt="Logo do Restaurante" class="cmp-admin-restaurant-logo">
                         <p class="cmp-admin-restaurant-name">{{ restaurantName }}</p>
                     </div>
                 </div>
@@ -43,15 +43,15 @@
                                 </el-form-item>
                                 <el-form-item label="Tipo" class="cmp-admin-form-item">
                                 <el-select v-model="restaurantMealType" class="cmp-admin-form-select" required>
-                                    <el-option label="Selecione o Tipo de Restaurante" value=""></el-option>
-                                    <el-option label="Restaurante tradicional" value="restaurantetradicional"></el-option>
-                                    <el-option label="Restaurante internacional" value="restauranteinternacional"></el-option>
-                                    <el-option label="Restaurante gastronômico" value="restaurantegastronomico"></el-option>
-                                    <el-option label="Restaurantes de especialidades" value="restauranteespecialidade"></el-option>
-                                    <el-option label="Fast-food" value="fastfood"></el-option>
-                                    <el-option label="Cafeteria" value="Cafeteria"></el-option>
-                                    <el-option label="Rotisseries" value="Rotisseries"></el-option>
-                                    <el-option label="Docerias" value="Docerias"></el-option>
+                                    <el-option class="cmp-admin-form-select-option" label="Selecione o Tipo de Restaurante" value=""></el-option>
+                                    <el-option class="cmp-admin-form-select-option" label="Restaurante tradicional" value="restaurantetradicional"></el-option>
+                                    <el-option class="cmp-admin-form-select-option" label="Restaurante internacional" value="restauranteinternacional"></el-option>
+                                    <el-option class="cmp-admin-form-select-option" label="Restaurante gastronômico" value="restaurantegastronomico"></el-option>
+                                    <el-option class="cmp-admin-form-select-option" label="Restaurantes de especialidades" value="restauranteespecialidade"></el-option>
+                                    <el-option class="cmp-admin-form-select-option" label="Fast-food" value="fastfood"></el-option>
+                                    <el-option class="cmp-admin-form-select-option" label="Cafeteria" value="Cafeteria"></el-option>
+                                    <el-option class="cmp-admin-form-select-option" label="Rotisseries" value="Rotisseries"></el-option>
+                                    <el-option class="cmp-admin-form-select-option" label="Docerias" value="Docerias"></el-option>
                                 </el-select>
                                 </el-form-item>
                                 <el-form-item label="Endereço" class="cmp-admin-form-item">
@@ -75,12 +75,12 @@
 
                         <div class="cmp-admin-image-upload-container">
                             <div class="cmp-admin-image-upload">
-                                <input type="file" class="cmp-admin-upload-input" @change="uploadImage" accept="image/*">
+                                <input type="file" class="cmp-admin-upload-input" @change="uploadRestaurantImage" accept="image/*">
                                 <label for="file-input" class="cmp-admin-custom-upload-button">Logo</label>
                             </div>
 
                             <div class="cmp-admin-image-upload">
-                                <input type="file" class="cmp-admin-upload-input" @change="uploadBanner" accept="image/*">
+                                <input type="file" class="cmp-admin-upload-input" @change="uploadRestaurantImage" accept="image/*">
                                 <label for="file-input" class="cmp-admin-custom-upload-button">Banner (Cardápio)</label>
                             </div>
                         </div>
@@ -510,6 +510,9 @@
         border-radius: 4px;
         font-size: 1rem;
     }
+    .el-select-dropdown__item.selected {
+        color: var(--yellow100)!important;
+    }
     .cmp-admin-form-checkbox-group {
         display: flex;
         gap: 1rem;
@@ -517,12 +520,15 @@
     .cmp-admin-form-checkbox {
         font-size: 1rem;
     }
+    .cmp-admin  .el-select-dropdown__item.selected {
+        color: var(--yellow100) !important;
+    }
     .cmp-admin-form-checkbox   .el-checkbox__input.is-checked + .el-checkbox__label {
-        color: red !important;
+        color: var(--yellow100) !important;
     }
     .cmp-admin-form-textarea {
         width: 100%;
-        border: 1px solid #ccc;
+        border: 1px solid var(--white100);
         border-radius: 4px;
         font-size: 1rem;
     }
@@ -612,16 +618,15 @@
 </style>
 
 <script>
-    import { ref } from 'vue'
-    import axios from 'axios'
-    const showPratoModal = ref(true);
-    const showRemover = ref(true);
+    import { ref } from 'vue';
+    import axios from 'axios';
+
     export default {
     data() {
         return {
         activeTab: 'inicio',
-        restaurantImage: '',
-        restaurantBanner: '',
+        restaurantBanner: [],
+        restaurantImages: [],
         restaurantName: '',
         restaurantCNPJ: '',
         restaurantMealType: '',
@@ -656,105 +661,134 @@
         changeToAjuda() {
         this.activeTab = 'ajuda';
         },
-        uploadImage(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-            this.restaurantImage = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
+
+        uploadRestaurantImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = async (e) => {
+                    const image = new Image();
+                    image.src = e.target.result;
+                    image.onload = async () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = 300; 
+                        canvas.height = (300 * image.height) / image.width; 
+
+                        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+                        const resizedImageData = canvas.toDataURL('image/jpeg', 0.7);
+                        this.restaurantImages = resizedImageData;
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        },
+
+        uploadDishImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.novoPrato.imagem = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
         },
 
         uploadBanner(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-            this.restaurantBanner = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-        },
-        validateCNPJ() {
-        const cnpj = this.restaurantCNPJ.replace(/[^0-9]/g, '');
-
-        if (cnpj.length !== 14) {
-            this.cnpjValidationFailed = true;
-        } else {
-            this.cnpjValidationFailed = false;
-        }
-        },
-        submitForm() {
-            this.validateCNPJ();
-
-            if (!this.cnpjValidationFailed) {
-                const formData = {
-                    imagem: this.restaurantImage,
-                    logo: this.restaurantBanner,
-                    titulo: this.restaurantName,
-                    avaliacao: '',
-                    tipoRefeicao: this.restaurantMealType,
-                    distancia: '', 
-                    // restaurantAddress: {
-                    //         cep: this.restaurantAddress.cep,
-                    //         street: this.restaurantAddress.street,
-                    //         city: this.restaurantAddress.city,
-                    // },
-                    tipoRetirada: this.restaurantTakeawayType,
-                    descricao: this.restaurantDescription,
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.restaurantBanner = e.target.result;
                 };
-
-                console.log("dados:"+formData);
-
-                axios.post('http://54.233.122.212/criar/restaurante', formData)
-                .then(response => {
-                    console.log(response.data);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-            }else{
-                this.$message.error('CNPJ inválido');
+                reader.readAsDataURL(file);
             }
+        },
+
+        validateCNPJ() {
+            const cnpj = this.restaurantCNPJ.replace(/[^0-9]/g, '');
+            if (cnpj.length !== 14) {
+                this.cnpjValidationFailed = true;
+            } else {
+                this.cnpjValidationFailed = false;
+            }
+        },
+
+        submitForm() {
+            const takeawayTypeString = this.restaurantTakeawayType.join(', ');
+            const Address = this.restaurantAddress.cep + this.restaurantAddress.street + this.restaurantAddress.city;
+
+            const data = {
+                imagem: 'https://img.freepik.com/vetores-gratis/uma-estrela-restaurante-icon-ilustracao_53876-40629.jpg?w=2000',
+                logo: 'https://img.freepik.com/vetores-gratis/uma-estrela-restaurante-icon-ilustracao_53876-40629.jpg?w=2000',
+                banner: 'https://img.freepik.com/vetores-gratis/uma-estrela-restaurante-icon-ilustracao_53876-40629.jpg?w=2000',
+                titulo: this.restaurantName,
+                avaliacao: 5.0,
+                tipoRefeicao: this.restaurantMealType,
+                distancia: '2.5km',
+                tipoRetirada: takeawayTypeString,
+                descricao: this.restaurantDescription,
+                localizacao: Address,
+            };
+
+            axios.post('http://54.233.122.212/criar/restaurante', data)
+                .then((response) => {
+                console.log(response.data);
+                alert('Solicitação bem-sucedida');
+                })
+                .catch((error) => {
+                if (error.response) {
+                    console.error('Erro na solicitação:', error.response.status, error.response.data);
+
+                    if (error.response.status === 500) {
+                    alert('O servidor encontrou um erro interno. Por favor, tente novamente mais tarde.');
+                    } else {
+                    alert('Ocorreu um erro na solicitação. Por favor, entre em contato com o suporte.');
+                    }
+                } else if (error.request) {
+                    console.error('Sem resposta do servidor:', error.request);
+                    alert('Sem resposta do servidor. Verifique sua conexão à Internet ou tente novamente mais tarde.');
+                } else {
+                    console.error('Erro ao configurar a solicitação:', error.message);
+                    alert('Erro ao fazer a solicitação. Verifique sua conexão à Internet ou tente novamente mais tarde.');
+                }
+            })
         },
 
         adicionarPrato() {
-            this.showPratoModal = true;
+        this.showPratoModal = true;
         },
-
         adicionarNovoPrato() {
-            this.showPratoModal = true;
-            if (this.novoPrato.nome && this.novoPrato.valor && this.novoPrato.imagem) {
-                const novoPrato = {
-                    nome: this.novoPrato.nome,
-                    valor: this.novoPrato.valor,
-                    imagem: this.novoPrato.imagem,
-                    ingredientes: this.novoPrato.ingredientes,
-                    restauranteId: 1,
+        this.showPratoModal = true;
+        if (this.novoPrato.nome && this.novoPrato.valor && this.novoPrato.imagem) {
+            const novoPrato = {
+            nome: this.novoPrato.nome,
+            valor: this.novoPrato.valor,
+            imagem: this.novoPrato.imagem,
+            ingredientes: this.novoPrato.ingredientes,
+            restauranteId: 1,
+            };
+
+            axios.post('http://54.233.122.212/criar/prato', novoPrato)
+            .then(response => {
+                console.log('Prato criado com sucesso:', response.data);
+                this.novoPrato = {
+                nome: '',
+                valor: '',
+                imagem: '',
+                ingredientes: '',
+                time: '',
                 };
-
-                axios.post('http://54.233.122.212/criar/prato', novoPrato)
-                    .then(response => {
-                        console.log('Prato criado com sucesso:', response.data);
-
-                        this.novoPrato = {
-                            nome: '',
-                            valor: '',
-                            imagem: '',
-                            ingredientes: '',
-                            time: '',
-                        };
-                        this.showPratoModal = false;
-                    })
-                    .catch(error => {
-                        console.error('Erro ao criar o prato:', error);
-                    });
-            } else {
-                this.$message.error('Por favor, preencha todos os campos do prato.');
-            }
+                this.showPratoModal = false;
+            })
+            .catch(error => {
+                console.error('Erro ao criar o prato:', error);
+            });
+        } else {
+            alert('Por favor, preencha todos os campos do prato.');
         }
+        },
     },
     };
 </script>
