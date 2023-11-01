@@ -172,7 +172,38 @@
   @media (max-width: 900px) {
     .store-name {
         font-size: xx-large;
+
   }
+
+    .order-header,
+    .order-status,
+    .order-address,
+    .order-items,
+    .order-total {
+        background-color: var(--gray400);
+        padding: 1.25rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .order-header a {
+        text-decoration: none;
+        color: var(--black100); 
+    }
+
+    .order-status-gif {
+        display: flex;
+        margin: 0 0 2rem 0;
+        width: 6.25rem;
+        height: auto;  
+    }
+
+    .order-status-delivery {
+        font-size: small;
+        display: flex;
+        justify-content: flex-end; 
+        font-size: 1.8rem;
+    }
   
     .el-timeline-item__content {
         font-size: large;
@@ -181,9 +212,7 @@
     .icon-back-header span {
         font-size: small;
     }
-    .order-status-delivery {
-        font-size: small;
-}
+ 
   }
   
   </style>
