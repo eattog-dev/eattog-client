@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import {} from "element-plus";
+import axios from "axios";
 
 export const useCadastroStore = defineStore("cadastro", {
   state: () => ({
@@ -8,21 +9,13 @@ export const useCadastroStore = defineStore("cadastro", {
       data_nascimento: "",
       cpf: "",
       email: "",
-      Password: "",
+      password: "",
       confirmPassword: "",
       numberPhone: "",
     },
     nameRules: [
       { required: true, message: "Please enter your name", trigger: "blur" },
     ],
-
-    // dateOfBirthRules: [
-    //   {
-    //     required: true,
-    //     message: "Please select your date of birth",
-    //     trigger: "change",
-    //   },
-    // ],
     dateOfBirthRules: [
         {
           required: true,
@@ -88,21 +81,21 @@ export const useCadastroStore = defineStore("cadastro", {
 
     passwordRules: [
       { required: true, message: "Please enter a password", trigger: "blur" },
-      {
-        validator: (rule, value, callback) => {
-          const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&]).{6,}$/;
-          if (!regex.test(value)) {
-            callback(
-              new Error(
-                "Password must have at least 6 characters, one uppercase letter, one lowercase letter, and one special character"
-              )
-            );
-          } else {
-            callback();
-          }
-        },
-        trigger: "blur",
-      },
+      // {
+      //   validator: (rule, value, callback) => {
+      //     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&]).{6,}$/;
+      //     if (!regex.test(value)) {
+      //       callback(
+      //         new Error(
+      //           "Password must have at least 6 characters, one uppercase letter, one lowercase letter, and one special character"
+      //         )
+      //       );
+      //     } else {
+      //       callback();
+      //     }
+      //   },
+      //   trigger: "blur",
+      // },
     ],
 
     confirmPasswordRules: [
@@ -111,16 +104,16 @@ export const useCadastroStore = defineStore("cadastro", {
         message: "Please confirm your password",
         trigger: "blur",
       },
-      {
-        validator: (rule, value, callback) => {
-          if (value !== this.formulario.Password) {
-            callback(new Error("Passwords do not match"));
-          } else {
-            callback();
-          }
-        },
-        trigger: "blur",
-      },
+      // {
+      //   validator: (rule, value, callback) => {
+      //     if (value !== this.formulario.Password) {
+      //       callback(new Error("Passwords do not match"));
+      //     } else {
+      //       callback();
+      //     }
+      //   },
+      //   trigger: "blur",
+      // },
     ],
 
     errorMsg: "",
@@ -129,17 +122,28 @@ export const useCadastroStore = defineStore("cadastro", {
   }),
 
   actions: {
-    submitForm() {
+    submitForm(cadastroForm) {
         
-      this.loading = true;
+      //this.loading = true;
 
-      cadastroForm.validate((valid) => {
+      cadastroForm.validate(async (valid) => {
         if (valid) {
           this.errorMsgPassword = "";
+          axios 
+          .post("http://localhost:3000/users/sign-up",
+          {
+            "nome": this.formulario.nome,
+            "email": this.formulario.email,
+            "cpf": this.formulario.cpf,
+            "numero_celular": this.formulario.numberPhone,
+            "senha": this.formulario.password
+          })
+
+          alert(`seja bem vindo ao sistema ${this.formulario.nome}`)
         } else {
           this.errorMsgPassword = "";
           this.errorMsg = "Please fill in all required fields.";
-          this.loading = false;
+          //this.loading = false;
         }
 
         setTimeout(() => {

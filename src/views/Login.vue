@@ -1,6 +1,6 @@
 <template>
   <section id="login">
-    <div class="loading-overlay" v-if="loading">
+    <div class="loading-overlay" v-if="login.loading">
       <div class="loading-spinner"></div>
     </div>
     <el-row>
@@ -9,7 +9,7 @@
         <p class="login-slogan">Delicious Food, Delivered Fast</p>
       </el-col>
       <el-col :span="12">
-        <el-form class="login-container-form" ref="loginForm" :model="formData" label-width="6.25rem"
+        <el-form class="login-container-form" ref="loginForm" :model="formulario" label-width="6.25rem"
           label-position="top">
           <el-header class="custom-header">
             <el-divider class="text-login" content-position="center">Login</el-divider>
@@ -17,19 +17,19 @@
 
           <div class="login-account">
             <el-form-item label="E-mail" prop="email" :rules="emailRules">
-              <el-input type="email" v-model="formData.email"></el-input>
+              <el-input type="email" v-model="formulario.email"></el-input>
             </el-form-item>
             <el-form-item label="Password" prop="password" :rules="passwordRules">
-              <el-input v-model="formData.password" :type="showPassword ? 'text' : 'password'">
+              <el-input v-model="formulario.password" :type="showPassword ? 'text' : 'password'">
               </el-input>
-              <el-button class="password-login" @click="togglePassword">
+              <el-button class="password-login" @click="login.togglePassword">
                 <img src="../assets/img-login/monkeySee.svg" v-if="showPassword" style="width: 1.7rem; height: 1.7rem;">
                 <img src="../assets/img-login/monkey.svg" v-else style="width: 1.7rem; height: 1.7rem;">
               </el-button>
             </el-form-item>
             <RouterLink class="login-esqueceu-senha" to="#">Esqueceu sua senha?</RouterLink>
             <el-form-item>
-              <el-button class="login-button" type="primary" @click="submitForm">Login</el-button>
+              <el-button class="login-button" type="primary" @click="login.submitForm(loginForm)">Login</el-button>
             </el-form-item>
           </div>
           <el-form-item>
@@ -39,11 +39,12 @@
         </el-form>
       </el-col>
     </el-row>
+    {{ formulario }}
   </section>
 </template>
 <script setup>
 import Logo from "../components/Logo.vue";
-import { ref } from "vue";
+import { ref, computed, onMounted } from "vue";
 import {
   ElForm,
   ElFormItem,
@@ -56,62 +57,86 @@ import {
   ElAlert,
 } from "element-plus";
 
-const formData = ref({
-  email: "",
-  password: "",
-});
+import { useLoginStore } from "../store/login";
 
-const emailRules = [
-  { required: true, message: "Please enter your email", trigger: "blur" },
-  {
-    type: "email",
-    message: "Please enter a valid email address",
-    trigger: "blur",
-  },
-];
+const login = useLoginStore();
 
-const passwordRules = [
-  { required: true, message: "Please enter a password", trigger: "blur" },
-  {
-    validator: (rule, value, callback) => {
-      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,}$/;
-      if (!regex.test(value)) {
-        callback(
-          new Error(
-            "Password must have at least 6 characters, one uppercase letter, one lowercase letter, and one special character"
-          )
-        );
-      } else {
-        callback();
-      }
-    },
-    trigger: "blur",
-  },
-];
+const formulario = computed(() => login.formulario);
 
-const showPassword = ref(false);
-const loading = ref(false);
+const emailRules = computed(() => login.emailRules);
 
-const togglePassword = () => {
-  showPassword.value = !showPassword.value;
-};
+const passwordRules = computed(() => login.passwordRules);
 
-const submitForm = () => {
-  loading.value = true;
+const auth = document.cookie.split("token=")[1];
 
-  loginForm.value.validate((valid) => {
-    if (valid) {
-      console.log("Form Data:", formData.value);
-      errorMsg.value = "";
-      setTimeout(() => {
-        loading.value = false;
-      }, 2000);
-    } else {
-      errorMsg.value = "Please fill in all required fields.";
-      loading.value = false;
-    }
-  });
-};
+let isAuth = ref(false)
+
+onMounted(() => {
+  if(auth != undefined){
+    isAuth = true;
+    alert("ta autenticado")
+  }else{
+    alert("nao ta autenticado")
+  }
+})
+
+
+// const formData = ref({
+//   email: "",
+//   password: "",
+// });
+
+// const emailRules = [
+//   { required: true, message: "Please enter your email", trigger: "blur" },
+//   {
+//     type: "email",
+//     message: "Please enter a valid email address",
+//     trigger: "blur",
+//   },
+// ];
+
+// const passwordRules = [
+//   { required: true, message: "Please enter a password", trigger: "blur" },
+//   {
+//     validator: (rule, value, callback) => {
+//       const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,}$/;
+//       if (!regex.test(value)) {
+//         callback(
+//           new Error(
+//             "Password must have at least 6 characters, one uppercase letter, one lowercase letter, and one special character"
+//           )
+//         );
+//       } else {
+//         callback();
+//       }
+//     },
+//     trigger: "blur",
+//   },
+// ];
+
+// const showPassword = ref(false);
+// const loading = ref(false);
+
+// const togglePassword = () => {
+//   showPassword.value = !showPassword.value;
+// };
+
+// const submitForm = () => {
+//   loading.value = true;
+
+//   loginForm.value.validate((valid) => {
+//     if (valid) {
+//       console.log("Form Data:", formData.value);
+//       errorMsg.value = "";
+//       setTimeout(() => {
+//         loading.value = false;
+//       }, 2000);
+//     } else {
+//       errorMsg.value = "Please fill in all required fields.";
+//       loading.value = false;
+//     }
+//   });
+// };
 
 const loginForm = ref(null);
 const errorMsg = ref("");

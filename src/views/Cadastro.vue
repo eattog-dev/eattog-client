@@ -28,8 +28,8 @@
                     <el-form-item label="E-mail" prop="email" :rules="emailRules">
                         <el-input type="email" v-model="formulario.email"></el-input>
                     </el-form-item>
-                    <el-form-item label="Password" prop="Password" :rules="passwordRules">
-                        <el-input v-model="formulario.Password" :type="showPassword ? 'text' : 'password'"></el-input>
+                    <el-form-item label="password" prop="password" :rules="passwordRules">
+                        <el-input v-model="formulario.password" :type="showPassword ? 'text' : 'password'"></el-input>
                         <el-button class="password-toggle-button" @click="togglePassword" >
                             <span v-if="showPassword">🙉</span>
                             <span v-else>🙈</span>
@@ -44,7 +44,7 @@
                         </el-button>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="cadastro.submitForm">Sign Up</el-button>
+                        <el-button type="primary" @click="cadastro.submitForm(cadastroForm)">Sign Up</el-button>
                     </el-form-item>
                     <div class="loading-cadastro" v-if="loading">
                         <div class="loading-spinner-cadastro"></div>
@@ -101,9 +101,9 @@ const togglePassword = () => {
 };
 
 // const submitForm = () => {
-//   cadastro.submitForm();
+//   cadastro.submitForm(); 
 // };
-
+const cadastroForm = ref(null)
 </script>
   
 <style scoped>

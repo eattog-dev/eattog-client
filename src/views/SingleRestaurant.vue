@@ -18,6 +18,7 @@
     const modulo = [Autoplay];
 
     const route = useRoute()
+    const router = useRouter()
 /*import Promocao from '../components/Sales.vue'
 import Cardapio from '../components/Menu.vue'*/
 
@@ -144,6 +145,33 @@ import Cardapio from '../components/Menu.vue'*/
     const cardapio = computed(() => singleRestauranteStore.cardapio);
     const pagina = computed(() => singleRestauranteStore.pagina)
 
+    const quantidade = ref(1)
+    const selecionouPrato = ref(false);
+    const pratoSelecionado = ref({});
+
+    let valorTotal = ref(0);
+    let valorPrato = ref(0);
+
+    const exibePratoClicado = (dish) => {
+        if(!sessionStorage.getItem("token")) {
+            router.push("/login");
+            return;
+        }
+
+        selecionouPrato.value = true;
+        pratoSelecionado.value = dish;
+
+        if (pratoSelecionado.value.desconto)
+            valorPrato.value = pratoSelecionado.value.valor_desconto
+        else
+            valorPrato.value = pratoSelecionado.value.valor
+
+        valorTotal.value = valorPrato.value
+
+        return quantidade.value = 1
+
+    }
+
     onMounted(() => {
         singleRestauranteStore.listarCardapio(route.params.id)
         singleRestauranteStore.qtdPratos
@@ -268,7 +296,7 @@ import Cardapio from '../components/Menu.vue'*/
             </form>
         </div>
     </el-dialog>
-    <Footer></Footer>
+    <!-- <Footer></Footer> -->
 </template>
 
 <style>
