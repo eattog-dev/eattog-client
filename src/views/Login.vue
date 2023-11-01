@@ -175,7 +175,7 @@ const errorMsg = ref("");
   background-color: transparent !important;
   border-color: transparent !important;
   width: auto !important;
-  margin: 0 !important;
+  margin: 0rem!important;
 }
 .password-login .el-input{
   
@@ -211,6 +211,7 @@ const errorMsg = ref("");
   align-items: center;
   z-index: 9999;
 }
+
 
 .loading-spinner {
   border: 0.6rem solid var(--white200);

@@ -105,7 +105,7 @@
         bottom: 1rem;
         margin: unset;
         left: calc(50% - 23rem); 
-        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.5) */
+        box-shadow: 0.125rem 0.125rem 0.125rem 0.063rem rgba(0, 0, 0, 0.5) */
     }
     .dish-detail .el-overlay{
         position: unset;
