@@ -12,6 +12,7 @@ import CardAdd from './components/CardAdd.vue';
 import SingleCategoria from './views/SingleCategoria.vue';
 import StateOrder from './views/StateOrder.vue';
 import ManageSysten from './views/ManageSystem.vue';
+import UserProfile from './components/UserProfile.vue';
 
 const routes = [
     { path: '/', component: Splash },
@@ -27,6 +28,7 @@ const routes = [
     { path: '/categorias/:id/:nome', name: 'SingleCategoria', component: SingleCategoria},
     { path: '/stateorder',name: StateOrder, component: StateOrder },
     { path: '/gerenciar',name: ManageSysten , component: ManageSysten},
+    { path: '/userprofile', component: UserProfile },
 ];
 
 const router = createRouter({
