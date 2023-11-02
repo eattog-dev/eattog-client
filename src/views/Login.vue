@@ -39,7 +39,7 @@
         </el-form>
       </el-col>
     </el-row>
-    {{ formulario }}
+    <button @click="mudaRota"></button>
   </section>
 </template>
 <script setup>
@@ -71,15 +71,19 @@ const auth = document.cookie.split("token=")[1];
 
 let isAuth = ref(false)
 
-onMounted(() => {
-  if(auth != undefined){
-    isAuth = true;
-    alert("ta autenticado")
-  }else{
-    alert("nao ta autenticado")
-  }
-})
+// onMounted(() => {
+//   if(auth != undefined){
+//     isAuth = true;
+//     alert("ta autenticado")
+//   }else{
+//     alert("nao ta autenticado")
+//   }
+// })
 
+function mudaRota() {
+  return           window.location.href("http://localhost:3000/inicio");
+
+}
 
 // const formData = ref({
 //   email: "",

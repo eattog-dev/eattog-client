@@ -8,11 +8,15 @@ import Navbar from '../components/Navbar.vue';
 import Footer from '../components/Footer.vue';
 
 import { useHomeStore } from '../store/home'
+
+
 const homeStore = useHomeStore();
 
 const pratos = computed(() => homeStore.pratos)
-
-onMounted(() => homeStore.listarPratos())
+onMounted(() => {
+    homeStore.listarPratos();
+    homeStore.loggedUser();
+})
 
 const quantidade = ref(1)
 const selecionouPrato = ref(false);
@@ -46,6 +50,9 @@ const subtrair = () => {
 
     return valorTotal.value = valorPrato.value * quantidade.value
 }
+
+
+
 </script>
 <template>
     <Navbar logo="../assets/logo.svg" alt="Logo" />
@@ -54,7 +61,7 @@ const subtrair = () => {
         <el-row justify="center">
             <el-col :span="20">
                 <Title text="Mais pedidos"></Title>
-                <el-row :gutter=20>
+                <el-row :gutter="20">
                     <Dish v-for="prato in pratos" :dish="prato" @pratoClicado="exibePratoClicado"/>
                 </el-row>
             </el-col>
@@ -87,5 +94,5 @@ const subtrair = () => {
             </form>
         </div>
     </el-dialog>
-    <Footer></Footer>
+    <!-- <Footer></Footer> -->
 </template>      

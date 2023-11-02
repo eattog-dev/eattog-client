@@ -83,6 +83,9 @@ export const useLoginStore = defineStore("login", {
           this.token = login.data.accessToken;
 
           sessionStorage.setItem("token", this.token);
+
+          window.location.href = "http://localhost:5173/inicio" ;
+          
         } else {
           this.errorMsgPassword = "";
           this.errorMsg = "Please fill in all required fields.";
