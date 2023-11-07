@@ -4,17 +4,17 @@ const props = defineProps({
         id: Number,
         imagem: String,
         logo: String,
-        titulo: String,
+        razao_social: String,
         avaliacao: Number,
-        tipoRefeicao: String,
+        tipo_restaurante: String,
         distancia: String,
-        tipoRetirada: String,
+        tipo_retirada: String,
         descricao: String
     },
 });
 
 const bannerData = {
-    titulo: props.restaurant.titulo,
+    razao_social: props.restaurant.razao_social,
     imagem: props.restaurant.imagem,
     logo: props.restaurant.logo,
     descricao: props.restaurant.descricao,
@@ -23,7 +23,7 @@ const bannerData = {
 
 </script>
 <template>
-    <el-col :xs="24" :sm="12" :md="8" :lg="8" :span="8" class="card" >
+    <el-col :xs="24" :sm="12" :md="8" :lg="8" :span="8" class="card">
         <router-link :to="{
             name: 'SingleRestaurant',
             params: {
@@ -38,16 +38,16 @@ const bannerData = {
                     <div class="restaurant-data">
                         <img :src='restaurant.logo' alt="">
                         <div>
-                            <h6>{{ restaurant.titulo }}</h6>
+                            <h6>{{ restaurant.razao_social }}</h6>
                             <el-rate disabled v-model="restaurant.avaliacao" />
                         </div>
                     </div>
                 </div>
                 <div class="details">
                     <div class="details-item">
-                        <span class="details-item--type">{{ restaurant.tipoRefeicao }}</span>
+                        <span class="details-item--type">{{ restaurant.tipo_restaurante }}</span>
                         <span>{{ restaurant.distancia }}</span>
-                        <span>{{ restaurant.tipoRetirada }}</span>
+                        <span>{{ restaurant.tipo_retirada }}</span>
                     </div>
                     <p class="descricao">
                         {{ restaurant.descricao }}
@@ -70,13 +70,12 @@ const bannerData = {
 #restaurants .grid-content {
     height: 100%;
     text-align: center;
-    background-color: #ffffff;
+    background-color: var(--white100);
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
     border-radius: 4px;
-    border: 1px solid #e4e7ed;
-    color: #303133;
+    border: 1px solid var(--white300);
+    color: var(--gray800);
     text-decoration: none !important;
-    ;
 }
 
 #restaurants .imagem {
@@ -91,7 +90,7 @@ const bannerData = {
 #restaurants .imagem .restaurant-data {
     text-align: left;
     display: flex;
-    color: #ffffff;
+    color: var(--white100);
     padding-left: 20px;
     padding-bottom: 12px;
     background: rgb(0, 0, 0);
@@ -130,7 +129,7 @@ const bannerData = {
     padding-top: 16px;
 }
 
-.details-item{
+.details-item {
     font-weight: 500;
 }
 
