@@ -91,6 +91,117 @@
             </div>
             <div v-else-if="activeTab === 'pedido'">
                 <div class="cmp-admin_containerbanner-title">Gerenciar Pedido</div>
+                <div class="cmp-admin_addmenu-formattext">
+                    <h3 class="cmp-admin_addmenu-title">Pedidos em Aberto</h3>
+                </div>
+                <div class="cmp-admin-slick-format  cmp-admin-status-aberto">
+                    <el-card class="cmp-admin_box-card">
+                        <div slot="header" class="mp-admin_clearfix">
+                            <span> Pedido de <strong>João </strong></span>
+                        </div>
+                        <div class="cmp-admin_box-card-item">
+                            <p v-for="o in 1" :key="o">
+                                {{ o + ' Prato x ' }}
+                            </p>
+                        </div>
+                        <div class="cmp-admin_box-card-button">
+                            <el-button style="float: left; padding: 3px 0" type="text">Recusar</el-button>
+                            <el-button style="float: right; padding: 3px 0" type="text">Aceitar</el-button>
+                        </div>
+                    </el-card>
+
+                    <el-card class="cmp-admin_box-card">
+                        <div slot="header" class="cmp-admin_clearfix">
+                            <span>Pedido de <b> Maria </b></span>
+                        </div>
+                        <div class="cmp-admin_box-card-item">
+                            <p v-for="o in 2" :key="o">
+                                {{ o + ' Prato x ' }}
+                            </p>
+                        </div>
+
+                        <div class="cmp-admin_box-card-button">
+                            <el-button style="float: left; padding: 3px 0" type="text">Recusar</el-button>
+                            <el-button style="float: right; padding: 3px 0" type="text">Aceitar</el-button>
+                        </div>
+                    </el-card>
+
+                    <el-card class="cmp-admin_box-card">
+                        <div slot="header" class="mp-admin_clearfix">
+                            <span> Pedido de <strong>João </strong></span>
+                        </div>
+                        <div class="cmp-admin_box-card-item">
+                            <p v-for="o in 2" :key="o">
+                                {{ o + ' Prato x ' }}
+                            </p>
+                        </div>
+                        <div class="cmp-admin_box-card-button">
+                            <el-button style="float: left; padding: 3px 0" type="text">Recusar</el-button>
+                            <el-button style="float: right; padding: 3px 0" type="text">Aceitar</el-button>
+                        </div>
+                    </el-card>
+                </div>
+
+                <div class="cmp-admin_addmenu-formattext">
+                    <h3 class="cmp-admin_addmenu-title">Pedidos em Preparo</h3>
+                </div>
+                <div class="cmp-admin-slick-format  cmp-admin-status-preparo">
+                    <el-card class="cmp-admin_box-card">
+                        <div slot="header" class="mp-admin_clearfix">
+                            <span> Pedido de <strong>João </strong></span>
+                        </div>
+                        <div class="cmp-admin_box-card-item">
+                            <p v-for="o in 1" :key="o">
+                                {{ o + ' Prato x ' }}
+                            </p>
+                        </div>
+                        <div class="cmp-admin_box-card-button">
+                            <el-button style="float: left; padding: 3px 0" type="text">Recusar</el-button>
+                            <el-button style="float: right; padding: 3px 0" type="text">Aceitar</el-button>
+                        </div>
+                    </el-card>
+                </div>
+
+                <div class="cmp-admin_addmenu-formattext">
+                    <h3 class="cmp-admin_addmenu-title">Pedidos em Transporte</h3>
+                </div>
+                <div class="cmp-admin-slick-format  cmp-admin-status-transporte">
+                    <el-card class="cmp-admin_box-card">
+                        <div slot="header" class="mp-admin_clearfix">
+                            <span> Pedido de <strong>Milena </strong></span>
+                        </div>
+                        <div class="cmp-admin_box-card-item">
+                            <p v-for="o in 1" :key="o">
+                                {{ o + ' Prato x ' }}
+                            </p>
+                        </div>
+                        <div class="cmp-admin_box-card-button">
+                            <el-button style="float: left; padding: 3px 0" type="text">Recusar</el-button>
+                            <el-button style="float: right; padding: 3px 0" type="text">Aceitar</el-button>
+                        </div>
+                    </el-card>
+                </div>
+
+
+                <div class="cmp-admin_addmenu-formattext">
+                    <h3 class="cmp-admin_addmenu-title">Pedidos em Concluido</h3>
+                </div>
+                <div class="cmp-admin-slick-format  cmp-admin-status-transporte">
+                    <el-card class="cmp-admin_box-card">
+                        <div slot="header" class="mp-admin_clearfix">
+                            <span> Pedido de <strong>Karina</strong></span>
+                        </div>
+                        <div class="cmp-admin_box-card-item">
+                            <p v-for="o in 1" :key="o">
+                                {{ o + ' Prato x ' }}
+                            </p>
+                        </div>
+                        <div class="cmp-admin_box-card-button">
+                            <el-button style="float: left; padding: 3px 0" type="text">Recusar</el-button>
+                            <el-button style="float: right; padding: 3px 0" type="text" class="cmp">Aceitar</el-button>
+                        </div>
+                    </el-card>
+                </div>
             </div>
             <div v-else-if="activeTab === 'cardapio'" class="cmp-admin_addmenu">
                     <div class="cmp-admin_containerbanner-backgroundimage">
@@ -197,6 +308,47 @@
 </template>
 
 <style>
+    .cmp-admin_box-card {
+        width: 16rem;
+        height: 10rem;
+        display: flex;
+        justify-content: center;
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    .cmp-admin_box-card-item {
+        min-height: 3rem;
+    }
+
+    .cmp-admin_box-card .el-card__body {
+        height: auto !important;
+        margin: 0;
+        padding: 1.25rem 0;
+        justify-content: space-between;
+        align-items: stretch;
+    }
+
+    .cmp-admin_box-card-button{
+        display: inline-flex;
+        justify-content: space-between;
+        position: relative;
+        width: 12rem;
+        border-top: 0.063rem solid var(--gray200);
+        margin-top: 0.8rem;
+    }
+
+    .cmp-admin_box-card-button .el-button{
+        color: var(--yellow500);
+        font-size: 1.1rem;
+    }
+
+    .cmp-admin-slick-format {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        margin-bottom: 2rem;
+    }
+
     .cmp-admin_addmenu-function {
         position: absolute;
         z-index: 999;
@@ -304,7 +456,11 @@
         align-items: flex-end;
         height: 100vh;
     }
-    
+
+    .cmp-admin  .el-form-item__label{
+        font-weight: bold;
+    }
+
     .cmp-admin .content {
         text-align: center;
         padding: 1.25rem;
@@ -517,9 +673,6 @@
     .cmp-admin-form-checkbox {
         font-size: 1rem;
     }
-    .cmp-admin-form-checkbox   .el-checkbox__input.is-checked + .el-checkbox__label {
-        color: red !important;
-    }
     .cmp-admin-form-textarea {
         width: 100%;
         border: 0.063rem solid #ccc;
@@ -624,7 +777,7 @@
         restaurantBanner: '',
         restaurantName: '',
         restaurantCNPJ: '',
-        restaurantMealType: '',
+        restaurantMealType: 'restaurantetradicional',
         restaurantAddress: {
             cep: '',
             street: '',
@@ -661,7 +814,7 @@
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-            this.restaurantImage = e.target.result;
+            this.restaurantImage = event.target.files[0];
             };
             reader.readAsDataURL(file);
         }
@@ -669,10 +822,11 @@
 
         uploadBanner(event) {
         const file = event.target.files[0];
+
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-            this.restaurantBanner = e.target.result;
+            this.restaurantBanner = event.target.files[0];
             };
             reader.readAsDataURL(file);
         }
@@ -690,21 +844,17 @@
             this.validateCNPJ();
 
             if (!this.cnpjValidationFailed) {
-                const formData = {
-                    imagem: this.restaurantImage,
-                    logo: this.restaurantBanner,
-                    titulo: this.restaurantName,
-                    avaliacao: '',
-                    tipoRefeicao: this.restaurantMealType,
-                    distancia: '', 
-                    // restaurantAddress: {
-                    //         cep: this.restaurantAddress.cep,
-                    //         street: this.restaurantAddress.street,
-                    //         city: this.restaurantAddress.city,
-                    // },
-                    tipoRetirada: this.restaurantTakeawayType,
-                    descricao: this.restaurantDescription,
-                };
+                const formData = new FormData();
+                formData.append("imagem", this.restaurantImage);
+                formData.append("logo", this.restaurantImage);
+                formData.append("banner", this.restaurantBanner);
+                formData.append("titulo", this.restaurantName);
+                formData.append("avaliacao", 3.0);
+                formData.append("tipoRefeicao", this.restaurantMealType);
+                formData.append("distancia", '2.5km');
+                formData.append("localizacao", 'centro');
+                formData.append("tipoRetirada", this.restaurantTakeawayType);
+                formData.append("descricao", this.restaurantDescription);
 
                 console.log("dados:"+formData);
 

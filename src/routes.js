@@ -13,6 +13,7 @@ import SingleCategoria from './views/SingleCategoria.vue';
 import StateOrder from './views/StateOrder.vue';
 import ManageSysten from './views/ManageSystem.vue';
 
+
 const routes = [
     { path: '/', component: Splash },
     { path: '/cadastro', component: Cadastro, meta: {onlyWithoutAuth: true}, name: Cadastro },
@@ -24,11 +25,11 @@ const routes = [
     { path: '/restaurants/:id', name: 'SingleRestaurant', props: true, query: true, component: SingleRestaurant },
     { path: '/admin', component: Admin },
     { path: '/dishes', name: Dishes, component: Dishes },
+
     { path: '/categorias/:id/:nome', name: 'SingleCategoria', component: SingleCategoria },
     { path: '/stateorder', name: StateOrder, component: StateOrder },
-    { path: '/categorias/:id/:nome', name: 'SingleCategoria', component: SingleCategoria},
-    { path: '/stateorder',name: StateOrder, component: StateOrder },
-    { path: '/gerenciar',name: ManageSysten , component: ManageSysten},
+
+
 ];
 
 const router = createRouter({

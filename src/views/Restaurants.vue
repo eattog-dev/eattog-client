@@ -90,7 +90,7 @@ const value = ref('Selecione');
 <template>
     <Navbar logo="../assets/logo.svg" alt="Logo" />
 
-    <section id="restaurants">
+    <section id="restaurants" style=" padding: 4rem 0;">
 
         <el-row justify="center">
             <el-col :span="20">
@@ -99,39 +99,49 @@ const value = ref('Selecione');
                 <el-select v-model="value" class="m-2" placeholder="Select" size="large">
                     <el-option label="Ordem Alfabética" value="Ordem Alfabética"
                         @click="restaurantesStore.ordenarAlfabeto()" />
-                    <el-option label="Melhor Avaliado" value="Melhor Avaliado"
+                        <el-option label="Melhor Avaliado" value="Melhor Avaliado"
                         @click="restaurantesStore.ordenarAvaliacao()" />
-                </el-select>
-            </el-col>
-        </el-row>
-        <el-row justify="center">
-            <el-col :span="20">
-                <el-row :gutter=8>
-                    <Restaurant v-for="restaurante in restaurantes" :restaurant="restaurante" />
+                    </el-select>
+                </el-col>
+            </el-row>
+            <el-row justify="center">
+                <el-col :span="20">
+                    <el-row :gutter=8>
+                        <Restaurant v-for="restaurante in restaurantes" :restaurant="restaurante" />
+                        <div class="paginacao-config">
+                            <button class="button-restaurant" @click="restaurantesStore.voltarPagina()">Anterior</button>
+                            <span>{{ paginaAtual }}</span>
+                            <button class="button-restaurant" @click="restaurantesStore.passarPagina()">Próximo</button>
+                
+                        </div>
                 </el-row>
                 <!-- <el-row justify=center>
                     <button @click="restaurantesStore.voltarPagina()">Anterior</button>
                     <span>{{ paginaAtual }}</span>
                     <button @click="restaurantesStore.passarPagina()">Próximo</button>
                 </el-row> -->
-                <div class="paginacao-config">
-                    <button @click="restaurantesStore.voltarPagina()">Anterior</button>
-                    <span>{{ paginaAtual }}</span>
-                    <button @click="restaurantesStore.passarPagina()">Próximo</button>
-
-                </div>
             </el-col>
         </el-row>
     </section>
     <Footer></Footer>
 </template>
 
-<style>
-#restaurants .paginacao-config {
+<style scoped>
+/* #restaurants .paginacao-config {
     display: flex;
     position: relative;
     bottom: -155px;
     justify-content: center;
 
 }
+*/
+.button-restaurant {
+background-color: var(--yellow400);
+border-radius: 4rem;
+border: none;
+padding: 0.5rem;
+margin: 0 1rem 0 1rem;
+
+} 
+
 </style>

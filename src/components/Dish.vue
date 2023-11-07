@@ -26,7 +26,7 @@
             <img :src="dish.imagem" class="image">
             <!-- <span class="tag-aliment" v-if="dish.prato_categoria.categoria == null">celta</span> 
                     <span class="tag-aliment" v-else>{{ dish.prato_categoria.categoria }}</span>  -->
-            <div style="padding: 14px; text-align: center;">
+            <div style="padding: 8px; text-align: center;">
             <span>{{ dish.nome }}</span>
             <div class="dish-price">
                 <span class="dish-price__discount">
@@ -63,6 +63,11 @@
         float: right;
     }
 
+    #list-dishes .button span {
+        color: var(--yellow200) !important;
+    }
+
+
     #list-dishes .image {
         width: 100%;
         display: block;
@@ -70,14 +75,17 @@
         height: 12.5rem;
     }
 
-    #list-dishes .tag-aliment {
-        text-align: center;
+    #list-dishes .el-card__body {
+        margin-top: 0 !important;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
-    #list-dishes .clearfix {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+    #list-dishes .tag-aliment {
+        text-align: center;
     }
 
     #list-dishes .dish-price__discount {
