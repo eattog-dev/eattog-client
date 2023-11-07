@@ -76,7 +76,7 @@
     #list-dishes .clearfix {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
     }
 
     #list-dishes .dish-price__discount {

@@ -21,6 +21,13 @@ const bannerData = {
     avaliacao: props.restaurant.avaliacao
 }
 
+const limitarDescricao = (descricao) => {
+    if(descricao.length > 80)
+        return `${descricao.slice(0, 80)}...`
+    else
+        return descricao
+}
+
 </script>
 <template>
     <el-col :xs="24" :sm="12" :md="8" :lg="8" :span="8" class="card">
@@ -50,7 +57,7 @@ const bannerData = {
                         <span>{{ restaurant.tipo_retirada }}</span>
                     </div>
                     <p class="descricao">
-                        {{ restaurant.descricao }}
+                        {{ limitarDescricao(restaurant.descricao) }}
                     </p>
                 </div>
             </div>
@@ -109,7 +116,7 @@ const bannerData = {
     padding-right: 8px;
     object-fit: contain;
 }
-
+   
 #restaurants .details {
     padding: 8px 20px 32px 20px;
 }
