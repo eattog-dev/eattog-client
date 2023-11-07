@@ -10,7 +10,7 @@ import Cadastro from './views/Cadastro.vue';
 import Notification from './views/Notification.vue';
 import Login from './views/Login.vue';
 import CardAdd from './components/CardAdd.vue';
-
+import ManageSystem from './views/ManageSystem.vue';
 
 const routes = [
     { path: '/', component: Splash },
@@ -23,7 +23,8 @@ const routes = [
     { path: '/restaurants/:id', name: 'SingleRestaurant', props: true, query: true, component: SingleRestaurant },
     { path: '/admin', component: Admin },
     { path: '/dishes', name: Dishes, component: Dishes },
-    { path: '/dishes/:id_dish/:nome', name: 'SingleDish', props: true, query: true, component: SingleDish }
+    { path: '/dishes/:id_dish/:nome', name: 'SingleDish', props: true, query: true, component: SingleDish },
+    { path: '/gerenciar',name: ManageSystem , component: ManageSystem},
 ];
 
 
