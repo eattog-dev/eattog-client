@@ -5,8 +5,8 @@ export const useHomeStore = defineStore('home', {
         pratos : [],
     }),
     actions: {
-        async listaPratos () {
-            const resposta = await fetch('http://localhost:3000/pratos');
+        async listarPratos () {
+            const resposta = await fetch('http://54.233.122.212/pratos');
             this.pratos = await resposta.json();
         }
     },

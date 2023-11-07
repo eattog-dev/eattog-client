@@ -5,12 +5,14 @@ import SingleRestaurant from './views/SingleRestaurant.vue';
 import Splash from './components/Splash.vue';
 import Admin from './views/Admin.vue';
 import Dishes from './views/Dishes.vue'
-import SingleDish from './views/SingleDish.vue'
 import Cadastro from './views/Cadastro.vue';
 import Notification from './views/Notification.vue';
 import Login from './views/Login.vue';
 import CardAdd from './components/CardAdd.vue';
-import ManageSystem from './views/ManageSystem.vue';
+import SingleCategoria from './views/SingleCategoria.vue';
+import StateOrder from './views/StateOrder.vue';
+import ManageSysten from './views/ManageSystem.vue';
+
 
 const routes = [
     { path: '/', component: Splash },
@@ -25,9 +27,11 @@ const routes = [
     { path: '/dishes', name: Dishes, component: Dishes },
     { path: '/dishes/:id_dish/:nome', name: 'SingleDish', props: true, query: true, component: SingleDish },
     { path: '/gerenciar',name: ManageSystem , component: ManageSystem},
+
+    { path: '/categorias/:id/:nome', name: 'SingleCategoria', component: SingleCategoria},
+    { path: '/stateorder',name: StateOrder, component: StateOrder },
+
 ];
-
-
 
 const router = createRouter({
     history: createWebHistory(),

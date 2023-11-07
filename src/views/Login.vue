@@ -9,8 +9,9 @@
         <p class="login-slogan">Delicious Food, Delivered Fast</p>
       </el-col>
       <el-col :span="12">
-        <el-form class="login-container-form" ref="loginForm" :model="formData" label-width="100px" label-position="top">
-          <el-header>
+        <el-form class="login-container-form" ref="loginForm" :model="formData" label-width="6.25rem"
+          label-position="top">
+          <el-header class="custom-header">
             <el-divider class="text-login" content-position="center">Login</el-divider>
           </el-header>
 
@@ -19,26 +20,27 @@
               <el-input type="email" v-model="formData.email"></el-input>
             </el-form-item>
             <el-form-item label="Password" prop="password" :rules="passwordRules">
-              <el-input v-model="formData.password" :type="showPassword ? 'text' : 'password'"></el-input>
-              <el-button class="password-toggle-button" @click="togglePassword">
-                <span v-if="showPassword">🙉</span>
-                <span v-else>🙈</span>
+              <el-input v-model="formData.password" :type="showPassword ? 'text' : 'password'">
+              </el-input>
+              <el-button class="password-login" @click="togglePassword">
+                <img src="../assets/img-login/monkeySee.svg" v-if="showPassword" style="width: 1.7rem; height: 1.7rem;">
+                <img src="../assets/img-login/monkey.svg" v-else style="width: 1.7rem; height: 1.7rem;">
               </el-button>
             </el-form-item>
-            <RouterLink class="link-esqueceu-senha" to="#">Esqueceu sua senha?</RouterLink>
+            <RouterLink class="login-esqueceu-senha" to="#">Esqueceu sua senha?</RouterLink>
             <el-form-item>
-              <el-button type="primary" @click="submitForm">Login</el-button>
+              <el-button class="login-button" type="primary" @click="submitForm">Login</el-button>
             </el-form-item>
           </div>
           <el-form-item>
-            <el-alert v-if="errorMsg" title="Please fill in all required fields." type="error" show-icon></el-alert>
+            <el-alert v-if="errorMsg" class="login-alert" title="Please fill in all required fields." type="error"
+              show-icon></el-alert>
           </el-form-item>
         </el-form>
       </el-col>
     </el-row>
   </section>
 </template>
-
 <script setup>
 import Logo from "../components/Logo.vue";
 import { ref } from "vue";
@@ -115,38 +117,36 @@ const loginForm = ref(null);
 const errorMsg = ref("");
 </script>
 
-<style setup>
-@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Indie+Flower&display=swap");
-
+<style scoped>
 #login {
-  --el-color-primary: #ffe500;
+  --el-color-primary: var(--yellow100);
 }
 
-#login .login-bg-white {
+.login-bg-white {
   background-color: rgba(240, 252, 172, 0.849);
 }
 
-#login .login-container-form {
+.login-container-form {
   width: 80%;
   height: 99vh;
-  margin: 200px auto 0 0;
+  margin: 20rem auto 0 0;
   text-align: center;
   font-family: "Roboto", sans-serif;
 }
 
-#login .login-slogan {
+.login-slogan {
   display: flex;
-  font-size: 16px;
-  color: #888;
-  margin: 10px 0% 0 0%;
+  font-size: 1.6rem;
+  color: var(--gray400);
+  margin: 1rem 0 0 0;
   justify-content: center;
 }
 
-#login .login-account {
+.login-account {
   display: block;
 }
 
-#login .el-form {
+.el-form {
   width: 80%;
   margin: auto;
   display: flex;
@@ -156,12 +156,12 @@ const errorMsg = ref("");
   align-content: center;
 }
 
-#login .link-esqueceu-senha {
+.login-esqueceu-senha {
   display: flex;
   justify-content: flex-end;
 }
 
-#login .el-alert {
+.login-alert {
   display: flex;
   justify-content: center;
   position: fixed;
@@ -171,31 +171,35 @@ const errorMsg = ref("");
   z-index: 999999;
 }
 
-#login .password-toggle-button {
+.password-login {
   background-color: transparent !important;
   border-color: transparent !important;
   width: auto !important;
-  margin: 0px !important;
+  margin: 0rem!important;
 }
-
-#login .el-button {
-  background-color: #ffe600;
+.password-login .el-input{
+  
+  background-image: url(../assets/img-login/monkeySee.svg)!important;
+  background-size: 20px !important;
+}
+.login-button {
+  background-color: var(--yellow400);
   color: rgba(0, 0, 0, 0.813);
-  border-color: #ffe600;
-  border-radius: 10px;
-  width: 50%;
-  margin: 20px auto;
-  padding: 16px 0;
+  border-color: var(--yellow400);
+  border-radius: 1rem !important;
+  width: 20rem !important;
+  margin: 2rem auto !important;
+  padding: 1.6rem 0 !important;
 }
 
-#login .el-button:hover,
-.el-button:focus {
+.login-button:hover,
+.login-button:focus {
   background-color: rgba(255, 255, 0, 0.418);
-  color: black;
-  border-color: #ffe600;
+  color: var(--black100);
+  border-color: var(--yellow400);
 }
 
-#login .loading-overlay {
+.loading-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -208,12 +212,13 @@ const errorMsg = ref("");
   z-index: 9999;
 }
 
-#login .loading-spinner {
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid var(--rgba-yellow);
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
+
+.loading-spinner {
+  border: 0.6rem solid var(--white200);
+  border-top: 0.6rem solid var(--rgba-yellow);
+  border-radius: 5rem;
+  width: 5rem;
+  height: 5rem;
   animation: spin 2s linear infinite;
 }
 
@@ -221,63 +226,52 @@ const errorMsg = ref("");
   0% {
     transform: rotate(0deg);
   }
-
   100% {
     transform: rotate(360deg);
   }
 }
 
-@media (max-width: 800px) {
-  #login .login-slogan {
-    font-size: 16px;
+@media (max-width: 50rem) {
+  .login-slogan {
+    font-size: 1.6rem;
     display: flex;
-    color: #888;
-    margin: 10px 0% 18px 0%;
+    color: var(--gray400);
+    margin: 1rem 0 1.8rem 0;
     justify-content: center;
   }
 
-  #login .login-account {
+  .login-account {
     display: block;
-    margin: 27px 0 0px 0;
+    margin: 2.7rem 0 0 0;
   }
 
-  #login .login-container-form {
-    width: 80%;
-    height: 45vh;
+  .custom-header {
+    height: 3rem;
   }
 
-  #login .el-header {
-    height: 30px;
+  .custom-form-item__label {
+    margin-top: 1.5rem;
   }
 
-  #login .el-form-item__label {
-    margin-top: 15px;
-  }
-
-  #login .el-divider {
+  .custom-divider {
     margin: 4rem 0 0 0;
   }
 
-  #login .el-divider__text {
-    padding: 0 2px;
+  .custom-divider__text {
+    padding: 0 0.2rem;
   }
 
-  #login.el-divider__text.is-center {
+  .custom-divider__text.is-center {
     transform: translate(-50%, -30%);
   }
 
-  #login .el-form {
-    width: 80%;
-    margin: auto;
-  }
-
-  #login .el-alert {
+  .custom-alert {
     display: flex;
     justify-content: center;
     position: fixed;
     top: 60%;
     left: auto;
-    width: 80%;
+    width: 8rem;
     z-index: 999999;
   }
 }

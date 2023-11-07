@@ -1,18 +1,21 @@
 <script setup>
-import { ref, computed, onMounted , reactive} from 'vue'
+import { useRouter, useRoute } from 'vue-router';
+import { ref, computed, onMounted } from 'vue'
 
-import Carousel from '../components/Carousel.vue';
-import Dish from '../components/DishHome.vue';
 import Title from '../components/Title.vue';
+import Dish from '../components/Dish.vue';
 import Navbar from '../components/Navbar.vue';
 import Footer from '../components/Footer.vue';
 
-import { useHomeStore } from '../store/home'
-const homeStore = useHomeStore();
+import { useSingleCategoriaStore } from '../store/single-categoria'
 
-const pratos = computed(() => homeStore.pratos)
+const route = useRoute();
 
-onMounted(() => homeStore.listarPratos())
+const singleCategoriaStore = useSingleCategoriaStore();
+
+const listaPratos = computed(() => singleCategoriaStore.listaPratos);
+
+onMounted(() => singleCategoriaStore.carregarPratos(route.params.id));
 
 const quantidade = ref(1)
 const selecionouPrato = ref(false);
@@ -46,20 +49,21 @@ const subtrair = () => {
 
     return valorTotal.value = valorPrato.value * quantidade.value
 }
+
 </script>
 <template>
     <Navbar logo="../assets/logo.svg" alt="Logo" />
-    <Carousel />
     <section id="list-dishes">
         <el-row justify="center">
-            <el-col :span="20">
-                <Title text="Mais pedidos"></Title>
+            <el-col :span=20>
+                <Title :text=route.params.nome></Title>
                 <el-row :gutter=20>
-                    <Dish v-for="prato in pratos" :dish="prato" @pratoClicado="exibePratoClicado"/>
+                    <Dish v-for="prato in listaPratos" :dish="prato" @pratoClicado="exibePratoClicado"/>
                 </el-row>
             </el-col>
         </el-row>
     </section>
+
     <el-dialog v-model="selecionouPrato" class="dish-detail">
         <img :src=pratoSelecionado.imagem alt="">
         <div class="data-dish">
@@ -80,12 +84,12 @@ const subtrair = () => {
                         <input type="number" v-model="quantidade" />
                         <button @click.prevent="subtrair()" class="subtract">-</button>
                     </div>
-                        <button class="add-carrinho">
-                            <img class="cart" src="../assets/cart-shopping-solid.svg" alt=""> Total: R${{ valorTotal }}
-                        </button>
+                    <button class="add-carrinho">
+                        <img class="cart" src="../assets/cart-shopping-solid.svg" alt=""> Total: R${{ valorTotal }}
+                    </button>
                 </div>
             </form>
         </div>
     </el-dialog>
     <Footer></Footer>
-</template>      
+</template>

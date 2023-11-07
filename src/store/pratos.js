@@ -1,14 +1,19 @@
 import { defineStore } from 'pinia'
 
 export const usePratosStore = defineStore('pratos', {
-    state: ()=>({
-        cardapio : [],
+    state: () => ({
+        todosPratos: [],
     }),
     actions: {
 
-        async listaCardapio (id) {
-            const resposta = await fetch(`http://localhost:3000/pratos-restaurante/${id}`);
-            this.cardapio = await resposta.json();
+        async listarPratosPorCategoria() {
+            const resposta = await fetch(`http://54.233.122.212/pratos-por-categoria/`);
+            this.todosPratos = await resposta.json();
+
+            return this.todosPratos.map((e) => {
+                e.categoria_prato = e.categoria_prato.slice(0, 4);
+                return e;
+            })
         },
     }
 })

@@ -1,44 +1,42 @@
 <script setup>
-    import { reactive } from 'vue'
     const props = defineProps({
         dish: {
-        id: Number,
-        image: String,
-        nome: String,
-        ingredientes: String,
-        time: Number,
-        prato_categoria: String,
-        price: Number,
-        desconto: Boolean,
-        valor_desconto: Number
+            id: Number,
+            image: String,
+            nome: String,
+            ingredientes: String,
+            time: Number,
+            prato_categoria: String,
+            price: Number,
+            desconto: Boolean,
+            valor_desconto: Number
         }
     });
 
     const emits = defineEmits('pratoClicado');
-
     const handlePratoClicado = () => {
         emits('pratoClicado', props.dish)
     }
 </script>
 
 <template>
-    <el-col :xs="24" :sm="12" :md="6" :lg="6" :span="8">
+    <el-col :xs="24" :sm="12" :md="8" :lg="6" :span="8">
         <el-card :body-style="{ padding: '0px' }">
             <img :src="dish.imagem" class="image">
             <!-- <span class="tag-aliment" v-if="dish.prato_categoria.categoria == null">celta</span> 
-                    <span class="tag-aliment" v-else>{{ dish.prato_categoria.categoria }}</span>  -->
+                        <span class="tag-aliment" v-else>{{ dish.prato_categoria.categoria }}</span>  -->
             <div style="padding: 14px; text-align: center;">
-            <span>{{ dish.nome }}</span>
-            <div class="dish-price">
-                <span class="dish-price__discount">
-                    R$ {{ dish.valor }}
-                    <span v-if=dish.desconto class="dish-price__original">R$ {{ dish.valor_desconto }}</span>
-                </span>
-            </div>
-            <div class="clearfix">
-                <!-- <time class="time">{{ dish.time }} min</time> -->
-                <el-button type="text" class="button" @click="handlePratoClicado()">Adicionar</el-button>
-            </div>
+                <span>{{ dish.nome }}</span>
+                <div class="dish-price">
+                    <span class="dish-price__discount">
+                        R$ {{ dish.valor }}
+                        <span v-if=dish.desconto class="dish-price__original">R$ {{ dish.valor_desconto }}</span>
+                    </span>
+                </div>
+                <div class="clearfix">
+                    <!-- <time class="time">{{ dish.time }} min</time> -->
+                    <el-button type="text" class="button" @click="handlePratoClicado()">Adicionar</el-button>
+                </div>
             </div>
         </el-card>
     </el-col>
@@ -82,8 +80,8 @@
     }
 
     #list-dishes .dish-price__discount {
-        color: var(--orange100);
-        margin-bottom: 0.625rem;
+        color: var(--green100);
+        margin-bottom: .625rem;
     }
 
     #list-dishes .dish-price__original {
