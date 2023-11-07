@@ -32,13 +32,12 @@
 
 <style setup>
     .cmp-footer {
-        border-top: .125rem solid var(--gray500);
-        background-color: var(--white100);
-        padding: .625rem 0 !important;
-        position: absolute;
+        border-top: 0.125rem solid var(--gray500);
+        padding: 0.625rem 0 !important;   
+        z-index: 999999;
         width: 100%;
         bottom: 0;
-        z-index: 999999;
+        position: relative;
     }
     .cmp-footer-link {
         text-decoration: none;

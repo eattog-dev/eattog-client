@@ -4,8 +4,8 @@
       <el-row type="flex" class=" none-margem">
         <el-col :span="12"> 
           <router-link id="logo-url" to="/">
-            <span class="nav-name-logo">Eattog</span>
-            <img class="logo" :src="logo" :alt="alt" />
+            <span class="nav-name-logo">Eattog🟨</span>
+            <!-- <img class="logo" :src="logo" :alt="alt" /> -->
           </router-link>
         </el-col>
         <el-col :span="3">
@@ -205,7 +205,10 @@ onBeforeUnmount(() => {
   }
 
   .cmp-button-yellow {
-    margin: 16px 12px;
+
+    display: flex;
+    justify-content: center;
+    margin: 16px 48px;
     border: 1px solid var(--white100);
     background-color: var(--yellow100);
     color: var(--white100);
@@ -214,7 +217,7 @@ onBeforeUnmount(() => {
   }
 
   .cmp-button-yellow:hover{
-    margin: 16px 12px;
+    margin: 16px 48px;
     border: 1px solid var(--yellow100);
     background-color: var(--white100);
     color: var(--yellow100);

@@ -64,9 +64,19 @@
         margin: auto;
     }
 
+    #list-dishes .el-card__body {
+    height: 19.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
     #list-dishes .image {
         width: 100%;
+        display: block;
         object-fit: cover;
+        height: 12.5rem;
     }
 
     #list-dishes .bottom {
@@ -80,6 +90,7 @@
     #list-dishes .button {
         float: right;
     }
+ 
 
     /*#list-dishes .card {
         display: flex;

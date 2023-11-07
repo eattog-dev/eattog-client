@@ -62,7 +62,7 @@
                     <Dish v-for="prato in sessao.categoria_prato" :dish="prato" @pratoClicado="exibePratoClicado" />
                 </el-row>
                 <span @click="irPraCategoria(sessao.id, sessao.categoria)"
-                    style="float: right; cursor: pointer; padding: 0 6px;">Ver mais pratos</span>
+                    style="display: flex; justify-content: center; cursor: pointer; justify-content: center; padding: 0px; margin: 5rem 0 0 0; ">Ver mais pratos</span>
             </el-col>
         </el-row>
     </section>
