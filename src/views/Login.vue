@@ -80,10 +80,7 @@ let isAuth = ref(false)
 //   }
 // })
 
-function mudaRota() {
-  return           window.location.href("http://localhost:3000/inicio");
 
-}
 
 // const formData = ref({
 //   email: "",

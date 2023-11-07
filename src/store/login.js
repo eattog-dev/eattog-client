@@ -74,7 +74,7 @@ export const useLoginStore = defineStore("login", {
           this.errorMsgPassword = "";
 
           const login = await axios
-            .post("http://localhost:3000/users/sign-in",
+            .post("http://http://54.233.122.212/users/sign-in",
               {
                 "email": this.formulario.email,
                 "senha": this.formulario.password
@@ -84,7 +84,7 @@ export const useLoginStore = defineStore("login", {
 
           sessionStorage.setItem("token", this.token);
 
-          window.location.href = "http://localhost:5173/inicio" ;
+          window.location.href = "http://54.233.122.212/inicio" ;
           
         } else {
           this.errorMsgPassword = "";

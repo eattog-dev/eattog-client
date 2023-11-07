@@ -1,5 +1,4 @@
 <script setup>
-    import { reactive } from 'vue'
     const props = defineProps({
         dish: {
         id: Number,

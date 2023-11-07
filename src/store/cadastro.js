@@ -130,7 +130,7 @@ export const useCadastroStore = defineStore("cadastro", {
         if (valid) {
           this.errorMsgPassword = "";
           axios 
-          .post("http://localhost:3000/users/sign-up",
+          .post("http://http://54.233.122.212/users/sign-up",
           {
             "nome": this.formulario.nome,
             "email": this.formulario.email,

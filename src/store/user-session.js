@@ -8,29 +8,28 @@ export const useUserStore = defineStore('user-session', {
         token: sessionStorage.getItem("token")
     }),
     actions: {
-        async listarPratos() {
-            const resposta = await fetch('http://localhost:3000/pratos');
-            // const resposta = await fetch('http://54.233.122.212/pratos');
-            this.pratos = await resposta.json();
-        },
         async loggedUser() {
 
             if (this.token) {
                 const response = await axios
-                    .post("http://localhost:3000/users/decoded-user", {
+                    .post("http://http://54.233.122.212/users/decoded-user", {
                         token: this.token
                     })
+                if (response.status == 200 || response.status == 201) {
+                    this.userSession = response.data
+                    return this.userSession
+                } else if (response.status == 500) {
+                    alert("Sessao suspendida, se reconecte ao sistema")
+                    return localStorage.removeItem("token")
+                } else {
+                    alert("Erro ao Logar tente novamente")
+                }
                 this.userSession = response.data
                 return this.userSession
             }
-
-
-        }
+        },
+       
     },
-    getters: {
-        getNome() {
-            this.userSession.nome
-        }
-    }
+
 })
 

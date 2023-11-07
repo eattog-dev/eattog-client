@@ -6,6 +6,7 @@
     import Banner from '../components/Banner.vue';
     import Navbar from '../components/Navbar.vue';
     import Footer from '../components/Footer.vue';
+    import SelectedDish from '../components/SelectedDish.vue'
 
     import { Swiper, SwiperSlide } from 'swiper/vue';
 
@@ -157,9 +158,10 @@ import Cardapio from '../components/Menu.vue'*/
             router.push("/login");
             return;
         }
-
         selecionouPrato.value = true;
         pratoSelecionado.value = dish;
+
+        alert(selecionouPrato.value)
 
         if (pratoSelecionado.value.desconto)
             valorPrato.value = pratoSelecionado.value.valor_desconto
@@ -171,7 +173,9 @@ import Cardapio from '../components/Menu.vue'*/
         return quantidade.value = 1
 
     }
-
+    const clicaNoPrato = () => {
+        selecionouPrato.value = !selecionouPrato.value;
+    }
     onMounted(() => {
         singleRestauranteStore.listarCardapio(route.params.id)
         singleRestauranteStore.qtdPratos
@@ -269,33 +273,11 @@ import Cardapio from '../components/Menu.vue'*/
         </el-row>
     </section>
 
-    <el-dialog v-model="selecionouPrato" class="dish-detail">
-        <img :src=pratoSelecionado.imagem alt="">
-        <div class="data-dish">
-            <div class="title-and-price">
-                <h2>{{ pratoSelecionado.nome }}</h2>
-                <div v-if="pratoSelecionado.desconto" class="sale-pricing">
-                    <span class="real-price">R$ {{ pratoSelecionado.valor_desconto }}</span>
-                    <span class="price">R$ {{ pratoSelecionado.valor }}</span>
-                </div>
-                <span v-else class="real-price">{{ pratoSelecionado.valor }}</span>
-            </div>
-            <p>{{ pratoSelecionado.descricao }}</p>
-            <form action="">
-                <textarea name="obs" id="obs" cols="30" rows="10" placeholder="Observações"></textarea>
-                <div style="display: flex; justify-content: space-between; align-content: center; align-items: center;">
-                    <div class="quantity">
-                        <button @click.prevent="somar()">+</button>
-                        <input type="number" v-model="quantidade" />
-                        <button @click.prevent="subtrair()" class="subtract">-</button>
-                    </div>
-                    <button class="add-carrinho">
-                        <img class="cart" src="../assets/cart-shopping-solid.svg" alt=""> Total: R${{ valorTotal }}
-                    </button>
-                </div>
-            </form>
-        </div>
-    </el-dialog>
+   <SelectedDish :pratoSelecionado="pratoSelecionado" :modalAberto="selecionouPrato"/>
+
+   {{ pratoSelecionado }}
+
+
     <!-- <Footer></Footer> -->
 </template>
 

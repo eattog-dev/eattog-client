@@ -17,13 +17,13 @@ export const useSingleRestauranteStore = defineStore('single-restaurante', {
             this.pratosDesconto = await resposta.json();
         },
         async listarCardapio(id) {
-            const resposta = await fetch(`http://54.233.122.212/pagina-cardapio/${id}/${this.pagina}`);
+            const resposta = await fetch(`http://http://54.233.122.212/pagina-cardapio/${id}/${this.pagina}`);
             this.cardapio = await resposta.json()
             this.id = id
         },
         async passarPagina() {
             let count = this.pagina
-            const proximaPagina = await fetch(`http://54.233.122.212/prox-pagina/${this.id}/${count + 1}`);
+            const proximaPagina = await fetch(`http://http://54.233.122.212/prox-pagina/${this.id}/${count + 1}`);
 
             if (await proximaPagina.json()) {
                 this.pagina++
