@@ -180,7 +180,6 @@
 
 .container {
     min-height: 100vh;
-    background: var(--gray100);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -242,6 +241,7 @@
     font-size: 20px;
     color: var(--white100);
     border-radius: 10px;
+    border: none;
     cursor: pointer;
     transition: .2s linear;
 }
