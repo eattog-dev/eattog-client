@@ -17,31 +17,33 @@ const prato = computed(() => pedidoStore.prato)
 </script>
 <template>
     <div v-show="modalAberto" class="dish-detail">
-        <img :src=prato.imagem alt="">
-        <div class="data-dish">
-            <button @click="pedidoStore.statusModal()">X</button>
-            <div class="title-and-price">
-                <h2>{{ prato.nome }}</h2>
-                <div v-if="prato.desconto" class="sale-pricing">
-                    <span class="real-price">R$ {{ prato.valor_desconto }}</span>
-                    <span class="price">R$ {{ prato.valor }}</span>
-                </div>
-                <span v-else class="real-price">{{ prato.valor }}</span>
-            </div>
-            <p>{{ prato.descricao }}</p>
-            <form action="">
-                <textarea name="obs" id="obs" cols="30" rows="10" placeholder="Observações"></textarea>
-                <div style="display: flex; justify-content: space-between; align-content: center; align-items: center;">
-                    <div class="quantity">
-                        <button @click.prevent="pedidoStore.somar()">+</button>
-                        <input type="number" v-model="pedidoStore.quantidade " />
-                        <button @click.prevent="pedidoStore.subtrair()" class="subtract">-</button>
+        <button @click="pedidoStore.statusModal()" class="closeModal">X</button>
+        <div class="dish">
+            <img :src=prato.imagem alt="">
+            <div class="data-dish">
+                <div class="title-and-price">
+                    <h2>{{ prato.nome }}</h2>
+                    <div v-if="prato.desconto" class="sale-pricing">
+                        <span class="real-price">R$ {{ prato.valor_desconto }}</span>
+                        <span class="price">R$ {{ prato.valor }}</span>
                     </div>
-                    <button class="add-carrinho">
-                        <img class="cart" src="../assets/cart-shopping-solid.svg" alt=""> Total: R$ {{ pedidoStore.valorTotal }}
-                    </button>
+                    <span v-else class="real-price">R$ {{ prato.valor }}</span>
                 </div>
-            </form>
+                <p>{{ prato.descricao }}</p>
+                <form action="">
+                    <textarea name="obs" id="obs" cols="30" rows="10" placeholder="Observações"></textarea>
+                    <div style="display: flex; justify-content: space-between; align-content: center; align-items: center;">
+                        <div class="quantity">
+                            <button @click.prevent="pedidoStore.somar()">+</button>
+                            <input type="number" v-model="pedidoStore.quantidade " />
+                            <button @click.prevent="pedidoStore.subtrair()" class="subtract">-</button>
+                        </div>
+                        <button class="add-carrinho">
+                            <img class="cart" src="../assets/cart-shopping-solid.svg" alt=""> Total: R$ {{ pedidoStore.valorTotal }}
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </template>
@@ -58,16 +60,26 @@ const prato = computed(() => pedidoStore.prato)
     z-index: 9999999999;
     border-radius: 0.25rem;
 }
+.dish-detail .closeModal{
+    display: block;
+    margin: 0.5rem 0.5rem 0 auto;
+    border: none;
+    background-color: transparent;
+    font-weight: bolder;
+    font-size: 20px;
+}
 
-.dish-detail {
+.dish-detail .dish{
     display: flex;
     flex-direction: row;
     padding: 1rem;
+    justify-content: space-around;
 }
 
 .dish-detail .data-dish {
     border-radius: 0 0 0.5rem 0.5rem;
-    padding: 0 1.5rem;
+    align-content: center;
+    display: grid;
 }
 
 .dish-detail img {
@@ -103,7 +115,10 @@ const prato = computed(() => pedidoStore.prato)
     height: 5rem;
     margin: 0.5rem 0;
 }
-
+.dish-detail .data-dish .quantity,
+.add-carrinho{
+    margin: 0 0.25rem;
+}
 .dish-detail .data-dish .quantity {
     display: flex;
     flex-direction: row;
