@@ -99,16 +99,18 @@ const value = ref('Selecione');
                 <el-select v-model="value" class="m-2" placeholder="Select" size="large">
                     <el-option label="Ordem Alfabética" value="Ordem Alfabética"
                         @click="restaurantesStore.ordenarAlfabeto()" />
-                        <el-option label="Melhor Avaliado" value="Melhor Avaliado"
+                    <el-option label="Melhor Avaliado" value="Melhor Avaliado"
                         @click="restaurantesStore.ordenarAvaliacao()" />
-                    </el-select>
-                </el-col>
-            </el-row>
-            <el-row justify="center">
-                <el-col :span="20">
-                    <el-row :gutter=8>
-                        <Restaurant v-for="restaurante in restaurantes" :restaurant="restaurante" />
-                        <div class="paginacao-config">
+                </el-select>
+            </el-col>
+        </el-row>
+        <el-row justify="center">
+            <el-col :span="20">
+                <el-row :gutter=8>
+                    <Restaurant v-for="restaurante in restaurantes" :restaurant="restaurante" />
+                </el-row>
+                <el-row>
+                    <div class="paginacao-config">
                             <button class="button-restaurant" @click="restaurantesStore.voltarPagina()">Anterior</button>
                             <span>{{ paginaAtual }}</span>
                             <button class="button-restaurant" @click="restaurantesStore.passarPagina()">Próximo</button>
@@ -127,6 +129,9 @@ const value = ref('Selecione');
 </template>
 
 <style scoped>
+.el-row{
+    height: unset !important;
+}
 /* #restaurants .paginacao-config {
     display: flex;
     position: relative;
@@ -136,12 +141,11 @@ const value = ref('Selecione');
 }
 */
 .button-restaurant {
-background-color: var(--yellow400);
-border-radius: 4rem;
-border: none;
-padding: 0.5rem;
-margin: 0 1rem 0 1rem;
+    background-color: var(--yellow400);
+    border-radius: 4rem;
+    border: none;
+    padding: 0.5rem;
+    margin: 0 1rem 0 1rem;
 
-} 
-
+}
 </style>
