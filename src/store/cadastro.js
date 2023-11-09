@@ -130,19 +130,22 @@ export const useCadastroStore = defineStore("cadastro", {
         if (valid) {
           this.errorMsgPassword = "";
           const cadastro = await axios 
-          .post("http://54.233.122.212/users/sign-up",
+          .post("http://54.233.122.212/cadastrar/user",
           //.post("http://localhost:3000/users/sign-up",
           {
             "nome": this.formulario.nome,
             "email": this.formulario.email,
             "cpf": this.formulario.cpf,
             "numero_celular": this.formulario.numberPhone,
-            "senha": this.formulario.password
+            "senha": this.formulario.password,
+            "data_aniversario": this.formulario.data_nascimento,
+
           });
 
-          this.token = cadastro.data.accessToken;
+          console.log(cadastro.data)
+          // this.token = cadastro.data.accessToken;
 
-          sessionStorage.setItem("token", this.token);
+          // sessionStorage.setItem("token", this.token);
 
           this.router.push("/inicio")
 
