@@ -2,7 +2,7 @@
   <div>
     <el-header v-if="isDesktop" class="nav desktop">
       <el-row type="flex" class=" none-margem">
-        <el-col :span="12"> 
+        <el-col :span="9">
           <router-link id="logo-url" to="/">
             <span class="nav-name-logo">Eattog🟨</span>
             <!-- <img class="logo" :src="logo" :alt="alt" /> -->
@@ -12,7 +12,8 @@
           <router-link to="/" :class="[$route.path === '/' ? 'nav-active' : '']">Inicio</router-link>
         </el-col>
         <el-col :span="3">
-          <router-link to="/restaurants" :class="[$route.path === '/restaurants' ? 'nav-active' : '']">Restaurantes</router-link>
+          <router-link to="/restaurants"
+            :class="[$route.path === '/restaurants' ? 'nav-active' : '']">Restaurantes</router-link>
         </el-col>
         <el-col :span="3">
           <el-button class="location-input" @click="openModal">
@@ -20,34 +21,34 @@
             <i class="el-icon-caret-bottom location-input__icon-arrow"></i>
           </el-button>
         </el-col>
-      <el-col :span="3">
-        <el-menu
-        default-active="2"
-        class="el-menu-vertical-demo cmp-menu-car"
-        @open="handleOpen"
-        @close="handleClose"
-        position="absolute">
+        <el-col :span="3">
+         {{ userStore.getNome }}
+        </el-col>
+        <el-col :span="3">
+          <el-menu default-active="2" class="el-menu-vertical-demo cmp-menu-car" @open="handleOpen" @close="handleClose"
+            position="absolute">
             <el-sub-menu index="1">
-                <template #title>
-                  <el-icon><Goods /></el-icon>
-                </template>
-                <el-menu-item-group title="Restaurante João">
-                  <el-menu-item index="1-1" class="cmp-menu-item">Sobá Pantaneiro  <span class="">R$22,00</span></el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="Restaurante Maria">
-                  <el-menu-item index="1-1" class="cmp-menu-item">Pacu Assado <span class="">R$29,00</span></el-menu-item>
-                </el-menu-item-group>
-                <router-link
-                  to="/finalizepurchase"
-                  custom
-                  v-slot="{ navigate }">
-                  <el-button class="cmp-button-yellow" @click="navigate" role="link">Finalizar Pedido</el-button>
-                </router-link>
+              <template #title>
+                <el-icon>
+                  <Goods />
+                </el-icon>
+              </template>
+              <el-menu-item-group title="Restaurante João">
+                <el-menu-item index="1-1" class="cmp-menu-item">Sobá Pantaneiro <span
+                    class="">R$22,00</span></el-menu-item>
+              </el-menu-item-group>
+              <el-menu-item-group title="Restaurante Maria">
+                <el-menu-item index="1-1" class="cmp-menu-item">Pacu Assado <span class="">R$29,00</span></el-menu-item>
+              </el-menu-item-group>
+              <router-link to="/finalizepurchase" custom v-slot="{ navigate }">
+                <el-button class="cmp-button-yellow" @click="navigate" role="link">Finalizar Pedido</el-button>
+              </router-link>
             </el-sub-menu>
-      </el-menu>
-      </el-col>
-</el-row>
+          </el-menu>
+        </el-col>
+      </el-row>
     </el-header>
+
     <el-header v-else class="nav nav-mobile">
       <el-button class="location-input" @click="openModal">
         <span class="location-input__address">{{ userCity ? userCity : 'Localização' }}</span>
@@ -62,7 +63,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, provide, reactive } from 'vue';
+import { ref, onMounted, onBeforeUnmount, provide, reactive, computed } from 'vue';
 import Modal from './Modal.vue';
 import {
   Document,
@@ -71,6 +72,19 @@ import {
   Goods,
 } from '@element-plus/icons-vue';
 //import logoImage from '@/assets/quadrado.png';
+
+import { useUserStore } from '../store/user-session';
+
+const userStore = useUserStore();
+
+onMounted(() => {
+  userStore.loggedUser();
+})
+
+const nome = computed(() => userStore.userSession.nome )
+
+
+
 
 const handleOpen = (key, keyPath) => {
   console.log(key, keyPath)
@@ -241,4 +255,5 @@ onBeforeUnmount(() => {
     color: var(--yellow100);
     font-weight: 800;
   }
+
 </style>

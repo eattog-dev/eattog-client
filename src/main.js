@@ -1,5 +1,5 @@
 import './assets/main.css'
-import { createApp } from 'vue'
+import { createApp, markRaw } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import ElementPlus from 'element-plus'
@@ -19,6 +19,10 @@ app.use(ElementPlus);
 app.use(router); 
 app.use(VueTheMask);
 app.mount('#app');
+
+pinia.use(({ store }) => {
+  store.router = markRaw(router)
+  })
 
 
 if ('serviceWorker' in navigator) {

@@ -17,8 +17,21 @@ onMounted(()=> singleRestaurante.listarDescontos(route.params.id))
 
 const emits = defineEmits('pratoClicado');
 
-const handlePratoClicado = () => {
-  emits('pratoClicado', props.dish)
+const handlePratoClicado = (prato) => {
+  emits('pratoClicado', prato)
+}
+
+const formatarIgredientes = (listaIngredientes) => {
+    let lista = ""
+    listaIngredientes.forEach((ingrediente, i) => {
+        console.log(i)
+        if(i == listaIngredientes.length -1)
+            lista += `${ingrediente}.`
+        else
+        lista += `${ingrediente}, `
+    });
+
+    return lista
 }
 </script>
 
@@ -47,12 +60,12 @@ const handlePratoClicado = () => {
                         space-between="30"
                             >
                             <SwiperSlide v-for="prato in singleRestaurante.filtroDesconto">
-                                <div class="grid-content" @click="handlePratoClicado()">
+                                <div class="grid-content" @click="handlePratoClicado(prato)">
                                     <div class="image" :style="{ background: 'url(' + prato.imagem + ')' }">
                                     </div>
                                     <div class="details">
                                         <h6>{{ prato.nome }}</h6>
-                                        <!-- <p>{{ prato.ingredientes }}</p> -->
+                                         <p>{{ formatarIgredientes(prato.ingredientes) }}</p> 
                                         <div class="prices">
                                             <span  v-if=prato.desconto class="original">De: R${{ prato.valor }}</span>
                                             <span v-else > R${{ prato.valor }}</span>
