@@ -11,7 +11,7 @@ import Login from './views/Login.vue';
 import CardAdd from './components/CardAdd.vue';
 import SingleCategoria from './views/SingleCategoria.vue';
 import StateOrder from './views/StateOrder.vue';
-import ManageSysten from './views/ManageSystem.vue';
+import ManageSystem from './views/ManageSystem.vue';
 
 
 const routes = [
