@@ -7,7 +7,8 @@ export const usePratosStore = defineStore('pratos', {
     actions: {
 
         async listarPratosPorCategoria() {
-            const resposta = await fetch(`http://54.233.122.212/pratos-por-categoria/`);
+            //const resposta = await fetch(`http://54.233.122.212/pratos-por-categoria/`);
+            const resposta = await fetch(`http://localhost:3000/pratos-por-categoria/`);
             this.todosPratos = await resposta.json();
 
             return this.todosPratos.map((e) => {

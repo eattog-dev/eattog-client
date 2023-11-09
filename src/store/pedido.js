@@ -4,9 +4,14 @@ export const usePedidoStore = defineStore('pedido', {
         prato: {},
         pedido: {},
         quantidade: 1,
-        valorTotal: 0
+        valorTotal: 0,
+        modal: false
     }),
     actions: {
+        statusModal(){
+            this.modal = !this.modal
+            return this.modal
+        },
         somar() {
             this.quantidade++
             this.valorTotal = this.valorPrato * this.quantidade
@@ -19,6 +24,11 @@ export const usePedidoStore = defineStore('pedido', {
             this.valorTotal = this.valorPrato * this.quantidade
             return this.valorTotal
         },
+        pratao(prato) {
+            this.prato = prato
+            this.valorPrato
+            return this.quantidade = 1
+        }
     },
     getters: {
         valorPrato() {

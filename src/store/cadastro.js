@@ -129,15 +129,22 @@ export const useCadastroStore = defineStore("cadastro", {
       cadastroForm.validate(async (valid) => {
         if (valid) {
           this.errorMsgPassword = "";
-          axios 
-          .post("http://http://54.233.122.212/users/sign-up",
+          const cadastro = await axios 
+          .post("http://54.233.122.212/users/sign-up",
+          //.post("http://localhost:3000/users/sign-up",
           {
             "nome": this.formulario.nome,
             "email": this.formulario.email,
             "cpf": this.formulario.cpf,
             "numero_celular": this.formulario.numberPhone,
             "senha": this.formulario.password
-          })
+          });
+
+          this.token = cadastro.data.accessToken;
+
+          sessionStorage.setItem("token", this.token);
+
+          this.router.push("/inicio")
 
           alert(`seja bem vindo ao sistema ${this.formulario.nome}`)
         } else {
@@ -146,10 +153,10 @@ export const useCadastroStore = defineStore("cadastro", {
           //this.loading = false;
         }
 
-        setTimeout(() => {
+        /*setTimeout(() => {
           this.errorMsg = "";
           this.loading = false;
-        }, 2000);
+        }, 2000);*/
       });
 
       console.log(this.formulario);

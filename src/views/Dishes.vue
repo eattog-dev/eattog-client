@@ -6,50 +6,32 @@
     import Title from '../components/Title.vue'
     import Navbar from '../components/Navbar.vue'
     import Footer from '../components/Footer.vue'
+    import SelectedDish from '../components/SelectedDish.vue'
 
     import { usePratosStore } from '../store/pratos'
+    import { usePedidoStore } from '../store/pedido'
 
     const router = useRouter()
 
     const pratosStore = usePratosStore();
+    const pedidoStore = usePedidoStore();
 
     const todosPratos = computed(() => pratosStore.todosPratos)
 
-    const quantidade = ref(1)
     const selecionouPrato = ref(false);
-    const pratoSelecionado = ref({});
 
-    let valorTotal = ref(0);
-    let valorPrato = ref(0);
 
     onMounted(() => pratosStore.listarPratosPorCategoria())
 
     const irPraCategoria = (id, nome) => router.push(`/categorias/${id}/${nome}`)
 
     const exibePratoClicado = (dish) => {
+        if(!sessionStorage.getItem("token")) {
+            router.push("/login");
+            return;
+        }
         selecionouPrato.value = true;
-        pratoSelecionado.value = dish;
-
-        if (pratoSelecionado.value.desconto)
-            valorPrato.value = pratoSelecionado.value.valor_desconto
-        else
-            valorPrato.value = pratoSelecionado.value.valor
-
-        valorTotal.value = valorPrato.value
-
-        return quantidade.value = 1
-
-    }
-
-    const somar = () => {
-        quantidade.value++
-        return valorTotal.value = valorPrato.value * quantidade.value
-    }
-    const subtrair = () => {
-        if (quantidade.value > 1)
-            quantidade.value--
-
-        return valorTotal.value = valorPrato.value * quantidade.value
+        pedidoStore.pratao(dish)
     }
 </script>
 <template>
@@ -62,38 +44,12 @@
                     <Dish v-for="prato in sessao.categoria_prato" :dish="prato" @pratoClicado="exibePratoClicado" />
                 </el-row>
                 <span @click="irPraCategoria(sessao.id, sessao.categoria)"
-                    style="display: flex; justify-content: center; cursor: pointer; justify-content: center; padding: 0px; margin: 5rem 0 0 0; ">Ver mais pratos</span>
+                    style="display: flex; justify-content: end; cursor: pointer; padding: 0px; margin: 5rem 0 0 0; ">Ver mais pratos</span>
             </el-col>
         </el-row>
     </section>
 
-    <el-dialog v-model="selecionouPrato" class="dish-detail">
-        <img :src=pratoSelecionado.imagem alt="">
-        <div class="data-dish">
-            <div class="title-and-price">
-                <h2>{{ pratoSelecionado.nome }}</h2>
-                <div v-if="pratoSelecionado.desconto" class="sale-pricing">
-                    <span class="sale-price">R$ {{ pratoSelecionado.valor_desconto }}</span>
-                    <span class="price">R$ {{ pratoSelecionado.valor }}</span>
-                </div>
-                <span v-else class="real-price">{{ pratoSelecionado.valor }}</span>
-            </div>
-            <p>{{ pratoSelecionado.descricao }}</p>
-            <form action="">
-                <textarea name="obs" id="obs" cols="30" rows="10" placeholder="Observações"></textarea>
-                <div style="display: flex; justify-content: space-between; align-content: center; align-items: center;">
-                    <div class="quantity">
-                        <button @click.prevent="somar()">+</button>
-                        <input type="number" v-model="quantidade" />
-                        <button @click.prevent="subtrair()" class="subtract">-</button>
-                    </div>
-                        <button class="add-carrinho">
-                            <img class="cart" src="../assets/cart-shopping-solid.svg" alt=""> Total: R${{ valorTotal }}
-                        </button>
-                </div>
-            </form>
-        </div>
-    </el-dialog>
+    <SelectedDish :modalAberto="selecionouPrato"/>
     <Footer></Footer>
 </template>
 

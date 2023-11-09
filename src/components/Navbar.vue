@@ -128,7 +128,7 @@ onBeforeUnmount(() => {
 </script>
 
 
-
+<style scoped>
   .nav {
     height: 80px;
     background-color: var(--white100);

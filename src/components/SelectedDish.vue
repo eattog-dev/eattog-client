@@ -1,38 +1,15 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 
 const props = defineProps({
-    pratoSelecionado: {
-        imagem: String,
-        nome: String,
-        valor: Number,
-        desconto: Boolean,
-        valor_desconto: Number,
-        descricao: String
-    },
     modalAberto: Boolean
 });
 
-import {usePedidoStore} from '../store/pedido'
+import { usePedidoStore } from '../store/pedido'
 
 const pedidoStore = usePedidoStore();
 
-// const quantidade = computed(() => )
-
-let valorPrato = ref(0);
-let valorTotal = computed(() => usePedidoStore.valorTotal)
-
-if (props.pratoSelecionado.desconto)
-    valorPrato = props.pratoSelecionado.valor_desconto
-else
-    valorPrato = props.pratoSelecionado.valor
-
-valorTotal = valorPrato
-
-
-let prato = computed (() => usePedidoStore.prato )
-
-prato = props.pratoSelecionado
+const prato = computed(() => pedidoStore.prato)
 
 
 
@@ -40,29 +17,28 @@ prato = props.pratoSelecionado
 </script>
 <template>
     <div v-show="modalAberto" class="dish-detail">
-        <img :src=pratoSelecionado.imagem alt="">
+        <img :src=prato.imagem alt="">
         <div class="data-dish">
-            {{ prato }}
-            <button @click="modalAberto = false">X</button>
+            <button @click="pedidoStore.statusModal()">X</button>
             <div class="title-and-price">
-                <h2>{{ pratoSelecionado.nome }}</h2>
-                <div v-if="pratoSelecionado.desconto" class="sale-pricing">
-                    <span class="real-price">R$ {{ pratoSelecionado.valor_desconto }}</span>
-                    <span class="price">R$ {{ pratoSelecionado.valor }}</span>
+                <h2>{{ prato.nome }}</h2>
+                <div v-if="prato.desconto" class="sale-pricing">
+                    <span class="real-price">R$ {{ prato.valor_desconto }}</span>
+                    <span class="price">R$ {{ prato.valor }}</span>
                 </div>
-                <span v-else class="real-price">{{ pratoSelecionado.valor }}</span>
+                <span v-else class="real-price">{{ prato.valor }}</span>
             </div>
-            <p>{{ pratoSelecionado.descricao }}</p>
+            <p>{{ prato.descricao }}</p>
             <form action="">
                 <textarea name="obs" id="obs" cols="30" rows="10" placeholder="Observações"></textarea>
                 <div style="display: flex; justify-content: space-between; align-content: center; align-items: center;">
                     <div class="quantity">
                         <button @click.prevent="pedidoStore.somar()">+</button>
-                        <input type="number" v-model="pedidoStore.quantidade" />
+                        <input type="number" v-model="pedidoStore.quantidade " />
                         <button @click.prevent="pedidoStore.subtrair()" class="subtract">-</button>
                     </div>
                     <button class="add-carrinho">
-                        <img class="cart" src="../assets/cart-shopping-solid.svg" alt=""> Total: R${{ valorTotal }}
+                        <img class="cart" src="../assets/cart-shopping-solid.svg" alt=""> Total: R$ {{ pedidoStore.valorTotal }}
                     </button>
                 </div>
             </form>
@@ -79,6 +55,8 @@ prato = props.pratoSelecionado
     margin: auto;
     left: calc(50% - 23rem);
     background-color: var(--white100);
+    z-index: 9999999999;
+    border-radius: 0.25rem;
 }
 
 .dish-detail {
@@ -86,6 +64,7 @@ prato = props.pratoSelecionado
     flex-direction: row;
     padding: 1rem;
 }
+
 .dish-detail .data-dish {
     border-radius: 0 0 0.5rem 0.5rem;
     padding: 0 1.5rem;

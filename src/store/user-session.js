@@ -12,8 +12,9 @@ export const useUserStore = defineStore('user-session', {
 
             if (this.token) {
                 const response = await axios
-                    .post("http://http://54.233.122.212/users/decoded-user", {
-                        token: this.token
+                .post("http://54.233.122.212/users/decoded-user", {
+                //.post("http://localhost:3000/users/decoded-user", {
+                    token: this.token
                     })
                 if (response.status == 200 || response.status == 201) {
                     this.userSession = response.data
