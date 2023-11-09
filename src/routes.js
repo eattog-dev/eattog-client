@@ -11,25 +11,24 @@ import Login from './views/Login.vue';
 import CardAdd from './components/CardAdd.vue';
 import SingleCategoria from './views/SingleCategoria.vue';
 import StateOrder from './views/StateOrder.vue';
-import ManageSysten from './views/ManageSystem.vue';
+import ManageSystem from './views/ManageSystem.vue';
 
 
 const routes = [
     { path: '/', component: Splash },
     { path: '/cadastro', component: Cadastro },
     { path: '/login', component: Login },
-    { path: '/cardadd', component: CardAdd},
-    { path:'/notification', component: Notification },
+    { path: '/cardadd', component: CardAdd },
+    { path: '/notification', component: Notification },
     { path: '/inicio', component: Home },
     { path: '/restaurants', component: Restaurants },
     { path: '/restaurants/:id', name: 'SingleRestaurant', props: true, query: true, component: SingleRestaurant },
     { path: '/admin', component: Admin },
     { path: '/dishes', name: Dishes, component: Dishes },
-    // { path: '/dishes/:id_dish/:nome', name: 'SingleDish', props: true, query: true, component: SingleDish },
-    // { path: '/gerenciar',name: ManageSystem , component: ManageSystem},
+    { path: '/gerenciar', name: ManageSystem, component: ManageSystem },
 
-    { path: '/categorias/:id/:nome', name: 'SingleCategoria', component: SingleCategoria},
-    { path: '/stateorder',name: StateOrder, component: StateOrder },
+    { path: '/categorias/:id/:nome', name: 'SingleCategoria', component: SingleCategoria },
+    { path: '/stateorder', name: StateOrder, component: StateOrder },
 
 ];
 
