@@ -15,12 +15,15 @@
                     <el-form-item label="Name" prop="nome" :rules="nameRules">
                         <el-input type="text" v-model="formulario.nome"></el-input>
                     </el-form-item>
-                    <el-form-item label="Date of Birth" prop="data_nascimento" :rules="dateOfBirthRules">
+                    <!-- <el-form-item label="Date of Birth" prop="data_nascimento" :rules="dateOfBirthRules">
                         <el-date-picker class="cadastro-inputDate" v-model="formulario.data_nascimento" type="date"
                             placeholder="Select Date" format="DD/MM/YYYY"></el-date-picker>
+                    </el-form-item> -->
+                    <el-form-item label="Date of Birth" prop="data_nascimento" :rules="dateOfBirthRules">
+                        <el-input type="text" v-mask="'####-##-##'" v-model="formulario.data_nascimento"></el-input>
                     </el-form-item>
                     <el-form-item label="Phone number" prop="numberPhone" :rules="phoneRules">
-                        <el-input type="text" v-mask="'(##) #####-####'" v-model="formulario.numberPhone"></el-input>
+                        <el-input type="text" v-mask="'(##)#####-####'" v-model="formulario.numberPhone"></el-input>
                     </el-form-item>
                     <el-form-item label="CPF" prop="cpf" :rules="cpfRules">
                         <el-input type="text" v-mask="'###.###.###-##'" v-model="formulario.cpf"></el-input>
