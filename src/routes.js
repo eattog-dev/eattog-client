@@ -12,12 +12,14 @@ import CardAdd from './components/CardAdd.vue';
 import SingleCategoria from './views/SingleCategoria.vue';
 import StateOrder from './views/StateOrder.vue';
 import ManageSystem from './views/ManageSystem.vue';
+import UserProfile from './views/UserProfile.vue'
 
 
 const routes = [
     { path: '/', component: Splash },
     { path: '/cadastro', component: Cadastro, meta: {onlyWithoutAuth: true}, name: Cadastro },
     { path: '/login', component: Login, meta: {onlyWithoutAuth: true}, name: Login },
+    { path: '/perfil', component: UserProfile, meta: {onlyWithoutAuth: true}, name: UserProfile },
     { path: '/cardadd', component: CardAdd },
     { path: '/notification', component: Notification },
     { path: '/inicio', component: Home, name: Home },
