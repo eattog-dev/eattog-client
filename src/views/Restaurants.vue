@@ -146,6 +146,6 @@ const value = ref('Selecione');
     border: none;
     padding: 0.5rem;
     margin: 0 1rem 0 1rem;
-
+    cursor: pointer;
 }
 </style>

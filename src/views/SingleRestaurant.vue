@@ -166,9 +166,9 @@ onMounted(() => {
     singleRestauranteStore.qtdPratos
 })
 const formatarDescricao = (descricao) => {
-    if(descricao.length > 120){
+    if (descricao.length > 120) {
         return `${descricao.slice(0, 120)}...`
-    }else{
+    } else {
         return descricao
     }
 }
@@ -179,8 +179,8 @@ const formatarDescricao = (descricao) => {
     <Banner />
     <!--
    <Cardapio /> -->
-   <Promocao @pratoClicado="exibePratoClicado"/>
-    
+    <Promocao @pratoClicado="exibePratoClicado" />
+
 
     <section class="menu">
         <el-row justify="center">
@@ -208,7 +208,7 @@ const formatarDescricao = (descricao) => {
                                     <span v-if="dish.desconto">R$ {{ dish.valor_desconto }}</span>
                                     <span>R${{ dish.valor }}</span>
                                 </div>
-                                <p>{{ formatarDescricao(dish.descricao)  }}</p>
+                                <p>{{ formatarDescricao(dish.descricao) }}</p>
                             </div>
                         </div>
                     </el-col>
@@ -216,14 +216,14 @@ const formatarDescricao = (descricao) => {
             </el-col>
         </el-row>
         <el-row justify="center">
-            <button @click="singleRestauranteStore.voltarPagina()">Anterior</button>
+            <button class="button-restaurant" @click="singleRestauranteStore.voltarPagina()">Anterior</button>
             <span>{{ pagina }}</span>
-            <button @click="singleRestauranteStore.passarPagina()">Próximo</button>
+            <button class="button-restaurant" @click="singleRestauranteStore.passarPagina()">Próximo</button>
         </el-row>
     </section>
 
     <SelectedDish :modalAberto="pedidoStore.modal" />
-    <Footer></Footer> 
+    <Footer></Footer>
 </template>
 
 <style>
@@ -286,8 +286,13 @@ const formatarDescricao = (descricao) => {
     font-size: 0.813rem;
 }
 
+.menu {
+    padding-bottom: 110px;
+}
+
 .menu .el-col {
     margin: 0.375rem 0;
+    cursor: pointer;
     /* height: 22.5rem; */
 }
 
@@ -336,4 +341,14 @@ const formatarDescricao = (descricao) => {
     border: 0.063rem solid var(--white300);
     color: var(--gray800);
     text-decoration: none !important;
-}</style>
+}
+
+.button-restaurant {
+    background-color: var(--yellow400);
+    border-radius: 4rem;
+    border: none;
+    padding: 0.5rem;
+    margin: 0 1rem 0 1rem;
+    cursor: pointer;
+}
+</style>

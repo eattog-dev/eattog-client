@@ -37,7 +37,7 @@ const exibePratoClicado = (dish) => {
         <el-row justify="center">
             <el-col :span="20">
                 <Title text="Mais pedidos"></Title>
-                <el-row :gutter="20">
+                <el-row :gutter="20" style="margin-bottom: 100px; height: fit-content;">
                     <Dish v-for="prato in pratos" :dish="prato" @pratoClicado="exibePratoClicado" />
                 </el-row>
             </el-col>
@@ -45,4 +45,4 @@ const exibePratoClicado = (dish) => {
     </section>
     <SelectedDish :modalAberto="pedidoStore.modal" />
     <Footer></Footer>
-</template>      
+</template> 

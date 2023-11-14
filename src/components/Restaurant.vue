@@ -22,7 +22,7 @@ const bannerData = {
 }
 
 const limitarDescricao = (descricao) => {
-    if(descricao.length > 80)
+    if (descricao.length > 80)
         return `${descricao.slice(0, 80)}...`
     else
         return descricao
@@ -30,7 +30,7 @@ const limitarDescricao = (descricao) => {
 
 </script>
 <template>
-    <el-col :xs="24" :sm="12" :md="8" :lg="8" :span="8" class="card">
+    <el-col :xs="24" :sm="12" :md="6" :lg="6" :span="6" class="card">
         <router-link :to="{
             name: 'SingleRestaurant',
             params: {
@@ -116,7 +116,7 @@ const limitarDescricao = (descricao) => {
     padding-right: 8px;
     object-fit: contain;
 }
-   
+
 #restaurants .details {
     padding: 8px 20px 32px 20px;
 }
