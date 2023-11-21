@@ -8,21 +8,21 @@
             <input type="file" ref="fileInput" @change="showImage" />
             <img src="../assets/img-login/monkey.svg" class="personal-avatar">
           </label>
-          <h1 class="nome">Jao da Silva</h1>
+          <h1 class="nome">{{perfil.nome}}</h1>
         </div>
       </div>
       <div class="details">
         <div>
           <label for="telefone">Telefone</label>
-          <span name="telefone">(11) 11111111</span>
+          <span name="telefone">{{perfil.numero_celular}}</span>
         </div>
         <div>
           <label for="email">Email</label>
-          <span name="email">jaodasilva@gmail.com</span>
+          <span name="email">{{perfil.email}}</span>
         </div>
       </div>
       <el-button class="editar" @click="perfilStore.statusEditProfileModal()">editar perfil</el-button>
-      <EditProfile v-show="perfilStore.editProfileModal"/>
+      <EditProfile v-show="perfilStore.editProfileModal" />
 
       <div class="demo-collapse menu">
         <el-collapse accordion>
@@ -31,36 +31,11 @@
               <h3 class="titulo">Endereço</h3>
             </template>
             <div class="endereco">
-              <el-button class="endereco-automatico">Preencha Automaticamente</el-button>
-              <div>
-                ESPAÇO DO FORMULÁRIO
-              </div>
+              <EnderecoForm/>
             </div>
           </el-collapse-item>
+ 
           <el-collapse-item name="2">
-            <template #title>
-              <h3 class="titulo">Cartoes</h3>
-            </template>
-
-            <div class="cartoes">
-              <h4>Seus cartoes</h4>
-
-              <div class="cartao">
-                <span>final do cartao <span class="digitos-finais">5542</span></span>
-                <img src="../assets/img-card/logovisa.png" alt="">
-                <el-button>Remover</el-button>
-              </div>
-
-              <el-button class="add-cartao" v-if="!clickedAddCard" @click="cardStatus()">Adicionar novo cartao</el-button>
-              <div class="card-form-actions" v-else>
-                <el-button class="salvar-cartao" @click="addCartao()">Salvar</el-button>
-                <el-button class="cancelar-add-cartao" @click="cardStatus()">Cancelar</el-button>
-              </div>
-
-              <FormAddCartao v-show="clickedAddCard" />
-            </div>
-          </el-collapse-item>
-          <el-collapse-item name="3">
             <template #title>
               <h3 class="titulo">Histórico de Pedidos</h3>
             </template>
@@ -90,17 +65,21 @@
   <Footer />
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, computed} from 'vue'
+import axios from "axios";
 
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
+import EnderecoForm from '../components/FormEndereco.vue'
 import FormAddCartao from '../components/CardAdd.vue'
 import EditProfile from '../components/EditProfile.vue'
-
 import {usePerfilStore} from '../store/perfil'
+
 
 const perfilStore = usePerfilStore();
 
+const perfil = computed(() => perfilStore.perfil)
+const perfilFla = computed(() => perfilStore.novoPerfil)
 
 let clickedAddCard = ref(false);
 
@@ -111,6 +90,8 @@ const cardStatus = () => {
 const addCartao = () => {
   alert("cartao salvo com sucesso")
 }
+
+onMounted(() => perfilStore.getEditedProfile)
 </script>
   
 <style scoped>

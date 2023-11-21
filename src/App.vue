@@ -1,11 +1,11 @@
 <script setup>
 //import axios from "axios";
 
-import { useUserStore } from './store/user-session'
+import { usePerfilStore } from './store/perfil'
 
-const userStore =  useUserStore();
+const perfilStore =  usePerfilStore();
 
-userStore.loggedUser();
+perfilStore.loggedUser();
 
 </script>
 

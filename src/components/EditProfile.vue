@@ -1,51 +1,132 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { usePerfilStore } from '../store/perfil'
+
+import axios from "axios";
+
 
 const perfilStore = usePerfilStore();
 
 const openedModal = computed(() => perfilStore.editProfileModal)
+const perfil = computed(() => perfilStore.novoPerfil)
 
+const formBind = ref({})
+
+const submit = (form)  => {
+  form.validate(async (valid) => {
+    if (valid) {
+      await axios
+        .put(`http://54.233.122.212/atualizar-usuario/${perfilStore.perfil.id}`, {
+          "nome": perfilStore.novoPerfil.nome,
+          "email": perfilStore.novoPerfil.email,
+          "cpf": perfilStore.novoPerfil.cpf,
+          "numero_celular": perfilStore.novoPerfil.numero_celular,
+          "cep": perfilStore.novoPerfil.cep,
+          "rua": perfilStore.novoPerfil.rua,
+          "complemento": perfilStore.novoPerfil.complemento,
+          "bairro": perfilStore.novoPerfil.bairro,
+          "numero_residencia": perfilStore.novoPerfil.numero_residencia,
+          "data_aniversario": perfilStore.novoPerfil.data_aniversario
+        }, {
+          headers: { 'Authorization': `Bearer ${sessionStorage.getItem("token")}` },
+        }
+        );
+      console.log(`perfil salvo com sucesso`)
+    } else {
+      console.log('error submit!')
+      return false
+    }
+  })
+}
+
+const nomeRules = {
+  required: true,
+  message: "Preencha um novo nome de endereco",
+  trigger: "blur"
+  /*
+ validator: (rule, value, callback) => {
+   if (value === perfilStore.perfil.nome )
+   callback(new Error("Preencha um novo nome"));
+   else
+   callback()
+ },
+ trigger: "blur",
+ */
+}
+
+const numeroCelularRules = {
+
+  validator: (rule, value, callback) => {
+    if (perfilStore.perfil.numero_celular == null)
+      callback(new Error("Preencha um novo telefone"));
+    else
+      callback()
+  },
+  trigger: "blur"
+  /* validator: (rule, value, callback) => {
+     if (value === perfilStore.perfil.numero_celular )
+     callback(new Error("Preencha um novo telefone"));
+     else
+     callback()
+   },
+   trigger: "blur",
+   */
+}
+
+
+const handleClose = () => {
+  perfilStore.statusEditProfileModal()
+  return perfilStore.editedProfile()
+}
 </script>
 <template>
-    <el-dialog v-model="openedModal">
-        <form>
-            <div class="edit-profile">
-                <div class="profile">
-                    <div class="personal-image">
-                        <label class="label">
-                            <input type="file" ref="fileInput" @change="showImage" />
-                            <img src="../assets/img-login/monkey.svg" class="personal-avatar">
-                        </label>
-                    </div>
-                </div>
-                <div class="details">
-                    <div>
-                        <label for="nome">Nome</label>
-                        <input type="text" name="nome" placeholder="Jao da Silva">
-                    </div>
-                    <div>
-                        <label for="telefone">Telefone</label>
-                        <input type="text" name="telefone" placeholder="(11) 11111111" />
-                    </div>
-                    <div>
-                        <label for="email">Email</label>
-                        <input type="email" name="email" placeholder="jaodasilva@gmail.com" />
-                    </div>
-                </div>
-            </div>
-            <div class="actions">
-                <el-button class="salvar-cartao" @click="addCartao()">Salvar</el-button>
-                <el-button class="cancelar-add-cartao" @click="perfilStore.statusEditProfileModal()">Cancelar</el-button>
-            </div>
-        </form>
-    </el-dialog>
+  <el-dialog v-model="openedModal" @closed="handleClose()">
+    {{ perfil }}
+    <el-form ref="formBind" :model="perfil">
+      <div class="edit-profile">
+        <div class="profile">
+          <div class="personal-image">
+            <label class="label">
+              <input type="file" ref="fileInput" @change="showImage" />
+              <img src="../assets/img-login/monkey.svg" class="personal-avatar">
+            </label>
+          </div>
+        </div>
+        <div class="details">
+          <el-form-item prop="nome" :rules="nomeRules">
+            <label for="nome">Nome</label>
+            <input type="text" name="nome" v-model="perfil.nome">
+          </el-form-item>
+          <el-form-item prop="telefone" :rules="numeroCelularRules">
+            <label for="telefone">Telefone</label>
+            <input type="text" name="telefone" v-model="perfil.numero_celular" />
+          </el-form-item>
+          <!-- <el-form-item prop="email" :rules="emailRules">
+            <label for="email">Email</label>
+            <input type="email" name="email" v-model="perfil.email" />
+          </el-form-item> -->
+        </div>
+      </div>
+      <div class="actions">
+        <el-button class="salvar-cartao" @click="submit(formBind)">Salvar</el-button>
+
+      </div>
+    </el-form>
+  </el-dialog>
 </template>
 <style scoped>
-header{ display: none!important;}
-.edit-profile, .details div{
-    display: flex;
-    flex-direction: column;
+header {
+  display: none !important;
+}
+
+.details input {
+  width: 100%;
+}
+
+.edit-profile,
+.details div {
+  display: flex;
+  flex-direction: column;
 }
 
 .profile {
@@ -107,14 +188,15 @@ header{ display: none!important;}
   /* width: 3.125rem;
   height: 3.125rem; */
 }
+
 .edit-profile .details input {
-    border: none;
-    border-bottom: 1px solid var(--white300);
-    padding: 0.5rem 0;
+  border: none;
+  border-bottom: 1px solid var(--white300);
+  padding: 0.5rem 0;
 }
 
-.details{
-    padding: 1.5rem 0;
+.details {
+  padding: 1.5rem 0;
 }
 
 .details label {
@@ -124,19 +206,21 @@ header{ display: none!important;}
   font-size: 1rem;
 }
 
-.actions{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    font-weight: 600;
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-weight: 600;
   text-transform: capitalize;
 }
-.salvar-cartao{
-    background-color: var(--yellow500);
+
+.salvar-cartao {
+  background-color: var(--yellow500);
   color: var(--black100);
 }
-.cancelar-add-cartao{
-    color: var(--white300);
-    background-color: rgb(225, 18, 18);
+
+.cancelar-add-cartao {
+  color: var(--white300);
+  background-color: rgb(225, 18, 18);
 }
 </style>

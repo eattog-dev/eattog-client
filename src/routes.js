@@ -19,7 +19,7 @@ const routes = [
     { path: '/', component: Splash },
     { path: '/cadastro', component: Cadastro, meta: {onlyWithoutAuth: true}, name: Cadastro },
     { path: '/login', component: Login, meta: {onlyWithoutAuth: true}, name: Login },
-    { path: '/perfil', component: UserProfile, meta: {onlyWithoutAuth: true}, name: UserProfile },
+    { path: '/perfil', component: UserProfile, meta: {onlyAuth: true}, name: UserProfile },
     { path: '/cardadd', component: CardAdd },
     { path: '/notification', component: Notification },
     { path: '/inicio', component: Home, name: Home },
@@ -28,9 +28,8 @@ const routes = [
     { path: '/admin', component: Admin },
     { path: '/dishes', name: Dishes, component: Dishes },
     { path: '/gerenciar',name: ManageSystem , component: ManageSystem},
-    { path: '/categorias/:id/:nome', name: 'SingleCategoria', component: SingleCategoria },
+    { path: '/categorias/:id/:nome', name: SingleCategoria, component: SingleCategoria },
     { path: '/stateorder', name: StateOrder, component: StateOrder },
-
 
 ];
 
@@ -41,7 +40,8 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
-    if (to.meta.onlyWithoutAuth && !!sessionStorage.getItem("token")) next({ name: Home })
+    if (to.meta.onlyWithoutAuth && sessionStorage.getItem("token")) next({ name: Home })
+    else if (to.meta.onlyAuth  && !sessionStorage.getItem("token")) next({ name: Login })
     else next()
 })
 

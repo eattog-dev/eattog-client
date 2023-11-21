@@ -27,7 +27,7 @@
                 <img src="../assets/img-login/monkey.svg" v-else style="width: 1.7rem; height: 1.7rem;">
               </el-button>
             </el-form-item>
-            <RouterLink class="login-esqueceu-senha" to="#">Esqueceu sua senha?</RouterLink>
+            <span class="login-esqueceu-senha" @click="goToCadastro()">Nao tem conta ainda? Cadastre-se agora</span>
             <el-form-item>
               <el-button class="login-button" type="primary" @click="login.submitForm(loginForm)">Login</el-button>
             </el-form-item>
@@ -58,6 +58,9 @@ import {
 } from "element-plus";
 
 import { useLoginStore } from "../store/login";
+import { useRouter, useRoute } from 'vue-router';
+
+const router = useRouter();
 
 const login = useLoginStore();
 
@@ -69,7 +72,7 @@ const passwordRules = computed(() => login.passwordRules);
 
 const auth = document.cookie.split("token=")[1];
 
-let isAuth = ref(false)
+const goToCadastro = () => router.push("/cadastro");
 
 // onMounted(() => {
 //   if(auth != undefined){
@@ -185,6 +188,8 @@ const errorMsg = ref("");
 .login-esqueceu-senha {
   display: flex;
   justify-content: flex-end;
+  color: var(--black100);
+  cursor: pointer;
 }
 
 .login-alert {
