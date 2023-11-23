@@ -27,7 +27,7 @@ export const useCadastroStore = defineStore("cadastro", {
             if (value) {
               const birthDate = new Date(value);
               const today = new Date();
-              const age = today.getFullYear() - birthDate.getFullYear();
+              let age = today.getFullYear() - birthDate.getFullYear();
       
               if (today.getMonth() < birthDate.getMonth() || (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) {
                 age--;
