@@ -2,10 +2,12 @@ import { defineStore } from 'pinia'
 export const usePedidoStore = defineStore('pedido', {
     state: () => ({
         prato: {},
-        pedido: {},
+        carrinho: [],
         quantidade: 1,
         valorTotal: 0,
-        modal: false
+        modal: false,
+        observacoes: ""
+
     }),
     actions: {
         statusModal(){
@@ -27,8 +29,10 @@ export const usePedidoStore = defineStore('pedido', {
         pratao(prato) {
             this.prato = prato
             this.valorPrato
-            return this.quantidade = 1
-        }
+            this.quantidade = 1
+            this.observacoes = ""
+        }, 
+
     },
     getters: {
         valorPrato() {

@@ -79,7 +79,7 @@ export const useLoginStore = defineStore("login", {
 
           const login = await axios
           //.post("http://localhost:3000/users/sign-in",
-          .post("http://54.233.122.212/users/sign-in",
+          .post("http://api.eattog.jera.com.br/users/sign-in",
           {
                 "email": this.formulario.email,
                 "senha": this.formulario.password

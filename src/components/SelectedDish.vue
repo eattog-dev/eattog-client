@@ -1,22 +1,39 @@
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue';
+import axios from "axios";
+
 
 const props = defineProps({
     modalAberto: Boolean
 });
 
 import { usePedidoStore } from '../store/pedido'
+import { useCarrinhoStore } from '../store/carrinho'
 
 const pedidoStore = usePedidoStore();
+const carrinhoStore = useCarrinhoStore();
 
 const prato = computed(() => pedidoStore.prato)
 
 
-
-
+const addCarrinho = async (prato_ID, quantidade, observacoes) => {
+    await axios.post(`http://api.eattog.jera.com.br/carrinho-compra`, {
+        "productId": prato_ID,
+        "quantidade": quantidade,
+        "descricao": observacoes
+    }, {
+        headers: {
+            'Authorization': sessionStorage.getItem("token")
+        }
+    })
+    console.log({prato_ID, quantidade, observacoes})
+    carrinhoStore.listarCarrinho()
+    pedidoStore.statusModal();
+}
 </script>
 <template>
     <div v-show="modalAberto" class="dish-detail">
+        {{ prato }}
         <button @click="pedidoStore.statusModal()" class="closeModal">X</button>
         <div class="dish">
             <img :src=prato.imagem alt="">
@@ -31,15 +48,18 @@ const prato = computed(() => pedidoStore.prato)
                 </div>
                 <p>{{ prato.descricao }}</p>
                 <form action="">
-                    <textarea name="obs" id="obs" cols="30" rows="10" placeholder="Observações"></textarea>
+                    <textarea name="obs" id="obs" cols="30" rows="10" placeholder="Observações"
+                        v-model="pedidoStore.observacoes"></textarea>
                     <div style="display: flex; justify-content: space-between; align-content: center; align-items: center;">
                         <div class="quantity">
                             <button @click.prevent="pedidoStore.somar()">+</button>
-                            <input type="number" v-model="pedidoStore.quantidade " />
+                            <input type="number" v-model="pedidoStore.quantidade" />
                             <button @click.prevent="pedidoStore.subtrair()" class="subtract">-</button>
                         </div>
-                        <button class="add-carrinho">
-                            <img class="cart" src="../assets/cart-shopping-solid.svg" alt=""> Total: R$ {{ pedidoStore.valorTotal }}
+                        <button class="add-carrinho"
+                            @click.prevent="addCarrinho(prato.id, pedidoStore.quantidade, pedidoStore.observacoes)">
+                            <img class="cart" src="../assets/cart-shopping-solid.svg" alt="">
+                            Total: R${{ pedidoStore.valorTotal }}
                         </button>
                     </div>
                 </form>
@@ -60,7 +80,8 @@ const prato = computed(() => pedidoStore.prato)
     z-index: 9999999999;
     border-radius: 0.25rem;
 }
-.dish-detail .closeModal{
+
+.dish-detail .closeModal {
     display: block;
     margin: 0.5rem 0.5rem 0 auto;
     border: none;
@@ -69,7 +90,7 @@ const prato = computed(() => pedidoStore.prato)
     font-size: 20px;
 }
 
-.dish-detail .dish{
+.dish-detail .dish {
     display: flex;
     flex-direction: row;
     padding: 1rem;
@@ -115,10 +136,12 @@ const prato = computed(() => pedidoStore.prato)
     height: 5rem;
     margin: 0.5rem 0;
 }
+
 .dish-detail .data-dish .quantity,
-.add-carrinho{
+.add-carrinho {
     margin: 0 0.25rem;
 }
+
 .dish-detail .data-dish .quantity {
     display: flex;
     flex-direction: row;
