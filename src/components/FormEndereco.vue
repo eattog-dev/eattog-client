@@ -1,0 +1,223 @@
+<template>
+    <el-button class="localizacao-atual" @click="localizacaoAutomatica()">Preencha Com Localizaçao Atual</el-button>
+    <el-form ref="enderecoForm" :model="endereco" >
+        <el-col>
+            <el-row :gutter=8>
+                <el-col :span="4">
+                    <el-form-item prop="cep" :rules="cepRule">
+                        <label for="cep">CEP</label>
+                        <el-input v-model="endereco.cep" class="lala" name="cep" maxLength="8" :disabled="enderecoSalvo"/>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="5">
+                    <el-form-item prop="estado" :rules="estadoRule">
+                        <label for="estado">Estado</label>
+                        <el-input v-model="endereco.estado" name="estado" :disabled="enderecoSalvo"/>
+
+                    </el-form-item>
+                </el-col>
+                <el-col :span="15">
+                    <el-form-item prop="municipio" :rules="municipioRule">
+                        <label for="municipio">Município</label>
+                        <el-input v-model="endereco.municipio" name="municipio" :disabled="enderecoSalvo"/>
+
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="24">
+                    <el-form-item prop="logradouro" :rules="logradouroRule">
+
+                        <label for="logradouro">Logradouro</label>
+                        <el-input v-model="endereco.rua" name="logradouro" :disabled="enderecoSalvo"/>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter=8>
+                <el-col :span="2">
+                    <el-form-item prop="numero_residencia" :rules="numeroRule">
+                        <label for="numero">Número</label>
+                        <el-input v-model="endereco.numero_residencia" name="numero_residencia" :disabled="enderecoSalvo"/>
+
+                    </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                    <el-form-item prop="bairro" :rules="bairroRule">
+                        <label for="bairro">Bairro</label>
+                        <el-input v-model="endereco.bairro" name="bairro" :disabled="enderecoSalvo"/>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="16">
+                    <el-form-item prop="complemento">
+                        <label for="complemento">Complemento</label>
+                        <el-input v-model="endereco.complemento" name="complemento"
+                            placeholder="Deixe vazio se nao houver" :disabled="enderecoSalvo"/>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+        </el-col>
+
+        <div class="actions">
+            <el-form-item>
+                <el-button class="salvar-endereco" @click="submitForm(enderecoForm)" v-if="!enderecoSalvo">Salvar</el-button>
+                <el-button class="cancelar-endereco" @click="handleDataForm()" v-if="!enderecoSalvo" >Cancelar</el-button>
+                <el-button class="salvar-endereco" @click="handleDataForm()" v-else>Editar</el-button>
+            </el-form-item>
+        </div>
+    </el-form>
+</template>
+  
+<script setup>
+import { ref, computed } from 'vue'
+import axios from "axios";
+
+import { usePerfilStore } from '../store/perfil'
+
+const perfilStore = usePerfilStore();
+
+const endereco = computed(() => perfilStore.novoPerfil)
+
+const enderecoForm = ref({})
+
+const cepRule = [
+    {
+        required: true,
+        message: "Preencha corretamente o cep",
+        trigger: "blur"
+    },
+    {
+        validator: async (rule, value, callback) => {
+            const endereco = await axios
+                .get(`https://viacep.com.br/ws/${value}/json/`)
+            if (!endereco.data.erro) {
+                perfilStore.novoPerfil.bairro = endereco.data.bairro
+                perfilStore.novoPerfil.municipio = endereco.data.localidade
+                perfilStore.novoPerfil.rua = endereco.data.logradouro
+                perfilStore.novoPerfil.estado = endereco.data.uf
+                callback();
+            } else {
+                callback(new Error("Preencha um cep válido"));
+            }
+        },
+        trigger: "blur",
+    },
+]
+const bairroRule =
+{
+    required: true,
+    message: "Preencha corretamente o bairro",
+    trigger: "blur"
+}
+const estadoRule = {
+    required: true,
+    message: "Preencha corretamente o estado",
+    trigger: "blur"
+}
+
+const municipioRule = {
+    required: true,
+    message: "Preencha corretamente o municipio",
+    trigger: "blur"
+}
+
+const numeroRule = {
+    required: true,
+    message: "Preencha corretamente o numero do endereco",
+    trigger: "blur"
+}
+
+const logradouroRule = [
+    {
+        validator: (rule, value, callback) => {
+            if (perfilStore.novoPerfil.rua !== null)
+                callback()
+            else
+                callback(new Error("Preencha corretamente o logradouro2"));
+        },
+        trigger: "blur",
+    }
+]
+
+
+const submitForm = (cadastroForm) => {
+
+    //this.loading = true;
+
+    cadastroForm.validate(async (valid) => {
+        if (valid) {
+            console.log("asjdhasdasjkhdh");
+            await axios
+                .put(`http://54.233.122.212/atualizar-usuario/${perfilStore.perfil.id}`, {
+                    "nome": perfilStore.novoPerfil.nome,
+                    "email": perfilStore.novoPerfil.email,
+                    "cpf": perfilStore.novoPerfil.cpf,
+                    "numero_celular": perfilStore.novoPerfil.numero_celular,
+                    "cep": perfilStore.novoPerfil.cep,
+                    "rua": perfilStore.novoPerfil.rua,
+                    "complemento": perfilStore.novoPerfil.complemento,
+                    "bairro": perfilStore.novoPerfil.bairro,
+                    "numero_residencia": perfilStore.novoPerfil.numero_residencia,
+                    "data_aniversario": perfilStore.novoPerfil.data_aniversario
+                }, {
+                    headers: { 'Authorization': `Bearer ${sessionStorage.getItem("token")}` },
+                }
+                );
+
+                handleDataForm()
+        } else {
+            /*
+            this.errorMsgPassword = "";
+            this.errorMsg = "Please fill in all required fields.";
+            */
+            //this.loading = false;
+        }
+
+        /*setTimeout(() => {
+          this.errorMsg = "";
+          this.loading = false;
+        }, 2000);*/
+    });
+}
+
+let enderecoSalvo = ref(true)
+
+const handleDataForm = () => {
+    enderecoSalvo.value = !enderecoSalvo.value
+    return enderecoSalvo.value
+}
+</script>
+  
+<style scoped>
+button.el-dialog__headerbtn {
+    display: none !important
+}
+
+.el-form {
+    padding: 1rem 0 3rem 0;
+    margin-right: 4rem;
+}
+
+.localizacao-atual,
+.actions {
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.localizacao-atual,
+.salvar-endereco {
+    background-color: var(--yellow500);
+    color: var(--black100);
+}
+
+.cancelar-endereco {
+    background-color: rgb(225, 18, 18);
+    color: var(--white200);
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+</style>
+  

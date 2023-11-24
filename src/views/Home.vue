@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, reactive } from 'vue'
+import { useRouter, useRoute } from 'vue-router';
 
 import Carousel from '../components/Carousel.vue';
 import Dish from '../components/DishHome.vue';
@@ -10,6 +11,9 @@ import SelectedDish from '../components/SelectedDish.vue';
 
 import { useHomeStore } from '../store/home'
 import { usePedidoStore } from '../store/pedido'
+
+
+const router = useRouter();
 
 const homeStore = useHomeStore();
 const pedidoStore = usePedidoStore();
