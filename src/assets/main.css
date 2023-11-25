@@ -28,7 +28,8 @@ body{
     --gray500: #3f3f3fe0; 
     --gray600: #cccccc1c;
     --gray800: #303133; 
-
+    --gray900: #606266;
+    
     --green100: #50a773;
 
     --blue100: #4d54dd;
@@ -36,5 +37,8 @@ body{
 
     --aqua100: #00FFFF;
 
+    --transp-gray100: #c3c3c31c;
+
     --rgba-yellow:rgba(255, 255, 0, 0.642);
+    --rgba-gray: rgba(0, 0, 0, 0.857);
 }
