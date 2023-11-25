@@ -74,6 +74,12 @@ const auth = document.cookie.split("token=")[1];
 
 const goToCadastro = () => router.push("/cadastro");
 
+const showPassword = ref(false);
+
+const togglePassword = () => {
+  showPassword.value = !showPassword.value;
+};
+
 // onMounted(() => {
 //   if(auth != undefined){
 //     isAuth = true;

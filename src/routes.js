@@ -12,8 +12,9 @@ import CardAdd from './components/CardAdd.vue';
 import SingleCategoria from './views/SingleCategoria.vue';
 import StateOrder from './views/StateOrder.vue';
 import ManageSystem from './views/ManageSystem.vue';
-import UserProfile from './views/UserProfile.vue'
-
+import UserProfile from './views/UserProfile.vue';
+import OwnerRegistration from './views/OwnerRegistration.vue';
+import OwnerLogin from './views/OwnerLogin.vue';
 
 const routes = [
     { path: '/', component: Splash },
@@ -25,12 +26,13 @@ const routes = [
     { path: '/inicio', component: Home, name: Home },
     { path: '/restaurants', component: Restaurants },
     { path: '/restaurants/:id', name: 'SingleRestaurant', props: true, query: true, component: SingleRestaurant },
-    { path: '/admin', component: Admin },
+    { path: '/admin', component: Admin, name: Admin },
     { path: '/dishes', name: Dishes, component: Dishes },
     { path: '/adminconsole',name: ManageSystem , component: ManageSystem},
     { path: '/categorias/:id/:nome', name: SingleCategoria, component: SingleCategoria },
     { path: '/stateorder', name: StateOrder, component: StateOrder },
-
+    { path: '/cadastro/proprietario', component: OwnerRegistration, meta: {onlyWithoutAuth: true}, name: OwnerRegistration },
+    { path: '/login/proprietario', component: OwnerLogin, meta: {onlyWithoutAuth: true}, name: OwnerLogin },
 ];
 
 const router = createRouter({
@@ -38,10 +40,12 @@ const router = createRouter({
     routes
 });
 
-
 router.beforeEach((to, from, next) => {
     if (to.meta.onlyWithoutAuth && sessionStorage.getItem("token")) next({ name: Home })
     else if (to.meta.onlyAuth  && !sessionStorage.getItem("token")) next({ name: Login })
+    else next()
+    if (to.meta.onlyWithoutAuth && sessionStorage.getItem("token-admin")) next({ name: Admin  })
+    else if (to.meta.onlyAuth  && !sessionStorage.getItem("token-admin")) next({ name: OwnerLogin })
     else next()
 })
 

@@ -325,14 +325,14 @@
         this.showModal = true;
 
         axios
-        .get('http://54.233.122.212/categorias')
+        .get('http://api.eattog.jera.com.br/categorias')
         .then(response => (this.infos = response.data))
         .catch(error => {
             console.error(error);
         });
 
         axios
-        .get('http://54.233.122.212/restaurantes')
+        .get('http://api.eattog.jera.com.br/restaurantes')
         .then(response => (this.establishments = response.data))
         .catch(error => {
             console.error(error);
@@ -367,7 +367,7 @@
                 categoria_prato: this.typedishes,
             };
 
-            axios.post('http://54.233.122.212/criar/categoria', formData)
+            axios.post('http://api.eattog.jera.com.br/criar/categoria', formData)
             .then(response => {
                 const newCategoryId = response.data.id;
                 this.$message.success('Categoria adicionada com sucesso.');
@@ -382,7 +382,7 @@
         },
 
         removeTypeDishes(categoriaId) {
-            axios.delete(`http://54.233.122.212/deletar/categoria-prato/${categoriaId}`)
+            axios.delete(`http://api.eattog.jera.com.br/deletar/categoria-prato/${categoriaId}`)
             .then(response => {
                 this.$message.success('Categoria removida com sucesso.');
                 this.infos = this.infos.filter(info => info.id !== categoriaId);
@@ -394,13 +394,13 @@
         },
 
         removeEstablishment(restauranteId) {
-            axios.delete(`http://54.233.122.212/deletar/restaurante/${restauranteId}`)
+            axios.delete(`http://api.eattog.jera.com.br/restaurante/${restauranteId}`)
             .then(response => {
                 this.$message.success('Restaurante removida com sucesso.');
                 this.establishments = this.establishments.filter(establishment => establishment.id !== restauranteId);
             })
             .catch(error => {
-                console.error('Erro ao remover ${restauranteId} restaurante:', error);
+                console.error('Erro ao remover restaurante:', error);
                 this.$message.error('Erro ao remover restaurante');
             });
         },
