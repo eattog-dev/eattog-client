@@ -40,5 +40,28 @@ body{
     --transp-gray100: #c3c3c31c;
 
     --rgba-yellow:rgba(255, 255, 0, 0.642);
-    --rgba-gray: rgba(0, 0, 0, 0.857);
+
+    --rgba-gray100: rgba(0, 0, 0, 0.857);
+    --rgba-gray200: rgba(0, 0, 0, 0.1);
+
+    --rgba-lightgray100: rgba(255, 254, 212, 0.409);
+
+    --laptop: 1024px;
+    --tablet: 768px;
+}
+
+/* contexto de css global do element plus  */
+.el-input__wrapper {
+    box-shadow: 0 0 0 1px var(--gray200) inset !important;
+}
+.el-input__wrapper.is-focus { 
+    box-shadow: 0 0 0 0.063rem var(--yellow100) inset !important;
+}
+.el-button:focus {
+    background-color: inherit !important;
+    border-color: none !important;
+    color: inherit !important;
+}
+.el-input__wrapper .el-input__inner{
+    height: 2.3rem;
 }
