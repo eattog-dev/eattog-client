@@ -27,7 +27,7 @@ const routes = [
     { path: '/restaurants/:id', name: 'SingleRestaurant', props: true, query: true, component: SingleRestaurant },
     { path: '/admin', component: Admin },
     { path: '/dishes', name: Dishes, component: Dishes },
-    { path: '/gerenciar',name: ManageSystem , component: ManageSystem},
+    { path: '/adminconsole',name: ManageSystem , component: ManageSystem},
     { path: '/categorias/:id/:nome', name: SingleCategoria, component: SingleCategoria },
     { path: '/stateorder', name: StateOrder, component: StateOrder },
 
