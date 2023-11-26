@@ -19,13 +19,14 @@
             <span class="cmp-modal-address-login__description">
                 Possui um endereço registrado? Aproveite para fazer o login e escolher seu endereço salvo, ou cadastre-se para salvar seu endereço.
             </span>
-            <el-button type="text" class="cmp-modal-btn-login">Login ou Cadastrar</el-button>
+            <RouterLink to="/login" class="cmp-modal-btn-login">Login ou Cadastrar</RouterLink>
         </div>
     </div>
 </template>
 
 <script setup>
     import { ref, computed, inject, onMounted, toRefs } from 'vue';
+import { RouterLink } from 'vue-router';
 
     const { userCity, modalOpen } = toRefs(inject('navbarState'));
     const loadingLocation = ref(false);
@@ -45,9 +46,10 @@
                 const { latitude, longitude } = position.coords;
                 try {
                     const response = await fetch(
-                    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyBd6WFE2-Z1e6ESVGbILra9yYXfIAKY3KU`
+                    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyDBzZgyhRCL1b_SGJpykfsAhVasXjdb6PU`
                     );
                     const data = await response.json();
+                    console.log(response)
                     if (data.status === 'OK') {
                     const cityResult = data.results.find(result =>
                         result.types.includes('locality') ||
@@ -56,6 +58,7 @@
 
                     if (cityResult) {
                         const addressComponents = cityResult.address_components;
+                        console.log(addressComponents)
                         const city = addressComponents.find(comp =>
                         comp.types.includes('locality')
                         );
@@ -83,7 +86,7 @@
             loadingLocation.value = false;
         }
     };
-</script>
+</script> 
 
 <style scoped>
     .cmp-modal-content {
