@@ -10,8 +10,8 @@
                 <el-form-item  class="cmp-owner-form-item--margin" label="Senha" prop="password" :rules="passwordRules">
                     <el-input class="cmp-owner-form-input" v-model="formulario.password" :type="showPassword ? 'text' : 'password'"></el-input>
                     <el-button class="cmp-owner-password-toggle-button" @click="togglePassword">
-                        <span v-if="showPassword">🔓</span>
-                        <span v-else>🔒</span>
+                        <span v-if="showPassword">👁️</span>
+                        <span v-else>👁️‍🗨️</span>
                     </el-button>
                 </el-form-item>
 
