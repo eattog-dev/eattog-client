@@ -53,7 +53,7 @@ const emailRules = computed(() => login.emailRules);
 
 const passwordRules = computed(() => login.passwordRules);
 
-const auth = document.cookie.split("token=")[1];
+// const auth = document.cookie.split("token=")[1];
 
 const loginForm = ref(null);
 const errorMsg = ref("");
