@@ -5,7 +5,8 @@ export const usePerfilStore = defineStore("perfil", {
     state: () => ({
         editProfileModal: false,
         perfil: {},
-        novoPerfil: {}
+        novoPerfil: {},
+        endereco: {}
     }),
     actions: {
         statusEditProfileModal() {
@@ -13,23 +14,25 @@ export const usePerfilStore = defineStore("perfil", {
         },
         async loggedUser() {
             await axios
-                .get("http://54.233.122.212/meu-perfil", {
+                .get("http://api.eattog.jera.com.br/meu-perfil", {
                     headers: { 'Authorization': `Bearer ${sessionStorage.getItem("token")}` }
                 })
                 .then(response => {
                     console.log(response.data)
                     this.perfil = response.data
+                    this.endereco = JSON.parse(JSON.stringify(response.data.addresses[response.data.addresses.length -1]))
                     this.editedProfile()
                 })
                 .catch(error => {
-                    if (error.response.status == 401) {
                         sessionStorage.removeItem("token");
-                    }
                 })
         },
         editedProfile() {
             this.novoPerfil = JSON.parse(JSON.stringify(this.perfil))
-        }
-    },
+            this.novoPerfil.addresses = this.endereco
+        },
 
+    },
+    getters: {
+    }
 })
