@@ -4,7 +4,9 @@
             <el-menu :default-active="activeTab">
                 <div class="cmp-admin-user-conteiner">
                     <div class="cmp-admin-user-info">
-                        <img :src="restaurantImage" alt="Logo do Restaurante" class="cmp-admin-restaurant-logo">
+                        <img v-if="!logo" src="../assets/quadrado.png" alt="Imagem Padrão" class="cmp-admin-restaurant-logo">
+                        <img v-else :src="logo" alt="Logo do Restaurante" class="cmp-admin-restaurant-logo">
+
                         <p class="cmp-admin-restaurant-name">{{ restaurantName }}</p>
                     </div>
                 </div>
@@ -66,7 +68,7 @@
                                 <el-form-item label="Endereço" class="cmp-admin-form-item">
                                     <div class="cmp-admin-flex">
                                         <el-input v-model="restaurantAddress.cep" placeholder="CEP" class="cmp-admin-form-input"
-                                            required></el-input>
+                                        @change="buscarEndereco" required></el-input>
                                         <el-input v-model="restaurantAddress.district" placeholder="Bairro"
                                             class="cmp-admin-form-input" required></el-input>
                                     </div>
@@ -368,6 +370,221 @@
         </div>
     </el-dialog>
 </template>
+
+<script>
+import axios from 'axios'; 
+import { ref } from 'vue'
+const showPratoModal = ref(true);
+const showRemover = ref(true);
+export default {
+    data() {
+        return {
+            activeTab: 'inicio',
+            restaurantImage: '',
+            logo: '',
+            restaurantBanner: '',
+            restaurantName: '',
+            restaurantCNPJ: '',
+            restaurantPhone: '', 
+            restaurantMealType: 'restaurantetradicional',
+            restaurantAddress: {
+                cep: '',
+                street: '',
+                city: '',
+                streetNumber: '',
+                district: '',
+                state: '',
+            },
+
+            restaurantTakeawayType: [],
+            restaurantDescription: '',
+            cnpjValidationFailed: false,
+
+            showPratoModal: false,
+            novoPrato: {
+                nome: '',
+                valor: '',
+                imagem: '',
+                ingredientes: '',
+                time: '',
+            },
+            categorias: []
+        };
+    },
+    mounted() {
+    this.fetchCategorias(); },
+    methods: {
+        buscarEndereco() {
+            const value = this.restaurantAddress.cep;
+            if (value && value.length === 8) {
+                axios.get(`https://viacep.com.br/ws/${value}/json/`)
+                    .then(response => {
+                        if (!response.data.erro) {
+                            this.restaurantAddress.street = response.data.logradouro;
+                            this.restaurantAddress.district = response.data.bairro;
+                            this.restaurantAddress.city = response.data.localidade;
+                            this.restaurantAddress.state = response.data.uf;
+                        } else {
+                            throw new Error("CEP inválido");
+                        }
+                    })
+                    .catch(error => {
+                        this.$message.error(error.message);
+                    });
+            }
+        },
+
+        fetchCategorias() {
+        axios.get('http://api.eattog.jera.com.br/categorias')
+            .then(response => {
+                this.categorias = response.data;
+            })
+            .catch(error => {
+                this.categorias = "";
+                console.error(error);
+            });
+        },
+        changeToInicio() {
+            this.activeTab = 'inicio';
+        },
+        changeToPedido() {
+            this.activeTab = 'pedido';
+        },
+        changeToCardapio() {
+            this.activeTab = 'cardapio';
+        },
+        changeToAjuda() {
+            this.activeTab = 'ajuda';
+        },
+
+        uploadImage(event) {
+            const file = event.target.files[0];
+            if (!file.type.startsWith('image/')) {
+                this.$message.error('Por favor, selecione um arquivo de imagem.');
+                return;
+            }
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.restaurantImage = file.name;
+                    this.logo = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        },
+
+        uploadBanner(event) {
+            const file = event.target.files[0];
+            if (!file.type.startsWith('image/')) {
+                this.$message.error('Por favor, selecione um arquivo de imagem.');
+                return;
+            }
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    console.log(file); 
+                    this.restaurantBanner = file.name;
+                };
+                reader.readAsDataURL(file);
+            }
+        },
+
+
+        validateCNPJ() {
+            const cnpj = this.restaurantCNPJ.replace(/[^0-9]/g, '');
+
+            if (cnpj.length !== 14) {
+                this.cnpjValidationFailed = true;
+            } else {
+                this.cnpjValidationFailed = false;
+            }
+        },
+        submitForm() {
+            this.validateCNPJ();
+            if (!this.cnpjValidationFailed) {
+                axios.post('http://api.eattog.jera.com.br/criar/restaurante',
+                    {
+                        "imagem": this.restaurantBanner,
+                        "logo": this.restaurantBanner,
+                        "banner": this.restaurantBanner,
+                        "razao_social": this.restaurantName,
+                        "cnpj": this.restaurantCNPJ,
+                        "numero_telefone": this.restaurantPhone,
+                        "cep": this.restaurantAddress.cep,
+                        "rua": this.restaurantAddress.street,
+                        "numero_endereco": this.restaurantAddress.streetNumber,
+                        "bairro":  this.restaurantAddress.district,
+                        "cidade": this.restaurantAddress.city,
+                        "estado": this.restaurantAddress.state,
+                        "avaliacao": 3.0,
+                        "tipo_restaurante": this.restaurantMealType,
+                        "distancia": '1km',
+                        "tipo_retirada": this.restaurantTakeawayType[0],
+                        "descricao": this.restaurantDescription,
+                    }, {
+                    headers: { 'Authorization': sessionStorage.getItem("token-admin") }
+                })
+                    .then(response => {
+                        sessionStorage.setItem('restaurante-id', response.data.id);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            } else {
+                this.$message.error('CNPJ inválido');
+            }
+        },
+
+        adicionarPrato() {
+            this.showPratoModal = true;
+        },
+
+        adicionarNovoPrato() {
+            this.showPratoModal = true;
+            if (this.novoPrato.nome && this.novoPrato.valor && this.novoPrato.imagem) {
+                const novoPrato = {
+                    nome: this.novoPrato.nome,
+                    valor: this.novoPrato.valor,
+                    imagem: this.novoPrato.imagem,
+                    ingredientes: this.novoPrato.ingredientes,
+                    restaurante: sessionStorage.getItem('restaurante-id'), // restaurante: 1, 
+                    descricao: this.novoPrato.descricao,
+                    categoria_prato: this.novoPrato.categoria_prato,
+                    desconto: this.novoPrato.desconto,
+                    valor_desconto: this.novoPrato.valor_desconto,
+                };
+
+                axios.post('http://api.eattog.jera.com.br/criar/prato', novoPrato, {
+                    headers: {
+                        'Authorization': sessionStorage.getItem("token-admin")
+                    }
+                })
+                .then(response => {
+                    console.log('Prato criado com sucesso:', response.data);
+
+                    this.novoPrato = {
+                        nome: '',
+                        valor: '',
+                        imagem: '',
+                        ingredientes: '',
+                        time: '',
+                        descricao: '',
+                        categoria_prato: '',
+                        desconto: '',
+                        valor_desconto: "",
+                    };
+                    this.showPratoModal = false;
+                })
+                .catch(error => {
+                    console.error('Erro ao criar o prato:', error);
+                });
+
+
+            }
+        }
+    },
+};
+</script>
 
 <style>
 
@@ -857,207 +1074,3 @@
     font-weight: bold;
 }
 </style>
-
-<script>
-import { ref } from 'vue'
-const showPratoModal = ref(true);
-const showRemover = ref(true);
-export default {
-    data() {
-        return {
-            activeTab: 'inicio',
-            restaurantImage: '',
-            restaurantBanner: '',
-            restaurantName: '',
-            restaurantCNPJ: '',
-            restaurantPhone: '', 
-            restaurantMealType: 'restaurantetradicional',
-            restaurantAddress: {
-                cep: '',
-                street: '',
-                city: '',
-                streetNumber: '',
-                district: '',
-                state: '',
-            },
-
-            restaurantTakeawayType: [],
-            restaurantDescription: '',
-            cnpjValidationFailed: false,
-
-            showPratoModal: false,
-            novoPrato: {
-                nome: '',
-                valor: '',
-                imagem: '',
-                ingredientes: '',
-                time: '',
-            },
-            categorias: []
-        };
-    },
-    mounted() {
-    this.fetchCategorias(); },
-    methods: {
-        fetchCategorias() {
-        axios.get('http://api.eattog.jera.com.br/categorias')
-            .then(response => {
-            this.categorias = response.data;
-            })
-            .catch(error => {
-            console.error(error);
-            });
-        },
-        changeToInicio() {
-            this.activeTab = 'inicio';
-        },
-        changeToPedido() {
-            this.activeTab = 'pedido';
-        },
-        changeToCardapio() {
-            this.activeTab = 'cardapio';
-        },
-        changeToAjuda() {
-            this.activeTab = 'ajuda';
-        },
-
-        uploadImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                this.restaurantImage = e.target.result;
-                alert(this.restaurantImage)
-                };
-                reader.readAsDataURL(file);
-            }
-        },
-
-        // uploadBanner(event) {
-        //     const file = event.target.files[0];
-        //     if (!file.type.startsWith('image/')) {
-        //         alert('Por favor, selecione um arquivo de imagem.');
-        //         return;
-        //     }
-        //     if (file) {
-        //         const reader = new FileReader();
-        //         reader.onload = (e) => {
-        //             alert(this.restaurantBanner)
-
-        //             this.restaurantBanner = event.target.files[0];
-        //         };
-        //         reader.readAsDataURL(file);
-        //     }
-        // },
-
-        uploadBanner(event) {
-            const file = event.target.files[0];
-            if (!file.type.startsWith('image/')) {
-                alert('Por favor, selecione um arquivo de imagem.');
-                return;
-            }
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    console.log(file); 
-                    this.restaurantBanner = e.target.file;
-                };
-                reader.readAsDataURL(file);
-            }
-        },
-
-        validateCNPJ() {
-            const cnpj = this.restaurantCNPJ.replace(/[^0-9]/g, '');
-
-            if (cnpj.length !== 14) {
-                this.cnpjValidationFailed = true;
-            } else {
-                this.cnpjValidationFailed = false;
-            }
-        },
-        submitForm() {
-            this.validateCNPJ();
-            if (!this.cnpjValidationFailed) {
-                axios.post('http://api.eattog.jera.com.br/criar/restaurante',
-                    {
-                        "imagem": this.restaurantBanner,
-                        "logo": this.restaurantBanner,
-                        "banner": this.restaurantBanner,
-                        "razao_social": this.restaurantName,
-                        "cnpj": this.restaurantCNPJ,
-                        "numero_telefone": this.restaurantPhone,
-                        "cep": this.restaurantAddress.cep,
-                        "rua": this.restaurantAddress.street,
-                        "numero_endereco": this.restaurantAddress.streetNumber,
-                        "bairro":  this.restaurantAddress.district,
-                        "cidade": this.restaurantAddress.city,
-                        "estado": this.restaurantAddress.state,
-                        "avaliacao": 3.0,
-                        "tipo_restaurante": this.restaurantMealType,
-                        "distancia": '1km',
-                        "tipo_retirada": this.restaurantTakeawayType[0],
-                        "descricao": this.restaurantDescription,
-                    }, {
-                    headers: { 'Authorization': sessionStorage.getItem("token-admin") }
-                })
-                    .then(response => {
-                        sessionStorage.setItem('restaurante-id', response.data.id);
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-            } else {
-                this.$message.error('CNPJ inválido');
-            }
-        },
-
-        adicionarPrato() {
-            this.showPratoModal = true;
-        },
-
-        adicionarNovoPrato() {
-            this.showPratoModal = true;
-            if (this.novoPrato.nome && this.novoPrato.valor && this.novoPrato.imagem) {
-                const novoPrato = {
-                    nome: this.novoPrato.nome,
-                    valor: this.novoPrato.valor,
-                    imagem: this.novoPrato.imagem,
-                    ingredientes: this.novoPrato.ingredientes,
-                    restaurante: sessionStorage.getItem('restaurante-id'), // restaurante: 1, 
-                    descricao: this.novoPrato.descricao,
-                    categoria_prato: this.novoPrato.categoria_prato,
-                    desconto: this.novoPrato.desconto,
-                    valor_desconto: this.novoPrato.valor_desconto,
-                };
-
-                axios.post('http://api.eattog.jera.com.br/criar/prato', novoPrato, {
-                    headers: {
-                        'Authorization': sessionStorage.getItem("token-admin")
-                    }
-                })
-                .then(response => {
-                    console.log('Prato criado com sucesso:', response.data);
-
-                    this.novoPrato = {
-                        nome: '',
-                        valor: '',
-                        imagem: '',
-                        ingredientes: '',
-                        time: '',
-                        descricao: '',
-                        categoria_prato: '',
-                        desconto: '',
-                        valor_desconto: "",
-                    };
-                    this.showPratoModal = false;
-                })
-                .catch(error => {
-                    console.error('Erro ao criar o prato:', error);
-                });
-
-
-            }
-        }
-    },
-};
-</script>
