@@ -54,8 +54,8 @@
         padding: 0.625rem 0 !important;   
         z-index: 999;
         width: 100%;
-        bottom: 0;
-        position: absolute;
+        /* bottom: 0;
+        position: absolute; */
         background-color: var(--white100);
     }
     .cmp-footer-link {

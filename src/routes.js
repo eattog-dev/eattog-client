@@ -15,8 +15,11 @@ import ManageSystem from './views/ManageSystem.vue';
 import UserProfile from './views/UserProfile.vue';
 import OwnerRegistration from './views/OwnerRegistration.vue';
 import OwnerLogin from './views/OwnerLogin.vue';
+import NotFound from './views/NotFound.vue';
+import SobreNos from './views/SobreNos.vue';
 
 const routes = [
+    {path: '/:pathMatch(.*)*', name: NotFound, component: NotFound},
     { path: '/', component: Splash },
     { path: '/cadastro', component: Cadastro, meta: {onlyWithoutAuth: true}, name: Cadastro },
     { path: '/login', component: Login, meta: {onlyWithoutAuth: true}, name: Login },
@@ -33,6 +36,7 @@ const routes = [
     { path: '/stateorder', name: StateOrder, component: StateOrder },
     { path: '/cadastro/proprietario', component: OwnerRegistration, meta: {onlyWithoutAuth: true}, name: OwnerRegistration },
     { path: '/login/proprietario', component: OwnerLogin, meta: {onlyWithoutAuth: true}, name: OwnerLogin },
+    {path: '/sobre-nos', name: SobreNos,  component: SobreNos}
 ];
 
 const router = createRouter({
@@ -41,6 +45,14 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+    next(vm => {
+        vm.item = json.find(item => item.id == vm.$route.params.id)
+
+        if(!vm.item) {
+            next({name: NotFound})
+        }
+
+    })
     if (to.meta.onlyWithoutAuth && sessionStorage.getItem("token")) next({ name: Home })
     else if (to.meta.onlyAuth  && !sessionStorage.getItem("token")) next({ name: Login })
     else next()

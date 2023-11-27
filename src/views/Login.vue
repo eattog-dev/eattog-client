@@ -1,8 +1,6 @@
 <template>
   <section id="login">
-    <div class="loading-overlay" v-if="login.loading">
-      <div class="loading-spinner"></div>
-    </div>
+    
     <el-row>
       <el-col :span="12" class="login-bg-white">
         <Logo class="" text="Eattog" icon="🟨"></Logo>
@@ -63,7 +61,6 @@ import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
 
-const login = useLoginStore();
 
 const goToCadastro = () => router.push("/cadastro");
 

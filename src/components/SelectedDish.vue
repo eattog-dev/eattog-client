@@ -33,7 +33,6 @@ const addCarrinho = async (prato_ID, quantidade, observacoes) => {
 </script>
 <template>
     <div v-show="modalAberto" class="dish-detail">
-        {{ prato }}
         <button @click="pedidoStore.statusModal()" class="closeModal">X</button>
         <div class="dish">
             <img :src=prato.imagem alt="">
@@ -206,5 +205,15 @@ const addCarrinho = async (prato_ID, quantidade, observacoes) => {
 .total-value {
     float: right;
     font-size: 1.1rem
+}
+
+@media(max-width: 768px){
+    .dish-detail{
+        width: 20rem;
+        left: calc(50% - 10rem);
+    }
+    .dish-detail img{
+        display: none
+    }
 }
 </style>
