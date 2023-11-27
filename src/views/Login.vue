@@ -79,7 +79,7 @@ const passwordRules = { required: true, message: "Por Favor digite a senha", tri
   
 
 const loginForm = ref(null);
-const errorMsg = ref("");
+const errorMsg = ref(false);
 
 const showPassword = ref(false);
 
@@ -101,11 +101,12 @@ const submitForm = (cadastroForm) => {
           router.push("/inicio");
         })
         .catch(error => {
-          alert("Algo deu errado. Tente Novamente")
+          this.$message.error('Algo deu errado. Tente Novamente');
         })
     } else {
       errorMsgPassword = "";
-      errorMsg = "Please fill in all required fields.";
+      const errorMsg = ref(true);
+      this.$message.error('Algo deu errado. Tente Novamente');
     }
   });
 }
