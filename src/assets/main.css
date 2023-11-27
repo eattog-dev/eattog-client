@@ -65,3 +65,7 @@ body{
 .el-input__wrapper .el-input__inner{
     height: 2.3rem;
 }
+
+.el-date-editor.el-input{
+    width: 100%!important;
+}

@@ -19,17 +19,18 @@
             <el-form-item label="E-mail" prop="email" :rules="emailRules">
               <el-input type="email" v-model="formulario.email"></el-input>
             </el-form-item>
-            <el-form-item label="Password" prop="password" :rules="passwordRules">
+            <el-form-item label="Senha" prop="password" :rules="passwordRules">
               <el-input v-model="formulario.password" :type="showPassword ? 'text' : 'password'">
               </el-input>
-              <el-button class="password-login" @click="login.togglePassword">
-                <img src="../assets/img-login/monkeySee.svg" v-if="showPassword" style="width: 1.7rem; height: 1.7rem;">
-                <img src="../assets/img-login/monkey.svg" v-else style="width: 1.7rem; height: 1.7rem;">
+              <el-button class="password-login" @click="togglePassword()">
+                <span v-if="showPassword">🙉</span>
+                <span v-else>🙈</span>
               </el-button>
+
             </el-form-item>
             <span class="login-esqueceu-senha" @click="goToCadastro()">Nao tem conta ainda? Cadastre-se agora</span>
             <el-form-item>
-              <el-button class="login-button" type="primary" @click="login.submitForm(loginForm)">Login</el-button>
+              <el-button class="login-button" type="primary" @click="submitForm(loginForm)">Login</el-button>
             </el-form-item>
           </div>
           <el-form-item>
@@ -39,10 +40,11 @@
         </el-form>
       </el-col>
     </el-row>
-    <button @click="mudaRota"></button>
   </section>
 </template>
 <script setup>
+import axios from "axios";
+
 import Logo from "../components/Logo.vue";
 import { ref, computed, onMounted } from "vue";
 import {
@@ -57,99 +59,59 @@ import {
   ElAlert,
 } from "element-plus";
 
-import { useLoginStore } from "../store/login";
 import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
 
 const login = useLoginStore();
 
-const formulario = computed(() => login.formulario);
-
-const emailRules = computed(() => login.emailRules);
-
-const passwordRules = computed(() => login.passwordRules);
-
-const auth = document.cookie.split("token=")[1];
-
 const goToCadastro = () => router.push("/cadastro");
+
+const formulario = ref({})
+
+const emailRules = [
+  { required: true, message: "Por favor digite a senha", trigger: "blur" },
+  {
+    type: "email",
+    message: "Please digite um email válido",
+    trigger: "blur",
+  },
+];
+
+const passwordRules = { required: true, message: "Por Favor digite a senha", trigger: "blur" };
+  
+
+const loginForm = ref(null);
+const errorMsg = ref("");
 
 const showPassword = ref(false);
 
 const togglePassword = () => {
   showPassword.value = !showPassword.value;
-};
+}
 
-// onMounted(() => {
-//   if(auth != undefined){
-//     isAuth = true;
-//     alert("ta autenticado")
-//   }else{
-//     alert("nao ta autenticado")
-//   }
-// })
-
-
-
-// const formData = ref({
-//   email: "",
-//   password: "",
-// });
-
-// const emailRules = [
-//   { required: true, message: "Please enter your email", trigger: "blur" },
-//   {
-//     type: "email",
-//     message: "Please enter a valid email address",
-//     trigger: "blur",
-//   },
-// ];
-
-// const passwordRules = [
-//   { required: true, message: "Please enter a password", trigger: "blur" },
-//   {
-//     validator: (rule, value, callback) => {
-//       const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,}$/;
-//       if (!regex.test(value)) {
-//         callback(
-//           new Error(
-//             "Password must have at least 6 characters, one uppercase letter, one lowercase letter, and one special character"
-//           )
-//         );
-//       } else {
-//         callback();
-//       }
-//     },
-//     trigger: "blur",
-//   },
-// ];
-
-// const showPassword = ref(false);
-// const loading = ref(false);
-
-// const togglePassword = () => {
-//   showPassword.value = !showPassword.value;
-// };
-
-// const submitForm = () => {
-//   loading.value = true;
-
-//   loginForm.value.validate((valid) => {
-//     if (valid) {
-//       console.log("Form Data:", formData.value);
-//       errorMsg.value = "";
-//       setTimeout(() => {
-//         loading.value = false;
-//       }, 2000);
-//     } else {
-//       errorMsg.value = "Please fill in all required fields.";
-//       loading.value = false;
-//     }
-//   });
-// };
-
-const loginForm = ref(null);
-const errorMsg = ref("");
+const submitForm = (cadastroForm) => {
+  cadastroForm.validate(async (valid) => {
+    if (valid) {
+      await axios
+        .post("http://api.eattog.jera.com.br/users/sign-in", {
+          "email": formulario.value.email,
+          "senha": formulario.value.password
+        })
+        .then(response => {
+          sessionStorage.setItem("token", response.data.accessToken);
+          alert("logado com sucesso")
+          router.push("/inicio");
+        })
+        .catch(error => {
+          alert("Algo deu errado. Tente Novamente")
+        })
+    } else {
+      errorMsgPassword = "";
+      errorMsg = "Please fill in all required fields.";
+    }
+  });
+}
 </script>
 
 <style scoped>
@@ -212,13 +174,25 @@ const errorMsg = ref("");
   background-color: transparent !important;
   border-color: transparent !important;
   width: auto !important;
-  margin: 0rem!important;
+  margin: 0rem !important;
+  position: absolute;
+  right: 0.625rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  padding: 0;
+  color: var(--gray400);
 }
-.password-login .el-input{
-  
-  background-image: url(../assets/img-login/monkeySee.svg)!important;
+
+.password-login .el-input {
+  position: relative;
+  background-image: url(../assets/img-login/monkeySee.svg) !important;
   background-size: 20px !important;
 }
+
 .login-button {
   background-color: var(--yellow400);
   color: rgba(0, 0, 0, 0.813);
@@ -263,6 +237,7 @@ const errorMsg = ref("");
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }

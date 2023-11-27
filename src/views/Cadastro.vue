@@ -9,20 +9,20 @@
                 <el-form class="cadastro-form" ref="cadastroForm" :model="formulario" label-width="6.25rem"
                     label-position="top">
                     <el-header>
-                        <el-divider content-position="center" class="cadastro-divider">Welcome to Eattog</el-divider>
-                        <p class="cadastro-create-account">Create your account</p>
+                        <el-divider content-position="center" class="cadastro-divider">Bem-vindo ao Eattog</el-divider>
+                        <p class="cadastro-create-account">Crie sua conta</p>
                     </el-header>
-                    <el-form-item label="Name" prop="nome" :rules="nameRules">
+                    <el-form-item label="Nome" prop="nome" :rules="nameRules">
                         <el-input type="text" v-model="formulario.nome"></el-input>
                     </el-form-item>
-                    <!-- <el-form-item label="Date of Birth" prop="data_nascimento" :rules="dateOfBirthRules">
-                        <el-date-picker class="cadastro-inputDate" v-model="formulario.data_nascimento" type="date"
-                            placeholder="Select Date" format="DD/MM/YYYY"></el-date-picker>
-                    </el-form-item> -->
                     <el-form-item label="Date of Birth" prop="data_nascimento" :rules="dateOfBirthRules">
-                        <el-input type="text" v-mask="'####-##-##'" v-model="formulario.data_nascimento"></el-input>
+                        <el-date-picker class="cadastro-inputDate" v-model="formulario.data_nascimento" type="date"
+                            placeholder="Select Date" format="DD/MM/YYYY" ></el-date-picker>
                     </el-form-item>
-                    <el-form-item label="Phone number" prop="numberPhone" :rules="phoneRules">
+                    <!-- <el-form-item label="Data de Nascimento" prop="data_nascimento" :rules="dateOfBirthRules">
+                        <el-input type="text" v-mask="'####-##-##'" v-model="formulario.data_nascimento"></el-input>
+                    </el-form-item> -->
+                    <el-form-item label="Número de Telefone" prop="numberPhone" :rules="phoneRules">
                         <el-input type="text" v-mask="'(##)#####-####'" v-model="formulario.numberPhone"></el-input>
                     </el-form-item>
                     <el-form-item label="CPF" prop="cpf" :rules="cpfRules">
@@ -31,42 +31,35 @@
                     <el-form-item label="E-mail" prop="email" :rules="emailRules">
                         <el-input type="email" v-model="formulario.email"></el-input>
                     </el-form-item>
-                    <el-form-item label="password" prop="password" :rules="passwordRules">
+                    <el-form-item label="Senha" prop="password" :rules="passwordRules">
                         <el-input v-model="formulario.password" :type="showPassword ? 'text' : 'password'"></el-input>
-                        <el-button class="password-toggle-button" @click="togglePassword" >
-                            <span v-if="showPassword">🙉</span>
-                            <span v-else>🙈</span>
-                        </el-button>
-                    </el-form-item>
-                    <el-form-item label="Confirm Password" prop="confirmPassword" :rules="confirmPasswordRules">
-                        <el-input v-model="formulario.confirmPassword"
-                            :type="showPassword ? 'text' : 'password'"></el-input>
                         <el-button class="password-toggle-button" @click="togglePassword">
                             <span v-if="showPassword">🙉</span>
                             <span v-else>🙈</span>
                         </el-button>
                     </el-form-item>
-                    <el-form-item>
-                        <el-button type="primary" @click="cadastro.submitForm(cadastroForm)">Sign Up</el-button>
-                    </el-form-item>
-                    <div class="loading-cadastro" v-if="loading">
-                        <div class="loading-spinner-cadastro"></div>
-                    </div>
-                    <el-form-item>
-                        <el-alert v-if="errorMsg" title="Please fill in all required fields." type="error" show-icon
-                            class="cadastro-alert"></el-alert>
+                    <el-form-item label="Confirmar Senha" prop="confirmPassword" :rules="confirmPasswordRules">
+                        <el-input v-model="formulario.confirmPassword"
+                            :type="showConfirmPassword ? 'text' : 'password'"></el-input>
+                        <el-button class="password-toggle-button" @click="toggleConfirmPassword">
+                            <span v-if="showConfirmPassword">🙉</span>
+                            <span v-else>🙈</span>
+                        </el-button>
                     </el-form-item>
                     <el-form-item>
-                        <router-link class="link-login" to="/login">Já tem uma conta? Faça Login</router-link>
+                        <el-button type="primary" @click="submitForm(cadastroForm)">Cadastrar</el-button>
                     </el-form-item>
+   
+                    <span class="link-login" @click="goToLogin()">Já tem uma conta? Faça Login</span>
                 </el-form>
             </el-col>
         </el-row>
-        {{ formulario }}
     </section>
 </template>
   
 <script setup>
+import axios from "axios";
+
 import Logo from "../components/Logo.vue";
 import { ref, computed } from "vue";
 import {
@@ -82,31 +75,154 @@ import {
     ElAlert,
 } from "element-plus";
 
-import { useCadastroStore } from '../store/cadastro'
+import { useRouter, useRoute } from 'vue-router';
 
-const cadastro = useCadastroStore();
+const router = useRouter()
 
-const formulario = computed(() => cadastro.formulario);
-const nameRules = computed(() => cadastro.nameRules);
-const dateOfBirthRules = computed(() => cadastro.dateOfBirthRules);
-const phoneRules = computed(() => cadastro.phoneRules);
-const cpfRules = computed (() => cadastro.cpfRules);
-const emailRules = computed(() => cadastro.emailRules);
-const passwordRules = computed(() => cadastro.passwordRules);
-const confirmPasswordRules = computed(() => cadastro.confirmPasswordRules);
-const loading = computed(() => cadastro.loading);
-const errorMsg = computed(() => cadastro.errorMsg);
+const formulario = ref({})
 
-const showPassword = computed(() => cadastro.showPassword);
 
-const togglePassword = () => {
-  cadastro.togglePassword();
+const nameRules = { required: true, message: "Please enter your name", trigger: "blur" };
+const dateOfBirthRules = [
+    {
+        required: true,
+        message: "Please select your date of birth",
+        trigger: "change",
+    },
+    {
+        validator: (rule, value, callback) => {
+            if (value) {
+                const birthDate = new Date(value);
+                const today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+
+                if (today.getMonth() < birthDate.getMonth() || (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+
+                if (age < 18) {
+                    callback(new Error("You must be at least 18 years old."));
+                } else {
+                    callback();
+                }
+            } else {
+                callback(new Error("Please select your date of birth"));
+            }
+        },
+        trigger: "change",
+    },
+];
+
+const phoneRules = {
+    required: true,
+    message: "Please enter your phone number",
+    trigger: "blur",
 };
 
-// const submitForm = () => {
-//   cadastro.submitForm(); 
-// };
+
+const cpfRules = [
+    { required: true, message: "Please enter your CPF", trigger: "blur" },
+    {
+        validator: (rule, value, callback) => {
+            const cpfRegex = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/;
+
+            if (cpfRegex.test(value)) {
+                callback();
+            } else {
+                callback(new Error("Please enter a valid CPF"));
+            }
+        },
+        trigger: "blur",
+    },
+];
+
+const emailRules = [
+    { required: true, message: "Please enter your email", trigger: "blur" },
+    {
+        type: "email",
+        message: "Please enter a valid email address",
+        trigger: "blur",
+    },
+];
+
+const passwordRules = [
+    { required: true, message: "Please enter a password", trigger: "blur" },
+    {
+        validator: (rule, value, callback) => {
+            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&]).{6,}$/;
+            if (!regex.test(value)) {
+                callback(
+                    new Error(
+                        "Password must have at least 6 characters, one uppercase letter, one lowercase letter, and one special character"
+                    )
+                );
+            } else {
+                callback();
+            }
+        },
+        trigger: "blur",
+    },
+];
+
+const confirmPasswordRules = [
+    {
+        required: true,
+        message: "Please confirm your password",
+        trigger: "blur",
+    },
+    {
+        validator: (rule, value, callback) => {
+            if (value !== this.formulario.Password) {
+                callback(new Error("Passwords do not match"));
+            } else {
+                callback();
+            }
+        },
+        trigger: "blur",
+    },
+]
+
+
+const submitForm = (cadastroForm) => {
+    cadastroForm.validate(async (valid) => {
+        if (valid) {
+            await axios
+                .post("http://api.eattog.jera.com.br/cadastrar/user", {
+                    "nome": formulario.value.nome,
+                    "email": formulario.value.email,
+                    "cpf": formulario.value.cpf,
+                    "numero_celular": formulario.value.numberPhone,
+                    "senha": formulario.value.password,
+                    "data_aniversario": formulario.value.data_nascimento,
+                })
+                .then(response => {
+                    alert("Cadastro realizado com sucesso")
+                    router.push("/login")
+                })
+                .catch(error => {
+                    alert('Falha ao se cadastrar ao sistema. Tente novamente.')
+                })
+        } else {
+            this.errorMsgPassword = "";
+            this.errorMsg = "Please fill in all required fields.";
+        }
+    });
+}
+
+const showPassword = ref(false);
+const showConfirmPassword = ref(false);
+
+const togglePassword = () => {
+    showPassword.value = !showPassword.value;
+}
+
+const toggleConfirmPassword = () => {
+    showConfirmPassword.value = !showConfirmPassword.value;
+}
+
 const cadastroForm = ref(null)
+
+const goToLogin = () => router.push("/login")
 </script>
   
 <style scoped>
@@ -152,6 +268,14 @@ const cadastroForm = ref(null)
     display: flex;
     margin: 0.625rem 0 0 0;
     justify-content: center;
+    color: var(--yellow400);
+    font-weight: 700;
+}
+
+.link-login{
+    color: var(--black100);
+    cursor: pointer;
+    float: right;
 }
 
 .cadastro-inputDate .el-date-table th {
@@ -309,7 +433,6 @@ const cadastroForm = ref(null)
     }
 
     .cadastro-container .link-login {
-        margin: -2.688rem 0 10rem 0;
         font-style: italic;
     }
 
