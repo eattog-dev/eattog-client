@@ -59,7 +59,6 @@ import {
   ElAlert,
 } from "element-plus";
 
-import { useLoginStore } from "../store/login";
 import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
