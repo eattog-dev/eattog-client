@@ -52,10 +52,10 @@ export const useLoginStore = defineStore("login", {
             });
 
             this.token = login.data.accessToken;
-            sessionStorage.setItem("token", this.token);
+            sessionStorage.setItem("token-admin", this.token);
 
-            const router = useRouter();
-            router.push("/admin");
+            // const router = useRouter();
+            this.router.push("/admin");
           } catch (error) {
             this.errorMsg = "Falha ao fazer login. Tente novamente.";
             console.error("Login error:", error);

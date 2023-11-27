@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import {} from "element-plus";
+import { } from "element-plus";
 import axios from "axios";
 
 export const useCadastroStore = defineStore("owner-registration", {
@@ -14,46 +14,46 @@ export const useCadastroStore = defineStore("owner-registration", {
       numberPhone: "",
     },
     nameRules: [
-      { 
-        required: true, 
+      {
+        required: true,
         message: "Campo obrigatório",
-        trigger: "blur" 
+        trigger: "blur"
       },
     ],
     dateOfBirthRules: [
-        {
-          required: true,
-          message: "Campo obrigatório",
-          trigger: "change",
-        },
-        {
-          validator: (rule, value, callback) => {
-            if (value) {
-              const birthDate = new Date(value);
-              const today = new Date();
-              let age = today.getFullYear() - birthDate.getFullYear();
-      
-              if (today.getMonth() < birthDate.getMonth() || (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) {
-                age--;
-              }
-      
-              if (age < 18) {
-                callback(new Error("Você deve ter pelo menos 18 anos."));
-              } else {
-                callback();
-              }
-            } else {
-              callback(new Error( "Campo obrigatório"));
+      {
+        required: true,
+        message: "Campo obrigatório",
+        trigger: "change",
+      },
+      {
+        validator: (rule, value, callback) => {
+          if (value) {
+            const birthDate = new Date(value);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+
+            if (today.getMonth() < birthDate.getMonth() || (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) {
+              age--;
             }
-          },
-          trigger: "change",
+
+            if (age < 18) {
+              callback(new Error("Você deve ter pelo menos 18 anos."));
+            } else {
+              callback();
+            }
+          } else {
+            callback(new Error("Campo obrigatório"));
+          }
         },
-      ],
+        trigger: "change",
+      },
+    ],
 
     phoneRules: [
       {
         required: true,
-        message:  "Campo obrigatório",
+        message: "Campo obrigatório",
         trigger: "blur",
       },
     ],
@@ -105,21 +105,21 @@ export const useCadastroStore = defineStore("owner-registration", {
       cadastroForm.validate(async (valid) => {
         if (valid) {
           this.errorMsgPassword = "";
-          const cadastro = await axios 
-          .post("http://api.eattog.jera.com.br/cadastrar/admin",
-          {
-            "nome": this.formulario.nome,
-            "email": this.formulario.email,
-            "cpf": this.formulario.cpf,
-            "numero_celular": this.formulario.numberPhone,
-            "senha": this.formulario.password,
-            "data_aniversario": this.formulario.data_nascimento,
+          const cadastro = await axios
+            .post("http://api.eattog.jera.com.br/cadastrar/admin",
+              {
+                "nome": this.formulario.nome,
+                "email": this.formulario.email,
+                "cpf": this.formulario.cpf,
+                "numero_celular": this.formulario.numberPhone,
+                "senha": this.formulario.password,
+                "data_aniversario": this.formulario.data_nascimento,
 
-          });
+              });
 
           console.log(cadastro.data)
-          this.router.push("login/admin")
-
+          // this.router.push("login/proprietario")
+          window.location.href = 'http://localhost:5173/login/proprietario';
           this.success(`seja bem vindo ao sistema ${this.formulario.nome}`)
         } else {
           this.errorMsgPassword = "";

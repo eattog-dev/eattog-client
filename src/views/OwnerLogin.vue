@@ -53,7 +53,7 @@ const emailRules = computed(() => login.emailRules);
 
 const passwordRules = computed(() => login.passwordRules);
 
-const auth = document.cookie.split("token=")[1];
+// const auth = document.cookie.split("token=")[1];
 
 const loginForm = ref(null);
 const errorMsg = ref("");
@@ -90,6 +90,11 @@ const togglePassword = () => {
     padding: 1rem 0;
     margin: 1rem 0;
     font-weight: bold;
+}
+.cmp-owner-form-button:hover , .cmp-owner-form-button:focus {
+    background-color: var(--yellow100) !important;
+    color: var(--white100) !important;
+    border-color: var(--yellow100);
 }
 .cmp-owner-form-logo {
     display: flex;
