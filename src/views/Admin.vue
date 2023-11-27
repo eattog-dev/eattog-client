@@ -539,6 +539,7 @@ export default {
         submitForm() {
             this.validateCNPJ();
             if (!this.cnpjValidationFailed) {
+
                 axios.post('http://api.eattog.jera.com.br/criar/restaurante',
                     {
                         "imagem": this.restaurantBanner,
@@ -560,6 +561,7 @@ export default {
                         "descricao": this.restaurantDescription,
                     }, {
                     headers: { 'Authorization': sessionStorage.getItem("token-admin") }
+
                 })
                     .then(response => {
                         sessionStorage.setItem('restaurante-id', response.data.id);
@@ -615,6 +617,7 @@ export default {
                 .catch(error => {
                     console.error('Erro ao criar o prato:', error);
                 });
+
             }
         }
     },

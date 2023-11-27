@@ -75,17 +75,8 @@ const handleClose = () => {
 </script>
 <template>
   <el-dialog v-model="openedModal" @closed="handleClose()">
-    {{ perfil }}
     <el-form ref="formBind" :model="perfil">
       <div class="edit-profile">
-        <div class="profile">
-          <div class="personal-image">
-            <label class="label">
-              <input type="file" ref="fileInput" @change="showImage" />
-              <img src="../assets/img-login/monkey.svg" class="personal-avatar">
-            </label>
-          </div>
-        </div>
         <div class="details">
           <el-form-item prop="nome" :rules="nomeRules">
             <label for="nome">Nome</label>

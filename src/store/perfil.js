@@ -24,7 +24,7 @@ export const usePerfilStore = defineStore("perfil", {
                     this.editedProfile()
                 })
                 .catch(error => {
-                  
+                    if(error.status == 404)
                         sessionStorage.removeItem("token");
                 })
         },
