@@ -43,6 +43,9 @@
                                     <el-input v-model="restaurantCNPJ" class="cmp-admin-form-input"
                                         v-mask="'##.###.###/####-##'" @input="validateCNPJ" required></el-input>
                                 </el-form-item>
+                                <el-form-item label="Número de telefone" class="cmp -admin-form-item">
+                                    <el-input v-model="restaurantPhone" class="cmp-admin-form-input" required></el-input>
+                                </el-form-item>
                                 <el-form-item label="Tipo" class="cmp-admin-form-item">
                                     <el-select v-model="restaurantMealType" class="cmp-admin-form-select" required>
                                         <el-option label="Selecione o Tipo de Restaurante" value=""></el-option>
@@ -63,9 +66,15 @@
                                 <el-form-item label="Endereço" class="cmp-admin-form-item">
                                     <el-input v-model="restaurantAddress.cep" placeholder="CEP" class="cmp-admin-form-input"
                                         required></el-input>
-                                    <el-input v-model="restaurantAddress.street" placeholder="Nome da Rua/Bairro"
+                                    <el-input v-model="restaurantAddress.street" placeholder="Nome da Rua"
+                                        class="cmp-admin-form-input" required></el-input>
+                                    <el-input v-model="restaurantAddress.streetNumber" placeholder="Número"
+                                        class="cmp-admin-form-input" required></el-input>
+                                    <el-input v-model="restaurantAddress.district" placeholder="Bairro"
                                         class="cmp-admin-form-input" required></el-input>
                                     <el-input v-model="restaurantAddress.city" placeholder="Cidade"
+                                        class="cmp-admin-form-input" required></el-input>
+                                    <el-input v-model="restaurantAddress.state" placeholder="Estado"
                                         class="cmp-admin-form-input" required></el-input>
                                 </el-form-item>
                                 <el-form-item label="Tipo de Retirada" class="cmp-admin-form-item">
@@ -814,12 +823,19 @@ export default {
             restaurantBanner: '',
             restaurantName: '',
             restaurantCNPJ: '',
+            restaurantPhone: '', 
+            restaurantRating: '3.0',
+            restaurantDistant : '2.5km',
             restaurantMealType: 'restaurantetradicional',
             restaurantAddress: {
                 cep: '',
                 street: '',
                 city: '',
+                streetNumber: '',
+                district: '',
+                state: '',
             },
+
             restaurantTakeawayType: [],
             restaurantDescription: '',
             cnpjValidationFailed: false,
@@ -846,12 +862,14 @@ export default {
         changeToAjuda() {
             this.activeTab = 'ajuda';
         },
+
         uploadImage(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    this.restaurantImage = event.target.files[0];
+                this.restaurantImage = e.target.result;
+                alert(this.restaurantImage)
                 };
                 reader.readAsDataURL(file);
             }
@@ -859,10 +877,15 @@ export default {
 
         uploadBanner(event) {
             const file = event.target.files[0];
-
+            if (!file.type.startsWith('image/')) {
+                alert('Por favor, selecione um arquivo de imagem.');
+                return;
+            }
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
+                    alert(this.restaurantBanner)
+
                     this.restaurantBanner = event.target.files[0];
                 };
                 reader.readAsDataURL(file);
@@ -879,7 +902,6 @@ export default {
         },
         submitForm() {
             this.validateCNPJ();
-
             if (!this.cnpjValidationFailed) {
                 axios.post('http://api.eattog.jera.com.br/criar/restaurante',
                     {
@@ -888,16 +910,16 @@ export default {
                         "banner": this.restaurantBanner,
                         "razao_social": this.restaurantName,
                         "cnpj": this.restaurantCNPJ,
+                        "numero_telefone": this.restaurantPhone,
                         "cep": this.restaurantAddress.cep,
-                        "numero_endereco": '12222',
-                        "numero_telefone": '679292929292',
                         "rua": this.restaurantAddress.street,
-                        "bairro": 'bairro',
+                        "numero_endereco": this.restaurantAddress.streetNumber,
+                        "bairro":  this.restaurantAddress.district,
                         "cidade": this.restaurantAddress.city,
-                        "estado": 'MS',
-                        "avaliacao": 3.0,
+                        "estado": this.restaurantAddress.state,
+                        "avaliacao": this.restaurantRating,
                         "tipo_restaurante": this.restaurantMealType,
-                        "distancia": '2.5km',
+                        "distancia": this.restaurantDistant,
                         "tipo_retirada": this.restaurantTakeawayType[0],
                         "descricao": this.restaurantDescription,
                     }, {
