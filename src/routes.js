@@ -19,11 +19,11 @@ import NotFound from './views/NotFound.vue';
 import SobreNos from './views/SobreNos.vue';
 
 const routes = [
-    {path: '/:pathMatch(.*)*', name: NotFound, component: NotFound},
+    { path: '/:pathMatch(.*)*', name: NotFound, component: NotFound },
     { path: '/', component: Splash },
-    { path: '/cadastro', component: Cadastro, meta: {onlyWithoutAuth: true}, name: Cadastro },
-    { path: '/login', component: Login, meta: {onlyWithoutAuth: true}, name: Login },
-    { path: '/perfil', component: UserProfile, meta: {onlyAuth: true}, name: UserProfile },
+    { path: '/cadastro', component: Cadastro, meta: { onlyWithoutAuth: true }, name: Cadastro },
+    { path: '/login', component: Login, meta: { onlyWithoutAuth: true }, name: Login },
+    { path: '/perfil', component: UserProfile, meta: { onlyAuth: true }, name: UserProfile },
     { path: '/cardadd', component: CardAdd },
     { path: '/notification', component: Notification },
     { path: '/inicio', component: Home, name: Home },
@@ -31,12 +31,12 @@ const routes = [
     { path: '/restaurants/:id', name: 'SingleRestaurant', props: true, query: true, component: SingleRestaurant },
     { path: '/admin', component: Admin, name: Admin },
     { path: '/dishes', name: Dishes, component: Dishes },
-    { path: '/adminconsole',name: ManageSystem , component: ManageSystem},
+    { path: '/adminconsole', name: ManageSystem, component: ManageSystem },
     { path: '/categorias/:id/:nome', name: SingleCategoria, component: SingleCategoria },
     { path: '/stateorder', name: StateOrder, component: StateOrder },
-    { path: '/cadastro/proprietario', component: OwnerRegistration, meta: {onlyWithoutAuth: true}, name: OwnerRegistration },
-    { path: '/login/proprietario', component: OwnerLogin, meta: {onlyWithoutAuth: true}, name: OwnerLogin },
-    {path: '/sobre-nos', name: SobreNos,  component: SobreNos}
+    { path: '/cadastro/proprietario', component: OwnerRegistration, meta: { onlyWithoutAuth: true }, name: OwnerRegistration },
+    { path: '/login/proprietario', component: OwnerLogin, meta: { onlyWithoutAuth: true }, name: OwnerLogin },
+    { path: '/sobre-nos', name: SobreNos, component: SobreNos }
 ];
 
 const router = createRouter({
@@ -45,19 +45,12 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    next(vm => {
-        vm.item = json.find(item => item.id == vm.$route.params.id)
 
-        if(!vm.item) {
-            next({name: NotFound})
-        }
-
-    })
     if (to.meta.onlyWithoutAuth && sessionStorage.getItem("token")) next({ name: Home })
-    else if (to.meta.onlyAuth  && !sessionStorage.getItem("token")) next({ name: Login })
+    else if (to.meta.onlyAuth && !sessionStorage.getItem("token")) next({ name: Login })
     else next()
-    if (to.meta.onlyWithoutAuth && sessionStorage.getItem("token-admin")) next({ name: Admin  })
-    else if (to.meta.onlyAuth  && !sessionStorage.getItem("token-admin")) next({ name: OwnerLogin })
+     if (to.meta.onlyWithoutAuth && sessionStorage.getItem("token-admin")) next({ name: Admin })
+    else if (to.meta.onlyAuth && !sessionStorage.getItem("token-admin")) next({ name: OwnerLogin })
     else next()
 })
 

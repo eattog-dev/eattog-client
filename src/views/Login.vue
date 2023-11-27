@@ -2,11 +2,11 @@
   <section id="login">
     
     <el-row>
-      <el-col :span="12" class="login-bg-white">
+      <el-col :xs="24" :span="12" class="login-bg-white">
         <Logo class="" text="Eattog" icon="🟨"></Logo>
         <p class="login-slogan">Delicious Food, Delivered Fast</p>
       </el-col>
-      <el-col :span="12">
+      <el-col :xs="24" :span="12">
         <el-form class="login-container-form" ref="loginForm" :model="formulario" label-width="6.25rem"
           label-position="top">
           <el-header class="custom-header">
@@ -121,8 +121,7 @@ const submitForm = (cadastroForm) => {
 }
 
 .login-container-form {
-  width: 80%;
-  height: 99vh;
+  padding: 1.5rem;
   margin: 20rem auto 0 0;
   text-align: center;
   font-family: "Roboto", sans-serif;
@@ -141,13 +140,14 @@ const submitForm = (cadastroForm) => {
 }
 
 .el-form {
-  width: 80%;
   margin: auto;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: center;
   align-content: center;
+  height: 99vh;
+
 }
 
 .login-esqueceu-senha {
@@ -196,7 +196,7 @@ const submitForm = (cadastroForm) => {
   border-color: var(--yellow400);
   border-radius: 1rem !important;
   width: 20rem !important;
-  margin: 2rem auto !important;
+  margin: 0.25rem auto ;
   padding: 1.6rem 0 !important;
 }
 
@@ -240,7 +240,7 @@ const submitForm = (cadastroForm) => {
   }
 }
 
-@media (max-width: 50rem) {
+/*@media (max-width: 50rem) {
   .login-slogan {
     font-size: 1.6rem;
     display: flex;
@@ -282,6 +282,17 @@ const submitForm = (cadastroForm) => {
     left: auto;
     width: 8rem;
     z-index: 999999;
+  }
+}
+*/
+@media (max-width: 768px){
+
+  .el-form{
+    min-height: 30rem;
+
+  }
+  .logotipo, .login-slogan{
+    margin: unset;
   }
 }
 </style>

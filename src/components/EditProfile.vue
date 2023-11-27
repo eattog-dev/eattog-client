@@ -16,24 +16,18 @@ const submit = (form)  => {
   form.validate(async (valid) => {
     if (valid) {
       await axios
-        .put(`http://54.233.122.212/atualizar-usuario/${perfilStore.perfil.id}`, {
+        .put(`http://api.eattog.jera.com.br/atualizar-usuario/`, {
           "nome": perfilStore.novoPerfil.nome,
-          "email": perfilStore.novoPerfil.email,
-          "cpf": perfilStore.novoPerfil.cpf,
           "numero_celular": perfilStore.novoPerfil.numero_celular,
-          "cep": perfilStore.novoPerfil.cep,
-          "rua": perfilStore.novoPerfil.rua,
-          "complemento": perfilStore.novoPerfil.complemento,
-          "bairro": perfilStore.novoPerfil.bairro,
-          "numero_residencia": perfilStore.novoPerfil.numero_residencia,
-          "data_aniversario": perfilStore.novoPerfil.data_aniversario
         }, {
           headers: { 'Authorization': `Bearer ${sessionStorage.getItem("token")}` },
         }
         );
-      console.log(`perfil salvo com sucesso`)
+        
+      alert(`perfil salvo com sucesso`)
+      location.reload()
     } else {
-      console.log('error submit!')
+      alert('erro ao atualizar!')
       return false
     }
   })

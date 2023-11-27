@@ -2,6 +2,12 @@
   <Navbar />
   <el-row justify="center" style="padding: 1rem 0;">
     <el-col :span="20">
+      <div class="sair" @click="logout" v-if="isLogged">
+            <el-icon>
+              <Connection />
+            </el-icon>
+            <span @click="logout">Sair</span>
+          </div>
       <div class="details">
         <h1>Perfil</h1>
         <div>
