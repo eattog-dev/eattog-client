@@ -3,6 +3,9 @@ const urlsToCache = [
     '/',
     '/index.html',
     '/manifest.json',
+    '/src/main.js',
+    '/src/App.vue',
+    '/src/views/Home.vue',
 ];
 
 self.addEventListener('install', event => {
