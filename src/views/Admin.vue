@@ -136,37 +136,6 @@
                                 <el-button style="float: right; padding: 3px 0" type="text">Aceitar</el-button>
                             </div>
                         </el-card>
-
-                        <el-card class="cmp-admin_box-card">
-                            <div slot="header" class="cmp-admin_clearfix">
-                                <span>Pedido de <b> Maria </b></span>
-                            </div>
-                            <div class="cmp-admin_box-card-item">
-                                <p v-for="o in 2" :key="o">
-                                    {{ o + ' Prato x ' }}
-                                </p>
-                            </div>
-
-                            <div class="cmp-admin_box-card-button">
-                                <el-button style="float: left; padding: 3px 0" type="text">Recusar</el-button>
-                                <el-button style="float: right; padding: 3px 0" type="text">Aceitar</el-button>
-                            </div>
-                        </el-card>
-
-                        <el-card class="cmp-admin_box-card">
-                            <div slot="header" class="mp-admin_clearfix">
-                                <span> Pedido de <strong>João </strong></span>
-                            </div>
-                            <div class="cmp-admin_box-card-item">
-                                <p v-for="o in 2" :key="o">
-                                    {{ o + ' Prato x ' }}
-                                </p>
-                            </div>
-                            <div class="cmp-admin_box-card-button">
-                                <el-button style="float: left; padding: 3px 0" type="text">Recusar</el-button>
-                                <el-button style="float: right; padding: 3px 0" type="text">Aceitar</el-button>
-                            </div>
-                        </el-card>
                     </div>
 
                     <div class="cmp-admin_addmenu-formattext">
@@ -183,8 +152,8 @@
                                 </p>
                             </div>
                             <div class="cmp-admin_box-card-button">
-                                <el-button style="float: left; padding: 3px 0" type="text">Recusar</el-button>
-                                <el-button style="float: right; padding: 3px 0" type="text">Aceitar</el-button>
+                                <el-button style="float: left; padding: 3px 0" type="text">Cancelar</el-button>
+                                <el-button style="float: right; padding: 3px 0" type="text">Pronto</el-button>
                             </div>
                         </el-card>
                     </div>
@@ -203,8 +172,7 @@
                                 </p>
                             </div>
                             <div class="cmp-admin_box-card-button">
-                                <el-button style="float: left; padding: 3px 0" type="text">Recusar</el-button>
-                                <el-button style="float: right; padding: 3px 0" type="text">Aceitar</el-button>
+                                <el-button style="float: right; padding: 3px 0" type="text">Entregue</el-button>
                             </div>
                         </el-card>
                     </div>
@@ -222,10 +190,6 @@
                                 <p v-for="o in 1" :key="o">
                                     {{ o + ' Prato x ' }}
                                 </p>
-                            </div>
-                            <div class="cmp-admin_box-card-button">
-                                <el-button style="float: left; padding: 3px 0" type="text">Recusar</el-button>
-                                <el-button style="float: right; padding: 3px 0" type="text" class="cmp">Aceitar</el-button>
                             </div>
                         </el-card>
                     </div>
