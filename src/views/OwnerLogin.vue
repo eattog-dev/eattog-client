@@ -91,6 +91,11 @@ const togglePassword = () => {
     margin: 1rem 0;
     font-weight: bold;
 }
+.cmp-owner-form-button:hover , .cmp-owner-form-button:focus {
+    background-color: var(--yellow100) !important;
+    color: var(--white100) !important;
+    border-color: var(--yellow100);
+}
 .cmp-owner-form-logo {
     display: flex;
     position: relative;
