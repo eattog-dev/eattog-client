@@ -70,7 +70,6 @@
                 </el-form-item>
             </div>
         </el-form>
-        {{ enderecoAtual }}
     </div>
 </template>
   

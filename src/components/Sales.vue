@@ -107,6 +107,7 @@ const formatarIgredientes = (listaIngredientes) => {
     color: var(--gray800);
     text-decoration: none !important;
     height: 20.75rem;
+    width: 300px
 }
 
 #sales .image {

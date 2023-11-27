@@ -1,64 +1,120 @@
 <template>
-  <div>
-    <el-header v-if="isDesktop" class="nav desktop">
-      <el-row type="flex" class=" none-margem">
-        <el-col :span="9">
-          <router-link id="logo-url" to="/">
-            <span class="nav-name-logo">Eattog🟨</span>
-            <!-- <img class="logo" :src="logo" :alt="alt" /> -->
-          </router-link>
-        </el-col>
-        <el-col :span="3">
-          <router-link to="/" :class="[$route.path === '/' ? 'nav-active' : '']">Inicio</router-link>
-        </el-col>
-        <el-col :span="3">
-          <router-link to="/restaurants"
-            :class="[$route.path === '/restaurants' ? 'nav-active' : '']">Restaurantes</router-link>
-        </el-col>
-        <el-col :span="3">
-          <el-button class="location-input" @click="openModal">
-            <span class="location-input__address"> {{ userCity ? userCity : 'Localização' }}</span>
-            <i class="el-icon-caret-bottom location-input__icon-arrow"></i>
-          </el-button>
-        </el-col>
+  <header>
+    <el-row>
+      <el-col :span="20" class="header-desktop" v-if="isDesktop">
+        <span class="nav-name-logo" @click="goToHome">Eattog🟨</span>
 
-        <el-col :span="3">
-          <el-menu default-active="2" class="el-menu-vertical-demo cmp-menu-car" @open="handleOpen" @close="handleClose"
-            position="absolute">
-            <el-sub-menu index="1" v-if="!carrinhoStore.carrinho.length == false">
+        <div class="rotas">
+          <span @click="goToHome">Inicio</span>
+          <span @click="goToRestaurantes">Restaurantes</span>
+          <span @click="goToCategorias">Categorias</span>
+          <span @click="goToSobreNos">Sobre Nós</span>
+        </div>
 
-              <template #title>
-                <el-icon>
-                  <Goods />
+        <div class="localizacao" @click="openModal">
+          <el-icon style="font-size: 1.2rem; margin: auto;">
+            <MapLocation />
+          </el-icon>
+          <span class="location-input__address"> {{ userCity ? userCity : 'Localização' }}</span>
+        </div>
+        <div class="perfil" @click="goToPerfil">
+          <el-icon class="profile-icon" style="font-size: 1.5rem; margin: auto;">
+            <User />
+          </el-icon>
+          <span>Perfil</span>
+        </div>
+
+        <el-menu default-active="2" class="el-menu-vertical-demo cmp-menu-car" @open="handleOpen" @close="handleClose"
+          position="absolute">
+
+          <el-sub-menu index="1" v-if="!carrinhoStore.carrinho.length == false">
+
+            <el-menu-item v-for="(item, i) in carrinhoStore.carrinho" index="item.prato.id" class="cmp-menu-item">{{
+              item.prato.nome }}
+              <span class="">R${{ item.prato.valor * item.quantidade }}</span>
+            </el-menu-item>
+            <el-button class="cmp-button-yellow" @click="carrinhoStore.finalizarCompra()" role="link">Finalizar
+              Pedido</el-button>
+          </el-sub-menu>
+          <el-sub-menu v-else>
+            <h3>0 itens no carrinho</h3>
+          </el-sub-menu>
+        </el-menu>
+      </el-col>
+      <!-- MOBILE -->
+      <el-col :span="20" class="header-desktop" v-else>
+        <span class="nav-name-logo" @click="goToHome">Eattog🟨</span>
+
+        <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+          position="absolute" :collapse="isCollapse">
+          <el-sub-menu index="1" v-if="!carrinhoStore.carrinho.length == false">
+
+
+            <el-menu-item v-for="(item, i) in carrinhoStore.carrinho" index="item.prato.id" class="cmp-menu-item">{{
+              item.prato.nome }}
+              <span class="">R${{ item.prato.valor * item.quantidade }}</span>
+            </el-menu-item>
+            <el-button class="cmp-button-yellow" @click="carrinhoStore.finalizarCompra()" role="link">Finalizar
+              Pedido</el-button>
+          </el-sub-menu>
+          <el-sub-menu v-else>
+            <template #title>
+              <el-icon>
+                <Menu />
+              </el-icon>
+            </template>
+            <el-menu-item>
+
+              <el-icon>
+                <House />
+              </el-icon>
+              <span @click="goToHome">Inicio</span>
+            </el-menu-item>
+
+            <el-menu-item>
+              <el-icon>
+                <KnifeFork />
+              </el-icon>
+              <span @click="goToRestaurantes">Restaurantes</span>
+            </el-menu-item>
+            <el-menu-item>
+              <el-icon>
+                <Tickets />
+              </el-icon>
+              <span @click="goToCategorias">Categorias</span>
+            </el-menu-item>
+            <el-menu-item>
+              <el-icon>
+                <Opportunity />
+              </el-icon>
+              <span @click="goToSobreNos">Sobre Nós</span>
+            </el-menu-item>
+            <el-menu-item>
+              <div class="localizacao" @click="openModal">
+                <el-icon style="font-size: 1.2rem; margin: auto;">
+                  <MapLocation />
                 </el-icon>
-              </template>
-
-              <el-menu-item v-for="(item, i) in carrinhoStore.carrinho" index="item.prato.id"
-                class="cmp-menu-item">{{ item.prato.nome }}<span class="">R${{ item.prato.valor *
-                  item.quantidade }}</span></el-menu-item>
-              <el-button class="cmp-button-yellow" @click="carrinhoStore.finalizarCompra()" role="link">Finalizar Pedido</el-button>
-            </el-sub-menu>
-            <el-sub-menu v-else>
-              {{ carrinhoStore.carrinho }}
-
-              <h3>Você não adicionou nenhum item ao carrinho</h3>
-            </el-sub-menu>
-          </el-menu>
-        </el-col>
-      </el-row>
-    </el-header>
-
-    <el-header v-else class="nav nav-mobile">
-      <el-button class="location-input" @click="openModal">
-        <span class="location-input__address">{{ userCity ? userCity : 'Localização' }}</span>
-        <i class="el-icon-caret-bottom location-input__icon-arrow"></i>
-      </el-button>
-    </el-header>
-
-    <div v-if="modalOpen" class="custom-modal">
-      <Modal @update-user-city="updateUserCity" />
-    </div>
-  </div>
+                <span class="location-input__address"> {{ userCity ? userCity : 'Localização' }}</span>
+              </div>
+            </el-menu-item>
+            <el-menu-item>
+              <el-icon @click="goToPerfil" class="profile-icon" style="font-size: 2rem">
+                <User />
+              </el-icon>
+              <span>Perfil</span>
+            </el-menu-item>
+            <el-menu-item>
+              <el-icon>
+                <Goods />
+              </el-icon>
+              <h3>0 itens no carrinho</h3>
+            </el-menu-item>
+          </el-sub-menu>
+        </el-menu>
+      </el-col>
+    </el-row>
+    <Modal v-if="modalOpen" @update-user-city="updateUserCity" />
+  </header>
 </template>
 
 <script setup>
@@ -72,11 +128,19 @@ import {
 } from '@element-plus/icons-vue';
 //import logoImage from '@/assets/quadrado.png';
 
+import { useRouter, useRoute } from 'vue-router';
+
+const router = useRouter()
+
 import { useCarrinhoStore } from '../store/carrinho';
 
 const carrinhoStore = useCarrinhoStore();
 
-
+const goToHome = () => router.push("/")
+const goToRestaurantes = () => router.push("/restaurants")
+const goToCategorias = () => router.push("/categorias")
+const goToSobreNos = () => router.push("/sobre-nos")
+const goToPerfil = () => router.push("/perfil")
 
 
 const handleOpen = (key, keyPath) => {
@@ -94,6 +158,8 @@ const modalOpen = ref(false);
 const state = reactive({
   userCity: ''
 });
+
+const isCollapse = ref(true)
 
 provide('navbarState', { userCity: state.userCity, modalOpen });
 
@@ -123,7 +189,89 @@ onBeforeUnmount(() => {
 
 
 <style scoped>
-h3 {
+header {
+  height: 6rem;
+  border-bottom: 1px solid var(--gray200);
+}
+
+
+.el-row {
+  height: 100%;
+}
+
+.header-desktop {
+  color: var(--black100);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.header-desktop .nav-name-logo {
+  font-weight: 600;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.header-desktop .rotas span {
+  margin: 0 1rem;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.el-menu {
+  border-right: none !important;
+
+}
+
+.localizacao,
+.perfil {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.localizacao span,
+.perfil span {
+  font-weight: 500;
+}
+
+
+@media (max-width: 1024px) {
+  .header-desktop .nav-name-logo {
+    font-size: 1.5rem;
+  }
+
+  .header-desktop .rotas span {
+    margin: 0 0.5em;
+  }
+}
+
+@media (max-width: 992px) {
+  .header-desktop .nav-name-logo {
+    font-size: 1.3rem;
+  }
+
+  .header-desktop .rotas span,
+  .localizacao span {
+    font-size: 0.95rem
+  }
+}
+
+@media (max-width: 767px) {
+  .el-menu-item span {
+    color: var(--black100);
+    font-weight: 500;
+  }
+
+  .localizacao {
+    flex-direction: row;
+  }
+}
+
+/*h3 {
   color: var(--black100)
 }
 
@@ -270,4 +418,6 @@ h3 {
   margin-left: 5px;
   color: var(--yellow100);
   font-weight: 800;
-}</style>
+}
+*/
+</style>
