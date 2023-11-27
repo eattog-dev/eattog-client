@@ -3,7 +3,6 @@ module.exports = {
   
     pwa: {
       name: 'Eattog',
-
       themeColor: "#ffe500",
       msTileColor: "#ffe500",
       appleMobileWebAppCache: "yes",
@@ -13,7 +12,7 @@ module.exports = {
       },
       workboxPluginMode: 'InjectManifest',
       workboxOptions: {
-        swSrc: 'dev/sw.js',
+        swSrc: 'public/service-worker.js',
       }
     }
 };
