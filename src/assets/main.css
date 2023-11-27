@@ -70,7 +70,15 @@ body {
 .el-input__wrapper .el-input__inner {
     height: 2.3rem;
 }
-
+.el-textarea__inner:focus , .el-select .el-input.is-focus .el-input__wrapper {
+    box-shadow: 0 0 0 0.063rem var(--yellow100) inset !important;
+}
+.el-checkbox__input.is-checked+.el-checkbox__label {
+    color: inherit !important;
+}
+.el-select-dropdown__item.selected {
+    color: var(--yellow100) !important;
+}
 .el-date-editor.el-input {
     width: 100% !important;
 }
@@ -79,7 +87,15 @@ body {
     padding-left: 0.5rem!important;
     padding-right: 0.5rem!important;
 }
-
+.el-textarea__inner:focus , .el-select .el-input.is-focus .el-input__wrapper {
+    box-shadow: 0 0 0 0.063rem var(--yellow100) inset !important;
+}
+.el-checkbox__input.is-checked+.el-checkbox__label {
+    color: inherit !important;
+}
+.el-select-dropdown__item.selected {
+    color: var(--yellow100) !important;
+}
 @media (max-width: 768px){
     .el-menu-item{
         height: unset!important;

@@ -26,13 +26,14 @@ const addCarrinho = async (prato_ID, quantidade, observacoes) => {
             'Authorization': sessionStorage.getItem("token")
         }
     })
-    console.log({prato_ID, quantidade, observacoes})
+    // console.log({prato_ID, quantidade, observacoes})
     carrinhoStore.listarCarrinho()
     pedidoStore.statusModal();
 }
 </script>
 <template>
     <div v-show="modalAberto" class="dish-detail">
+        <!-- {{ prato }} -->
         <button @click="pedidoStore.statusModal()" class="closeModal">X</button>
         <div class="dish">
             <img :src=prato.imagem alt="">
