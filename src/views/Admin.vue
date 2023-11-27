@@ -392,8 +392,36 @@ export default {
     mounted() {
         this.fetchCategorias();
         this.fetchPratos();
+        this.fetchRestaurante();
     },
     methods: {
+        fetchRestaurante() {
+            const restauranteId = sessionStorage.getItem('restaurante-id');
+
+            if (restauranteId) {
+                axios.get(`http://api.eattog.jera.com.br/restaurante/${restauranteId}`, {
+                    headers: { 'Authorization': sessionStorage.getItem("token-admin") }
+                })
+                .then(response => {
+                    this.restaurantName =  response.data.razao_social || '';
+                    this.restaurantCNPJ =  response.data.cnpj || '';
+                    this.restaurantPhone =  response.data.numero_telefone || '';
+                    this.restaurantMealType =  response.data.tipo_restaurante || '';
+                    this.restaurantAddress.cep =  response.data.cep || '';
+                    this.restaurantAddress.district =  response.data.bairro || '';
+                    this.restaurantAddress.street =  response.data.rua || '';
+                    this.restaurantAddress.streetNumber =  response.data.numero_endereco || '';
+                    this.restaurantAddress.city =  response.data.cidade || '';
+                    this.restaurantAddress.state =  response.data.estado || '';
+                    this.restaurantTakeawayType = [ response.data.tipo_retirada] || [];
+                    this.restaurantDescription =  response.data.descricao || '';
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar informações do restaurante:', error);
+                });
+            }
+        },
+
         visualizarPrato(prato) {
             this.pratoSelecionado = prato; 
             this.showModal = true;
