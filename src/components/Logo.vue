@@ -12,6 +12,7 @@
 
 <style setup>
     .logotipo{
+        color: var(--black100);
         font-size: 5rem;
         display: flex;
         margin: 35% 0px 1.1rem 0%;

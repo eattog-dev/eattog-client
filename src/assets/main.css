@@ -1,15 +1,17 @@
 @import './base.css';
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
-body{
+
+body {
     background-color: var(--white100);
+    color: var(--black100)
 }
 
 :root {
-    --white100: #ffffff;  
+    --white100: #ffffff;
     --white200: #f2f2f2;
     --white300: #e4e7ed;
 
-    --black100: #000000;  
+    --black100: #000000;
 
     --orange100: #f39c12;
     --orange200: #E6A23C;
@@ -17,19 +19,19 @@ body{
 
     --yellow100: #ffe500;
     --yellow200: #ffe500e8;
-    --yellow300: #ffe5009c; 
+    --yellow300: #ffe5009c;
     --yellow400: #ffe600;
     --yellow500: #FFC530;
-    
+
     --gray100: #ccc;
     --gray200: #dbdad9;
     --gray300: #999;
     --gray400: #808080;
-    --gray500: #3f3f3fe0; 
+    --gray500: #3f3f3fe0;
     --gray600: #cccccc1c;
-    --gray800: #303133; 
+    --gray800: #303133;
     --gray900: #606266;
-    
+
     --green100: #50a773;
 
     --blue100: #4d54dd;
@@ -39,7 +41,7 @@ body{
 
     --transp-gray100: #c3c3c31c;
 
-    --rgba-yellow:rgba(255, 255, 0, 0.642);
+    --rgba-yellow: rgba(255, 255, 0, 0.642);
 
     --rgba-gray100: rgba(0, 0, 0, 0.857);
     --rgba-gray200: rgba(0, 0, 0, 0.1);
@@ -54,15 +56,18 @@ body{
 .el-input__wrapper {
     box-shadow: 0 0 0 1px var(--gray200) inset !important;
 }
-.el-input__wrapper.is-focus { 
+
+.el-input__wrapper.is-focus {
     box-shadow: 0 0 0 0.063rem var(--yellow100) inset !important;
 }
+
 .el-button:focus {
     background-color: inherit !important;
     border-color: none !important;
     color: inherit !important;
 }
-.el-input__wrapper .el-input__inner{
+
+.el-input__wrapper .el-input__inner {
     height: 2.3rem;
 }
 .el-textarea__inner:focus , .el-select .el-input.is-focus .el-input__wrapper {
@@ -73,4 +78,22 @@ body{
 }
 .el-select-dropdown__item.selected {
     color: var(--yellow100) !important;
+}
+.el-date-editor.el-input {
+    width: 100% !important;
+}
+
+.el-sub-menu div {
+    padding-left: 0.5rem!important;
+    padding-right: 0.5rem!important;
+}
+
+@media (max-width: 768px){
+    .el-menu-item{
+        height: unset!important;
+        line-height: 2rem;
+    }
+    .el-sub-menu__title:hover{
+        background-color: unset!important;
+    }
 }

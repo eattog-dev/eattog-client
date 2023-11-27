@@ -180,8 +180,7 @@ const formatarDescricao = (descricao) => {
     <!--
    <Cardapio /> -->
    <Promocao @pratoClicado="exibePratoClicado"/>
-    
-
+    <!-- <span style="color: var(--black100);">{{ cardapio }}</span> -->
     <section class="menu">
         <el-row justify="center">
             <el-col class="title-and-filter" :span=20>
@@ -223,7 +222,7 @@ const formatarDescricao = (descricao) => {
     </section>
 
     <SelectedDish :modalAberto="pedidoStore.modal" />
-    <Footer></Footer> 
+    <Footer/>
 </template>
 
 <style>

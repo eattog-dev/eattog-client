@@ -207,4 +207,14 @@ const addCarrinho = async (prato_ID, quantidade, observacoes) => {
     float: right;
     font-size: 1.1rem
 }
+
+@media(max-width: 768px){
+    .dish-detail{
+        width: 20rem;
+        left: calc(50% - 10rem);
+    }
+    .dish-detail img{
+        display: none
+    }
+}
 </style>
