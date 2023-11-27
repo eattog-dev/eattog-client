@@ -12,7 +12,7 @@
 
 <script>
     import Banner1 from '@/assets/img-banner/banner-1.jpg';
-    import Banner2 from '@/assets/img-banner/banner-2.jpg';
+    import Banner2 from '@/assets/img-banner/banner-2.png';
     import Banner3 from '@/assets/img-banner/banner-3.jpg';
 
     export default {
@@ -22,6 +22,7 @@
                     { image: Banner1 },
                     { image: Banner2 },
                     { image: Banner3 },
+
                 ],
             };
         },
