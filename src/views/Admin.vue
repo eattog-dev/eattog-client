@@ -243,51 +243,18 @@
                         <h3 class="cmp-admin_addmenu-title">Menu de pratos</h3>
                     </div>
 
-                    <div class="menu-items">
-                        <div v-for="(prato, index) in pratos" :key="index" class="menu-item">
-                            <el-card>
-                                <img :src="prato.imagem" alt="Imagem do Prato" class="menu-item-image">
-                                <h3>{{ prato.nome }}</h3>
-                                <p class="menu-item-price">Valor: R$ {{ prato.valor }}</p>
-                                <div class="menu-item-ingredients">
-                                    <strong>Ingredientes:</strong>
-                                    <ul>
-                                        <li v-for="(ingrediente, i) in prato.ingredientes" :key="i">{{ ingrediente }}</li>
-                                    </ul>
-                                </div>
-                            </el-card>
-                        </div>
-                    </div>
-
-                    <div class="cmp-admin_addmenu-items">
-                        <div class="cmp-admin_addmenu-item">
-                            <el-card>
+                    <div>
+                        <div v-for="(prato, index) in pratos" :key="index" class="cmp-admin_addmenu-items">
+                            <el-card class="cmp-admin_addmenu-item">
                                 <div class="cmp-admin_addmenu-function">
-                                    <el-button class="cmp-admin_addmenu-function-btn">Editar</el-button>
-                                    <el-button class="cmp-admin_addmenu-function-btn">Remover</el-button>
+                                    <el-button class="cmp-admin_addmenu-function-btn" @click="visualizarPrato(prato)">Visualizar</el-button>
+                                    <el-button class="cmp-admin_addmenu-function-btn" @click="removerPrato(prato.id, index)">Remover</el-button>
                                 </div>
-                                <img src="../assets/img-pratos/lanche.jpg" alt="Imagem do Prato"
-                                    class="cmp-admin_addmenu-item-image">
+                                <img :src="prato.imagem" :alt="'Imagem de ' + prato.nome" class="cmp-admin_addmenu-item-image">
                                 <div class="cmp-admin_addmenu-item-formattext">
-                                    <h4 class="cmp-admin_addmenu-item-name">X Tudo</h4>
-                                    <p class="cmp-admin_addmenu-item-price">R$ 20,00</p>
-                                    <p class="cmp-admin_addmenu-item-ingredients"> Ingredientes: Queijo, tomate, pão </p>
-                                </div>
-                            </el-card>
-                        </div>
-
-                        <div class="cmp-admin_addmenu-item">
-                            <el-card>
-                                <div class="cmp-admin_addmenu-function">
-                                    <el-button class="cmp-admin_addmenu-function-btn">Editar</el-button>
-                                    <el-button class="cmp-admin_addmenu-function-btn">Remover</el-button>
-                                </div>
-                                <img src="../assets/img-pratos/pintado-na-telha.webp" alt="Imagem do Prato"
-                                    class="cmp-admin_addmenu-item-image">
-                                <div class="cmp-admin_addmenu-item-formattext">
-                                    <h4 class="cmp-admin_addmenu-item-name">Pintado na telha</h4>
-                                    <p class="cmp-admin_addmenu-item-price">R$ 35,00</p>
-                                    <p class="cmp-admin_addmenu-item-ingredients">Ingredientes: Queijo, tomate </p>
+                                    <h4 class="cmp-admin_addmenu-item-name">{{ prato.nome }}</h4>
+                                    <p class="cmp-admin_addmenu-item-price">R$ {{ prato.valor }}</p>
+                                    <p class="cmp-admin_addmenu-item-ingredients"> Ingredientes: {{ prato.ingredientes.join(', ') }}</p>
                                 </div>
                             </el-card>
                         </div>
@@ -318,6 +285,13 @@
         </el-main>
     </div>
 
+    <el-dialog  v-model="showModal" @close="fecharModal" title="Detalhes do Prato" class="cmp-modaldialog--adddishes">
+        <div v-if="pratoSelecionado">
+            <h3>{{ pratoSelecionado.nome }}</h3>
+            <p>Valor: R$ {{ pratoSelecionado.valor }}</p>
+            <p>Ingredientes: {{ pratoSelecionado.ingredientes.join(', ') }}</p>
+        </div>
+    </el-dialog>
     <el-dialog title="Adicionar Prato" v-model="showPratoModal" class="cmp-modaldialog--adddishes">
         <el-form label-width="150px">
             <el-form-item label="Nome do Prato">
@@ -375,6 +349,7 @@
 import axios from 'axios'; 
 import { ref } from 'vue'
 const showPratoModal = ref(true);
+const showModal = ref(true);
 const showRemover = ref(true);
 export default {
     data() {
@@ -408,12 +383,46 @@ export default {
                 ingredientes: '',
                 time: '',
             },
-            categorias: []
+            categorias: [],
+            pratos: [] ,
+            showModal: false,
+            pratoSelecionado: null
         };
     },
     mounted() {
-    this.fetchCategorias(); },
+        this.fetchCategorias();
+        this.fetchPratos();
+    },
     methods: {
+        visualizarPrato(prato) {
+            this.pratoSelecionado = prato; 
+            this.showModal = true;
+        },
+        
+        removerPrato(pratoId, index) {
+            if (confirm('Tem certeza que deseja remover este prato?')) {
+                axios.delete(`http://54.233.122.212/deletar/prato/${pratoId}`)
+                    .then(response => {
+                        this.pratos.splice(index, 1); 
+                    })
+                    .catch(error => {
+                        console.error('Erro ao remover o prato:', error);
+                    });
+            }
+        },
+        fetchPratos() {
+            axios.get('http://api.eattog.jera.com.br/pratos')
+                .then(response => {
+                    this.pratos = response.data; 
+                }, {
+                    headers: { 'Authorization': sessionStorage.getItem("token-admin") }
+                })
+                .catch(error => {
+                    this.pratos = []; 
+                    this.$message.error('Erro ao buscar os pratos:', error );
+                });
+        },
+
         buscarEndereco() {
             const value = this.restaurantAddress.cep;
             if (value && value.length === 8) {
@@ -578,8 +587,6 @@ export default {
                 .catch(error => {
                     console.error('Erro ao criar o prato:', error);
                 });
-
-
             }
         }
     },
@@ -685,6 +692,7 @@ export default {
 .cmp-admin_addmenu-item {
     width: 13rem;
     min-height: 13rem;
+    height: 16rem;
     margin-right: 1rem;
 }
 
