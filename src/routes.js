@@ -36,7 +36,6 @@ const routes = [
     { path: '/stateorder', name: StateOrder, component: StateOrder },
     { path: '/cadastro/proprietario', component: OwnerRegistration, meta: { onlyWithoutAuth: true }, name: OwnerRegistration },
     { path: '/login/proprietario', component: OwnerLogin, meta: { onlyWithoutAuth: true }, name: OwnerLogin },
-    { path: '/sobre-nos', name: SobreNos, component: SobreNos }
 ];
 
 const router = createRouter({

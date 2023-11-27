@@ -11,13 +11,13 @@ export const useHomeStore = defineStore('home', {
     actions: {
         async listarPratos () {
             //const resposta = await fetch('http://localhost:3000/pratos');
-             const resposta = await fetch('http://54.233.122.212/pratos');
+             const resposta = await fetch('`http://api.eattog.jera.com.br/pratos');
             this.pratos = await resposta.json();
         },
         async loggedUser() {
             if(this.token){
                 const response = await  axios
-                .post("http://54.233.122.212/users/decoded-user",{
+                .post("`http://api.eattog.jera.com.br/users/decoded-user",{
                 //.post("http://localhost:3000/users/decoded-user",{
                         token: this.token
                 })

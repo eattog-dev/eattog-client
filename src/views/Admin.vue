@@ -858,7 +858,7 @@
 
                 console.log("dados:"+formData);
 
-                axios.post('http://54.233.122.212/criar/restaurante', formData)
+                axios.post('`http://api.eattog.jera.com.br/criar/restaurante', formData)
                 .then(response => {
                     console.log(response.data);
                 })
@@ -885,7 +885,7 @@
                     restauranteId: 1,
                 };
 
-                axios.post('http://54.233.122.212/criar/prato', novoPrato)
+                axios.post('`http://api.eattog.jera.com.br/criar/prato', novoPrato)
                     .then(response => {
                         console.log('Prato criado com sucesso:', response.data);
 
