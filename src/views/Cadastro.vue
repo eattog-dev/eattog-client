@@ -1,11 +1,11 @@
 <template>
     <section class="cadastro-container" id="cadastro">
         <el-row class="cadastro-row">
-            <el-col :span="12" class="cadastro-col cadastro-bg-white">
+            <el-col :xs="24" :span="12" class="cadastro-col cadastro-bg-white">
                 <Logo class="" text="Eattog" icon="🟨"></Logo>
                 <p class="cadastro-slogan">Delicious Food, Delivered Fast</p>
             </el-col>
-            <el-col :span="12" class="cadastro-col">
+            <el-col :xs="24" :span="12" class="cadastro-col">
                 <el-form class="cadastro-form" ref="cadastroForm" :model="formulario" label-width="6.25rem"
                     label-position="top">
                     <el-header>
@@ -15,13 +15,15 @@
                     <el-form-item label="Nome" prop="nome" :rules="nameRules">
                         <el-input type="text" v-model="formulario.nome"></el-input>
                     </el-form-item>
-                    <el-form-item label="Date of Birth" prop="data_nascimento" :rules="dateOfBirthRules">
+
+                    <!-- <el-form-item label="Data de nascimento" prop="data_nascimento" :rules="dateOfBirthRules">
                         <el-date-picker class="cadastro-inputDate" v-model="formulario.data_nascimento" type="date"
-                            placeholder="Select Date" format="DD/MM/YYYY" ></el-date-picker>
-                    </el-form-item>
-                    <!-- <el-form-item label="Data de Nascimento" prop="data_nascimento" :rules="dateOfBirthRules">
-                        <el-input type="text" v-mask="'####-##-##'" v-model="formulario.data_nascimento"></el-input>
+                            placeholder="Selecione a data" format="DD/MM/YYYY" value-format="DD/MM/YYYY"></el-date-picker>
                     </el-form-item> -->
+                    <el-form-item label="Data de Nascimento" prop="data_nascimento" :rules="dateOfBirthRules">
+                        <el-input type="text" v-mask="'####-##-##'" v-model="formulario.data_nascimento"></el-input>
+                    </el-form-item  >
+                    <!-- value-format="YYYY/MM/DD" -->
                     <el-form-item label="Número de Telefone" prop="numberPhone" :rules="phoneRules">
                         <el-input type="text" v-mask="'(##)#####-####'" v-model="formulario.numberPhone"></el-input>
                     </el-form-item>
@@ -101,12 +103,12 @@ const dateOfBirthRules = [
                 }
 
                 if (age < 18) {
-                    callback(new Error("You must be at least 18 years old."));
+                    callback(new Error("Você deve ter pelo menos 18 anos"));
                 } else {
                     callback();
                 }
             } else {
-                callback(new Error("Please select your date of birth"));
+                callback(new Error("Por favor selecione sua data de nascimento"));
             }
         },
         trigger: "change",
@@ -115,13 +117,13 @@ const dateOfBirthRules = [
 
 const phoneRules = {
     required: true,
-    message: "Please enter your phone number",
+    message: "Por favor digite seu numero de celular",
     trigger: "blur",
 };
 
 
 const cpfRules = [
-    { required: true, message: "Please enter your CPF", trigger: "blur" },
+    { required: true, message: "Por favor digite o CPF", trigger: "blur" },
     {
         validator: (rule, value, callback) => {
             const cpfRegex = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/;
@@ -129,7 +131,7 @@ const cpfRules = [
             if (cpfRegex.test(value)) {
                 callback();
             } else {
-                callback(new Error("Please enter a valid CPF"));
+                callback(new Error("Por favor digite um CPF válido"));
             }
         },
         trigger: "blur",
@@ -137,23 +139,23 @@ const cpfRules = [
 ];
 
 const emailRules = [
-    { required: true, message: "Please enter your email", trigger: "blur" },
+    { required: true, message: "Por favor digite o email", trigger: "blur" },
     {
         type: "email",
-        message: "Please enter a valid email address",
+        message: "Por favor digite um email válido",
         trigger: "blur",
     },
 ];
 
 const passwordRules = [
-    { required: true, message: "Please enter a password", trigger: "blur" },
+    { required: true, message: "Por favor digite a senha", trigger: "blur" },
     {
         validator: (rule, value, callback) => {
             const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&]).{6,}$/;
             if (!regex.test(value)) {
                 callback(
                     new Error(
-                        "Password must have at least 6 characters, one uppercase letter, one lowercase letter, and one special character"
+                        "A senha deve ter ao menos 6 caracteres, uma letra maiúscula, uma letra minúscula e um caracter especial"
                     )
                 );
             } else {
@@ -167,13 +169,13 @@ const passwordRules = [
 const confirmPasswordRules = [
     {
         required: true,
-        message: "Please confirm your password",
+        message: "Por favor confirme a sua senha",
         trigger: "blur",
     },
     {
         validator: (rule, value, callback) => {
-            if (value !== this.formulario.Password) {
-                callback(new Error("Passwords do not match"));
+            if (value !== formulario.value.password) {
+                callback(new Error("Senhas diferentes"));
             } else {
                 callback();
             }
@@ -228,6 +230,7 @@ const goToLogin = () => router.push("/login")
 <style scoped>
 .cadastro-container {
     --el-color-primary: var(--yellow100);
+
 }
 
 .cadastro-bg-white {
@@ -235,11 +238,9 @@ const goToLogin = () => router.push("/login")
 }
 
 .cadastro-form {
-    width: 50rem;
-    height: 65.5rem;
-    margin: 12.5rem auto 0;
     text-align: center;
     font-family: "Roboto", sans-serif;
+    padding: 1.5rem;
 }
 
 .cadastro-row {
@@ -259,9 +260,7 @@ const goToLogin = () => router.push("/login")
     justify-content: center;
 }
 
-.cadastro-divider {
-    margin: 5rem 0 0 0;
-}
+
 
 .cadastro-create-account {
     font-size: 1rem;
@@ -276,6 +275,7 @@ const goToLogin = () => router.push("/login")
     color: var(--black100);
     cursor: pointer;
     float: right;
+    padding-bottom: 1.5rem;
 }
 
 .cadastro-inputDate .el-date-table th {
@@ -367,87 +367,22 @@ const goToLogin = () => router.push("/login")
     line-height: 1.375rem;
 }
 
-.cadastro-container .el-form {
-    width: 90%;
-    margin: auto;
-}
 
-@media (width: 74.5rem) {
-    .cadastro-container .el-form {
-        margin: 1.625rem 0 0 0;
-        width: 80%;
+
+
+@media (max-width:768px){
+    .logotipo,
+    .cadastro-slogan{
+        margin: unset;
+    }
+    .cadastro-col{
+        padding: 0.5rem 0;
     }
 
-    .cadastro-bg-white {
-        width: 100%;
-    }
+    .cadastro-form{
+        padding: 0.5rem 0 ;
 
-    .cadastro-form {
-        padding: 2rem;
-        width: 50rem;
-        height: 80.8rem;
-        margin: 12.5rem auto 0;
-        text-align: center;
-        font-family: "Roboto", sans-serif;
-    }
-}
-
-@media (max-width: 900px) {
-    .cadastro-container .el-form {
-        padding: 2rem;
-        display: flex;
-        flex-direction: column;
-        width: 200%;
-    }
-
-    .cadastro-container .cadastro-logotipo {
-        font-size: 1.813rem;
-        display: flex;
-        margin: 15% 0 1.25rem 0;
-        font-family: cursive;
-        font-weight: bold;
-        justify-content: center;
-    }
-
-    .cadastro-container .el-header {
-        --el-header-padding: -1 1.25rem;
-    }
-
-    .cadastro-slogan {
-        font-size: 1rem;
-        color: var(--gray400);
-        margin: 0.625rem 0 2.25rem 0;
-        display: flex;
-        justify-content: center;
-    }
-
-    .cadastro-divider {
-        margin: 2rem 0 0 0;
-    }
-
-    .cadastro-container .cadastro-alert {
-        display: flex;
-        justify-content: center;
-        align-self: center;
-        width: 100%;
-    }
-
-    .cadastro-container .link-login {
-        font-style: italic;
-    }
-
-    .cadastro-container .el-row,
-    .cadastro-container .el-col {
-        width: 100% !important;
-        max-width: 100%;
-    }
-
-    .cadastro-container .el-col-12 {
-        flex: 0 0 100%;
-    }
-
-    .cadastro-container .el-form {
-        width: 100%;
+        height: unset;
     }
 }
 </style>

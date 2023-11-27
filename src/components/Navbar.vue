@@ -11,35 +11,39 @@
           <span @click="goToSobreNos">Sobre Nós</span>
         </div>
 
-        <div class="localizacao" @click="openModal">
-          <el-icon style="font-size: 1.2rem; margin: auto;">
-            <MapLocation />
-          </el-icon>
-          <span class="location-input__address"> {{ userCity ? userCity : 'Localização' }}</span>
-        </div>
-        <div class="perfil" @click="goToPerfil">
+
+        <div class="perfil" @click="goToPerfil()">
           <el-icon class="profile-icon" style="font-size: 1.5rem; margin: auto;">
             <User />
           </el-icon>
           <span>Perfil</span>
         </div>
+        <div style="display: flex;">
+          <el-menu default-active="2" class="el-menu-vertical-demo cmp-menu-car" @open="handleOpen" @close="handleClose"
+            position="absolute">
 
-        <el-menu default-active="2" class="el-menu-vertical-demo cmp-menu-car" @open="handleOpen" @close="handleClose"
-          position="absolute">
+            <el-sub-menu index="1" v-if="!carrinhoStore.carrinho.length == false">
 
-          <el-sub-menu index="1" v-if="!carrinhoStore.carrinho.length == false">
+              <el-menu-item v-for="(item, i) in carrinhoStore.carrinho" index="item.prato.id" class="cmp-menu-item">{{
+                item.prato.nome }}
+                <span class="">R${{ item.prato.valor * item.quantidade }}</span>
+              </el-menu-item>
+              <el-button class="cmp-button-yellow" @click="carrinhoStore.finalizarCompra()" role="link">Finalizar
+                Pedido</el-button>
+            </el-sub-menu>
+            <el-sub-menu v-else>
+              <h3>0 itens no carrinho</h3>
+            </el-sub-menu>
+          </el-menu>
 
-            <el-menu-item v-for="(item, i) in carrinhoStore.carrinho" index="item.prato.id" class="cmp-menu-item">{{
-              item.prato.nome }}
-              <span class="">R${{ item.prato.valor * item.quantidade }}</span>
-            </el-menu-item>
-            <el-button class="cmp-button-yellow" @click="carrinhoStore.finalizarCompra()" role="link">Finalizar
-              Pedido</el-button>
-          </el-sub-menu>
-          <el-sub-menu v-else>
-            <h3>0 itens no carrinho</h3>
-          </el-sub-menu>
-        </el-menu>
+          <div class="sair" @click="logout" v-if="isLogged">
+            <el-icon>
+              <Connection />
+            </el-icon>
+            <span>Sair</span>
+          </div>
+
+        </div>
       </el-col>
       <!-- MOBILE -->
       <el-col :span="20" class="header-desktop" v-else>
@@ -89,14 +93,7 @@
               </el-icon>
               <span @click="goToSobreNos">Sobre Nós</span>
             </el-menu-item>
-            <el-menu-item>
-              <div class="localizacao" @click="openModal">
-                <el-icon style="font-size: 1.2rem; margin: auto;">
-                  <MapLocation />
-                </el-icon>
-                <span class="location-input__address"> {{ userCity ? userCity : 'Localização' }}</span>
-              </div>
-            </el-menu-item>
+
             <el-menu-item>
               <el-icon @click="goToPerfil" class="profile-icon" style="font-size: 2rem">
                 <User />
@@ -136,12 +133,27 @@ import { useCarrinhoStore } from '../store/carrinho';
 
 const carrinhoStore = useCarrinhoStore();
 
-const goToHome = () => router.push("/")
-const goToRestaurantes = () => router.push("/restaurants")
-const goToCategorias = () => router.push("/categorias")
-const goToSobreNos = () => router.push("/sobre-nos")
-const goToPerfil = () => router.push("/perfil")
+const goToHome = () => router.push("/inicio")
+const goToRestaurantes = () => router.push("/restaurants");
+const goToCategorias = () => router.push("/categorias");
+const goToSobreNos = () => router.push("/sobre-nos");
+const goToPerfil = () => {
+  router.push("/perfil")
+};
 
+const logout = () => {
+  sessionStorage.removeItem("token");
+  location.reload()
+}
+
+const isLogged = ref(null);
+
+onMounted(()=> {
+  if(sessionStorage.getItem("token"))
+    isLogged.value = true
+  else
+  isLogged.value = false
+})
 
 const handleOpen = (key, keyPath) => {
   carrinhoStore.listarCarrinho()
@@ -225,7 +237,7 @@ header {
 
 }
 
-.localizacao,
+.sair,
 .perfil {
   display: flex;
   flex-direction: column;
@@ -233,7 +245,7 @@ header {
   cursor: pointer;
 }
 
-.localizacao span,
+.sair span,
 .perfil span {
   font-weight: 500;
 }
