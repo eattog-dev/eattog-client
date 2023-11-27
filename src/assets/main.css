@@ -65,3 +65,12 @@ body{
 .el-input__wrapper .el-input__inner{
     height: 2.3rem;
 }
+.el-textarea__inner:focus , .el-select .el-input.is-focus .el-input__wrapper {
+    box-shadow: 0 0 0 0.063rem var(--yellow100) inset !important;
+}
+.el-checkbox__input.is-checked+.el-checkbox__label {
+    color: inherit !important;
+}
+.el-select-dropdown__item.selected {
+    color: var(--yellow100) !important;
+}

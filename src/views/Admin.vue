@@ -64,18 +64,24 @@
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item label="Endereço" class="cmp-admin-form-item">
-                                    <el-input v-model="restaurantAddress.cep" placeholder="CEP" class="cmp-admin-form-input"
-                                        required></el-input>
-                                    <el-input v-model="restaurantAddress.street" placeholder="Nome da Rua"
+                                    <div class="cmp-admin-flex">
+                                        <el-input v-model="restaurantAddress.cep" placeholder="CEP" class="cmp-admin-form-input"
+                                            required></el-input>
+                                        <el-input v-model="restaurantAddress.district" placeholder="Bairro"
+                                            class="cmp-admin-form-input" required></el-input>
+                                    </div>
+                                    <div class="cmp-admin-flex">
+                                        <el-input v-model="restaurantAddress.street" placeholder="Nome da Rua"
                                         class="cmp-admin-form-input" required></el-input>
-                                    <el-input v-model="restaurantAddress.streetNumber" placeholder="Número"
-                                        class="cmp-admin-form-input" required></el-input>
-                                    <el-input v-model="restaurantAddress.district" placeholder="Bairro"
-                                        class="cmp-admin-form-input" required></el-input>
-                                    <el-input v-model="restaurantAddress.city" placeholder="Cidade"
-                                        class="cmp-admin-form-input" required></el-input>
-                                    <el-input v-model="restaurantAddress.state" placeholder="Estado"
-                                        class="cmp-admin-form-input" required></el-input>
+                                        <el-input v-model="restaurantAddress.streetNumber" placeholder="Número"
+                                            class="cmp-admin-form-input" required></el-input>
+                                    </div>
+                                    <div class="cmp-admin-flex">
+                                        <el-input v-model="restaurantAddress.city" placeholder="Cidade"
+                                            class="cmp-admin-form-input" required></el-input>
+                                        <el-input v-model="restaurantAddress.state" placeholder="Estado"
+                                            class="cmp-admin-form-input" required></el-input>
+                                    </div>
                                 </el-form-item>
                                 <el-form-item label="Tipo de Retirada" class="cmp-admin-form-item">
                                     <el-checkbox-group v-model="restaurantTakeawayType"
@@ -88,7 +94,6 @@
                                     <el-input type="textarea" v-model="restaurantDescription"
                                         class="cmp-admin-form-textarea" required placeholder="Breve resumo"></el-input>
                                 </el-form-item>
-
                             </el-form>
                         </div>
                         <label class="cmp-admin-image-upload-descripition">Selecione ás imagens para :</label>
@@ -288,7 +293,24 @@
                 </div>
                 <div v-else-if="activeTab === 'ajuda'">
                     <div class="cmp-admin_containerbanner-title">Dúvidas Frequentes</div>
-                    Em breve conteúdo da aba 'Ajuda'
+                    <div class="restaurant-details">
+                        <p class="cmp-admin-restaurant-information cmp-admin-spacebottom">Algumas das principais dúvidas sobre informações do sistema.</p>
+                    </div>
+                    <el-collapse v-model="faqAccordion">
+                        <el-collapse-item  class="cmp-admin_collapse-title" title="O que são as categorias ?" name="faq">
+                            <div class="faq-content cmp-admin_collapse-text">
+                                <p>Tipos de alimentos referem-se a classificações ou grupos nos quais os alimentos podem ser organizados com base em diferentes critérios. Essas categorias podem ser variadas e servem para auxiliar na identificação, classificação e seleção de alimentos de acordo com suas características específicas. Alguns exemplos comuns de categorias de tipos de alimentos incluem:
+                                </p>
+                                <ul class="cmp-admin_collapse-list">
+                                    <li><strong>Sem Glúten:</strong> Refere-se a alimentos que não contêm glúten, uma proteína encontrada em cereais como trigo, cevada e centeio. Esses alimentos são adequados para pessoas com intolerância ao glúten ou doença celíaca.</li>
+                                    <li><strong>Sem Lactose:</strong> Este grupo consiste em alimentos que não contêm lactose, o açúcar natural encontrado nos produtos lácteos. Isso inclui uma variedade de alternativas livres de laticínios, como leites vegetais (amêndoa, coco, arroz), queijos e iogurtes sem lactose. Esses alimentos são ideais para pessoas com intolerância à lactose, que têm dificuldade em digerir esse açúcar, resultando em desconforto gastrointestinal após consumir produtos lácteos tradicionais, como leite, queijo ou iogurte.</li>
+                                    <li><strong>Alimentos Vegetarianos:</strong> Os alimentos vegetarianos excluem carne, aves e peixes, mas incluem produtos lácteos e ovos, sendo baseados em fontes vegetais como frutas, legumes, grãos, leguminosas, nozes e sementes.</li>
+                                    <li><strong>Alimentos Integrais:</strong> Refere-se a alimentos não processados ou minimamente processados, que mantêm a maior parte de sua forma original, como grãos integrais, legumes frescos, etc.</li>
+                                    <li><strong>Alimentos Veganos:</strong> Os alimentos veganos eliminam completamente qualquer produto de origem animal, incluindo laticínios, ovos e mel. Eles consistem apenas em alimentos de fontes vegetais, como frutas, verduras, legumes, grãos, leguminosas, nozes e sementes.</li>
+                                </ul>
+                            </div>
+                        </el-collapse-item>
+                    </el-collapse>
                 </div>
             </div>
         </el-main>
@@ -308,6 +330,23 @@
             <el-form-item label="Tempo de Preparo">
                 <el-input v-model="novoPrato.time" class="cmp-admin-form-input"></el-input>
             </el-form-item>
+            <el-form-item label="Descricao">
+                <el-input v-model="novoPrato.descricao" class="cmp-admin-form-input"></el-input>
+            </el-form-item>
+            <el-form-item label="Desconto">
+                <el-input type="number" v-model="novoPrato.desconto" class="cmp-admin-form-input"></el-input>
+            </el-form-item>
+            <el-form-item label="Desconto">
+                <el-input v-model="novoPrato.valor_desconto" class="cmp-admin-form-input"></el-input>
+            </el-form-item>
+            <el-select v-model="restaurantMealType" class="cmp-admin-form-select" required>
+                <el-option
+                    v-for="c in categorias"
+                    :key="c.id"
+                    :label="c.categoria" 
+                    :value="c.id" 
+                ></el-option>
+            </el-select>
             <el-form-item label="Imagem">
                 <el-input type="file" v-model="novoPrato.imagem" class="cmp-admin-form-file"></el-input>
             </el-form-item>
@@ -331,6 +370,15 @@
 </template>
 
 <style>
+
+.cmp-admin-flex {
+    display: grid;
+    justify-content: space-between;
+}
+.cmp-admin-flex  .cmp-admin-form-input {
+    width: 20rem;
+    margin-right: 0.5rem;
+}
 .cmp-admin_box-card {
     width: 16rem;
     height: 10rem;
@@ -812,7 +860,6 @@
 
 <script>
 import { ref } from 'vue'
-import axios from 'axios'
 const showPratoModal = ref(true);
 const showRemover = ref(true);
 export default {
@@ -824,8 +871,6 @@ export default {
             restaurantName: '',
             restaurantCNPJ: '',
             restaurantPhone: '', 
-            restaurantRating: '3.0',
-            restaurantDistant : '2.5km',
             restaurantMealType: 'restaurantetradicional',
             restaurantAddress: {
                 cep: '',
@@ -839,6 +884,7 @@ export default {
             restaurantTakeawayType: [],
             restaurantDescription: '',
             cnpjValidationFailed: false,
+
             showPratoModal: false,
             novoPrato: {
                 nome: '',
@@ -847,9 +893,21 @@ export default {
                 ingredientes: '',
                 time: '',
             },
+            categorias: []
         };
     },
+    mounted() {
+    this.fetchCategorias(); },
     methods: {
+        fetchCategorias() {
+        axios.get('http://api.eattog.jera.com.br/categorias')
+            .then(response => {
+            this.categorias = response.data;
+            })
+            .catch(error => {
+            console.error(error);
+            });
+        },
         changeToInicio() {
             this.activeTab = 'inicio';
         },
@@ -875,6 +933,23 @@ export default {
             }
         },
 
+        // uploadBanner(event) {
+        //     const file = event.target.files[0];
+        //     if (!file.type.startsWith('image/')) {
+        //         alert('Por favor, selecione um arquivo de imagem.');
+        //         return;
+        //     }
+        //     if (file) {
+        //         const reader = new FileReader();
+        //         reader.onload = (e) => {
+        //             alert(this.restaurantBanner)
+
+        //             this.restaurantBanner = event.target.files[0];
+        //         };
+        //         reader.readAsDataURL(file);
+        //     }
+        // },
+
         uploadBanner(event) {
             const file = event.target.files[0];
             if (!file.type.startsWith('image/')) {
@@ -884,13 +959,13 @@ export default {
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    alert(this.restaurantBanner)
-
-                    this.restaurantBanner = event.target.files[0];
+                    console.log(file); 
+                    this.restaurantBanner = e.target.file;
                 };
                 reader.readAsDataURL(file);
             }
         },
+
         validateCNPJ() {
             const cnpj = this.restaurantCNPJ.replace(/[^0-9]/g, '');
 
@@ -905,8 +980,8 @@ export default {
             if (!this.cnpjValidationFailed) {
                 axios.post('http://api.eattog.jera.com.br/criar/restaurante',
                     {
-                        "imagem": this.restaurantImage,
-                        "logo": this.restaurantImage,
+                        "imagem": this.restaurantBanner,
+                        "logo": this.restaurantBanner,
                         "banner": this.restaurantBanner,
                         "razao_social": this.restaurantName,
                         "cnpj": this.restaurantCNPJ,
@@ -917,16 +992,16 @@ export default {
                         "bairro":  this.restaurantAddress.district,
                         "cidade": this.restaurantAddress.city,
                         "estado": this.restaurantAddress.state,
-                        "avaliacao": this.restaurantRating,
+                        "avaliacao": 3.0,
                         "tipo_restaurante": this.restaurantMealType,
-                        "distancia": this.restaurantDistant,
+                        "distancia": '1km',
                         "tipo_retirada": this.restaurantTakeawayType[0],
                         "descricao": this.restaurantDescription,
                     }, {
                     headers: { 'Authorization': sessionStorage.getItem("token-admin") }
                 })
                     .then(response => {
-                        console.log(response.data);
+                        sessionStorage.setItem('restaurante-id', response.data.id);
                     })
                     .catch(error => {
                         console.error(error);
@@ -948,27 +1023,39 @@ export default {
                     valor: this.novoPrato.valor,
                     imagem: this.novoPrato.imagem,
                     ingredientes: this.novoPrato.ingredientes,
-                    restauranteId: 1,
+                    restaurante: sessionStorage.getItem('restaurante-id'), // restaurante: 1, 
+                    descricao: this.novoPrato.descricao,
+                    categoria_prato: this.novoPrato.categoria_prato,
+                    desconto: this.novoPrato.desconto,
+                    valor_desconto: this.novoPrato.valor_desconto,
                 };
 
-                axios.post('http://54.233.122.212/criar/prato', novoPrato)
-                    .then(response => {
-                        console.log('Prato criado com sucesso:', response.data);
+                axios.post('http://api.eattog.jera.com.br/criar/prato', novoPrato, {
+                    headers: {
+                        'Authorization': sessionStorage.getItem("token-admin")
+                    }
+                })
+                .then(response => {
+                    console.log('Prato criado com sucesso:', response.data);
 
-                        this.novoPrato = {
-                            nome: '',
-                            valor: '',
-                            imagem: '',
-                            ingredientes: '',
-                            time: '',
-                        };
-                        this.showPratoModal = false;
-                    })
-                    .catch(error => {
-                        console.error('Erro ao criar o prato:', error);
-                    });
-            } else {
-                this.$message.error('Por favor, preencha todos os campos do prato.');
+                    this.novoPrato = {
+                        nome: '',
+                        valor: '',
+                        imagem: '',
+                        ingredientes: '',
+                        time: '',
+                        descricao: '',
+                        categoria_prato: '',
+                        desconto: '',
+                        valor_desconto: "",
+                    };
+                    this.showPratoModal = false;
+                })
+                .catch(error => {
+                    console.error('Erro ao criar o prato:', error);
+                });
+
+
             }
         }
     },
