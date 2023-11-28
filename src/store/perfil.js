@@ -14,7 +14,7 @@ export const usePerfilStore = defineStore("perfil", {
         },
         async loggedUser() {
             await axios
-                .get("http://api.eattog.jera.com.br/meu-perfil", {
+                .get("https://api.eattog.jera.com.br/meu-perfil", {
                     headers: { 'Authorization': `Bearer ${sessionStorage.getItem("token")}` }
                 })
                 .then(response => {
@@ -24,7 +24,7 @@ export const usePerfilStore = defineStore("perfil", {
                     this.editedProfile()
                 })
                 .catch(error => {
-                  
+                    if(error.status == 404)
                         sessionStorage.removeItem("token");
                 })
         },

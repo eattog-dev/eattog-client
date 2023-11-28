@@ -106,7 +106,7 @@ export const useCadastroStore = defineStore("owner-registration", {
         if (valid) {
           this.errorMsgPassword = "";
           const cadastro = await axios
-            .post("http://api.eattog.jera.com.br/cadastrar/admin",
+            .post("https://api.eattog.jera.com.br/cadastrar/admin",
               {
                 "nome": this.formulario.nome,
                 "email": this.formulario.email,

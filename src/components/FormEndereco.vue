@@ -1,11 +1,10 @@
 <template>
     <div class="endereco">
         <h2>Endereço</h2>
-        <el-button class="localizacao-atual" @click="localizacaoAutomatica()">Preencha Com Localizaçao Atual</el-button>
         <el-form ref="enderecoForm" :model="endereco">
             <el-col>
                 <el-row :gutter=8>
-                    <el-col :span="4">
+                    <el-col :xs="6" :span="4">
                         <el-form-item prop="cep" :rules="cepRule">
                             <label for="cep">CEP</label>
                             <el-input v-model="endereco.cep" class="lala" name="cep" maxLength="8"
@@ -19,7 +18,7 @@
 
                         </el-form-item>
                     </el-col>
-                    <el-col :xs="12" :md="13" :lg="14" :span="15">
+                    <el-col :xs="10" :md="13" :lg="14" :span="15">
                         <el-form-item prop="municipio" :rules="municipioRule">
                             <label for="municipio">Município</label>
                             <el-input v-model="endereco.municipio" name="municipio" :disabled="enderecoSalvo" />
@@ -37,7 +36,7 @@
                     </el-col>
                 </el-row>
                 <el-row :gutter=8>
-                    <el-col :xs="6" :md="7" :lg="6" :span="4">
+                    <el-col :xs="6" :md="7" :span="4">
                         <el-form-item prop="numero_residencia" :rules="numeroRule">
                             <label for="numero">Número</label>
                             <el-input v-model="endereco.numero_residencia" name="numero_residencia"
@@ -45,13 +44,13 @@
 
                         </el-form-item>
                     </el-col>
-                    <el-col :xs="6" :md="7" :lg="6" :span="6">
+                    <el-col :xs="6" :md="7" :span="6">
                         <el-form-item prop="bairro" :rules="bairroRule">
                             <label for="bairro">Bairro</label>
                             <el-input v-model="endereco.bairro" name="bairro" :disabled="enderecoSalvo" />
                         </el-form-item>
                     </el-col>
-                    <el-col :xs="12" :md="10" :lg="12" :span="14">
+                    <el-col :xs="12" :md="10"  :span="14">
                         <el-form-item prop="complemento">
                             <label for="complemento">Complemento</label>
                             <el-input v-model="endereco.complemento" name="complemento"
@@ -64,7 +63,7 @@
                 <el-form-item>
                     <el-button class="salvar-endereco" @click="submitForm(enderecoForm)"
                         v-if="!enderecoSalvo">Salvar</el-button>
-                    <el-button class="cancelar-endereco" @click="handleDataForm()"
+                    <el-button class="cancelar-endereco" @click="cancelar()"
                         v-if="!enderecoSalvo">Cancelar</el-button>
                     <el-button class="salvar-endereco" @click="handleDataForm()" v-else>Editar</el-button>
                 </el-form-item>
@@ -93,13 +92,13 @@ const cepRule = [
     },
     {
         validator: async (rule, value, callback) => {
-            const endereco = await axios
+            const resposta = await axios
                 .get(`https://viacep.com.br/ws/${value}/json/`)
-            if (!endereco.data.erro) {
-                perfilStore.novoPerfil.bairro = endereco.data.bairro
-                perfilStore.novoPerfil.municipio = endereco.data.localidade
-                perfilStore.novoPerfil.rua = endereco.data.logradouro
-                perfilStore.novoPerfil.estado = endereco.data.uf
+            if (!resposta.data.erro) {
+                endereco.value.bairro = resposta.data.bairro
+                endereco.value.municipio = resposta.data.localidade
+                endereco.value.logradouro = resposta.data.logradouro
+                endereco.value.estado = resposta.data.uf
                 callback();
             } else {
                 callback(new Error("Preencha um cep válido"));
@@ -150,7 +149,7 @@ const submitForm = (cadastroForm) => {
         if (valid) {
             console.log("asjdhasdasjkhdh");
             await axios
-                .post(`http://api.eattog.jera.com.br/endereco`, {
+                .post(`https://api.eattog.jera.com.br/endereco`, {
                     "cep": perfilStore.endereco.cep,
                     "estado": perfilStore.endereco.estado,
                     "municipio": perfilStore.endereco.municipio,
@@ -173,6 +172,11 @@ let enderecoSalvo = ref(true)
 const handleDataForm = () => {
     enderecoSalvo.value = !enderecoSalvo.value
     return enderecoSalvo.value
+}
+
+const cancelar = () => {
+    handleDataForm();
+    perfilStore.handleDataForm()
 }
 </script>
   

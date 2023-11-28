@@ -11,7 +11,7 @@ export const useUserStore = defineStore('user-session', {
 
             if (this.token) {
                 const response = await axios
-                    .get("http://api.eattog.jera.com.br/meu-perfil", {
+                    .get("https://api.eattog.jera.com.br/meu-perfil", {
                         headers: { 'Authorization': `Bearer ${sessionStorage.getItem("token")}` }
                     })
                 if (response.status == 200 || response.status == 201) {

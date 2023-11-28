@@ -335,7 +335,7 @@ export default {
             const restauranteId = sessionStorage.getItem('restaurante-id');
 
             if (restauranteId) {
-                axios.get(`http://api.eattog.jera.com.br/restaurante/${restauranteId}`, {
+                axios.get(`https://api.eattog.jera.com.br/restaurante/${restauranteId}`, {
                     headers: { 'Authorization': sessionStorage.getItem("token-admin") }
                 })
                 .then(response => {
@@ -376,7 +376,7 @@ export default {
         },
 
         fetchPratos() {
-            axios.get('http://api.eattog.jera.com.br/pratos')
+            axios.get('https://api.eattog.jera.com.br/pratos')
                 .then(response => {
                     this.pratos = response.data; 
                 }, {
@@ -409,7 +409,7 @@ export default {
         },
 
         fetchCategorias() {
-        axios.get('http://api.eattog.jera.com.br/categorias')
+        axios.get('https://api.eattog.jera.com.br/categorias')
             .then(response => {
                 this.categorias = response.data;
             })
@@ -478,7 +478,6 @@ export default {
             }
         },
         submitForm() {
-            this.validateCNPJ();
             if (this.restaurantName && this.restaurantCNPJ && this.restaurantPhone && this.restaurantMealType && this.restaurantDescription) {
                 const formData = new FormData();
                 formData.append('imagem', this.restaurantImage);
@@ -533,7 +532,7 @@ export default {
                     valor_desconto: this.novoPrato.valor_desconto,
                 };
 
-                axios.post('http://api.eattog.jera.com.br/criar/prato', novoPrato, {
+                axios.post('https://api.eattog.jera.com.br/criar/prato', novoPrato, {
                     headers: {
                         'Authorization': sessionStorage.getItem("token-admin")
                     }
@@ -557,6 +556,7 @@ export default {
                 .catch(error => {
                     console.error('Erro ao criar o prato:', error);
                 });
+
             }
         },
     },

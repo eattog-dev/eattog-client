@@ -7,8 +7,7 @@
         <div class="rotas">
           <span @click="goToHome">Inicio</span>
           <span @click="goToRestaurantes">Restaurantes</span>
-          <span @click="goToCategorias">Categorias</span>
-          <span @click="goToSobreNos">Sobre Nós</span>
+          <span @click="goToPratos">Pratos</span>
         </div>
 
 
@@ -85,13 +84,7 @@
               <el-icon>
                 <Tickets />
               </el-icon>
-              <span @click="goToCategorias">Categorias</span>
-            </el-menu-item>
-            <el-menu-item>
-              <el-icon>
-                <Opportunity />
-              </el-icon>
-              <span @click="goToSobreNos">Sobre Nós</span>
+              <span @click="goToPratos">Pratos</span>
             </el-menu-item>
 
             <el-menu-item>
@@ -135,14 +128,14 @@ const carrinhoStore = useCarrinhoStore();
 
 const goToHome = () => router.push("/inicio")
 const goToRestaurantes = () => router.push("/restaurants");
-const goToCategorias = () => router.push("/categorias");
+const goToPratos = () => router.push("/dishes");
 const goToSobreNos = () => router.push("/sobre-nos");
 const goToPerfil = () => {
   router.push("/perfil")
 };
 
 const logout = () => {
-  sessionStorage.removeItem("token");
+//  sessionStorage.removeItem("token");
   location.reload()
 }
 

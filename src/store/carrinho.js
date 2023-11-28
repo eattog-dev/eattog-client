@@ -8,7 +8,7 @@ export const useCarrinhoStore = defineStore('carrinho', {
     actions: {
         async listarCarrinho() {
             const response = await axios
-                .get("http://api.eattog.jera.com.br/carrinho-compra", {
+                .get("https://api.eattog.jera.com.br/carrinho-compra", {
                     headers: { 'Authorization': sessionStorage.getItem("token") }
                 })
             if (response.status == 200) {
@@ -21,7 +21,7 @@ export const useCarrinhoStore = defineStore('carrinho', {
         },
         async finalizarCompra() {
             const checkout = await axios
-                .get("http://api.eattog.jera.com.br/carrinho-compra/checkout", {
+                .get("https://api.eattog.jera.com.br/carrinho-compra/checkout", {
                     headers: { 'Authorization': sessionStorage.getItem("token") }
                 })
             if (checkout.status == 200)

@@ -17,7 +17,7 @@ const prato = computed(() => pedidoStore.prato)
 
 
 const addCarrinho = async (prato_ID, quantidade, observacoes) => {
-    await axios.post(`http://api.eattog.jera.com.br/carrinho-compra`, {
+    await axios.post(`https://api.eattog.jera.com.br/carrinho-compra`, {
         "productId": prato_ID,
         "quantidade": quantidade,
         "descricao": observacoes

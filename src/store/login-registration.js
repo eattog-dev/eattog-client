@@ -46,7 +46,7 @@ export const useLoginStore = defineStore("login", {
           try {
             this.errorMsg = ""; 
 
-            const login = await axios.post("http://api.eattog.jera.com.br/users/sign-in", {
+            const login = await axios.post("https://api.eattog.jera.com.br/users/sign-in", {
               "email": this.formulario.email,
               "senha": this.formulario.password
             });

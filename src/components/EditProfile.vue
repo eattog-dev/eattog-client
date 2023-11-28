@@ -16,7 +16,7 @@ const submit = (form)  => {
   form.validate(async (valid) => {
     if (valid) {
       await axios
-        .put(`http://api.eattog.jera.com.br/atualizar-usuario/`, {
+        .put(`https://api.eattog.jera.com.br/atualizar-usuario/`, {
           "nome": perfilStore.novoPerfil.nome,
           "numero_celular": perfilStore.novoPerfil.numero_celular,
         }, {
@@ -75,17 +75,8 @@ const handleClose = () => {
 </script>
 <template>
   <el-dialog v-model="openedModal" @closed="handleClose()">
-    {{ perfil }}
     <el-form ref="formBind" :model="perfil">
       <div class="edit-profile">
-        <div class="profile">
-          <div class="personal-image">
-            <label class="label">
-              <input type="file" ref="fileInput" @change="showImage" />
-              <img src="../assets/img-login/monkey.svg" class="personal-avatar">
-            </label>
-          </div>
-        </div>
         <div class="details">
           <el-form-item prop="nome" :rules="nomeRules">
             <label for="nome">Nome</label>
