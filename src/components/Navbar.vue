@@ -135,7 +135,7 @@ const goToPerfil = () => {
 };
 
 const logout = () => {
-  //  sessionStorage.removeItem("token");
+  sessionStorage.removeItem("token");
   location.reload()
 }
 
