@@ -15,9 +15,6 @@
                     <el-col :sm="12" :md="6" :lg="6" :xl="6" class="cmp-footer-format">
                         <router-link to="/adminconsole" class="cmp-footer-link">Admistrador</router-link>
                     </el-col>
-                    <el-col :xs="24" :sm="12" :md="5" :lg="4" :xl="4" class="cmp-footer-format" @click="handleModal()">
-                        <router-link to="/sobre-nos" class="cmp-footer-link">Sobre Nós</router-link>
-                    </el-col>
                 </el-row>
             </el-col>
         </el-row>
