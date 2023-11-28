@@ -91,72 +91,59 @@
 </template>
 
 <style setup>
-.cmp-footer {
-    border-top: 0.125rem solid var(--gray100);
-    padding: 0.625rem 0 !important;
-    z-index: 999;
-    width: 100%;
-    bottom: 0;
-    position: absolute;
-    background-color: var(--white100);
-}
-
-.cmp-footer-link {
-    text-decoration: none;
-    font-weight: 600;
-    line-height: 1.6rem;
-    color: var(--gray800);
-    cursor: pointer;
-}
-
-.cmp-footer-inline {
-    display: inline-flex;
-}
-
-.cmp-footer-link:hover {
-    text-decoration: underline;
-}
-
-.cmp-footer-text {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
-}
-
-.cmp-footer-text p {
-    color: var(--gray800);
-}
-
-.cmp-footer-terms {
-    color: var(--gray800);
-}
-
-.cmp-footer-terms li {
-    margin-bottom: .5rem;
-}
-
-.cmp-footer--margin-none {
-    margin: 0 !important;
-}
-
-.cmp-footer--padding {
-    padding: .625rem 0;
-}
-
-.cmp-footer-format {
-    display: flex !important;
-    justify-content: center;
-    text-align: center;
-}
-
-.cmp-footer-text .cmp-footer-logo img {
-    margin-right: .625rem;
-}
-
-.cmp-modaldialog--terms {
-    border-radius: 0.5rem !important;
-}
+    .cmp-footer {
+        border-top: 0.125rem solid var(--gray100);
+        padding: 0.625rem 0 !important;   
+        z-index: 9999999999;
+        width: 100%;
+        bottom: 0;
+        position: absolute;
+        background-color: var(--white100);
+    }
+    .cmp-footer-link {
+        text-decoration: none;
+        font-weight: 600;
+        line-height: 1.6rem;
+        color: var(--gray800);
+        cursor: pointer;
+    }
+    .cmp-footer-inline{
+        display: inline-flex;
+    }
+    .cmp-footer-link:hover {
+        text-decoration: underline;
+    }
+    .cmp-footer-text {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
+    }
+    .cmp-footer-text p{
+        color: var(--gray800);
+    }
+    .cmp-footer-terms {
+        color: var(--gray800);
+    }
+    .cmp-footer-terms li {
+        margin-bottom: .5rem;
+    }
+    .cmp-footer--margin-none {
+        margin: 0 !important;
+    }
+    .cmp-footer--padding {
+        padding: .625rem 0;
+    }
+    .cmp-footer-format {
+        display: flex !important;
+        justify-content: center;
+    }
+    .cmp-footer-text .cmp-footer-logo img {
+        margin-right: .625rem;
+    }
+    .cmp-modaldialog--terms {
+        border-radius: 0.5rem !important;
+    }
 
 .cmp-modaldialog--terms .el-dialog__header {
     display: flex;
