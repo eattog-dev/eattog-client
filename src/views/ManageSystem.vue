@@ -155,10 +155,127 @@
         </el-form-item>
         </el-form>
         <div slot="footer" class="cmp-modaldialog-footer">
+            <el-button @click="returnHome" class="cmp-modaldialog-btnsalve">Ir para Home</el-button>
             <el-button @click="submitPassword" class="cmp-modaldialog-btnsalve">Confirmar</el-button>
         </div>
     </el-dialog>
 </template>
+
+<script>
+    import axios from 'axios'
+    import { ref } from 'vue'
+
+    const showModal = ref(true);
+
+    export default {
+    data() {
+        return {
+        activeTab: 'start',
+        userImage: '../assets/img-banner/imagebanner.png',
+        typedishes: '',
+        infos: null,
+        establishment: null,
+        team: [
+            { name: 'Augusto Ferreira Abreu', initials: 'AFA' , email: 'ra184048@ucdb.br'},
+            { name: 'Emanuel Barros Ibanhes', initials: 'EBI', email: 'ra179952@ucdb.br' },
+            { name: 'Grazielly Dos Santos De Rocha', initials: 'GSDR' , email: 'ra186304@ucdb.br' },
+            { name: 'Karina Amaral Oshiro', initials: 'KAO' , email: 'ra187115@ucdb.br'},
+            { name: 'Milena Dos Santos Carmona', initials: 'MDSC', email: 'ra188556@ucdb.br' }
+        ],
+        showModal: false,
+        passwordForm: {
+            password: '',
+        },
+        };
+    },
+    mounted () {
+        this.showModal = true;
+
+        axios
+        .get('https://api.eattog.jera.com.br/categorias')
+        .then(response => (this.infos = response.data))
+        .catch(error => {
+            console.error(error);
+        });
+
+        axios
+        .get('https://api.eattog.jera.com.br/restaurantes')
+        .then(response => (this.establishments = response.data))
+        .catch(error => {
+            console.error(error);
+        });
+    },
+    methods: {
+        changeToStart() {
+            this.activeTab = 'start';
+        },
+        changeToClientes() {
+            this.activeTab = 'clientes';
+        },
+        changeToCreate() {
+            this.activeTab = 'create';
+        },
+        changeToHelp() {
+            this.activeTab = 'help';
+        },
+        returnHome() {
+
+        },
+        submitPassword() {
+            const enteredPassword = this.passwordForm.password;
+            if (enteredPassword === 'admin') {
+                this.$message.success('Senha correta. Acesso permitido.');
+                this.showModal = false; 
+            } else {
+                this.$message.error('Senha incorreta. Tente novamente.');
+            }
+        },
+
+        submitFormTypeDishes() {
+            const formData = {
+                categoria_prato: this.typedishes,
+            };
+
+            axios.post('https://api.eattog.jera.com.br/criar/categoria', formData)
+            .then(response => {
+                const newCategoryId = response.data.id;
+                this.$message.success('Categoria adicionada com sucesso.');
+                this.typedishes = '';
+                this.infos = this.infos.filter(info => info.id !== newCategoryId);
+            })
+            .catch(error => {
+                console.error(error);
+                this.$message.error('Erro ao adicionar categoria');
+                this.typedishes = '';
+            });
+        },
+
+        removeTypeDishes(categoriaId) {
+            axios.delete(`https://api.eattog.jera.com.br/deletar/categoria-prato/${categoriaId}`)
+            .then(response => {
+                this.$message.success('Categoria removida com sucesso.');
+                this.infos = this.infos.filter(info => info.id !== categoriaId);
+            })
+            .catch(error => {
+                console.error('Erro ao remover a categoria:', error);
+                this.$message.error('Erro ao remover a categoria');
+            });
+        },
+
+        removeEstablishment(restauranteId) {
+            axios.delete(`https://api.eattog.jera.com.br/restaurante/${restauranteId}`)
+            .then(response => {
+                this.$message.success('Restaurante removida com sucesso.');
+                this.establishments = this.establishments.filter(establishment => establishment.id !== restauranteId);
+            })
+            .catch(error => {
+                console.error('Erro ao remover restaurante:', error);
+                this.$message.error('Erro ao remover restaurante');
+            });
+        },
+    },
+    };
+</script>
 
 <style>
     .cmp-admin_dark-overlay {
@@ -217,7 +334,6 @@
         border: 0.063rem solid var(--yellow500) !important;
         color: var(--white100) !important;
     }
-
     .cmp-admin_addmenu-listtype-button:hover  .cmp-admin_addmenu-listtype-button:active{
         background-color: var(--yellow500) !important;
         border: 0.063rem solid var(--yellow500) !important;
@@ -293,118 +409,3 @@
         font-size: 1rem;
     }
 </style>
-
-<script>
-    import axios from 'axios'
-    import { ref } from 'vue'
-
-    const showModal = ref(true);
-
-    export default {
-    data() {
-        return {
-        activeTab: 'start',
-        userImage: '../assets/img-banner/imagebanner.png',
-        typedishes: '',
-        infos: null,
-        establishment: null,
-        team: [
-            { name: 'Augusto Ferreira Abreu', initials: 'AFA' , email: 'ra184048@ucdb.br'},
-            { name: 'Emanuel Barros Ibanhes', initials: 'EBI', email: 'ra179952@ucdb.br' },
-            { name: 'Grazielly Dos Santos De Rocha', initials: 'GSDR' , email: 'ra186304@ucdb.br' },
-            { name: 'Karina Amaral Oshiro', initials: 'KAO' , email: 'ra187115@ucdb.br'},
-            { name: 'Milena Dos Santos Carmona', initials: 'MDSC', email: 'ra188556@ucdb.br' }
-        ],
-        showModal: false,
-        passwordForm: {
-            password: '',
-        },
-        };
-    },
-    mounted () {
-        this.showModal = true;
-
-        axios
-        .get('https://api.eattog.jera.com.br/categorias')
-        .then(response => (this.infos = response.data))
-        .catch(error => {
-            console.error(error);
-        });
-
-        axios
-        .get('https://api.eattog.jera.com.br/restaurantes')
-        .then(response => (this.establishments = response.data))
-        .catch(error => {
-            console.error(error);
-        });
-    },
-    methods: {
-        changeToStart() {
-            this.activeTab = 'start';
-        },
-        changeToClientes() {
-            this.activeTab = 'clientes';
-        },
-        changeToCreate() {
-            this.activeTab = 'create';
-        },
-        changeToHelp() {
-            this.activeTab = 'help';
-        },
-
-        submitPassword() {
-            const enteredPassword = this.passwordForm.password;
-            if (enteredPassword === 'admin') {
-                this.$message.success('Senha correta. Acesso permitido.');
-                this.showModal = false; 
-            } else {
-                this.$message.error('Senha incorreta. Tente novamente.');
-            }
-        },
-
-        submitFormTypeDishes() {
-            const formData = {
-                categoria_prato: this.typedishes,
-            };
-
-            axios.post('https://api.eattog.jera.com.br/criar/categoria', formData)
-            .then(response => {
-                const newCategoryId = response.data.id;
-                this.$message.success('Categoria adicionada com sucesso.');
-                this.typedishes = '';
-                this.infos = this.infos.filter(info => info.id !== newCategoryId);
-            })
-            .catch(error => {
-                console.error(error);
-                this.$message.error('Erro ao adicionar categoria');
-                this.typedishes = '';
-            });
-        },
-
-        removeTypeDishes(categoriaId) {
-            axios.delete(`https://api.eattog.jera.com.br/deletar/categoria-prato/${categoriaId}`)
-            .then(response => {
-                this.$message.success('Categoria removida com sucesso.');
-                this.infos = this.infos.filter(info => info.id !== categoriaId);
-            })
-            .catch(error => {
-                console.error('Erro ao remover a categoria:', error);
-                this.$message.error('Erro ao remover a categoria');
-            });
-        },
-
-        removeEstablishment(restauranteId) {
-            axios.delete(`https://api.eattog.jera.com.br/restaurante/${restauranteId}`)
-            .then(response => {
-                this.$message.success('Restaurante removida com sucesso.');
-                this.establishments = this.establishments.filter(establishment => establishment.id !== restauranteId);
-            })
-            .catch(error => {
-                console.error('Erro ao remover restaurante:', error);
-                this.$message.error('Erro ao remover restaurante');
-            });
-        },
-    },
-    };
-</script>
-

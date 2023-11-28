@@ -25,7 +25,7 @@
             <div class="cmp-footer-inline">
                 <p>© Copyright 2023 - Eattog - Todos os direitos reservados Eattog com Agência de Restaurantes Online S.A.</p>
             </div>
-            <p>CNPJ 16.642.553/0001-88</p>
+            <!-- <p>CNPJ 16.642.553/0001-88</p> -->
         </div>
 
         <el-dialog title="Termos de Uso e Política de Privacidade do Eattog" v-model="showModal"
