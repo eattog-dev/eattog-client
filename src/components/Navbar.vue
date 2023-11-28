@@ -135,7 +135,7 @@ const goToPerfil = () => {
 };
 
 const logout = () => {
-  //  sessionStorage.removeItem("token");
+  sessionStorage.removeItem("token");
   location.reload()
 }
 
@@ -243,13 +243,12 @@ header {
   top: 100%;
   width: 100%;
   height: 3px;
-  background-color: #FFB02E;
+  background-color: var(--yellow100);
   transform: scaleX(0);
   transition: transform .3s ease-in-out;
 }
 
 .menu-config .itens:hover {
-  color: var(--orange100);
   transition: 0.2s;
 }
 
