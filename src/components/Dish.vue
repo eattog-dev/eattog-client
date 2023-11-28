@@ -51,6 +51,9 @@
     #list-dishes .el-card {
         margin: 1rem 0;
         height: 18.75rem;
+        transition: 0.2s;
+        cursor: pointer;
+        border-radius: 0px 0px 5px 5px;
     }
 
     #list-dishes .time {
@@ -73,6 +76,7 @@
         display: block;
         object-fit: cover;
         height: 12.5rem;
+        border-radius: 5px 5px 0px 0px;
     }
 
     #list-dishes .el-card__body {
@@ -82,6 +86,10 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+
+    #list-dishes .el-card:hover {
+        transform: scale(1.02);
     }
 
     #list-dishes .tag-aliment {

@@ -13,6 +13,7 @@ import SingleCategoria from './views/SingleCategoria.vue';
 import StateOrder from './views/StateOrder.vue';
 import ManageSystem from './views/ManageSystem.vue';
 import UserProfile from './views/UserProfile.vue';
+import Cart from './views/Cart.vue';
 import OwnerRegistration from './views/OwnerRegistration.vue';
 import OwnerLogin from './views/OwnerLogin.vue';
 import NotFound from './views/NotFound.vue';
@@ -24,6 +25,7 @@ const routes = [
     { path: '/cadastro', component: Cadastro, meta: { onlyWithoutAuth: true }, name: Cadastro },
     { path: '/login', component: Login, meta: { onlyWithoutAuth: true }, name: Login },
     { path: '/perfil', component: UserProfile, meta: { onlyAuth: true }, name: UserProfile },
+    { path: '/carrinho', component: Cart, meta: { onlyAuth: false }, name: Cart },
     { path: '/cardadd', component: CardAdd },
     { path: '/notification', component: Notification },
     { path: '/inicio', component: Home, name: Home },
@@ -48,7 +50,7 @@ router.beforeEach((to, from, next) => {
     if (to.meta.onlyWithoutAuth && sessionStorage.getItem("token")) next({ name: Home })
     else if (to.meta.onlyAuth && !sessionStorage.getItem("token")) next({ name: Login })
     else next()
-     if (to.meta.onlyWithoutAuth && sessionStorage.getItem("token-admin")) next({ name: Admin })
+    if (to.meta.onlyWithoutAuth && sessionStorage.getItem("token-admin")) next({ name: Admin })
     else if (to.meta.onlyAuth && !sessionStorage.getItem("token-admin")) next({ name: OwnerLogin })
     else next()
 })

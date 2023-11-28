@@ -3,13 +3,13 @@
   <el-row justify="center" style="padding: 1rem 0;">
     <el-col :span="20">
       <div class="sair" @click="logout" v-if="isLogged">
-            <el-icon>
-              <Connection />
-            </el-icon>
-            <span @click="logout">Sair</span>
-          </div>
+        <el-icon>
+          <Connection />
+        </el-icon>
+        <span @click="logout">Sair</span>
+      </div>
       <div class="details">
-        <h1>Perfil</h1>
+        <Title text="Meu perfil"></Title>
         <div>
           <label for="telefone">Nome</label>
           <span name="telefone">{{ perfil.nome }}</span>
@@ -30,18 +30,15 @@
       <!-- <HistoricoPedido/> -->
     </el-col>
   </el-row>
-<Footer /> 
+  <Footer />
 </template>
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-import axios from "axios";
-
+import Title from '../components/Title.vue'
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 import EnderecoForm from '../components/FormEndereco.vue'
-import FormAddCartao from '../components/CardAdd.vue'
 import EditProfile from '../components/EditProfile.vue'
-import HistoricoPedido from '../components/HistoricoPedidos.vue'
 import { usePerfilStore } from '../store/perfil'
 
 
@@ -99,7 +96,7 @@ h1 {
   font-size: 1rem;
 }
 
-.editar{
+.editar {
   background-color: var(--yellow500);
   color: var(--black100);
   font-weight: 600;
@@ -114,14 +111,16 @@ h1 {
   padding-top: 3rem;
   padding-bottom: 1rem;
 }
+
 @media (max-width: 1024px) {
-    .editar {
-        margin-right: 2.5rem;
-    }
+  .editar {
+    margin-right: 2.5rem;
+  }
 }
+
 @media (max-width: 768px) {
-    .editar {
-        margin-right: 1rem;
-    }
+  .editar {
+    margin-right: 1rem;
+  }
 }
 </style>

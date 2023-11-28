@@ -2,46 +2,45 @@
   <header>
     <el-row>
       <el-col :span="20" class="header-desktop" v-if="isDesktop">
-        <span class="nav-name-logo" @click="goToHome">Eattog🟨</span>
-
-        <div class="rotas">
-          <span @click="goToHome">Inicio</span>
-          <span @click="goToRestaurantes">Restaurantes</span>
-          <span @click="goToPratos">Pratos</span>
+        <div class="navbar-brand">
+          <span class="nav-name-logo" @click="goToHome">Eattog 🟨</span>
         </div>
-
-
-        <div class="perfil" @click="goToPerfil()">
-          <el-icon class="profile-icon" style="font-size: 1.5rem; margin: auto;">
-            <User />
-          </el-icon>
-          <span>Perfil</span>
-        </div>
-        <div style="display: flex;">
-          <el-menu default-active="2" class="el-menu-vertical-demo cmp-menu-car" @open="handleOpen" @close="handleClose"
-            position="absolute">
-
-            <el-sub-menu index="1" v-if="!carrinhoStore.carrinho.length == false">
-
-              <el-menu-item v-for="(item, i) in carrinhoStore.carrinho" index="item.prato.id" class="cmp-menu-item">{{
-                item.prato.nome }}
-                <span class="">R${{ item.prato.valor * item.quantidade }}</span>
-              </el-menu-item>
-              <el-button class="cmp-button-yellow" @click="carrinhoStore.finalizarCompra()" role="link">Finalizar
-                Pedido</el-button>
-            </el-sub-menu>
-            <el-sub-menu v-else>
-              <h3>0 itens no carrinho</h3>
-            </el-sub-menu>
-          </el-menu>
-
-          <div class="sair" @click="logout" v-if="isLogged">
-            <el-icon>
-              <Connection />
-            </el-icon>
-            <span>Sair</span>
-          </div>
-
+        <div class="menu-config">
+          <li class="nav-item">
+            <span @click="goToHome" class="itens nav-link">Inicio</span>
+          </li>
+          <li class="nav-item">
+            <span @click="goToRestaurantes" class="itens nav-link">Restaurantes</span>
+          </li>
+          <li class="nav-item">
+            <span @click="goToPratos" class="itens nav-link">Pratos</span>
+          </li>
+          <li class="nav-item">
+            <div class="perfil itens nav-link" @click="goToPerfil()">
+              <el-icon class="profile-icon" style="font-size: 1.1rem; margin: auto;">
+                <User />
+              </el-icon>
+            </div>
+          </li>
+          <li class="nav-item">
+            <div class="itens nav-link" @click="goToCarrinho()">
+              <el-badge :value="1" class="item" type="warning" v-if="!carrinhoStore.carrinho.length == false">
+                <el-icon class="profile-icon" style="font-size: 1.1rem; margin: auto;">
+                  <ShoppingCart />
+                </el-icon>
+              </el-badge>
+              <el-icon v-else class="profile-icon" style="font-size: 1.1rem; margin: auto;">
+                <ShoppingCart />
+              </el-icon>
+            </div>
+          </li>
+          <li class="nav-item">
+            <div class="itens nav-link" @click="logout" style="font-size: 1.1rem; margin: auto;" v-if="isLogged">
+              <el-icon>
+                <Connection />
+              </el-icon>
+            </div>
+          </li>
         </div>
       </el-col>
       <!-- MOBILE -->
@@ -129,23 +128,24 @@ const carrinhoStore = useCarrinhoStore();
 const goToHome = () => router.push("/inicio")
 const goToRestaurantes = () => router.push("/restaurants");
 const goToPratos = () => router.push("/dishes");
+const goToCarrinho = () => router.push("/carrinho");
 const goToSobreNos = () => router.push("/sobre-nos");
 const goToPerfil = () => {
   router.push("/perfil")
 };
 
 const logout = () => {
-//  sessionStorage.removeItem("token");
+  //  sessionStorage.removeItem("token");
   location.reload()
 }
 
 const isLogged = ref(null);
 
-onMounted(()=> {
-  if(sessionStorage.getItem("token"))
+onMounted(() => {
+  if (sessionStorage.getItem("token"))
     isLogged.value = true
   else
-  isLogged.value = false
+    isLogged.value = false
 })
 
 const handleOpen = (key, keyPath) => {
@@ -196,7 +196,65 @@ onBeforeUnmount(() => {
 <style scoped>
 header {
   height: 6rem;
-  border-bottom: 1px solid var(--gray200);
+  border-bottom: 1px solid #EEEEEE;
+  /* padding-left: 6%;
+  padding-right: 6%; */
+  -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
+  -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
+  background-color: #FFFFFF;
+}
+
+.navbar-brand {
+  width: 180px;
+}
+
+.header-desktop .nav-name-logo {
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.menu-config {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: end;
+  align-items: center;
+}
+
+.menu-config .nav-item {
+  list-style: none;
+}
+
+.menu-config .nav-link {
+  position: relative;
+  /* font-weight: 500; */
+  margin-right: 25px;
+  font-size: 1rem;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+.menu-config .itens::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  height: 3px;
+  background-color: #FFB02E;
+  transform: scaleX(0);
+  transition: transform .3s ease-in-out;
+}
+
+.menu-config .itens:hover {
+  color: var(--orange100);
+  transition: 0.2s;
+}
+
+.menu-config .itens:hover::before {
+  transform: scaleX(1);
 }
 
 
@@ -210,12 +268,6 @@ header {
   justify-content: space-between;
   align-items: center;
   height: 100%;
-}
-
-.header-desktop .nav-name-logo {
-  font-weight: 600;
-  font-size: 2rem;
-  cursor: pointer;
 }
 
 .header-desktop .rotas span {
