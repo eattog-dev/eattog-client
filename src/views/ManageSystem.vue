@@ -219,7 +219,7 @@
             this.activeTab = 'help';
         },
         returnHome() {
-
+            this.$router.push('/inicio');
         },
         submitPassword() {
             const enteredPassword = this.passwordForm.password;
