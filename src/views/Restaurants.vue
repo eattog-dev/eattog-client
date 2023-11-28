@@ -90,7 +90,7 @@ const value = ref('Selecione');
 <template>
     <Navbar logo="../assets/logo.svg" alt="Logo" />
 
-    <section id="restaurants" style=" padding: 4rem 0;">
+    <section id="restaurants">
 
         <el-row justify="center">
             <el-col :span="20">
@@ -111,11 +111,11 @@ const value = ref('Selecione');
                 </el-row>
                 <el-row>
                     <div class="paginacao-config">
-                            <button class="button-restaurant" @click="restaurantesStore.voltarPagina()">Anterior</button>
-                            <span>{{ paginaAtual }}</span>
-                            <button class="button-restaurant" @click="restaurantesStore.passarPagina()">Próximo</button>
-                
-                        </div>
+                        <button class="button-restaurant" @click="restaurantesStore.voltarPagina()">Anterior</button>
+                        <span>{{ paginaAtual }}</span>
+                        <button class="button-restaurant" @click="restaurantesStore.passarPagina()">Próximo</button>
+
+                    </div>
                 </el-row>
                 <!-- <el-row justify=center>
                     <button @click="restaurantesStore.voltarPagina()">Anterior</button>
@@ -129,9 +129,10 @@ const value = ref('Selecione');
 </template>
 
 <style scoped>
-.el-row{
+.el-row {
     height: unset !important;
 }
+
 /* #restaurants .paginacao-config {
     display: flex;
     position: relative;
@@ -140,6 +141,14 @@ const value = ref('Selecione');
 
 }
 */
+
+#restaurants {
+    padding: 4rem 0px;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 70px;
+}
+
 .button-restaurant {
     background-color: var(--yellow400);
     border-radius: 0.25rem;

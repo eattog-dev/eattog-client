@@ -53,10 +53,10 @@
     .cmp-footer {
         border-top: 0.125rem solid var(--gray100);
         padding: 0.625rem 0 !important;   
-        z-index: 999;
+        z-index: 9999999999;
         width: 100%;
         bottom: 0;
-        position: relative;
+        position: absolute;
         background-color: var(--white100);
     }
     .cmp-footer-link {
