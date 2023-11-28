@@ -142,10 +142,10 @@ const value = ref('Selecione');
 */
 .button-restaurant {
     background-color: var(--yellow400);
-    border-radius: 4rem;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
     border: none;
-    padding: 0.5rem;
     margin: 0 1rem 0 1rem;
-
+    cursor: pointer;
 }
 </style>

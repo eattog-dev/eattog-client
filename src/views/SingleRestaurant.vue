@@ -216,7 +216,7 @@ const formatarDescricao = (descricao) => {
         </el-row>
         <el-row justify="center" style="display: flex; align-items: center; margin-bottom: 0.5rem;">
             <button class="pagination-button" @click="singleRestauranteStore.voltarPagina()">Anterior</button>
-            <span style="margin: 0 0.5rem; font-size: 1.25rem;">{{ pagina }}</span>
+            <span style="margin: 0 0.5rem;">{{ pagina }}</span>
             <button class="pagination-button" @click="singleRestauranteStore.passarPagina()">Próximo</button>
         </el-row>
     </section>
