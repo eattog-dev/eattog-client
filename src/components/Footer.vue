@@ -3,31 +3,27 @@
         <el-row justify="center">
             <el-col :span="16" class="cmp-footer--padding">
                 <el-row :gutter="10">
-                    <el-col :xs="24" :sm="12" :md="4" :lg="4" :xl="4" class="cmp-footer-format">
+                    <el-col :xs="24" :sm="12" :md="3" :lg="4" :xl="4" class="cmp-footer-format">
                         <router-link to="/login" class="cmp-footer-link">Meu login</router-link>
                     </el-col>
-                    <el-col :xs="24" :sm="12" :md="5" :lg="4" :xl="4" class="cmp-footer-format">
+                    <el-col :xs="24" :sm="12" :md="6" :lg="5" :xl="4" class="cmp-footer-format">
                         <router-link to="/login/proprietario" class="cmp-footer-link">Login dos restaurantes</router-link>
                     </el-col>
-                    <el-col :xs="24" :sm="12" :md="5" :lg="4" :xl="4" class="cmp-footer-format">
-                        <a @click="openModal" class="cmp-footer-link">Termos de uso e conduta</a>
-                    </el-col>
-                    <el-col :xs="24" :sm="12" :md="5" :lg="4" :xl="4" class="cmp-footer-format">
+                    <el-col :xs="24" :sm="12" :md="4" :lg="5" :xl="4" class="cmp-footer-format">
                         <router-link to="/adminconsole" class="cmp-footer-link">Admistrador</router-link>
                     </el-col>
-                    <el-col :xs="24" :sm="12" :md="5" :lg="4" :xl="4" class="cmp-footer-format" @click="handleModal()">
-                        <router-link to="/sobre-nos" class="cmp-footer-link">Sobre Nós</router-link>
+                    <el-col :xs="24" :sm="12" :md="3" :lg="4" :xl="4" class="cmp-footer-format">
+                        <a @click="handleModal()" class="cmp-footer-link">Sobre Nós</a>
+                    </el-col>
+                    <el-col :xs="24" :sm="12" :md="7" :lg="6" :xl="6" class="cmp-footer-format">
+                        <a @click="openModal" class="cmp-footer-link">Termos de uso e conduta</a>
                     </el-col>
                 </el-row>
             </el-col>
         </el-row>
         <div class="cmp-footer-text">
             <div class="cmp-footer-inline">
-                <div class="cmp-footer-logo">
-                    <img src="../assets/icon_stop.png" alt="Logo Eattog" />
-                </div>
-                <p>© Copyright 2023 - Eattog - Todos os direitos reservados Eattog com Agência de Restaurantes Online S.A.
-                </p>
+                <p>© Copyright 2023 - Eattog - Todos os direitos reservados Eattog com Agência de Restaurantes Online S.A.</p>
             </div>
             <p>CNPJ 16.642.553/0001-88</p>
         </div>
@@ -56,7 +52,7 @@
                 </li>
             </ul>
         </el-dialog>
-        <el-dialog class="cmp-modaldialog--terms " v-model="showSobreNosModal" @close="handleModal">
+        <el-dialog title="Equipe de desenvolvimento" class="cmp-modaldialog--terms" v-model="showSobreNosModal" @close="handleModal">
             <el-row justify="center">
                 <p>
                     O Eattog é um projeto de conclusao de curso feito em grupo por parte da turma do terceiro ano de TADS da
@@ -100,8 +96,8 @@
     padding: 0.625rem 0 !important;
     z-index: 999;
     width: 100%;
-    /* bottom: 0;
-        position: absolute; */
+    bottom: 0;
+    position: absolute;
     background-color: var(--white100);
 }
 
