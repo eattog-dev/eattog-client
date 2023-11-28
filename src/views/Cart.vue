@@ -56,12 +56,17 @@ const goToRestaurantes = () => router.push("/restaurants")
 .cmp-listagem-carrinho {
   border-bottom: 1px solid #EEEEEE;
   padding: 10px;
-  -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
-  -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
-  background-color: #FFFFFF;
+  background-color: var(--white100);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--white300);
+  color: var(--gray800);
   border-radius: 5px;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.cmp-listagem-carrinho:hover {
+  transform: scale(1.02)
 }
 
 .cmp-listagem-carrinho .cmp-itens-carrinho {

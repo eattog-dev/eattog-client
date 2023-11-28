@@ -79,10 +79,15 @@ const limitarDescricao = (descricao) => {
     text-align: center;
     background-color: var(--white100);
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
-    border-radius: 4px;
     border: 1px solid var(--white300);
     color: var(--gray800);
     text-decoration: none !important;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+#restaurants .grid-content:hover {
+    transform: scale(1.02)
 }
 
 #restaurants .imagem {
@@ -91,6 +96,7 @@ const limitarDescricao = (descricao) => {
     background-repeat: no-repeat;
     display: grid;
     align-content: end;
+    border-radius: 5px;
 }
 
 

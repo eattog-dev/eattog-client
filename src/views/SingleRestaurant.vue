@@ -196,7 +196,7 @@ const formatarDescricao = (descricao) => {
         </el-row>
         <el-row justify="center">
             <el-col :span="20">
-                <el-row :gutter=10 justify="start">
+                <el-row :gutter="10" justify="start">
                     <el-col v-for="dish in cardapio" :xs="24" :sm="12" :md="12" :lg=12 :span="12"
                         @click="exibePratoClicado(dish)">
                         <div class="grid-content dish">
