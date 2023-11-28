@@ -89,7 +89,7 @@ const subtrair = () => {
                 </el-row>
             </el-col>
         </el-row>
-        <el-row justify="center">
+        <el-row justify="center" class="paginacao">
             <button @click="singleRestauranteStore.voltarPagina()">Anterior</button>
             <span>{{ pagina }}</span>
             <button @click="singleRestauranteStore.passarPagina()">Próximo</button>
@@ -124,7 +124,10 @@ const subtrair = () => {
         </div>
     </el-dialog>
 </template>
-<style>
+<style scoped>
+ .paginacao span {
+    margin: 0 1rem !important;
+}
     .menu .el-col {
         margin: 6px 0;
         /* height: 360px; */

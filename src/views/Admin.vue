@@ -207,21 +207,19 @@
                         <h3 class="cmp-admin_addmenu-title">Menu de pratos</h3>
                     </div>
 
-                    <div>
-                        <div v-for="(prato, index) in pratos" :key="index" class="cmp-admin_addmenu-items">
-                            <el-card class="cmp-admin_addmenu-item">
-                                <div class="cmp-admin_addmenu-function">
-                                    <el-button class="cmp-admin_addmenu-function-btn" @click="visualizarPrato(prato)">Visualizar</el-button>
-                                    <el-button class="cmp-admin_addmenu-function-btn" @click="removerPrato(prato.id, index)">Remover</el-button>
-                                </div>
-                                <img :src="prato.imagem" :alt="'Imagem de ' + prato.nome" class="cmp-admin_addmenu-item-image">
-                                <div class="cmp-admin_addmenu-item-formattext">
-                                    <h4 class="cmp-admin_addmenu-item-name">{{ prato.nome }}</h4>
-                                    <p class="cmp-admin_addmenu-item-price">R$ {{ prato.valor }}</p>
-                                    <p class="cmp-admin_addmenu-item-ingredients"> Ingredientes: {{ prato.ingredientes.join(', ') }}</p>
-                                </div>
-                            </el-card>
-                        </div>
+                    <div class="cmp-admin_addmenu-items">
+                        <el-card  v-for="(prato, index) in pratos" :key="index" class="cmp-admin_addmenu-item">
+                            <div class="cmp-admin_addmenu-function">
+                                <el-button class="cmp-admin_addmenu-function-btn" @click="visualizarPrato(prato)">Visualizar</el-button>
+                                <el-button class="cmp-admin_addmenu-function-btn" @click="removerPrato(prato.id, index)">Remover</el-button>
+                            </div>
+                            <img :src="prato.imagem" :alt="'Imagem de ' + prato.nome" class="cmp-admin_addmenu-item-image">
+                            <div class="cmp-admin_addmenu-item-formattext">
+                                <h4 class="cmp-admin_addmenu-item-name">{{ prato.nome }}</h4>
+                                <p class="cmp-admin_addmenu-item-price">R$ {{ prato.valor }}</p>
+                                <p class="cmp-admin_addmenu-item-ingredients"> Ingredientes: {{ prato.ingredientes.join(', ') }}</p>
+                            </div>
+                        </el-card>
                     </div>
                 </div>
                 <div v-else-if="activeTab === 'ajuda'">
@@ -251,9 +249,11 @@
 
     <el-dialog  v-model="showModal" @close="fecharModal" title="Detalhes do Prato" class="cmp-modaldialog--adddishes">
         <div v-if="pratoSelecionado">
-            <h3>{{ pratoSelecionado.nome }}</h3>
+            <h3>Nome do pratos: {{ pratoSelecionado.nome }}</h3>
             <p>Valor: R$ {{ pratoSelecionado.valor }}</p>
             <p>Ingredientes: {{ pratoSelecionado.ingredientes.join(', ') }}</p>
+            <p>Tempo de Preparo em minutos: {{ pratoSelecionado.tempo_preparo }}</p>
+            <p>Criação: {{ pratoSelecionado.data_criacao }}</p>
         </div>
     </el-dialog>
     <el-dialog title="Adicionar Prato" v-model="showPratoModal" class="cmp-modaldialog--adddishes">
@@ -267,7 +267,7 @@
             <el-form-item label="Ingredientes">
                 <el-input v-model="novoPrato.ingredientes" class="cmp-admin-form-input"></el-input>
             </el-form-item>
-            <el-form-item label="Tempo de Preparo">
+            <el-form-item label="Tempo de preparo">
                 <el-input v-model="novoPrato.time" class="cmp-admin-form-input"></el-input>
             </el-form-item>
             <el-form-item label="Descricao">
@@ -276,17 +276,19 @@
             <el-form-item label="Desconto">
                 <el-input type="number" v-model="novoPrato.desconto" class="cmp-admin-form-input"></el-input>
             </el-form-item>
-            <el-form-item label="Desconto">
+            <el-form-item label="Valor do desconto">
                 <el-input v-model="novoPrato.valor_desconto" class="cmp-admin-form-input"></el-input>
             </el-form-item>
-            <el-select v-model="restaurantMealType" class="cmp-admin-form-select" required>
-                <el-option
-                    v-for="c in categorias"
-                    :key="c.id"
-                    :label="c.categoria" 
-                    :value="c.id" 
-                ></el-option>
-            </el-select>
+            <el-form-item label="Selecione categoria">
+                <el-select v-model="restaurantMealType" class="cmp-admin-form-select" required>
+                    <el-option
+                        v-for="c in categorias"
+                        :key="c.id"
+                        :label="c.categoria" 
+                        :value="c.id" 
+                    ></el-option>
+                </el-select>
+            </el-form-item>
             <el-form-item label="Imagem">
                 <el-input type="file" v-model="novoPrato.imagem" class="cmp-admin-form-file"></el-input>
             </el-form-item>
@@ -467,7 +469,8 @@ export default {
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    this.restaurantImage = file.name;
+                    debugger
+                    this.restaurantImage = file;
                     this.logo = e.target.result;
                 };
                 reader.readAsDataURL(file);
@@ -484,7 +487,8 @@ export default {
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     console.log(file); 
-                    this.restaurantBanner = file.name;
+                    debugger
+                    this.restaurantBanner = file;
                 };
                 reader.readAsDataURL(file);
             }
@@ -502,35 +506,43 @@ export default {
         },
         submitForm() {
             this.validateCNPJ();
-            if (!this.cnpjValidationFailed) {
-                axios.post('http://api.eattog.jera.com.br/criar/restaurante',
-                    {
-                        "imagem": this.restaurantBanner,
-                        "logo": this.restaurantBanner,
-                        "banner": this.restaurantBanner,
-                        "razao_social": this.restaurantName,
-                        "cnpj": this.restaurantCNPJ,
-                        "numero_telefone": this.restaurantPhone,
-                        "cep": this.restaurantAddress.cep,
-                        "rua": this.restaurantAddress.street,
-                        "numero_endereco": this.restaurantAddress.streetNumber,
-                        "bairro":  this.restaurantAddress.district,
-                        "cidade": this.restaurantAddress.city,
-                        "estado": this.restaurantAddress.state,
-                        "avaliacao": 3.0,
-                        "tipo_restaurante": this.restaurantMealType,
-                        "distancia": '1km',
-                        "tipo_retirada": this.restaurantTakeawayType[0],
-                        "descricao": this.restaurantDescription,
-                    }, {
-                    headers: { 'Authorization': sessionStorage.getItem("token-admin") }
+            if (this.restaurantName && this.restaurantCNPJ && this.restaurantPhone /*...outras validações...*/) {
+
+} else {
+  this.$message.error('Por favor, preencha todos os campos corretamente.');
+}
+            if (this.restaurantName && this.restaurantCNPJ && this.restaurantPhone && this.restaurantMealType && this.restaurantDescription) {
+                const formData = new FormData();
+                formData.append('imagem', this.restaurantImage[0]);
+                formData.append('logo', this.restaurantBanner[0]);
+                formData.append('banner', this.restaurantBanner[0]);
+                formData.append('razao_social', this.restaurantName);
+                formData.append('cnpj', this.restaurantCNPJ);
+                formData.append('numero_telefone', this.restaurantPhone);
+                formData.append('cep', this.restaurantAddress.cep);
+                formData.append('rua', this.restaurantAddress.street);
+                formData.append('numero_endereco', this.restaurantAddress.streetNumber);
+                formData.append('bairro', this.restaurantAddress.district);
+                formData.append('cidade', this.restaurantAddress.city);
+                formData.append('estado', this.restaurantAddress.state);
+                formData.append('avaliacao', '3.0');
+                formData.append('tipo_restaurante', this.restaurantMealType);
+                formData.append('distancia', '1km');
+                formData.append('tipo_retirada', this.restaurantTakeawayType);
+                formData.append('descricao', this.restaurantDescription);
+
+                axios.post('http://api.eattog.jera.com.br/criar/restaurante', formData, {
+                    headers: {
+                        'Authorization': sessionStorage.getItem("token-admin"),
+                        'Content-Type': 'multipart/form-data'
+                    }
                 })
-                    .then(response => {
-                        sessionStorage.setItem('restaurante-id', response.data.id);
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
+                .then(response => {
+                    sessionStorage.setItem('restaurante-id', response.data.id);
+                })
+                .catch(error => {
+                    console.error(error);
+                });               
             } else {
                 this.$message.error('CNPJ inválido');
             }
@@ -693,6 +705,7 @@ export default {
     margin: 0;
     height: inherit;
     position: relative;
+    justify-content: flex-start;
 }
 
 .cmp-admin_addmenu-formattext {
