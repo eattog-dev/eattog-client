@@ -263,7 +263,7 @@ export default {
             restaurantName: '',
             restaurantCNPJ: '',
             restaurantPhone: '', 
-            restaurantMealType: 'restaurantetradicional',
+            restaurantMealType: '',
             restaurantAddress: {
                 cep: '',
                 street: '',

@@ -28,6 +28,9 @@
         stageTitle: String,
         pedidos: Array
     },
+    mounted() {
+
+    },
     methods: {
         moverPedido(pedido, action) {
         const nextStatusMap = {
@@ -52,6 +55,15 @@
             })
             .catch(error => {
             console.error('Erro ao atualizar o pedido:', error);
+            });
+        },
+        fetchPedidos() {
+        axios.get('/pedidos')
+            .then(response => {
+                this.pedidos = response.data;
+            })
+            .catch(error => {
+                console.error('Erro ao buscar pedidos:', error);
             });
         },
         cancelarPedido(pedido) {
