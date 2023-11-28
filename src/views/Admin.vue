@@ -118,81 +118,12 @@
                 </div>
                 <div v-else-if="activeTab === 'pedido'">
                     <div class="cmp-admin_containerbanner-title">Gerenciar Pedido</div>
-                    <div class="cmp-admin_addmenu-formattext">
-                        <h3 class="cmp-admin_addmenu-title">Pedidos em Aberto</h3>
-                    </div>
-                    <div class="cmp-admin-slick-format  cmp-admin-status-aberto">
-                        <el-card class="cmp-admin_box-card">
-                            <div slot="header" class="mp-admin_clearfix">
-                                <span> Pedido de <strong>João </strong></span>
-                            </div>
-                            <div class="cmp-admin_box-card-item">
-                                <p v-for="o in 1" :key="o">
-                                    {{ o + ' Prato x ' }}
-                                </p>
-                            </div>
-                            <div class="cmp-admin_box-card-button">
-                                <el-button style="float: left; padding: 3px 0" type="text">Recusar</el-button>
-                                <el-button style="float: right; padding: 3px 0" type="text">Aceitar</el-button>
-                            </div>
-                        </el-card>
-                    </div>
-
-                    <div class="cmp-admin_addmenu-formattext">
-                        <h3 class="cmp-admin_addmenu-title">Pedidos em Preparo</h3>
-                    </div>
-                    <div class="cmp-admin-slick-format  cmp-admin-status-preparo">
-                        <el-card class="cmp-admin_box-card">
-                            <div slot="header" class="mp-admin_clearfix">
-                                <span> Pedido de <strong>João </strong></span>
-                            </div>
-                            <div class="cmp-admin_box-card-item">
-                                <p v-for="o in 1" :key="o">
-                                    {{ o + ' Prato x ' }}
-                                </p>
-                            </div>
-                            <div class="cmp-admin_box-card-button">
-                                <el-button style="float: left; padding: 3px 0" type="text">Cancelar</el-button>
-                                <el-button style="float: right; padding: 3px 0" type="text">Pronto</el-button>
-                            </div>
-                        </el-card>
-                    </div>
-
-                    <div class="cmp-admin_addmenu-formattext">
-                        <h3 class="cmp-admin_addmenu-title">Pedidos em Transporte</h3>
-                    </div>
-                    <div class="cmp-admin-slick-format  cmp-admin-status-transporte">
-                        <el-card class="cmp-admin_box-card">
-                            <div slot="header" class="mp-admin_clearfix">
-                                <span> Pedido de <strong>Milena </strong></span>
-                            </div>
-                            <div class="cmp-admin_box-card-item">
-                                <p v-for="o in 1" :key="o">
-                                    {{ o + ' Prato x ' }}
-                                </p>
-                            </div>
-                            <div class="cmp-admin_box-card-button">
-                                <el-button style="float: right; padding: 3px 0" type="text">Entregue</el-button>
-                            </div>
-                        </el-card>
-                    </div>
-
-
-                    <div class="cmp-admin_addmenu-formattext">
-                        <h3 class="cmp-admin_addmenu-title">Pedidos em Concluido</h3>
-                    </div>
-                    <div class="cmp-admin-slick-format  cmp-admin-status-transporte">
-                        <el-card class="cmp-admin_box-card">
-                            <div slot="header" class="mp-admin_clearfix">
-                                <span> Pedido de <strong>Karina</strong></span>
-                            </div>
-                            <div class="cmp-admin_box-card-item">
-                                <p v-for="o in 1" :key="o">
-                                    {{ o + ' Prato x ' }}
-                                </p>
-                            </div>
-                        </el-card>
-                    </div>
+                    <PedidoStage
+                        v-for="(pedidos, index) in stages" 
+                        :key="index"
+                        :stage="pedidos.stage"
+                        :stageTitle="pedidos.stageTitle"
+                        :pedidos="pedidos.pedidos" />
                 </div>
                 <div v-else-if="activeTab === 'cardapio'" class="cmp-admin_addmenu">
                     <div class="cmp-admin_containerbanner-backgroundimage">
@@ -313,11 +244,16 @@
 
 <script>
 import axios from 'axios'; 
-import { ref } from 'vue'
+import { ref } from 'vue';
+import PedidoStage from '../components/PedidoStage.vue'; 
+
 const showPratoModal = ref(true);
 const showModal = ref(true);
 const showRemover = ref(true);
 export default {
+    components: {
+        PedidoStage
+    },
     data() {
         return {
             activeTab: 'inicio',
@@ -352,7 +288,41 @@ export default {
             categorias: [],
             pratos: [] ,
             showModal: false,
-            pratoSelecionado: null
+            pratoSelecionado: null,
+            stages: [
+                { stage: 'aberto', stageTitle: 'Pedidos em Aberto',
+                pedidos: [
+                    {
+                    id: 1,
+                    nome: 'Cliente 1',
+                    pratos: [
+                        { id: 1, nome: 'Prato A', quantidade: 2 },
+                        { id: 2, nome: 'Prato B', quantidade: 1 }
+                    ]
+                    },
+                    {
+                    id: 2,
+                    nome: 'Cliente 2',
+                    pratos: [
+                        { id: 3, nome: 'Prato C', quantidade: 3 },
+                        { id: 4, nome: 'Prato D', quantidade: 1 }
+                    ]
+                    }
+                ] }, 
+                { stage: 'preparo', stageTitle: 'Pedidos em Preparo', pedidos: [
+                    {
+                        id: 1,
+                        nome: 'Cliente 3',
+                        pratos: [
+                            { id: 1, nome: 'Prato A', quantidade: 2 },
+                            { id: 2, nome: 'Prato B', quantidade: 1 }
+                        ]
+                    },
+                ] },
+                { stage: 'transporte', stageTitle: 'Pedidos em Transporte', pedidos: [] }, 
+                { stage: 'concluido', stageTitle: 'Pedidos em concluido', pedidos: [] }, 
+            ]
+            
         };
     },
     mounted() {
@@ -404,6 +374,7 @@ export default {
                     });
             }
         },
+
         fetchPratos() {
             axios.get('http://api.eattog.jera.com.br/pratos')
                 .then(response => {
@@ -447,9 +418,11 @@ export default {
                 console.error(error);
             });
         },
+
         changeToInicio() {
             this.activeTab = 'inicio';
         },
+
         changeToPedido() {
             this.activeTab = 'pedido';
         },
@@ -506,16 +479,11 @@ export default {
         },
         submitForm() {
             this.validateCNPJ();
-            if (this.restaurantName && this.restaurantCNPJ && this.restaurantPhone /*...outras validações...*/) {
-
-} else {
-  this.$message.error('Por favor, preencha todos os campos corretamente.');
-}
             if (this.restaurantName && this.restaurantCNPJ && this.restaurantPhone && this.restaurantMealType && this.restaurantDescription) {
                 const formData = new FormData();
-                formData.append('imagem', this.restaurantImage[0]);
-                formData.append('logo', this.restaurantBanner[0]);
-                formData.append('banner', this.restaurantBanner[0]);
+                formData.append('imagem', this.restaurantImage);
+                formData.append('logo', this.restaurantBanner);
+                formData.append('banner', this.restaurantBanner);
                 formData.append('razao_social', this.restaurantName);
                 formData.append('cnpj', this.restaurantCNPJ);
                 formData.append('numero_telefone', this.restaurantPhone);
@@ -544,14 +512,12 @@ export default {
                     console.error(error);
                 });               
             } else {
-                this.$message.error('CNPJ inválido');
+                this.$message.error('Por favor, preencha todos os campos corretamente.');
             }
         },
-
         adicionarPrato() {
             this.showPratoModal = true;
         },
-
         adicionarNovoPrato() {
             this.showPratoModal = true;
             if (this.novoPrato.nome && this.novoPrato.valor && this.novoPrato.imagem) {
@@ -592,7 +558,7 @@ export default {
                     console.error('Erro ao criar o prato:', error);
                 });
             }
-        }
+        },
     },
 };
 </script>
