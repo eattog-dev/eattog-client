@@ -28,7 +28,9 @@
       <el-button class="cmp-button-yellow" @click="carrinhoStore.finalizarCompra()" role="link">Efetuar compra</el-button>
       <el-button class="cmp-button-yellow" @click="goToRestaurantes" role="link">Voltar as compras</el-button>
     </div>
-
+    <div class="cmp-zero-itens" v-else>
+      <p>Você não possui itens no carrinho</p>
+    </div>
   </section>
   <Footer />
 </template>
