@@ -149,7 +149,7 @@ const submitForm = (cadastroForm) => {
         if (valid) {
             console.log("asjdhasdasjkhdh");
             await axios
-                .post(`http://api.eattog.jera.com.br/endereco`, {
+                .post(`https://api.eattog.jera.com.br/endereco`, {
                     "cep": perfilStore.endereco.cep,
                     "estado": perfilStore.endereco.estado,
                     "municipio": perfilStore.endereco.municipio,

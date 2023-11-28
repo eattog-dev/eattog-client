@@ -9,24 +9,24 @@ export const useSingleRestauranteStore = defineStore('single-restaurante', {
     }),
     actions: {
         async carregarBanner(id) {
-            const resposta = await fetch(`http://api.eattog.jera.com.br/restaurante/${id}`);
+            const resposta = await fetch(`https://api.eattog.jera.com.br/restaurante/${id}`);
            // const resposta = await fetch(`http://localhost:3000/restaurante/${id}`);
             this.banner = await resposta.json();
         },
         async listarDescontos(id) {
-            const resposta = await fetch(`http://api.eattog.jera.com.br/pratos-restaurante/${id}`);
+            const resposta = await fetch(`https://api.eattog.jera.com.br/pratos-restaurante/${id}`);
            // const resposta = await fetch(`http://localhost:3000/pratos-restaurante/${id}`);
             this.pratosDesconto = await resposta.json();
         },
         async listarCardapio(id) {
-            const resposta = await fetch(`http://api.eattog.jera.com.br/pagina-cardapio/${id}/${this.pagina}`);
+            const resposta = await fetch(`https://api.eattog.jera.com.br/pagina-cardapio/${id}/${this.pagina}`);
            // const resposta = await fetch(`http://localhost:3000/pagina-cardapio/${id}/${this.pagina}`);
             this.cardapio = await resposta.json()
             this.id = id
         },
         async passarPagina() {
             let count = this.pagina
-            const proximaPagina = await fetch(`http://api.eattog.jera.com.br/prox-pagina/${this.id}/${count + 1}`);
+            const proximaPagina = await fetch(`https://api.eattog.jera.com.br/prox-pagina/${this.id}/${count + 1}`);
             //const proximaPagina = await fetch(`http://localhost:3000/prox-pagina/${this.id}/${count + 1}`);
 
             if (await proximaPagina.json()) {

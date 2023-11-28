@@ -14,7 +14,7 @@ export const usePerfilStore = defineStore("perfil", {
         },
         async loggedUser() {
             await axios
-                .get("http://api.eattog.jera.com.br/meu-perfil", {
+                .get("https://api.eattog.jera.com.br/meu-perfil", {
                     headers: { 'Authorization': `Bearer ${sessionStorage.getItem("token")}` }
                 })
                 .then(response => {

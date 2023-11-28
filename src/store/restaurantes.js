@@ -7,7 +7,7 @@ export const useRestaurantesStore = defineStore('restaurantes', {
     }),
     actions: {
         async carregarPagina() {
-            const resposta = await fetch(`http://api.eattog.jera.com.br/restaurantes/${this.pagina}`)
+            const resposta = await fetch(`https://api.eattog.jera.com.br/restaurantes/${this.pagina}`)
            // const resposta = await fetch(`http://localhost:3000/restaurantes/${this.pagina}`)
             this.restaurantes = await resposta.json()
 
@@ -16,7 +16,7 @@ export const useRestaurantesStore = defineStore('restaurantes', {
         async passarPagina() {
             const pagina = this.pagina + 1;
 
-            const proximaPagina = await fetch(`http://api.eattog.jera.com.br/restaurantes-prox-pagina/${pagina}`);
+            const proximaPagina = await fetch(`https://api.eattog.jera.com.br/restaurantes-prox-pagina/${pagina}`);
            // const proximaPagina = await fetch(`http://localhost:3000/restaurantes-prox-pagina/${pagina}`);
 
             if (await proximaPagina.json()){

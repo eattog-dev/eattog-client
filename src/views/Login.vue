@@ -91,7 +91,7 @@ const submitForm = (cadastroForm) => {
   cadastroForm.validate(async (valid) => {
     if (valid) {
       await axios
-        .post("http://api.eattog.jera.com.br/users/sign-in", {
+        .post("https://api.eattog.jera.com.br/users/sign-in", {
           "email": formulario.value.email,
           "senha": formulario.value.password
         })

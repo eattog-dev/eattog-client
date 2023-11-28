@@ -325,14 +325,14 @@
         this.showModal = true;
 
         axios
-        .get('http://api.eattog.jera.com.br/categorias')
+        .get('https://api.eattog.jera.com.br/categorias')
         .then(response => (this.infos = response.data))
         .catch(error => {
             console.error(error);
         });
 
         axios
-        .get('http://api.eattog.jera.com.br/restaurantes')
+        .get('https://api.eattog.jera.com.br/restaurantes')
         .then(response => (this.establishments = response.data))
         .catch(error => {
             console.error(error);
@@ -367,7 +367,7 @@
                 categoria_prato: this.typedishes,
             };
 
-            axios.post('http://api.eattog.jera.com.br/criar/categoria', formData)
+            axios.post('https://api.eattog.jera.com.br/criar/categoria', formData)
             .then(response => {
                 const newCategoryId = response.data.id;
                 this.$message.success('Categoria adicionada com sucesso.');
@@ -382,7 +382,7 @@
         },
 
         removeTypeDishes(categoriaId) {
-            axios.delete(`http://api.eattog.jera.com.br/deletar/categoria-prato/${categoriaId}`)
+            axios.delete(`https://api.eattog.jera.com.br/deletar/categoria-prato/${categoriaId}`)
             .then(response => {
                 this.$message.success('Categoria removida com sucesso.');
                 this.infos = this.infos.filter(info => info.id !== categoriaId);
@@ -394,7 +394,7 @@
         },
 
         removeEstablishment(restauranteId) {
-            axios.delete(`http://api.eattog.jera.com.br/restaurante/${restauranteId}`)
+            axios.delete(`https://api.eattog.jera.com.br/restaurante/${restauranteId}`)
             .then(response => {
                 this.$message.success('Restaurante removida com sucesso.');
                 this.establishments = this.establishments.filter(establishment => establishment.id !== restauranteId);

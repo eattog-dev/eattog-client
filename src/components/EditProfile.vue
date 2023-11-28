@@ -16,7 +16,7 @@ const submit = (form)  => {
   form.validate(async (valid) => {
     if (valid) {
       await axios
-        .put(`http://api.eattog.jera.com.br/atualizar-usuario/`, {
+        .put(`https://api.eattog.jera.com.br/atualizar-usuario/`, {
           "nome": perfilStore.novoPerfil.nome,
           "numero_celular": perfilStore.novoPerfil.numero_celular,
         }, {
