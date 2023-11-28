@@ -44,7 +44,6 @@
         if (action === 'Iniciar' || action === 'Pronto' || action === 'Entregue') {
             pedido.status = nextStatus;
             this.salvarPedido(pedido);
-           // this.fetchPedidos(); 
         }
         },
         salvarPedido(pedido) {

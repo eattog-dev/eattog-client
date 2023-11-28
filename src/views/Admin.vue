@@ -252,7 +252,7 @@ const showModal = ref(true);
 const showRemover = ref(true);
 export default {
     components: {
-        PedidoStage
+        PedidoStage,
     },
     data() {
         return {
