@@ -214,10 +214,10 @@ const formatarDescricao = (descricao) => {
                 </el-row>
             </el-col>
         </el-row>
-        <el-row justify="center">
-            <button @click="singleRestauranteStore.voltarPagina()">Anterior</button>
-            <span>{{ pagina }}</span>
-            <button @click="singleRestauranteStore.passarPagina()">Próximo</button>
+        <el-row justify="center" style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+            <button class="pagination-button" @click="singleRestauranteStore.voltarPagina()">Anterior</button>
+            <span style="margin: 0 0.5rem; font-size: 1.25rem;">{{ pagina }}</span>
+            <button class="pagination-button" @click="singleRestauranteStore.passarPagina()">Próximo</button>
         </el-row>
     </section>
 
@@ -226,6 +226,12 @@ const formatarDescricao = (descricao) => {
 </template>
 
 <style>
+.pagination-button{
+    background-color: var(--yellow400);
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    border: none;
+}
 #sales .el-row,
 #sales .grid-content {
     text-align: unset !important;
