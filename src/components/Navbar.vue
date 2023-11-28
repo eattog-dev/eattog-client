@@ -17,10 +17,28 @@
           </li>
           <li class="nav-item">
             <div class="perfil itens nav-link" @click="goToPerfil()">
-              <el-icon class="profile-icon" style="font-size: 1.5rem; margin: auto;">
+              <el-icon class="profile-icon" style="font-size: 1.1rem; margin: auto;">
                 <User />
               </el-icon>
-              <!-- <span>Perfil</span> -->
+            </div>
+          </li>
+          <li class="nav-item">
+            <div class="itens nav-link" @click="goToCarrinho()">
+              <el-badge :value="1" class="item" type="warning" v-if="!carrinhoStore.carrinho.length == false">
+                <el-icon class="profile-icon" style="font-size: 1.1rem; margin: auto;">
+                  <ShoppingCart />
+                </el-icon>
+              </el-badge>
+              <el-icon v-else class="profile-icon" style="font-size: 1.1rem; margin: auto;">
+                <ShoppingCart />
+              </el-icon>
+            </div>
+          </li>
+          <li class="nav-item">
+            <div class="itens nav-link" @click="logout" style="font-size: 1.1rem; margin: auto;" v-if="isLogged">
+              <el-icon>
+                <Connection />
+              </el-icon>
             </div>
           </li>
         </div>
@@ -110,6 +128,7 @@ const carrinhoStore = useCarrinhoStore();
 const goToHome = () => router.push("/inicio")
 const goToRestaurantes = () => router.push("/restaurants");
 const goToPratos = () => router.push("/dishes");
+const goToCarrinho = () => router.push("/carrinho");
 const goToSobreNos = () => router.push("/sobre-nos");
 const goToPerfil = () => {
   router.push("/perfil")
@@ -178,8 +197,8 @@ onBeforeUnmount(() => {
 header {
   height: 6rem;
   border-bottom: 1px solid #EEEEEE;
-  padding-left: 6%;
-  padding-right: 6%;
+  /* padding-left: 6%;
+  padding-right: 6%; */
   -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
   -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
@@ -192,7 +211,7 @@ header {
 
 .header-desktop .nav-name-logo {
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
 }
 
@@ -201,6 +220,7 @@ header {
   flex-direction: row;
   width: 100%;
   justify-content: end;
+  align-items: center;
 }
 
 .menu-config .nav-item {
@@ -209,7 +229,7 @@ header {
 
 .menu-config .nav-link {
   position: relative;
-  font-weight: 500;
+  /* font-weight: 500; */
   margin-right: 25px;
   font-size: 1rem;
   text-decoration: none;

@@ -162,6 +162,10 @@
     border-radius: 0.5rem !important;
 }
 
+.el-dialog__header {
+    padding: 0px !important;
+}
+
 .cmp-modaldialog--terms .el-dialog__header {
     display: flex;
     height: 3.625rem;
