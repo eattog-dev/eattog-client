@@ -249,7 +249,8 @@ header {
 }
 
 .menu-config .itens:hover {
-  color: black;
+  color: var(--orange100);
+  transition: 0.2s;
 }
 
 .menu-config .itens:hover::before {

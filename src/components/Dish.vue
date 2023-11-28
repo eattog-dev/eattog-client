@@ -53,6 +53,7 @@
         height: 18.75rem;
         transition: 0.2s;
         cursor: pointer;
+        border-radius: 0px 0px 5px 5px;
     }
 
     #list-dishes .time {
@@ -75,6 +76,7 @@
         display: block;
         object-fit: cover;
         height: 12.5rem;
+        border-radius: 5px 5px 0px 0px;
     }
 
     #list-dishes .el-card__body {
