@@ -56,7 +56,7 @@
         z-index: 999;
         width: 100%;
         bottom: 0;
-        position: absolute;
+        position: relative;
         background-color: var(--white100);
     }
     .cmp-footer-link {
