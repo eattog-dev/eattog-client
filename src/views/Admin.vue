@@ -199,7 +199,7 @@
                 <el-input v-model="novoPrato.ingredientes" class="cmp-admin-form-input"></el-input>
             </el-form-item>
             <el-form-item label="Tempo de preparo">
-                <el-input v-model="novoPrato.time" class="cmp-admin-form-input"></el-input>
+                <el-input v-model="novoPrato.tempo_preparo" class="cmp-admin-form-input"></el-input>
             </el-form-item>
             <el-form-item label="Descricao">
                 <el-input v-model="novoPrato.descricao" class="cmp-admin-form-input"></el-input>
@@ -283,7 +283,7 @@ export default {
                 valor: '',
                 imagem: '',
                 ingredientes: '',
-                time: '',
+                tempo_preparo: '',
             },
             categorias: [],
             pratos: [] ,
@@ -408,7 +408,7 @@ export default {
         },
 
         fetchCategorias() {
-        axios.get('http://api.eattog.jera.com.br/categorias')
+        axios.get('https://api.eattog.jera.com.br/categorias')
             .then(response => {
                 this.categorias = response.data;
             })
