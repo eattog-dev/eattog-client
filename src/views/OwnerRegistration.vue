@@ -44,7 +44,11 @@
             <el-form-item>
                 <el-button class="cmp-owner-form-button" type="primary" @click="cadastro.submitForm(cadastroForm)">Cadastrar</el-button>
             </el-form-item>
-            <router-link class="cmp-owner-backlink" to="/login/proprietario">Já tem uma conta? Faça Login</router-link>
+
+            <div class="cmp-owner-format-link">
+                <router-link class="cmp-owner-backlink" to="/inicio">Ir para Home</router-link>
+                <router-link class="cmp-owner-backlink" to="/login/proprietario">Já tem uma conta? Faça Login</router-link>
+            </div>
 
             <div class="cmp-owner-loading-cadastro" v-if="loading">
                 <div class="cmp-owner-loading-spinner-cadastro"></div>
@@ -91,6 +95,10 @@
 </script>
 
 <style scoped>
+.cmp-owner-format-link{
+    display: flex;
+    justify-content: space-between;
+}
 .cmp-owner-title {
     display: flex;
     flex-direction: column;
@@ -111,6 +119,7 @@
     text-align: center;
     display: block;
     color: var(--yellow400);
+    text-decoration: none;
 }
 .cmp-owner-form-button {
     background-color: var(--yellow400);

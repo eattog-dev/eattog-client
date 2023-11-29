@@ -46,16 +46,33 @@ export const useLoginStore = defineStore("login", {
           try {
             this.errorMsg = ""; 
 
-            const login = await axios.post("https://api.eattog.jera.com.br/users/sign-in", {
-              "email": this.formulario.email,
-              "senha": this.formulario.password
+            fetch("https://api.eattog.jera.com.br/users/sign-in", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                "email": this.formulario.email,
+                "senha": this.formulario.password,
+              })
+            })
+            .then(response => {
+              if (!response.ok) {
+                // console.log("Erro ao fazer login")
+                throw new Error('Erro ao fazer login');
+              }
+              return response.json(); 
+            })
+            .then(data => {
+              this.token = data.accessToken; 
+              sessionStorage.setItem("token-admin", this.token);
+              this.router.push("/admin");
+            })
+            .catch(error => {
+              console.error('Erro ao fazer login:', error);
             });
+            
 
-            this.token = login.data.accessToken;
-            sessionStorage.setItem("token-admin", this.token);
-
-            // const router = useRouter();
-            this.router.push("/admin");
           } catch (error) {
             this.errorMsg = "Falha ao fazer login. Tente novamente.";
             console.error("Login error:", error);
