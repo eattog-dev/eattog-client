@@ -62,7 +62,7 @@ const formatarIgredientes = (listaIngredientes) => {
                                         <div class="prices">
                                             <span v-if=prato.desconto class="original">De: R${{ prato.valor }}</span>
                                             <span v-else> R${{ prato.valor }}</span>
-                                            <span v-if=prato.desconto class="sale">Por: R${{ prato.valor_desconto }}</span>
+                                            <span v-if=prato.desconto class="sale" style="  color: #50a773; font-weight: 500;">Por: R${{ prato.valor - prato.valor_desconto }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -101,13 +101,19 @@ const formatarIgredientes = (listaIngredientes) => {
 #sales .grid-content {
     text-align: center;
     background-color: var(--white100);
-    box-shadow: 0 0 0.75rem rgba(0, 0, 0, 0.12);
-    border-radius: 0.25rem;
-    border: 0.063rem solid var(--white300);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+    border: 1px solid var(--white300);
     color: var(--gray800);
+    border-radius: 5px;
     text-decoration: none !important;
     height: 20.75rem;
-    width: 300px
+    width: 300px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#sales .grid-content:hover {
+    transform: scale(1.02);
 }
 
 #sales .image {
