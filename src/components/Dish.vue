@@ -28,9 +28,14 @@ const handlePratoClicado = () => {
             <div style="padding: 8px; text-align: center;">
                 <span>{{ dish.nome }}</span>
                 <div class="dish-price">
-                    <span class="dish-price__discount">
+                    <span v-if=dish.desconto class="dish-price__original" style=" color: #50a773;font-weight: 500;">R$ {{
+                        dish.valor - dish.valor_desconto }}</span>
+                    <span class="dish-price__discount" v-if=dish.desconto
+                        style=" text-decoration: line-through; color: var(--gray400); font-size: 14px; margin-right: 5px;">
                         R$ {{ dish.valor }}
-                        <span v-if=dish.desconto class="dish-price__original">R$ {{ dish.valor_desconto }}</span>
+                    </span>
+                    <span v-else class="dish-price__discount" style="font-weight: 500;">
+                        R$ {{ dish.valor }}
                     </span>
                 </div>
             </div>
@@ -55,7 +60,7 @@ a {
     color: var(--gray800);
     text-decoration: none !important;
     border-radius: 5px;
-    /* transition: 0.2s; */
+    transition: 0.2s;
 }
 
 .el-card {
@@ -64,9 +69,11 @@ a {
     /* transition: 0.2s; */
     border-radius: 0px 0px 5px 5px;
 }
-.prato:hover{
+
+.prato:hover {
     scale: 1.02
 }
+
 .time {
     font-size: 0.813rem;
     color: var(--gray300);
@@ -76,7 +83,7 @@ a {
     display: flex;
     color: var(--yellow500);
     width: fit-content;
-    margin-left: auto;
+    margin: 0 auto;
     padding: 0.5rem;
     cursor: pointer;
     font-weight: 500;
@@ -114,21 +121,22 @@ a {
     margin-bottom: 0.625rem;
 }
 
+/* 
 .dish-price__original {
     position: relative;
     font-size: 0.75rem;
     color: var(--gray200);
     text-decoration: line-through;
     margin-left: 0.375rem;
-}
+} */
 
 .dish-restaurant__divisor {
     border-top: 0.125rem dashed var(--white200);
     margin: 0.5rem 0;
 }
 
-@media (max-width: 992px){
-    .el-col{
+@media (max-width: 992px) {
+    .el-col {
         padding: 8px;
     }
 }
