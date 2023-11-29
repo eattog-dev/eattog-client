@@ -205,7 +205,7 @@
                 <el-input v-model="novoPrato.descricao" class="cmp-admin-form-input"></el-input>
             </el-form-item>
             <el-form-item label="Desconto">
-                <el-input type="number" v-model="novoPrato.desconto" class="cmp-admin-form-input"></el-input>
+                <el-input v-model="novoPrato.desconto" class="cmp-admin-form-input"></el-input>
             </el-form-item>
             <el-form-item label="Valor do desconto">
                 <el-input v-model="novoPrato.valor_desconto" class="cmp-admin-form-input"></el-input>
@@ -221,7 +221,7 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="Imagem">
-                <el-input type="file" v-model="novoPrato.imagem" class="cmp-admin-form-file"></el-input>
+                <el-input type="file" v-model="novoPrato.imagem" class="cmp-admin-form-file" @change="uploadImagePrato" accept="image/*"></el-input>
             </el-form-item>
         </el-form>
         <div slot="footer" class="cmp-modaldialog-footer">
@@ -408,7 +408,7 @@ export default {
         },
 
         fetchCategorias() {
-        axios.get('http://api.eattog.jera.com.br/categorias')
+        axios.get('https://api.eattog.jera.com.br/categorias')
             .then(response => {
                 this.categorias = response.data;
             })
@@ -443,6 +443,22 @@ export default {
                 reader.onload = (e) => {
                     debugger
                     this.restaurantImage = file;
+                    this.logo = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        },
+        uploadImagePrato(event) {
+            const file = event.target.files[0];
+            if (!file.type.startsWith('image/')) {
+                this.$message.error('Por favor, selecione um arquivo de imagem.');
+                return;
+            }
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    debugger
+                    this.novoPrato.imagem = file;
                     this.logo = e.target.result;
                 };
                 reader.readAsDataURL(file);
@@ -523,7 +539,7 @@ export default {
                     valor: this.novoPrato.valor,
                     imagem: this.novoPrato.imagem,
                     ingredientes: this.novoPrato.ingredientes,
-                    restaurante: sessionStorage.getItem('restaurante-id'), // restaurante: 1, 
+                    restaurante: sessionStorage.getItem('restaurante-id'), 
                     descricao: this.novoPrato.descricao,
                     categoria_prato: this.novoPrato.categoria_prato,
                     desconto: this.novoPrato.desconto,
