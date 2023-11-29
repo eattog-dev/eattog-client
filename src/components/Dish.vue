@@ -1,6 +1,6 @@
 <script setup>
-    const props = defineProps({
-        dish: {
+const props = defineProps({
+    dish: {
         id: Number,
         image: String,
         nome: String,
@@ -10,107 +10,126 @@
         price: Number,
         desconto: Boolean,
         valor_desconto: Number
-        }
-    });
-
-    const emits = defineEmits('pratoClicado');
-
-    const handlePratoClicado = () => {
-        emits('pratoClicado', props.dish)
     }
+});
+
+const emits = defineEmits('pratoClicado');
+
+const handlePratoClicado = () => {
+    emits('pratoClicado', props.dish)
+}
 </script>
 
 <template>
     <el-col :xs="24" :sm="12" :md="6" :lg="6" :span="8">
-        <el-card :body-style="{ padding: '0px' }">
+        <div class="prato">
+
             <img :src="dish.imagem" class="image">
-            <!-- <span class="tag-aliment" v-if="dish.prato_categoria.categoria == null">celta</span> 
-                    <span class="tag-aliment" v-else>{{ dish.prato_categoria.categoria }}</span>  -->
             <div style="padding: 8px; text-align: center;">
-            <span>{{ dish.nome }}</span>
-            <div class="dish-price">
-                <span class="dish-price__discount">
-                    R$ {{ dish.valor }}
-                    <span v-if=dish.desconto class="dish-price__original">R$ {{ dish.valor_desconto }}</span>
-                </span>
+                <span>{{ dish.nome }}</span>
+                <div class="dish-price">
+                    <span class="dish-price__discount">
+                        R$ {{ dish.valor }}
+                        <span v-if=dish.desconto class="dish-price__original">R$ {{ dish.valor_desconto }}</span>
+                    </span>
+                </div>
             </div>
-            <div class="clearfix">
-                <!-- <time class="time">{{ dish.time }} min</time> -->
-                <el-button type="text" class="button" @click="handlePratoClicado()">Adicionar</el-button>
-            </div>
-            </div>
-        </el-card>
+            <span class="add-carrrinho " @click="handlePratoClicado()">Adicionar</span>
+        </div>
     </el-col>
 </template>
 
-<style>
-    #list-dishes a {
-        text-decoration: none;
-    }
+<style scoped>
+a {
+    text-decoration: none;
+}
 
-    #list-dishes .el-card {
-        margin: 1rem 0;
-        height: 18.75rem;
-        transition: 0.2s;
-        cursor: pointer;
-        border-radius: 0px 0px 5px 5px;
-    }
+.el-col {
+    height: 10rem;
+}
 
-    #list-dishes .time {
-        font-size: 0.813rem;
-        color: var(--gray300);
-    }
+.prato {
+    background-color: var(--white100);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+    border: 1px solid var(--white300);
+    color: var(--gray800);
+    text-decoration: none !important;
+    border-radius: 5px;
+    /* transition: 0.2s; */
+}
 
-    #list-dishes .button {
-        padding: 0;
-        float: right;
-    }
+.el-card {
+    margin: 1rem 0;
+    height: 5.75rem;
+    /* transition: 0.2s; */
+    border-radius: 0px 0px 5px 5px;
+}
+.prato:hover{
+    scale: 1.02
+}
+.time {
+    font-size: 0.813rem;
+    color: var(--gray300);
+}
 
-    #list-dishes .button span {
-        color: var(--yellow200) !important;
-    }
+.add-carrrinho {
+    display: flex;
+    color: var(--yellow500);
+    width: fit-content;
+    margin-left: auto;
+    padding: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+}
 
 
-    #list-dishes .image {
-        width: 100%;
-        display: block;
-        object-fit: cover;
-        height: 12.5rem;
-        border-radius: 5px 5px 0px 0px;
-    }
 
-    #list-dishes .el-card__body {
-        margin-top: 0 !important;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
+.image {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    height: 12.5rem;
+    border-radius: 5px 5px 0px 0px;
+}
 
-    #list-dishes .el-card:hover {
-        transform: scale(1.02);
-    }
+.el-card__body {
+    margin-top: 0 !important;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
-    #list-dishes .tag-aliment {
-        text-align: center;
-    }
+.el-card:hover {
+    scale: 1.02;
+}
 
-    #list-dishes .dish-price__discount {
-        color: var(--orange100);
-        margin-bottom: 0.625rem;
-    }
+.tag-aliment {
+    text-align: center;
+}
 
-    #list-dishes .dish-price__original {
-        position: relative;
-        font-size: 0.75rem;
-        color: var(--gray200);
-        text-decoration: line-through;
-        margin-left: 0.375rem;
-    }
+.dish-price__discount {
+    color: var(--orange100);
+    margin-bottom: 0.625rem;
+}
 
-    #list-dishes .dish-restaurant__divisor {
-        border-top: 0.125rem dashed var(--white200);
-        margin: 0.5rem 0;
+.dish-price__original {
+    position: relative;
+    font-size: 0.75rem;
+    color: var(--gray200);
+    text-decoration: line-through;
+    margin-left: 0.375rem;
+}
+
+.dish-restaurant__divisor {
+    border-top: 0.125rem dashed var(--white200);
+    margin: 0.5rem 0;
+}
+
+@media (max-width: 992px){
+    .el-col{
+        padding: 8px;
     }
+}
 </style>

@@ -64,6 +64,7 @@ const goToRestaurantes = () => router.push("/restaurants")
   transition: 0.2s;
   width: 480px;
   margin-right: 15px;
+  margin-bottom: 15px;
 }
 
 .cmp-listagem-carrinho:hover {

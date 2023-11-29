@@ -4,7 +4,6 @@
         <h1>Ops, Página não encontrada 🙈</h1>
         <span @click="backToHome">Voltar pra Home</span>
     </div>
-    <Footer/>
 </template>
 <script setup>
 import Navbar from '../components/Navbar.vue';

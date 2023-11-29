@@ -56,5 +56,4 @@ const exibePratoClicado = (dish) => {
     </section>
 
     <SelectedDish :modalAberto="selecionouPrato" />
-    <Footer></Footer>
 </template>

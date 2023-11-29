@@ -33,32 +33,40 @@ const exibePratoClicado = (dish) => {
     selecionouPrato.value = true;
     pedidoStore.pratao(dish)
 }
+console.log(window.innerHeight)
 </script>
 <template>
     <Navbar logo="../assets/logo.svg" alt="Logo"></Navbar>
-    <section id="list-dishes" v-for="sessao in todosPratos">
-        <el-row justify="center" v-if="!sessao.categoria_prato.length == false">
-            <el-col :span=20>
-                <Title :text="sessao.categoria" style="text-transform: capitalize;" />
-                <el-row :gutter=12>
-                    <Dish v-for="prato in sessao.categoria_prato" :dish="prato" @pratoClicado="exibePratoClicado" />
-                </el-row>
-                <span @click="irPraCategoria(sessao.id, sessao.categoria)"
-                    style="display: flex; justify-content: end; cursor: pointer; padding: 0px; margin: 5rem 0 0 0; ">Ver
-                    mais pratos</span>
-            </el-col>
-        </el-row>
-    </section>
+
+    <el-row v-for="sessao in todosPratos" justify="center">
+        <el-col :span=20 class="categoria" v-if="!sessao.categoria_prato.length == false">
+            <Title :text="sessao.categoria" style="text-transform: capitalize;" />
+
+            <el-row :gutter=12>
+                <Dish v-for="prato in sessao.categoria_prato" :dish="prato" @pratoClicado="exibePratoClicado" />
+            </el-row>
+            <span @click="irPraCategoria(sessao.id, sessao.categoria)" class="mais-categorias">Ver
+                mais pratos</span>
+        </el-col>
+    </el-row>
 
     <SelectedDish :modalAberto="selecionouPrato" />
-    <Footer></Footer>
 </template>
 
-<style>
-#list-dishes {
-    display: inline-block;
-    margin-bottom: 70px;
-    padding: 4rem 0px;
-    width: 100%;
+<style scoped>
+.el-row,
+.el-col {
+    height: 100%;
+}
+
+.categoria {
+    padding: 1.5rem 0;
+}
+
+.mais-categorias {
+    display: flex;
+    cursor: pointer;
+    margin: 1.5rem 0 0 auto;
+    width: fit-content;
 }
 </style>
