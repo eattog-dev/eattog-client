@@ -495,7 +495,7 @@ export default {
                 formData.append('tipo_retirada', this.restaurantTakeawayType);
                 formData.append('descricao', this.restaurantDescription);
 
-                fetch('http://api.eattog.jera.com.br/criar/restaurante', {
+                fetch('https://api.eattog.jera.com.br/criar/restaurante', {
                     method: "POST",
                     headers: {
                         'Authorization': sessionStorage.getItem("token-admin")
