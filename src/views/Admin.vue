@@ -199,7 +199,7 @@
                 <el-input v-model="novoPrato.ingredientes" class="cmp-admin-form-input"></el-input>
             </el-form-item>
             <el-form-item label="Tempo de preparo">
-                <el-input v-model="novoPrato.time" class="cmp-admin-form-input"></el-input>
+                <el-input v-model="novoPrato.tempo_preparo" class="cmp-admin-form-input"></el-input>
             </el-form-item>
             <el-form-item label="Descricao">
                 <el-input v-model="novoPrato.descricao" class="cmp-admin-form-input"></el-input>
@@ -283,7 +283,7 @@ export default {
                 valor: '',
                 imagem: '',
                 ingredientes: '',
-                time: '',
+                tempo_preparo: '',
             },
             categorias: [],
             pratos: [] ,
@@ -511,7 +511,7 @@ export default {
                 formData.append('tipo_retirada', this.restaurantTakeawayType);
                 formData.append('descricao', this.restaurantDescription);
 
-                fetch('http://api.eattog.jera.com.br/criar/restaurante', {
+                fetch('https://api.eattog.jera.com.br/criar/restaurante', {
                     method: "POST",
                     headers: {
                         'Authorization': sessionStorage.getItem("token-admin")
@@ -539,7 +539,7 @@ export default {
                     valor: this.novoPrato.valor,
                     imagem: this.novoPrato.imagem,
                     ingredientes: this.novoPrato.ingredientes,
-                    restaurante: sessionStorage.getItem('restaurante-id'), 
+                    restaurante: sessionStorage.getItem('restaurante-id'), // restaurante: 1, 
                     descricao: this.novoPrato.descricao,
                     categoria_prato: this.novoPrato.categoria_prato,
                     desconto: this.novoPrato.desconto,
