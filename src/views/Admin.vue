@@ -523,6 +523,7 @@ export default {
                     valor: this.novoPrato.valor,
                     imagem: this.novoPrato.imagem,
                     ingredientes: this.novoPrato.ingredientes,
+                    tempo_preparo: this.novoPrato.tempo_preparo,
                     restaurante: sessionStorage.getItem('restaurante-id'), // restaurante: 1, 
                     descricao: this.novoPrato.descricao,
                     categoria_prato: this.novoPrato.categoria_prato,
