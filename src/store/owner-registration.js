@@ -105,17 +105,21 @@ export const useCadastroStore = defineStore("owner-registration", {
       cadastroForm.validate(async (valid) => {
         if (valid) {
           this.errorMsgPassword = "";
-          const cadastro = await axios
-            .post("https://api.eattog.jera.com.br/cadastrar/admin",
-              {
-                "nome": this.formulario.nome,
-                "email": this.formulario.email,
-                "cpf": this.formulario.cpf,
-                "numero_celular": this.formulario.numberPhone,
-                "senha": this.formulario.password,
-                "data_aniversario": this.formulario.data_nascimento,
-
-              });
+          const cadastro = await fetch("https://api.eattog.jera.com.br/cadastrar/admin", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify({
+              "nome": this.formulario.nome,
+              "email": this.formulario.email,
+              "cpf": this.formulario.cpf,
+              "numero_celular": this.formulario.numberPhone,
+              "senha": this.formulario.password,
+              "data_aniversario": this.formulario.data_nascimento,
+            })
+          });
 
           console.log(cadastro.data)
           // this.router.push("login/proprietario")
