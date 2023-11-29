@@ -448,6 +448,7 @@ export default {
                 reader.readAsDataURL(file);
             }
         },
+
         uploadImagePrato(event) {
             const file = event.target.files[0];
             if (!file.type.startsWith('image/')) {
@@ -459,11 +460,11 @@ export default {
                 reader.onload = (e) => {
                     debugger
                     this.novoPrato.imagem = file;
-                    this.logo = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         },
+
         uploadBanner(event) {
             const file = event.target.files[0];
             if (!file.type.startsWith('image/')) {
@@ -531,32 +532,45 @@ export default {
         adicionarPrato() {
             this.showPratoModal = true;
         },
+
+
         adicionarNovoPrato() {
             this.showPratoModal = true;
-            if (this.novoPrato.nome && this.novoPrato.valor && this.novoPrato.imagem) {
-                const novoPrato = {
-                    nome: this.novoPrato.nome,
-                    valor: this.novoPrato.valor,
-                    imagem: this.novoPrato.imagem,
-                    ingredientes: this.novoPrato.ingredientes,
-                    tempo_preparo: this.novoPrato.tempo_preparo,
-                    restaurante: sessionStorage.getItem('restaurante-id'), // restaurante: 1, 
-                    descricao: this.novoPrato.descricao,
-                    categoria_prato: this.novoPrato.categoria_prato,
-                    desconto: this.novoPrato.desconto,
-                    valor_desconto: this.novoPrato.valor_desconto,
-                };
+            if (
+                this.novoPrato.nome &&
+                this.novoPrato.valor &&
+                this.restaurantImage &&
+                this.novoPrato.imagem &&
+                this.novoPrato.ingredientes &&
+                this.novoPrato.tempo_preparo &&
+                this.novoPrato.descricao &&
+                this.novoPrato.categoria_prato &&
+                this.novoPrato.desconto &&
+                this.novoPrato.valor_desconto
+            ) {
+                const formData = new FormData();
+                formData.append('imagem', this.restaurantImage);
 
-                console.log(novoPrato.tempo_preparo)
+                formData.append('nome', this.novoPrato.nome);
+                formData.append('valor', this.novoPrato.valor);
+                formData.append('ingredientes', this.novoPrato.ingredientes);
+                formData.append('tempo_preparo', this.novoPrato.tempo_preparo);
+                formData.append('restaurante', sessionStorage.getItem('restaurante-id'));
+                formData.append('descricao', this.novoPrato.descricao);
+                formData.append('categoria_prato', this.novoPrato.categoria_prato);
+                formData.append('desconto', this.novoPrato.desconto);
+                formData.append('valor_desconto', this.novoPrato.valor_desconto);
 
-                axios.post('https://api.eattog.jera.com.br/criar/prato', novoPrato, {
+
+                fetch('https://api.eattog.jera.com.br/criar/prato', {
+                    method: "POST",
                     headers: {
                         'Authorization': sessionStorage.getItem("token-admin")
-                    }
+                    },
+                    body: formData
                 })
                 .then(response => {
-                    console.log('Prato criado com sucesso:', response.data);
-
+                    this.$message.sucess('Prato criado com sucesso');
                     this.novoPrato = {
                         nome: '',
                         valor: '',
@@ -566,16 +580,17 @@ export default {
                         descricao: '',
                         categoria_prato: '',
                         desconto: '',
-                        valor_desconto: "",
+                        valor_desconto: '',
                     };
                     this.showPratoModal = false;
                 })
                 .catch(error => {
                     console.error('Erro ao criar o prato:', error);
                 });
-
+            } else {
+                this.$message.error('Por favor, preencha todos os campos corretamente.');
             }
-        },
+        }        
     },
 }
 </script>

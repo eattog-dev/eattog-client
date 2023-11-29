@@ -96,6 +96,12 @@ body {
 .el-select-dropdown__item.selected {
     color: var(--yellow100) !important;
 }
+.el-menu-item:hover {
+    background-color: var(--rgba-yellow);
+}
+.el-select .el-input.is-focus .el-input__wrapper {
+    box-shadow: 0 0 0 1px var(--yellow100) inset!important;
+}
 @media (max-width: 768px){
     .el-menu-item{
         height: unset!important;
