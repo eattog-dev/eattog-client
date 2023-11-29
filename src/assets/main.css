@@ -3,8 +3,10 @@
 
 body {
     background-color: var(--white100);
-    color: var(--black100)
+    color: var(--black100);
+    position:relative;
 }
+
 
 :root {
     --white100: #ffffff;

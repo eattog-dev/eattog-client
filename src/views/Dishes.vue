@@ -33,6 +33,7 @@ const exibePratoClicado = (dish) => {
     selecionouPrato.value = true;
     pedidoStore.pratao(dish)
 }
+console.log(window.innerHeight)
 </script>
 <template>
     <Navbar logo="../assets/logo.svg" alt="Logo"></Navbar>
@@ -50,7 +51,6 @@ const exibePratoClicado = (dish) => {
     </el-row>
 
     <SelectedDish :modalAberto="selecionouPrato" />
-    <Footer />
 </template>
 
 <style scoped>

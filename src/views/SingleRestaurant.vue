@@ -231,7 +231,6 @@ const formatarDescricao = (descricao) => {
   </section>
 
   <SelectedDish :modalAberto="pedidoStore.modal" />
-  <Footer />
 </template>
 
 <style>

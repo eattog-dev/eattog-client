@@ -30,7 +30,6 @@
       <!-- <HistoricoPedido/> -->
     </el-col>
   </el-row>
-  <Footer />
 </template>
 <script setup>
 import { ref, onMounted, computed } from 'vue'

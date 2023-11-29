@@ -35,7 +35,6 @@
             </el-row>
         </el-col>
     </el-row>
-    <Footer />
 </template>
 <script setup>
 import Navbar from '../components/Navbar.vue'
