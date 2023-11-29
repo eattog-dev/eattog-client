@@ -7,11 +7,10 @@
         <Title text="Meu carrinho"></Title>
       </el-col>
     </el-row>
-    <el-row>
-      <el-col :xs="24" :sm="12" :md="8" :lg="6" :span="8" v-for="(item, i) in carrinhoStore.carrinho"
-        index="item.prato.id" class="cmp-item-carrinho">
-        <div class="cmp-listagem-carrinho" v-if="!carrinhoStore.carrinho.length == false">
-          <div class="cmp-item-carrinho">
+    <div>
+      <el-row :gutter="20">
+        <div class="cmp-listagem-carrinho" v-for="(item, i) in carrinhoStore.carrinho" index="item.prato.id">
+          <div class="cmp-item-carrinho" v-if="!carrinhoStore.carrinho.length == false">
             <img :src='item.prato.imagem' alt="Imagem prato">
             <div class="cmp-itens-carrinho">
               <p><strong>Item:</strong> {{ item.prato.nome }}</p>
@@ -22,8 +21,8 @@
             </div>
           </div>
         </div>
-      </el-col>
-    </el-row>
+      </el-row>
+    </div>
     <div class="cmp-finalizar-compra" v-if="!carrinhoStore.carrinho.length == false">
       <el-button class="cmp-button-yellow" @click="carrinhoStore.finalizarCompra()" role="link">Efetuar compra</el-button>
       <el-button class="cmp-button-yellow" @click="goToRestaurantes" role="link">Voltar as compras</el-button>
@@ -63,6 +62,8 @@ const goToRestaurantes = () => router.push("/restaurants")
   border-radius: 5px;
   cursor: pointer;
   transition: 0.2s;
+  width: 480px;
+  margin-right: 15px;
 }
 
 .cmp-listagem-carrinho:hover {
@@ -95,6 +96,7 @@ const goToRestaurantes = () => router.push("/restaurants")
 
 .cmp-item-carrinho img {
   width: 205px;
+  height: 120px;
   border-radius: 5px;
   object-fit: cover;
   object-position: center;
