@@ -24,8 +24,10 @@ const handlePratoClicado = () => {
     <div class="cmp-card-config">
       <div class="cmp-card-prato">
         <img :src="dish.imagem" class="image">
-        <span class="tag-aliment" v-if="dish.prato_categoria.categoria == null">celta</span>
-        <span class="tag-aliment" v-else>{{ dish.prato_categoria.categoria }}</span>
+        <div class="cmp-tag-alimentacao">
+          <span class="tag-aliment" v-if="dish.prato_categoria.categoria == null">celta</span>
+          <span class="tag-aliment" v-else>{{ dish.prato_categoria.categoria }}</span>
+        </div>
         <div style="padding: 14px; text-align: center;">
           <span>{{ dish.nome }}</span>
           <div class="dish-price">
@@ -63,11 +65,14 @@ const handlePratoClicado = () => {
   height: 100%;
 }
 
-.cmp-card-prato .tag-aliment {
+.cmp-card-prato .cmp-tag-alimentacao {
   position: absolute;
-  position: absolute;
-  right: 117px;
-  bottom: 92px;
+  width: 100%;
+}
+
+.cmp-card-prato .cmp-tag-alimentacao .tag-aliment {
+  position: relative;
+  top: -19px;
   z-index: 9999999;
   background-color: var(--yellow100);
   padding: 5px;
