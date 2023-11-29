@@ -1,6 +1,6 @@
 <template>
   <section id="login">
-    
+
     <el-row>
       <el-col :xs="24" :span="12" class="login-bg-white">
         <Logo class="" text="Eattog" icon="🟨"></Logo>
@@ -67,7 +67,7 @@ const goToCadastro = () => router.push("/cadastro");
 const formulario = ref({})
 
 const emailRules = [
-  { required: true, message: "Por favor digite a senha", trigger: "blur" },
+  { required: true, message: "Por favor digite um email", trigger: "blur" },
   {
     type: "email",
     message: "Please digite um email válido",
@@ -76,7 +76,7 @@ const emailRules = [
 ];
 
 const passwordRules = { required: true, message: "Por Favor digite a senha", trigger: "blur" };
-  
+
 
 const loginForm = ref(null);
 const errorMsg = ref(false);
@@ -197,7 +197,7 @@ const submitForm = (cadastroForm) => {
   border-color: var(--yellow400);
   border-radius: 1rem !important;
   width: 20rem !important;
-  margin: 0.25rem auto ;
+  margin: 0.25rem auto;
   padding: 1.6rem 0 !important;
 }
 
@@ -286,13 +286,15 @@ const submitForm = (cadastroForm) => {
   }
 }
 */
-@media (max-width: 768px){
+@media (max-width: 768px) {
 
-  .el-form{
+  .el-form {
     min-height: 30rem;
 
   }
-  .logotipo, .login-slogan{
+
+  .logotipo,
+  .login-slogan {
     margin: unset;
   }
 }
