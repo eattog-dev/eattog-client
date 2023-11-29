@@ -206,7 +206,7 @@ const formatarDescricao = (descricao) => {
                   <span class="cmp-valor-total" v-if="dish.desconto"><span class="cmp-valor-total-desconto">R$ {{
                     dish.valor - dish.valor_desconto }}</span><span class="cmp-valor-sem-desconto">R$ {{
     dish.valor }}</span></span>
-                  <span class="cmp-valor-total" v-else><span class="cmp-valor" style="font-weight: 500;">R$ {{ dish.valor
+                  <span class="cmp-valor-total" v-else><span class="cmp-valor" style="font-weight: 500; color: var(--orange100); margin-bottom: 0.625rem;">R$ {{ dish.valor
                   }}</span></span>
                 </div>
               </div>

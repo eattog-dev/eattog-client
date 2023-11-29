@@ -208,12 +208,13 @@ const addCarrinho = async (prato_ID, quantidade, observacoes) => {
     font-size: 1.1rem
 }
 
-@media(max-width: 768px){
-    .dish-detail{
+@media(max-width: 768px) {
+    .dish-detail {
         width: 20rem;
         left: calc(50% - 10rem);
     }
-    .dish-detail img{
+
+    .dish-detail img {
         display: none
     }
 }

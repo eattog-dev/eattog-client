@@ -37,7 +37,7 @@ const handlePratoClicado = () => {
             </span>
             <span v-if=dish.desconto class="dish-price__original" style=" color: #50a773;font-weight: 500;">R$ {{
               dish.valor - dish.valor_desconto }}</span>
-            <span v-else class="dish-price__discount" style="font-weight: 500;">
+            <span v-else class="dish-price__discount" style="font-weight: 500; color: var(--orange100); margin-bottom: 0.625rem;">
               R$ {{ dish.valor }}
             </span>
           </div>

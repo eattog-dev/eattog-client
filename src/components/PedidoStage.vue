@@ -1,28 +1,30 @@
 <template>
     <div class="cmp-admin_addmenu-formattext">
-      <h3 class="cmp-admin_addmenu-title">{{ stageTitle }}</h3>
+        <h3 class="cmp-admin_addmenu-title">{{ stageTitle }}</h3>
     </div>
     <div class="cmp-admin-slick-format  cmp-admin-status-{{ stage }}">
-      <el-card v-for="pedido in pedidos" :key="pedido.id" class="cmp-admin_box-card">
-        <div slot="header" class="cmp-admin_clearfix">
-          <span> Pedido de <strong>{{ pedido.cliente }}</strong></span>
-        </div>
-        <div class="cmp-admin_box-card-item">
-          <p v-for="(prato, index) in pedido.pratos" :key="index">
-            {{ prato.quantidade }} {{ prato.nome }}
-          </p>
-        </div>
-        <div class="cmp-admin_box-card-button">
-          <el-button v-if="stage !== 'concluido'" style="float: left; padding: 3px 0" type="text" @click="cancelarPedido(pedido)">Cancelar</el-button>
-          <el-button v-if="stage === 'preparo'" style="float: right; padding: 3px 0" type="text" @click="moverPedido(pedido, 'Pronto')">Iniciar</el-button>
-          <el-button v-else style="float: right; padding: 3px 0" type="text" disabled>Concluído</el-button>
-        </div>
-      </el-card>
+        <el-card v-for="pedido in pedidos" :key="pedido.id" class="cmp-admin_box-card">
+            <div slot="header" class="cmp-admin_clearfix">
+                <span> Pedido de <strong>{{ pedido.cliente }}</strong></span>
+            </div>
+            <div class="cmp-admin_box-card-item">
+                <p v-for="(prato, index) in pedido.pratos" :key="index">
+                    {{ prato.quantidade }} {{ prato.nome }}
+                </p>
+            </div>
+            <div class="cmp-admin_box-card-button">
+                <el-button v-if="stage !== 'concluido'" style="float: left; padding: 3px 0" type="text"
+                    @click="cancelarPedido(pedido)">Cancelar</el-button>
+                <el-button v-if="stage === 'preparo'" style="float: right; padding: 3px 0" type="text"
+                    @click="moverPedido(pedido, 'Pronto')">Iniciar</el-button>
+                <el-button v-else style="float: right; padding: 3px 0" type="text" disabled>Concluído</el-button>
+            </div>
+        </el-card>
     </div>
-  </template>
+</template>
   
 <script>
-    export default {
+export default {
     props: {
         stage: String,
         stageTitle: String,
@@ -33,43 +35,43 @@
     },
     methods: {
         moverPedido(pedido, action) {
-        const nextStatusMap = {
-            'aberto': 'preparo',
-            'preparo': 'transporte',
-            'transporte': 'concluido'
-        };
+            const nextStatusMap = {
+                'aberto': 'preparo',
+                'preparo': 'transporte',
+                'transporte': 'concluido'
+            };
 
-        const nextStatus = nextStatusMap[this.stage];
+            const nextStatus = nextStatusMap[this.stage];
 
-        if (action === 'Iniciar' || action === 'Pronto' || action === 'Entregue') {
-            pedido.status = nextStatus;
-            this.salvarPedido(pedido);
-        }
+            if (action === 'Iniciar' || action === 'Pronto' || action === 'Entregue') {
+                pedido.status = nextStatus;
+                this.salvarPedido(pedido);
+            }
         },
         salvarPedido(pedido) {
-        axios.put(`/pedidos/${pedido.id}`, pedido)
-            .then(response => {
-            console.log('Pedido atualizado com sucesso:', response.data);
-            this.fetchPedidos();
-            })
-            .catch(error => {
-            console.error('Erro ao atualizar o pedido:', error);
-            });
+            axios.put(`/pedidos/${pedido.id}`, pedido)
+                .then(response => {
+                    console.log('Pedido atualizado com sucesso:', response.data);
+                    this.fetchPedidos();
+                })
+                .catch(error => {
+                    console.error('Erro ao atualizar o pedido:', error);
+                });
         },
         fetchPedidos() {
-        axios.get('/pedidos')
-            .then(response => {
-                this.pedidos = response.data;
-            })
-            .catch(error => {
-                console.error('Erro ao buscar pedidos:', error);
-            });
+            axios.get('/pedidos')
+                .then(response => {
+                    this.pedidos = response.data;
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar pedidos:', error);
+                });
         },
         cancelarPedido(pedido) {
             // ...
         }
     }
-    };
+};
 </script>
 
   
@@ -92,6 +94,7 @@
     justify-content: space-evenly;
     margin-bottom: 2rem;
 }
+
 .cmp-admin_box-card {
     width: 16rem;
     height: 10rem;
