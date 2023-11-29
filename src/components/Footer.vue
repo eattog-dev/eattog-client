@@ -99,9 +99,9 @@
     border-top: 0.125rem solid var(--gray100);
     padding: 0.625rem 0 !important;
     width: 100%;
-    position: absolute;
     background-color: var(--white100);
-    bottom: 0;
+    /* position: absolute;
+    bottom: 0; */
 }
 
 .cmp-footer .cmp-itens-footer {
