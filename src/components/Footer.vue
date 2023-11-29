@@ -111,7 +111,7 @@
         display: inline-flex;
     }
     .cmp-footer-link:hover {
-        text-decoration: underline;
+        /* text-decoration: underline; */
     }
     .cmp-footer-text {
         display: flex;

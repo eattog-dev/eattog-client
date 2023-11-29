@@ -19,7 +19,11 @@
                 <el-button class="cmp-owner-form-button" type="primary" @click="login.submitForm(loginForm)">Login</el-button>
             </el-form-item>
 
-            <router-link class="cmp-owner-backlink" to="/cadastro/proprietario">Não tem uma conta? Faça o cadastro</router-link>
+            <div class="cmp-owner-format-link">
+                <router-link class="cmp-owner-backlink" to="/inicio">Ir para home</router-link>
+                <router-link class="cmp-owner-backlink" to="/cadastro/proprietario">Não tem uma conta? Faça o cadastro</router-link>
+            </div>
+           
 
             <div class="cmp-owner-loading-cadastro" v-if="loading">
                 <div class="cmp-owner-loading-spinner-cadastro"></div>
@@ -66,6 +70,10 @@ const togglePassword = () => {
 </script>
 
 <style scoped>
+.cmp-owner-format-link {
+    display:flex;
+    justify-content: space-between;
+}
 .cmp-owner-form-item--margin {
     margin-bottom: 1rem;
 }
@@ -80,6 +88,7 @@ const togglePassword = () => {
     text-align: center;
     display: block;
     color: var(--yellow400);
+    text-decoration: none;
 }
 .cmp-owner-form-button {
     background-color: var(--yellow400);

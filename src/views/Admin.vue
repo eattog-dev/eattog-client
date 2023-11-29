@@ -199,7 +199,7 @@
                 <el-input v-model="novoPrato.ingredientes" class="cmp-admin-form-input"></el-input>
             </el-form-item>
             <el-form-item label="Tempo de preparo">
-                <el-input v-model="novoPrato.time" class="cmp-admin-form-input"></el-input>
+                <el-input v-model="novoPrato.tempo_preparo" class="cmp-admin-form-input"></el-input>
             </el-form-item>
             <el-form-item label="Descricao">
                 <el-input v-model="novoPrato.descricao" class="cmp-admin-form-input"></el-input>
@@ -283,7 +283,7 @@ export default {
                 valor: '',
                 imagem: '',
                 ingredientes: '',
-                time: '',
+                tempo_preparo: '',
             },
             categorias: [],
             pratos: [] ,
@@ -364,15 +364,14 @@ export default {
         },
         
         removerPrato(pratoId, index) {
-            if (confirm('Tem certeza que deseja remover este prato?')) {
-                axios.delete(`http://54.233.122.212/deletar/prato/${pratoId}`)
-                    .then(response => {
-                        this.pratos.splice(index, 1); 
-                    })
-                    .catch(error => {
-                        console.error('Erro ao remover o prato:', error);
-                    });
-            }
+            axios.delete(`https://api.eattog.jera.com.br/deletar/prato/${pratoId}`, {
+                headers: { 'Authorization': sessionStorage.getItem("token-admin") }
+            }).then(response => {
+                this.pratos.splice(index, 1); 
+            })
+            .catch(error => {
+                console.error('Erro ao remover o prato:', error);
+            });
         },
 
         fetchPratos() {
@@ -449,7 +448,6 @@ export default {
                 reader.readAsDataURL(file);
             }
         },
-
         uploadBanner(event) {
             const file = event.target.files[0];
             if (!file.type.startsWith('image/')) {
@@ -466,7 +464,6 @@ export default {
                 reader.readAsDataURL(file);
             }
         },
-
 
         validateCNPJ() {
             const cnpj = this.restaurantCNPJ.replace(/[^0-9]/g, '');
@@ -498,11 +495,12 @@ export default {
                 formData.append('tipo_retirada', this.restaurantTakeawayType);
                 formData.append('descricao', this.restaurantDescription);
 
-                axios.post('http://api.eattog.jera.com.br/criar/restaurante', formData, {
+                fetch('https://api.eattog.jera.com.br/criar/restaurante', {
+                    method: "POST",
                     headers: {
-                        'Authorization': sessionStorage.getItem("token-admin"),
-                        'Content-Type': 'multipart/form-data'
-                    }
+                        'Authorization': sessionStorage.getItem("token-admin")
+                    },
+                    body: formData
                 })
                 .then(response => {
                     sessionStorage.setItem('restaurante-id', response.data.id);
@@ -525,6 +523,7 @@ export default {
                     valor: this.novoPrato.valor,
                     imagem: this.novoPrato.imagem,
                     ingredientes: this.novoPrato.ingredientes,
+                    tempo_preparo: this.novoPrato.tempo_preparo,
                     restaurante: sessionStorage.getItem('restaurante-id'), // restaurante: 1, 
                     descricao: this.novoPrato.descricao,
                     categoria_prato: this.novoPrato.categoria_prato,
@@ -560,7 +559,7 @@ export default {
             }
         },
     },
-};
+}
 </script>
 
 <style>
