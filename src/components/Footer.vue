@@ -1,33 +1,36 @@
 <template>
     <footer class="cmp-footer">
-        <el-row justify="center">
-            <el-col :span="16" class="cmp-footer--padding">
-                <el-row :gutter="10">
-                    <el-col :xs="24" :sm="12" :md="3" :lg="4" :xl="4" class="cmp-footer-format">
-                        <router-link to="/login" class="cmp-footer-link">Meu login</router-link>
-                    </el-col>
-                    <el-col :xs="24" :sm="12" :md="6" :lg="5" :xl="4" class="cmp-footer-format">
-                        <router-link to="/login/proprietario" class="cmp-footer-link">Login dos restaurantes</router-link>
-                    </el-col>
-                    <el-col :xs="24" :sm="12" :md="4" :lg="5" :xl="4" class="cmp-footer-format">
-                        <router-link to="/adminconsole" class="cmp-footer-link">Admistrador</router-link>
-                    </el-col>
-                    <el-col :xs="24" :sm="12" :md="3" :lg="4" :xl="4" class="cmp-footer-format">
-                        <a @click="handleModal()" class="cmp-footer-link">Sobre Nós</a>
-                    </el-col>
-                    <el-col :xs="24" :sm="12" :md="7" :lg="6" :xl="6" class="cmp-footer-format">
-                        <a @click="openModal" class="cmp-footer-link">Termos de uso e conduta</a>
-                    </el-col>
-                </el-row>
-            </el-col>
-        </el-row>
-        <div class="cmp-footer-text">
-            <div class="cmp-footer-inline">
-                <p>© Copyright 2023 - Eattog - Todos os direitos reservados Eattog com Agência de Restaurantes Online S.A.</p>
+        <div class="cmp-itens-footer">
+            <el-row justify="center">
+                <el-col :span="16" class="cmp-footer--padding">
+                    <el-row :gutter="10">
+                        <el-col :xs="24" :sm="12" :md="3" :lg="4" :xl="4" class="cmp-footer-format">
+                            <router-link to="/login" class="cmp-footer-link">Meu login</router-link>
+                        </el-col>
+                        <el-col :xs="24" :sm="12" :md="6" :lg="5" :xl="4" class="cmp-footer-format">
+                            <router-link to="/login/proprietario" class="cmp-footer-link">Login dos
+                                restaurantes</router-link>
+                        </el-col>
+                        <el-col :xs="24" :sm="12" :md="4" :lg="5" :xl="4" class="cmp-footer-format">
+                            <router-link to="/adminconsole" class="cmp-footer-link">Admistrador</router-link>
+                        </el-col>
+                        <el-col :xs="24" :sm="12" :md="3" :lg="4" :xl="4" class="cmp-footer-format">
+                            <a @click="handleModal()" class="cmp-footer-link">Sobre Nós</a>
+                        </el-col>
+                        <el-col :xs="24" :sm="12" :md="7" :lg="6" :xl="6" class="cmp-footer-format">
+                            <a @click="openModal" class="cmp-footer-link">Termos de uso e conduta</a>
+                        </el-col>
+                    </el-row>
+                </el-col>
+            </el-row>
+            <div class="cmp-footer-text">
+                <div class="cmp-footer-inline">
+                    <p>© Copyright 2023 - Eattog - Todos os direitos reservados Eattog com Agência de Restaurantes Online
+                        S.A.</p>
+                </div>
+                <!-- <p>CNPJ 16.642.553/0001-88</p> -->
             </div>
-            <!-- <p>CNPJ 16.642.553/0001-88</p> -->
         </div>
-
         <el-dialog title="Termos de Uso e Política de Privacidade do Eattog" v-model="showModal"
             class="cmp-modaldialog--terms">
             <ul class="cmp-footer-terms">
@@ -52,7 +55,8 @@
                 </li>
             </ul>
         </el-dialog>
-        <el-dialog title="Equipe de desenvolvimento" class="cmp-modaldialog--terms" v-model="showSobreNosModal" @close="handleModal">
+        <el-dialog title="Equipe de desenvolvimento" class="cmp-modaldialog--terms" v-model="showSobreNosModal"
+            @close="handleModal">
             <el-row justify="center">
                 <p>
                     O Eattog é um projeto de conclusao de curso feito em grupo por parte da turma do terceiro ano de TADS da
@@ -91,59 +95,71 @@
 </template>
 
 <style setup>
-    .cmp-footer {
-        border-top: 0.125rem solid var(--gray100);
-        padding: 0.625rem 0 !important;   
-        z-index: 9999999999;
-        width: 100%;
-        bottom: 0;
-        position: absolute;
-        background-color: var(--white100);
-    }
-    .cmp-footer-link {
-        text-decoration: none;
-        font-weight: 600;
-        line-height: 1.6rem;
-        color: var(--gray800);
-        cursor: pointer;
-    }
-    .cmp-footer-inline{
-        display: inline-flex;
-    }
-    .cmp-footer-link:hover {
-        /* text-decoration: underline; */
-    }
-    .cmp-footer-text {
-        display: flex;
-        justify-content: center;
-        flex-direction: row;
-        align-items: center;
-    }
-    .cmp-footer-text p{
-        color: var(--gray800);
-    }
-    .cmp-footer-terms {
-        color: var(--gray800);
-    }
-    .cmp-footer-terms li {
-        margin-bottom: .5rem;
-    }
-    .cmp-footer--margin-none {
-        margin: 0 !important;
-    }
-    .cmp-footer--padding {
-        padding: .625rem 0;
-    }
-    .cmp-footer-format {
-        display: flex !important;
-        justify-content: center;
-    }
-    .cmp-footer-text .cmp-footer-logo img {
-        margin-right: .625rem;
-    }
-    .cmp-modaldialog--terms {
-        border-radius: 0.5rem !important;
-    }
+.cmp-footer {
+    border-top: 0.125rem solid var(--gray100);
+    padding: 0.625rem 0 !important;
+    width: 100%;
+    position: absolute;
+    background-color: var(--white100);
+    bottom: 0;
+}
+
+.cmp-footer .cmp-itens-footer {
+    position: relative;
+    /* bottom: 0px; */
+}
+
+.cmp-footer-link {
+    text-decoration: none;
+    font-weight: 600;
+    line-height: 1.6rem;
+    color: var(--gray800);
+    cursor: pointer;
+}
+
+.cmp-footer-inline {
+    display: inline-flex;
+}
+
+.cmp-footer-text {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+.cmp-footer-text p {
+    color: var(--gray800);
+}
+
+.cmp-footer-terms {
+    color: var(--gray800);
+}
+
+.cmp-footer-terms li {
+    margin-bottom: .5rem;
+}
+
+.cmp-footer--margin-none {
+    margin: 0 !important;
+}
+
+.cmp-footer--padding {
+    padding: .625rem 0;
+}
+
+.cmp-footer-format {
+    display: flex !important;
+    justify-content: center;
+}
+
+.cmp-footer-text .cmp-footer-logo img {
+    margin-right: .625rem;
+}
+
+.cmp-modaldialog--terms {
+    border-radius: 0.5rem !important;
+}
 
 .cmp-modaldialog--terms .el-dialog__header {
     display: flex;
