@@ -546,6 +546,8 @@ export default {
                     valor_desconto: this.novoPrato.valor_desconto,
                 };
 
+                console.log(novoPrato.tempo_preparo)
+
                 axios.post('https://api.eattog.jera.com.br/criar/prato', novoPrato, {
                     headers: {
                         'Authorization': sessionStorage.getItem("token-admin")
@@ -559,7 +561,7 @@ export default {
                         valor: '',
                         imagem: '',
                         ingredientes: '',
-                        time: '',
+                        tempo_preparo: '',
                         descricao: '',
                         categoria_prato: '',
                         desconto: '',

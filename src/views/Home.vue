@@ -37,16 +37,15 @@ const exibePratoClicado = (dish) => {
 <template>
     <Navbar logo="../assets/logo.svg" alt="Logo" />
     <Carousel />
-    <section id="list-dishes">
-        <el-row justify="center">
-            <el-col :span="20">
-                <Title text="Mais pedidos"></Title>
-                <el-row :gutter="20">
-                    <Dish v-for="prato in pratos" :dish="prato" @pratoClicado="exibePratoClicado" />
-                </el-row>
-            </el-col>
-        </el-row>
-    </section>
+    <el-row justify="center">
+        <el-col :span="20">
+            <Title text="Mais pedidos"></Title>
+            <el-row class="cmp-card-config" :gutter="20">
+                <Dish v-for="prato in pratos" :dish="prato" @pratoClicado="exibePratoClicado" />
+            </el-row>
+        </el-col>
+    </el-row>
     <SelectedDish :modalAberto="pedidoStore.modal" />
-    <Footer></Footer>
+    <Footer />
 </template>      
+<style scoped></style>
