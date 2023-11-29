@@ -125,7 +125,6 @@ const value = ref('Selecione');
             </el-col>
         </el-row>
     </section>
-    <Footer></Footer>
 </template>
 
 <style scoped>

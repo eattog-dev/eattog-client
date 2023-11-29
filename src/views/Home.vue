@@ -48,7 +48,6 @@ const exibePratoClicado = (dish) => {
         </el-row>
     </div>
     <SelectedDish :modalAberto="pedidoStore.modal" />
-    <Footer />
 </template>      
 <style scoped>
 .cmp-pratos-home {
