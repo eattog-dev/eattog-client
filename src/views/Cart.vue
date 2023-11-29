@@ -7,8 +7,8 @@
         <Title text="Meu carrinho"></Title>
       </el-col>
     </el-row>
-    <el-row :gutter="20">
-      <el-col :xs="12" :sm="12" :md="12" :lg="10" :xl="6" v-for="(item, i) in carrinhoStore.carrinho"
+    <el-row>
+      <el-col :xs="24" :sm="12" :md="8" :lg="6" :span="8" v-for="(item, i) in carrinhoStore.carrinho"
         index="item.prato.id" class="cmp-item-carrinho">
         <div class="cmp-listagem-carrinho" v-if="!carrinhoStore.carrinho.length == false">
           <div class="cmp-item-carrinho">
@@ -91,7 +91,6 @@ const goToRestaurantes = () => router.push("/restaurants")
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: fit-content;
 }
 
 .cmp-item-carrinho img {

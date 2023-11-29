@@ -25,15 +25,20 @@ const handlePratoClicado = () => {
       <div class="cmp-card-prato">
         <img :src="dish.imagem" class="image">
         <div class="cmp-tag-alimentacao">
-          <span class="tag-aliment" v-if="dish.prato_categoria.categoria == null">celta</span>
+          <span class="tag-aliment" v-if="dish.prato_categoria.categoria == null">Sem categoria</span>
           <span class="tag-aliment" v-else>{{ dish.prato_categoria.categoria }}</span>
         </div>
         <div style="padding: 14px; text-align: center;">
           <span>{{ dish.nome }}</span>
           <div class="dish-price">
-            <span class="dish-price__discount">
+            <span class="dish-price__discount" v-if=dish.desconto
+              style=" text-decoration: line-through; color: var(--gray400); font-size: 14px; margin-right: 5px;">
               R$ {{ dish.valor }}
-              <span v-if=dish.desconto class="dish-price__original">R$ {{ dish.valor_desconto }}</span>
+            </span>
+            <span v-if=dish.desconto class="dish-price__original" style=" color: #50a773;font-weight: 500;">R$ {{
+              dish.valor - dish.valor_desconto }}</span>
+            <span v-else class="dish-price__discount" style="font-weight: 500;">
+              R$ {{ dish.valor }}
             </span>
           </div>
           <div class="cmp-botao-adicionar">

@@ -57,7 +57,6 @@ const subtrair = () => {
 </script>
 <template>
     <section class="menu">
-
         <el-row justify="center">
             <el-col class="title-and-filter" :span=20>
                 <Title text="Cardápio"></Title>
@@ -179,6 +178,5 @@ const subtrair = () => {
         border: 1px solid var(--white300);
         color: var(--gray800);
         text-decoration: none !important;
-        ;
     }
 </style>
