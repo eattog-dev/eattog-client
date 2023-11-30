@@ -543,7 +543,6 @@ export default {
             if (
                 this.novoPrato.nome &&
                 this.novoPrato.valor &&
-                this.restaurantImage &&
                 this.novoPrato.imagem &&
                 this.novoPrato.ingredientes &&
                 this.novoPrato.tempo_preparo &&
@@ -553,7 +552,6 @@ export default {
                 this.novoPrato.valor_desconto
             ) {
                 const formData = new FormData();
-                formData.append('imagem', this.restaurantImage);
 
                 formData.append('nome', this.novoPrato.nome);
                 formData.append('valor', this.novoPrato.valor);
