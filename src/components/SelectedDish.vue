@@ -26,25 +26,29 @@ const addCarrinho = async (prato_ID, quantidade, observacoes) => {
             'Authorization': sessionStorage.getItem("token")
         }
     })
+     carrinhoStore.listarCarrinho()
+     
+   pedidoStore.statusModal();
     // console.log({prato_ID, quantidade, observacoes})
-    carrinhoStore.listarCarrinho()
-    pedidoStore.statusModal();
+   
 }
 </script>
 <template>
-    <div v-show="modalAberto" class="dish-detail">
-        <!-- {{ prato }} -->
-        <button @click="pedidoStore.statusModal()" class="closeModal">X</button>
+    <div v-show="pedidoStore.modal" class="dish-detail">
+
+        <el-icon @click="pedidoStore.statusModal()" class="closeModal">
+            <Close />
+        </el-icon>
         <div class="dish">
             <img :src=prato.imagem alt="">
             <div class="data-dish">
                 <div class="title-and-price">
                     <h2>{{ prato.nome }}</h2>
                     <div v-if="prato.desconto" class="sale-pricing">
-                        <span class="real-price">R$ {{ prato.valor_desconto }}</span>
-                        <span class="price">R$ {{ prato.valor }}</span>
+                        <span class="real-price">R${{ prato.valor_desconto }}</span>
+                        <span class="price">R${{ prato.valor }}</span>
                     </div>
-                    <span v-else class="real-price">R$ {{ prato.valor }}</span>
+                    <span v-else class="real-price">R${{ prato.valor }}</span>
                 </div>
                 <p>{{ prato.descricao }}</p>
                 <form action="">
@@ -56,19 +60,28 @@ const addCarrinho = async (prato_ID, quantidade, observacoes) => {
                             <input type="number" v-model="pedidoStore.quantidade" />
                             <button @click.prevent="pedidoStore.subtrair()" class="subtract">-</button>
                         </div>
-                        <button class="add-carrinho"
-                            @click.prevent="addCarrinho(prato.id, pedidoStore.quantidade, pedidoStore.observacoes)">
-                            <img class="cart" src="../assets/cart-shopping-solid.svg" alt="">
+
+                        <span class="total">
                             Total: R${{ pedidoStore.valorTotal }}
-                        </button>
+                        </span>
                     </div>
                 </form>
             </div>
+
         </div>
+        <button class="add-carrinho"
+            @click.prevent="addCarrinho(prato.id, pedidoStore.quantidade, pedidoStore.observacoes)">
+            Adicionar
+        </button>
     </div>
 </template>
 
 <style scoped>
+h2{
+    width: 75%;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
 .dish-detail {
     color: var(--black100);
     width: 46rem;
@@ -79,21 +92,20 @@ const addCarrinho = async (prato_ID, quantidade, observacoes) => {
     background-color: var(--white100);
     z-index: 9999999999;
     border-radius: 0.25rem;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+    padding: 1rem;
 }
 
 .dish-detail .closeModal {
     display: block;
     margin: 0.5rem 0.5rem 0 auto;
-    border: none;
-    background-color: transparent;
-    font-weight: bolder;
-    font-size: 20px;
+    font-size: 25px;
+    cursor: pointer
 }
 
 .dish-detail .dish {
     display: flex;
     flex-direction: row;
-    padding: 1rem;
     justify-content: space-around;
 }
 
@@ -109,6 +121,9 @@ const addCarrinho = async (prato_ID, quantidade, observacoes) => {
     height: 15.625rem;
     width: 18.75rem;
     object-fit: cover;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+
 }
 
 .dish-detail .data-dish .title-and-price {
@@ -131,7 +146,7 @@ const addCarrinho = async (prato_ID, quantidade, observacoes) => {
 .dish-detail .data-dish textarea {
     width: 100%;
     border-radius: 0.25rem;
-    border: 0.063rem solid var(--gray200);
+    border: 0.063rem solid var(--yellow100);
     font-size: 1rem;
     height: 5rem;
     margin: 0.5rem 0;
@@ -160,6 +175,7 @@ const addCarrinho = async (prato_ID, quantidade, observacoes) => {
     color: var(--black100);
     margin: 0 0.5rem;
     text-align: center;
+    border: 1px solid var(--yellow100);
 }
 
 .dish-detail .data-dish .quantity button {
@@ -173,6 +189,7 @@ const addCarrinho = async (prato_ID, quantidade, observacoes) => {
 .dish-detail .data-dish .quantity input,
 .dish-detail .data-dish .quantity button {
     width: 2.75rem;
+    border-radius: .25rem;
     height: 2.75rem;
 }
 
@@ -186,26 +203,26 @@ const addCarrinho = async (prato_ID, quantidade, observacoes) => {
     padding: 1rem;
     background-color: var(--yellow100);
     border: none;
-    border-radius: .5rem;
     text-transform: uppercase;
     color: var(--white100);
 }
 
 .add-carrinho {
-    flex-direction: row;
     display: flex;
-    align-items: center;
     background-color: var(--yellow100);
     border: none;
-    border-radius: .5rem;
+    border-radius: .25rem;
     text-transform: uppercase;
     color: var(--white100);
-    padding: 0.25rem 0.5rem;
+    padding: 0.5rem 0.5rem;
+    margin: 0.5rem 0.25rem 0.25rem auto;
+    cursor: pointer;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+
 }
 
-.total-value {
-    float: right;
-    font-size: 1.1rem
+.total{
+    font-size: 1.5em;
 }
 
 @media(max-width: 768px) {
@@ -217,5 +234,4 @@ const addCarrinho = async (prato_ID, quantidade, observacoes) => {
     .dish-detail img {
         display: none
     }
-}
-</style>
+}</style>

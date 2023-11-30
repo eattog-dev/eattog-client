@@ -1,4 +1,5 @@
 <script setup>
+import {usePedidoStore} from '../store/pedido.js'
 const props = defineProps({
     dish: {
         id: Number,
@@ -12,11 +13,13 @@ const props = defineProps({
         valor_desconto: Number
     }
 });
+const pedidoStore = usePedidoStore();
 
 const emits = defineEmits('pratoClicado');
 
 const handlePratoClicado = () => {
     emits('pratoClicado', props.dish)
+    pedidoStore.statusModal()
 }
 </script>
 
@@ -51,6 +54,7 @@ a {
 
 .el-col {
     height: 10rem;
+    padding: 6px;
 }
 
 .prato {

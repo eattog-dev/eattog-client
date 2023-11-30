@@ -101,18 +101,21 @@ const submitForm = (cadastroForm) => {
           router.push("/inicio");
         })
         .catch(error => {
-          this.$message.error('Algo deu errado. Tente Novamente');
+          alert('Algo deu errado. Tente Novamente');
         })
     } else {
       errorMsgPassword = "";
       const errorMsg = ref(true);
-      this.$message.error('Algo deu errado. Tente Novamente');
+      alert('Algo deu errado. Tente Novamente');
     }
   });
 }
 </script>
 
 <style scoped>
+footer.cmp-footer{
+  display: none !important;
+}
 #login {
   --el-color-primary: var(--yellow100);
 }
