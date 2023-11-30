@@ -18,7 +18,7 @@ const pedidoStore = usePedidoStore();
 
 const todosPratos = computed(() => pratosStore.todosPratos)
 
-const selecionouPrato = ref(false);
+
 
 
 onMounted(() => pratosStore.listarPratosPorCategoria())
@@ -30,7 +30,7 @@ const exibePratoClicado = (dish) => {
         router.push("/login");
         return;
     }
-    selecionouPrato.value = true;
+
     pedidoStore.pratao(dish)
 }
 console.log(window.innerHeight)
@@ -50,7 +50,7 @@ console.log(window.innerHeight)
         </el-col>
     </el-row>
 
-    <SelectedDish :modalAberto="selecionouPrato" />
+    <SelectedDish />
 </template>
 
 <style scoped>
