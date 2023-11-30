@@ -445,7 +445,7 @@ export default {
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    debugger
+                    
                     this.restaurantImage = file;
                     this.logo = e.target.result;
                 };
@@ -463,7 +463,7 @@ export default {
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     console.log(file); 
-                    debugger
+                    
                     this.novoPrato.imagem = file;
                 };
                 reader.readAsDataURL(file);
@@ -480,7 +480,7 @@ export default {
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     console.log(file); 
-                    debugger
+                    
                     this.restaurantBanner = file;
                 };
                 reader.readAsDataURL(file);
@@ -540,59 +540,66 @@ export default {
 
         adicionarNovoPrato() {
             this.showPratoModal = true;
-            if (
-                this.novoPrato.nome &&
-                this.novoPrato.valor 
-                // this.novoPrato.imagem &&
-                // this.novoPrato.ingredientes &&
-                // this.novoPrato.tempo_preparo &&
-                // this.novoPrato.descricao &&
-                // this.novoPrato.categoria_prato &&
-                // this.novoPrato.desconto &&
-                // this.novoPrato.valor_desconto
-            ) {
-                const formData = new FormData();
+            console.log(" this.novoPrato.nome",  this.novoPrato.nome);
+            console.log("this.novoPrato.valor",this.novoPrato.valor);
+            console.log("this.novoPrato.imagem", this.novoPrato.imagem);
 
-                formData.append('nome', this.novoPrato.nome);
-                formData.append('valor', this.novoPrato.valor);
-                formData.append('imagem', this.novoPrato.imagem)
-                formData.append('ingredientes', this.novoPrato.ingredientes);
-                formData.append('tempo_preparo', this.novoPrato.tempo_preparo);
-                formData.append('restaurante', sessionStorage.getItem('restaurante-id'));
-                formData.append('descricao', this.novoPrato.descricao);
-                formData.append('categoria_prato', this.novoPrato.categoria_prato);
-                formData.append('desconto', this.novoPrato.desconto);
-                formData.append('valor_desconto', this.novoPrato.valor_desconto);
+            
 
+            // if (
+            //     this.novoPrato.nome &&
+            //     this.novoPrato.valor 
+            //     // this.novoPrato.imagem &&
+            //     // this.novoPrato.ingredientes &&
+            //     // this.novoPrato.tempo_preparo &&
+            //     // this.novoPrato.descricao &&
+            //     // this.novoPrato.categoria_prato &&
+            //     // this.novoPrato.desconto &&
+            //     // this.novoPrato.valor_desconto
+            // ) {
+                const formDataPrato = new formDataPrato();
+
+                formDataPrato.append('nome', this.novoPrato.nome);
+                formDataPrato.append('valor', this.novoPrato.valor);
+                formDataPrato.append('imagem', this.novoPrato.imagem)
+                formDataPrato.append('ingredientes', this.novoPrato.ingredientes);
+                formDataPrato.append('tempo_preparo', this.novoPrato.tempo_preparo);
+                formDataPrato.append('restaurante', sessionStorage.getItem('restaurante-id'));
+                formDataPrato.append('descricao', this.novoPrato.descricao);
+                formDataPrato.append('categoria_prato', this.novoPrato.categoria_prato);
+                formDataPrato.append('desconto', this.novoPrato.desconto);
+                formDataPrato.append('valor_desconto', this.novoPrato.valor_desconto);
+                
 
                 fetch('https://api.eattog.jera.com.br/criar/prato', {
                     method: "POST",
                     headers: {
                         'Authorization': sessionStorage.getItem("token-admin")
                     },
-                    body: formData
+                    body: formDataPrato
                 })
                 .then(response => {
-                    this.$message.sucess('Prato criado com sucesso');
-                    this.novoPrato = {
-                        nome: '',
-                        valor: '',
-                        imagem: '',
-                        ingredientes: '',
-                        tempo_preparo: '',
-                        descricao: '',
-                        categoria_prato: '',
-                        desconto: '',
-                        valor_desconto: '',
-                    };
+                    // this.$message.sucess('Prato criado com sucesso');
+                    // this.novoPrato = {
+                    //     nome: '',
+                    //     valor: '',
+                    //     imagem: '',
+                    //     ingredientes: '',
+                    //     tempo_preparo: '',
+                    //     descricao: '',
+                    //     categoria_prato: '',
+                    //     desconto: '',
+                    //     valor_desconto: '',
+                    // };
+                    console.log(response)
                     this.showPratoModal = false;
                 })
                 .catch(error => {
-                    console.error('Erro ao criar o prato:', error);
+                    console.error(error);
                 });
-            } else {
-                this.$message.error('Por favor, preencha todos os campos corretamente.');
-            }
+            // } else {
+            //     this.$message.error('Por favor, preencha todos os campos corretamente.');
+            // }
         }        
     },
 }
@@ -886,7 +893,7 @@ export default {
     color: var(--yellow500);
     border-bottom: 0.063rem solid var(--el-menu-border-color);
     background-image: url(../assets/img-banner/imagebanner.png);
-    z-index: 9999;
+    z-index: 1727;
     height: 5rem;
     background-repeat: no-repeat;
     background-size: 100%;
