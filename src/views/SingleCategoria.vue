@@ -32,7 +32,6 @@ const exibePratoClicado = (dish) => {
         router.push("/login");
         return;
     }
-    selecionouPrato.value = true;
     pedidoStore.pratao(dish)
 }
 
@@ -48,7 +47,7 @@ const exibePratoClicado = (dish) => {
             </el-col>
         </el-row>
 
-    <SelectedDish :modalAberto="selecionouPrato" />
+    <SelectedDish  />
 </template>
 
 <style scoped>
