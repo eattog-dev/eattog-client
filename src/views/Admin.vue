@@ -220,9 +220,13 @@
                     ></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="Imagem">
-                <el-input type="file" v-model="novoPrato.imagem" class="cmp-admin-form-file" @change="uploadImagePrato" accept="image/*"></el-input>
-            </el-form-item>
+            <!-- <el-form-item label="Imagem">
+                <input type="file" class="cmp-admin-upload-input" @change="uploadImagePrato" accept="image/*">
+            </el-form-item> -->
+            <div class="cmp-admin-image-upload">
+                <input type="file" class="cmp-admin-upload-input" @change="uploadImagePrato" accept="image/*">
+                <label for="file-input" class="cmp-admin-custom-upload-button">Imagem prato</label>
+            </div>
         </el-form>
         <div slot="footer" class="cmp-modaldialog-footer">
             <el-button @click="showPratoModal = false" class="cmp-modaldialog-btncancel">Cancelar</el-button>
@@ -458,6 +462,7 @@ export default {
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
+                    console.log(file); 
                     debugger
                     this.novoPrato.imagem = file;
                 };
@@ -532,7 +537,6 @@ export default {
         adicionarPrato() {
             this.showPratoModal = true;
         },
-
 
         adicionarNovoPrato() {
             this.showPratoModal = true;
@@ -688,14 +692,14 @@ export default {
 
 .cmp-admin_addmenu-items {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }
 
 .cmp-admin_addmenu-item {
     width: 13rem;
     min-height: 13rem;
     height: 16rem;
-    margin-right: 1rem;
+    margin: .5rem;
 }
 
 .cmp-admin_addmenu-item .el-card__body {
@@ -883,7 +887,7 @@ export default {
     color: var(--yellow500);
     border-bottom: 0.063rem solid var(--el-menu-border-color);
     background-image: url(../assets/img-banner/imagebanner.png);
-    z-index: 99;
+    z-index: 9999;
     height: 5rem;
     background-repeat: no-repeat;
     background-size: 100%;

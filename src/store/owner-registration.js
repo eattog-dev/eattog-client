@@ -122,8 +122,7 @@ export const useCadastroStore = defineStore("owner-registration", {
           });
 
           console.log(cadastro.data)
-          // this.router.push("login/proprietario")
-          window.location.href = 'http://localhost:5173/login/proprietario';
+          this.router.push("login/proprietario")
           this.success(`seja bem vindo ao sistema ${this.formulario.nome}`)
         } else {
           this.errorMsgPassword = "";
