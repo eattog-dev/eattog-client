@@ -542,19 +542,20 @@ export default {
             this.showPratoModal = true;
             if (
                 this.novoPrato.nome &&
-                this.novoPrato.valor &&
-                this.novoPrato.imagem &&
-                this.novoPrato.ingredientes &&
-                this.novoPrato.tempo_preparo &&
-                this.novoPrato.descricao &&
-                this.novoPrato.categoria_prato &&
-                this.novoPrato.desconto &&
-                this.novoPrato.valor_desconto
+                this.novoPrato.valor 
+                // this.novoPrato.imagem &&
+                // this.novoPrato.ingredientes &&
+                // this.novoPrato.tempo_preparo &&
+                // this.novoPrato.descricao &&
+                // this.novoPrato.categoria_prato &&
+                // this.novoPrato.desconto &&
+                // this.novoPrato.valor_desconto
             ) {
                 const formData = new FormData();
 
                 formData.append('nome', this.novoPrato.nome);
                 formData.append('valor', this.novoPrato.valor);
+                formData.append('imagem', this.novoPrato.imagem)
                 formData.append('ingredientes', this.novoPrato.ingredientes);
                 formData.append('tempo_preparo', this.novoPrato.tempo_preparo);
                 formData.append('restaurante', sessionStorage.getItem('restaurante-id'));
