@@ -550,7 +550,7 @@ export default {
         fetch('https://api.eattog.jera.com.br/criar/restaurante', {
           method: "POST",
           headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem("token-admin")}`
+            'Authorization': sessionStorage.getItem("token-admin")
           },
           body: formData
         })
