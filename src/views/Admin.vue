@@ -227,10 +227,10 @@
           <el-option v-for="c in categorias" :key="c.id" :label="c.categoria" :value="c.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="Selecione um restaurante">
+      <el-form-item label="Selecione restaurante">
         <el-select v-model="restaurantMealType" class="cmp-admin-form-select" required>
-          <el-option v-for="rest in restaurantesDoUsuario" :key="rest.id"
-            :label="rest.razao_social" :value="rest.id"></el-option>
+          <el-option v-for="rest in restaurantesDoUsuario" :key="rest.id" :label="rest.razao_social"
+            :value="rest.id"></el-option>
         </el-select>
       </el-form-item>
       <!-- <el-form-item label="Imagem">
@@ -444,7 +444,7 @@ export default {
         headers: { 'Authorization': sessionStorage.getItem("token-admin") }
       }).then(response => {
         console.log(response);
-        this.restaurantesDoUsuario = response.data;
+        this.restaurantesDoUsuario = response.data.restaurante;
       })
         .catch(error => {
           this.restaurantesDoUsuario = "";
