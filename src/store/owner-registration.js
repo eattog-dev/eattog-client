@@ -109,7 +109,6 @@ export const useCadastroStore = defineStore("owner-registration", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify({
               "nome": this.formulario.nome,
