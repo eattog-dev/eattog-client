@@ -20,7 +20,7 @@ const isLoginProprietarioView = route.path.startsWith('/login/proprietario');
 <template>
     <router-view ></router-view>
     <div style="padding-bottom:5rem!important"></div>
-    <Footer v-if="isAdminView && isAdminConsoleView && isLoginProprietarioView && isCadastroProprietarioView && isCadastroView && isLoginView" />
+    <Footer v-if="route.meta.hasFooter" />
 </template>
 
 <style scoped></style>
