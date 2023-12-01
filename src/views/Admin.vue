@@ -11,20 +11,19 @@
           </div>
         </div>
         <el-menu-item class="cmp-admin-tabs-item" index="inicio" @click="changeToInicio('inicio')">
-          <i class="el-icon-house"></i>
           Início
         </el-menu-item>
-        <el-menu-item class="cmp-admin-tabs-item" index="pedido" @click="changeToPedido('pedido')">
-          <i class="el-icon-shopping-cart-2"></i>
+        <!-- <el-menu-item class="cmp-admin-tabs-item" index="pedido" @click="changeToPedido('pedido')">
           Pedido
-        </el-menu-item>
+        </el-menu-item> -->
         <el-menu-item class="cmp-admin-tabs-item" index="cardapio" @click="changeToCardapio('cardapio')">
-          <i class="el-icon-menu"></i>
           Cardápio
         </el-menu-item>
         <el-menu-item class="cmp-admin-tabs-item" index="ajuda" @click="changeToAjuda('ajuda')">
-          <i class="el-icon-question"></i>
           Ajuda
+        </el-menu-item>
+        <el-menu-item class="cmp-admin-tabs-item" index="create" @click="returnHome">
+          Sair 
         </el-menu-item>
       </el-menu>
     </el-aside>
@@ -217,8 +216,12 @@
         <el-input v-model="novoPrato.descricao" class="cmp-admin-form-input"></el-input>
       </el-form-item>
       <el-form-item label="Desconto">
-        <el-input v-model="novoPrato.desconto" class="cmp-admin-form-input"></el-input>
+        <el-select v-model="novoPrato.desconto" placeholder="Selecione" class="cmp-admin-form-input">
+          <el-option label="0 - não" value="0"></el-option>
+          <el-option label="1 - sim" value="1"></el-option>
+        </el-select>
       </el-form-item>
+      
       <el-form-item label="Valor do desconto">
         <el-input v-model="novoPrato.valor_desconto" class="cmp-admin-form-input"></el-input>
       </el-form-item>
@@ -464,6 +467,11 @@ export default {
     },
     changeToAjuda() {
       this.activeTab = 'ajuda';
+    },
+
+    returnHome(){
+      sessionStorage.removeItem("token-admin");
+      this.$router.push('/inicio');
     },
 
     uploadImage(event) {
@@ -917,7 +925,7 @@ export default {
   border-bottom: 0.063rem solid var(--el-menu-border-color);
   background-image: url(../assets/img-banner/imagebanner.png);
   z-index: 1727;
-  height: 5rem;
+  height: 4rem;
   background-repeat: no-repeat;
   background-size: 100%;
   background-position-y: center;
@@ -1060,6 +1068,8 @@ export default {
 
 .cmp-admin-tabs-item {
   font-weight: 600;
+  display: flex;
+  justify-content: center;
 }
 
 .cmp-admin .el-menu-item.is-active {
@@ -1094,7 +1104,8 @@ export default {
 }
 
 .cmp-admin .el-menu {
-  height: 98%;
+  height: 99% !important;
+  z-index: 9999;
 }
 
 .cmp-admin .el-menu-item i {
@@ -1116,5 +1127,21 @@ export default {
 
 .cmp-admin .el-form-item label {
   font-weight: bold;
+}
+
+@media (max-width: 768px){
+  .cmp-admin-menu-aside {
+    height: 100%;
+    width: fit-content; 
+  }
+  .cmp-admin_containerbanner-title{
+    left: 16% !important;
+  }
+  .cmp-admin_containerbanner-backgroundimage {
+    left: 16% !important;
+  }
+  .cmp-admin_addmenu-add .el-button {
+      margin: 0 1rem;
+  }
 }
 </style>

@@ -100,8 +100,8 @@
             top: 30%;
         }
         .cmp-banner-format {
-            object-fit: contain;
-            height: 100%;
+            object-fit: fill;
+            height: 7rem;
         }
         .cmp-banner .el-carousel__arrow--left,
         .cmp-banner .el-carousel__arrow--right {
