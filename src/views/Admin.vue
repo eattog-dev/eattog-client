@@ -227,6 +227,12 @@
           <el-option v-for="c in categorias" :key="c.id" :label="c.categoria" :value="c.id"></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="Selecione restaurante">
+        <el-select v-model="novoPrato.restaurantid" class="cmp-admin-form-select" required>
+          <el-option v-for="rest in restaurantesDoUsuario" :key="rest.id" :label="rest.razao_social"
+            :value="rest.id"></el-option>
+        </el-select>
+      </el-form-item>
       <!-- <el-form-item label="Imagem">
                 <input type="file" class="cmp-admin-upload-input" @change="uploadImagePrato" accept="image/*">
             </el-form-item> -->
@@ -434,10 +440,11 @@ export default {
     },
 
     fetchRestaurantesDoUsuario() {
-      axios.get('http://api.eattog.jera.com.br/meus-restaurantes', {
+      axios.get('https://api.eattog.jera.com.br/meus-restaurantes', {
         headers: { 'Authorization': sessionStorage.getItem("token-admin") }
       }).then(response => {
-        this.restaurantesDoUsuario = response.data;
+        console.log(response);
+        this.restaurantesDoUsuario = response.data.restaurante;
       })
         .catch(error => {
           this.restaurantesDoUsuario = "";
@@ -543,7 +550,7 @@ export default {
         fetch('https://api.eattog.jera.com.br/criar/restaurante', {
           method: "POST",
           headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem("token-admin")}`
+            'Authorization': sessionStorage.getItem("token-admin")
           },
           body: formData
         })
@@ -561,69 +568,61 @@ export default {
       this.showPratoModal = true;
     },
 
-    adicionarNovoPrato() {
-      this.showPratoModal = true;
-      console.log(" this.novoPrato.nome", this.novoPrato.nome);
-      console.log("this.novoPrato.valor", this.novoPrato.valor);
-      console.log("this.novoPrato.imagem", this.novoPrato.imagem);
+    async adicionarNovoPrato() {
+      try {
+        this.showPratoModal = true;
+        const formDataPrato = new FormData();
+        formDataPrato.append('nome', this.novoPrato.nome);
+        formDataPrato.append('valor', this.novoPrato.valor);
+        formDataPrato.append('imagem', this.novoPrato.imagem);
+        formDataPrato.append('ingredientes', this.novoPrato.ingredientes);
+        formDataPrato.append('tempo_preparo', this.novoPrato.tempo_preparo);
+        formDataPrato.append('restaurante_id', this.novoPrato.restaurantid);
+        formDataPrato.append('descricao', this.novoPrato.descricao);
+        formDataPrato.append('categoria_prato', this.novoPrato.categoria_prato);
+        formDataPrato.append('desconto', this.novoPrato.desconto);
+        formDataPrato.append('valor_desconto', this.novoPrato.valor_desconto);
 
-
-
-      // if (
-      //     this.novoPrato.nome &&
-      //     this.novoPrato.valor 
-      //     // this.novoPrato.imagem &&
-      //     // this.novoPrato.ingredientes &&
-      //     // this.novoPrato.tempo_preparo &&
-      //     // this.novoPrato.descricao &&
-      //     // this.novoPrato.categoria_prato &&
-      //     // this.novoPrato.desconto &&
-      //     // this.novoPrato.valor_desconto
-      // ) {
-      const formDataPrato = new formDataPrato();
-
-      formDataPrato.append('nome', this.novoPrato.nome);
-      formDataPrato.append('valor', this.novoPrato.valor);
-      formDataPrato.append('imagem', this.novoPrato.imagem)
-      formDataPrato.append('ingredientes', this.novoPrato.ingredientes);
-      formDataPrato.append('tempo_preparo', this.novoPrato.tempo_preparo);
-      formDataPrato.append('restaurante', sessionStorage.getItem('restaurante-id'));
-      formDataPrato.append('descricao', this.novoPrato.descricao);
-      formDataPrato.append('categoria_prato', this.novoPrato.categoria_prato);
-      formDataPrato.append('desconto', this.novoPrato.desconto);
-      formDataPrato.append('valor_desconto', this.novoPrato.valor_desconto);
-
-
-      fetch('https://api.eattog.jera.com.br/criar/prato', {
-        method: "POST",
-        headers: {
-          'Authorization': `Bearer ${sessionStorage.getItem("token-admin")}`
-        },
-        body: formDataPrato
-      })
-        .then(response => {
-          // this.$message.sucess('Prato criado com sucesso');
-          // this.novoPrato = {
-          //     nome: '',
-          //     valor: '',
-          //     imagem: '',
-          //     ingredientes: '',
-          //     tempo_preparo: '',
-          //     descricao: '',
-          //     categoria_prato: '',
-          //     desconto: '',
-          //     valor_desconto: '',
-          // };
-          console.log(response)
-          this.showPratoModal = false;
-        })
-        .catch(error => {
-          console.error(error);
+        const response = await fetch('https://api.eattog.jera.com.br/criar/prato', {
+          method: 'POST',
+          headers: {
+            'Authorization': sessionStorage.getItem('token-admin'),
+          },
+          body: formDataPrato,
         });
-      // } else {
-      //     this.$message.error('Por favor, preencha todos os campos corretamente.');
-      // }
-    }
+
+        console.log(response);
+        this.handleSuccess();
+      } catch (error) {
+        this.handleError(error);
+      } finally {
+        this.showPratoModal = false;
+      }
+    },
+
+    handleSuccess() {
+      this.$message.success('Prato criado com sucesso');
+      this.resetNovoPrato();
+    },
+
+    handleError(error) {
+      console.error(error);
+      this.$message.error('Ocorreu um erro ao criar o prato. Por favor, tente novamente.');
+    },
+
+    resetNovoPrato() {
+      this.novoPrato = {
+        nome: '',
+        valor: '',
+        imagem: '',
+        ingredientes: '',
+        tempo_preparo: '',
+        descricao: '',
+        categoria_prato: '',
+        desconto: '',
+        valor_desconto: '',
+      };
+    },
   },
 }
 </script>
