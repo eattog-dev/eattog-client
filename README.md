@@ -36,7 +36,7 @@ npm run build
 
 ## Criar um Restaurante via URL
 
-Você pode criar um restaurante fazendo uma solicitação POST para o seguinte URL: `http://54.233.122.212/criar/restaurante`. Exemplo de carga JSON:
+Você pode criar um restaurante fazendo uma solicitação POST para o seguinte URL: ``https://api.eattog.jera.com.br/criar/restaurante`. Exemplo de carga JSON:
 
 ```json
 {
@@ -55,7 +55,7 @@ Você pode criar um restaurante fazendo uma solicitação POST para o seguinte U
 
 ## Criar um Prato via URL
 
-Você pode criar um prato fazendo uma solicitação POST para o seguinte URL: `http://54.233.122.212/criar/prato`. Exemplo de carga JSON:
+Você pode criar um prato fazendo uma solicitação POST para o seguinte URL: ``https://api.eattog.jera.com.br/criar/prato`. Exemplo de carga JSON:
 
 ```json
 {
@@ -73,7 +73,7 @@ Você pode criar um prato fazendo uma solicitação POST para o seguinte URL: `h
 
 ## Criar uma Categoria via URL
 
-Você pode criar uma categoria fazendo uma solicitação POST para o seguinte URL: `http://54.233.122.212/criar/categoria`. Exemplo de carga JSON:
+Você pode criar uma categoria fazendo uma solicitação POST para o seguinte URL: ``https://api.eattog.jera.com.br/criar/categoria`. Exemplo de carga JSON:
 
 ```json
 {
@@ -83,7 +83,7 @@ Você pode criar uma categoria fazendo uma solicitação POST para o seguinte UR
 
 ## Criar um Usuário via URL
 
-Você pode criar um usuário fazendo uma solicitação POST para o seguinte URL: `http://54.233.122.212/users/sign-up`. Exemplo de carga JSON:
+Você pode criar um usuário fazendo uma solicitação POST para o seguinte URL: ``https://api.eattog.jera.com.br/users/sign-up`. Exemplo de carga JSON:
 
 ```json
 {
@@ -93,7 +93,4 @@ Você pode criar um usuário fazendo uma solicitação POST para o seguinte URL:
     "numero_celular": "11111111111",
     "senha": "biLibertadores19"
 }
-```
-
-```
 

@@ -13,12 +13,25 @@ const route = useRoute()
 
 const singleRestaurante = useSingleRestauranteStore();
 
-onMounted(()=> singleRestaurante.listarDescontos(route.params.id))
+onMounted(() => singleRestaurante.listarDescontos(route.params.id))
 
 const emits = defineEmits('pratoClicado');
 
-const handlePratoClicado = () => {
-  emits('pratoClicado', props.dish)
+const handlePratoClicado = (prato) => {
+    emits('pratoClicado', prato)
+}
+
+const formatarIgredientes = (listaIngredientes) => {
+    let lista = ""
+    listaIngredientes.forEach((ingrediente, i) => {
+        console.log(i)
+        if (i == listaIngredientes.length - 1)
+            lista += `${ingrediente}.`
+        else
+            lista += `${ingrediente}, `
+    });
+
+    return lista
 }
 </script>
 
@@ -33,30 +46,23 @@ const handlePratoClicado = () => {
             <el-col class="col" :span="20">
                 <el-row :gutter=10>
                     <el-col :span="24">
-                        <Swiper 
-                        loop= true
-                        :autoplay="{
+                        <Swiper loop=true :autoplay="{
                             delay: 2500,
                             disableOnInteraction: false,
-                        }" 
-                        :pagination="{
-                            clickable: true,
-                        }" :navigation="true" 
-                        :slides-per-view="3.3" 
-                        :modules="modulo" 
-                        space-between="30"
-                            >
+                        }" :pagination="{
+    clickable: true,
+}" :navigation="true" :slides-per-view="3.3" :modules="modulo" space-between="30">
                             <SwiperSlide v-for="prato in singleRestaurante.filtroDesconto">
-                                <div class="grid-content" @click="handlePratoClicado()">
+                                <div class="grid-content" @click="handlePratoClicado(prato)">
                                     <div class="image" :style="{ background: 'url(' + prato.imagem + ')' }">
                                     </div>
                                     <div class="details">
                                         <h6>{{ prato.nome }}</h6>
-                                        <!-- <p>{{ prato.ingredientes }}</p> -->
+                                        <p>{{ formatarIgredientes(prato.ingredientes) }}</p>
                                         <div class="prices">
-                                            <span  v-if=prato.desconto class="original">De: R${{ prato.valor }}</span>
-                                            <span v-else > R${{ prato.valor }}</span>
-                                            <span v-if=prato.desconto class="sale">Por: R${{ prato.valor_desconto }}</span>
+                                            <span v-if=prato.desconto class="original">De: R${{ prato.valor }}</span>
+                                            <span v-else> R${{ prato.valor }}</span>
+                                            <span v-if=prato.desconto class="sale" style="  color: #50a773; font-weight: 500;">Por: R${{ prato.valor - prato.valor_desconto }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -70,58 +76,69 @@ const handlePratoClicado = () => {
 </template>
 
 <style>
-    #sales .el-row,
-    #sales .grid-content {
-        text-align: unset !important;
-    }
-    #sales a{text-decoration: none;}
-    #sales .details p {
-        margin: 0;
-    }
+#sales .el-row,
+#sales .grid-content {
+    text-align: unset !important;
+}
 
-    #sales .prices {
-        display: grid;
-        text-align: end;
-    }
+#sales a {
+    text-decoration: none;
+}
 
-    #sales .prices .original {
-        text-decoration: line-through
-    }
+#sales .details p {
+    margin: 0;
+}
 
-    #sales .grid-content {
-        text-align: center;
-        background-color: var(--white100);
-        box-shadow: 0 0 0.75rem rgba(0, 0, 0, 0.12);
-        border-radius: 0.25rem;
-        border: 0.063rem solid var(--white300);
-        color: var(--gray800);
-        text-decoration: none !important;
-        height: 20.75rem;
-    }
+#sales .prices {
+    display: grid;
+    text-align: end;
+}
 
-    #sales .image {
-        height: 11.25rem !important;
-        background-size: cover !important;
-        background-repeat: no-repeat;
-        display: grid;
-        align-content: end;
-    }
+#sales .prices .original {
+    text-decoration: line-through
+}
 
-    #sales .details {
-        padding: 0.25rem 1.25rem 2rem 1.25rem;
-    }
+#sales .grid-content {
+    text-align: center;
+    background-color: var(--white100);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+    border: 1px solid var(--white300);
+    color: var(--gray800);
+    border-radius: 5px;
+    text-decoration: none !important;
+    height: 20.75rem;
+    width: 300px;
+    cursor: pointer;
+    transition: 0.2s;
+}
 
-    #restaurants .details div {
-        display: flex;
-        justify-content: space-between;
-    }
+#sales .grid-content:hover {
+    transform: scale(1.02);
+}
 
-    #sales .details h6 {
-        font-size: 1rem;
-        font-weight: 700;
-    }
+#sales .image {
+    height: 11.25rem !important;
+    background-size: cover !important;
+    background-repeat: no-repeat;
+    display: grid;
+    align-content: end;
+}
 
-    #sales .details span {
-        font-size: 0.813rem;
-    }
+#sales .details {
+    padding: 0.25rem 1.25rem 2rem 1.25rem;
+}
+
+#restaurants .details div {
+    display: flex;
+    justify-content: space-between;
+}
+
+#sales .details h6 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+#sales .details span {
+    font-size: 0.813rem;
+}
 </style>

@@ -109,29 +109,51 @@ const value = ref('Selecione');
                 <el-row :gutter=8>
                     <Restaurant v-for="restaurante in restaurantes" :restaurant="restaurante" />
                 </el-row>
+                <el-row>
+                    <div class="paginacao-config">
+                        <button class="button-restaurant" @click="restaurantesStore.voltarPagina()">Anterior</button>
+                        <span>{{ paginaAtual }}</span>
+                        <button class="button-restaurant" @click="restaurantesStore.passarPagina()">Próximo</button>
+
+                    </div>
+                </el-row>
                 <!-- <el-row justify=center>
                     <button @click="restaurantesStore.voltarPagina()">Anterior</button>
                     <span>{{ paginaAtual }}</span>
                     <button @click="restaurantesStore.passarPagina()">Próximo</button>
                 </el-row> -->
-                <div class="paginacao-config">
-                    <button @click="restaurantesStore.voltarPagina()">Anterior</button>
-                    <span>{{ paginaAtual }}</span>
-                    <button @click="restaurantesStore.passarPagina()">Próximo</button>
-
-                </div>
             </el-col>
         </el-row>
     </section>
-    <Footer></Footer>
 </template>
 
-<style>
-#restaurants .paginacao-config {
+<style scoped>
+.el-row {
+    height: unset !important;
+}
+
+/* #restaurants .paginacao-config {
     display: flex;
     position: relative;
     bottom: -155px;
     justify-content: center;
 
+}
+*/
+
+#restaurants {
+    padding: 4rem 0px;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 70px;
+}
+
+.button-restaurant {
+    background-color: var(--yellow400);
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    margin: 0 1rem 0 1rem;
+    cursor: pointer;
 }
 </style>

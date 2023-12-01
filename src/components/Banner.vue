@@ -17,7 +17,7 @@
                 <div style="display: flex">
                     <img :src=banner.logo alt="">
                     <div style="padding-left: 12px;">
-                        <h1>{{ banner.titulo }}</h1>
+                        <h1>{{ banner.razao_social }}</h1>
                         <el-rate disabled v-model="banner.avaliacao" />
                     </div>
                 </div>

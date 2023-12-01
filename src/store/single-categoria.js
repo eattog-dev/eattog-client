@@ -6,7 +6,8 @@ export const useSingleCategoriaStore = defineStore('single-categoria', {
     }),
     actions: {
         async carregarPratos(id){
-            const resposta = await fetch(`http://54.233.122.212/pratos-categoria/${id}`);
+           const resposta = await fetch(`https://api.eattog.jera.com.br/pratos-categoria/${id}`);
+           // const resposta = await fetch(`http://localhost:3000/pratos-categoria/${id}`);
             const lista = await resposta.json();
             
             this.listaPratos = lista.categoria_prato;

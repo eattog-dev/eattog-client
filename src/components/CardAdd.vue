@@ -1,41 +1,43 @@
 <template>
-    <div class="container">
+    <div class="card">
+
         <div class="card-container">
-          <div class="front">
-            <div class="image">
-                <img src="../assets/img-card/chip.jpeg" alt="">
-                <img src="../assets/img-card/logovisa.png" alt="">
-            </div>
-            <div class="card-number-box">{{ cardNumber }}</div>
-            <div class="flexbox">
-                <div class="box">
-                    <span>card holder</span>
-                    <div class="card-holder-name">{{ cardHolder }}</div>
+            <div class="front">
+                <div class="image">
+                    <img src="../assets/img-card/chip.jpeg" alt="">
+                    <img src="../assets/img-card/logovisa.png" alt="">
                 </div>
-                <div class="box">
-                    <span>expires</span>
-                    <div class="expiration">
-                    <span class="exp-month">{{ cardExpirationMonth }}</span>
-                    <span class="">{{ cardBarra }}</span>
-                    <span class="exp-year">{{ cardYear }}</span>
+                <div class="card-number-box">{{ cardNumber }}</div>
+                <div class="flexbox">
+                    <div class="box">
+                        <span>card holder</span>
+                        <div class="card-holder-name">{{ cardHolder }}</div>
+                    </div>
+                    <div class="box">
+                        <span>expires</span>
+                        <div class="expiration">
+                            <span class="exp-month">{{ cardExpirationMonth }}</span>
+                            <span class="">{{ cardBarra }}</span>
+                            <span class="exp-year">{{ cardYear }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-          </div>
     
-          <div class="back">
-            <div class="stripe"></div>
-            <div class="box">
-                <span>cvv</span>
-                <div class="cvv-box">{{ cardCVV }}</div>
+            <div class="back">
+                <div class="stripe"></div>
+                <div class="box">
+                    <span>cvv</span>
+                    <div class="cvv-box">{{ cardCVV }}</div>
+                </div>
             </div>
-          </div>
         </div>
     
         <form @submit.prevent="submitForm">
             <div class="inputBox">
                 <span>card number</span>
-                <input v-model="cardNumber" v-mask="'#### #### #### ####'" type="text" class="card-number-input" @change="validateForm">
+                <input v-model="cardNumber" v-mask="'#### #### #### ####'" type="text" class="card-number-input"
+                    @change="validateForm">
                 <span class="error">{{ formErrors.cardNumber }}</span>
             </div>
             <div class="inputBox">
@@ -66,15 +68,15 @@
                     <span class="error">{{ formErrors.cardCVV }}</span>
                 </div>
             </div>
-            <input type="submit" value="submit" class="submit-btn">
+            <!-- <input type="submit" value="salvar" class="submit-btn">  -->
         </form>
     </div>
 </template>
   
 <script>
-    export default {
-        data() {
-            return {
+export default {
+    data() {
+        return {
             cardNumber: '',
             cardHolder: '',
             cardExpirationMonth: 'month',
@@ -90,83 +92,81 @@
                 cardCVV: '',
                 cardHolder: '',
             },
-            };
-        },
-    
-        created() {
-            this.years = this.generateYears(2023, 2040);
-            this.months = this.generateMonth(1, 12);
-        },
-        methods: {
-            generateYears(startYear, endYear) {
-                const years = [];
-                for (let year = startYear; year <= endYear; year++) {
-                    years.push(year);
-                }
-                return years;
-            },
-            submitForm() {
-                if (this.validateForm()) {
-                    console.log('Formulário válido');
-                }
-            },
-            generateMonth(startMonth, endMonth) {
-                const months = [];
-                for (let month = startMonth; month <= endMonth; month++) {
-                    months.push(month);
-                }
-                return months;
-            },
-        
-            validateForm() {
-                let isValid = true;
-            
-                const cardNumberWithoutSpaces = this.cardNumber.replace(/[-\s]/g, '');
-            
-                if (!/^(?:\d[- ]*){15}\d$/.test(cardNumberWithoutSpaces)) {
-                    this.formErrors.cardNumber = 'Número de cartão inválido';
-                    isValid = false;
-                } else {
-                    this.formErrors.cardNumber = '';
-                }
-            
-                if (this.cardHolder.trim() === '') {
-                    this.formErrors.cardHolder = 'Campo obrigatório';
-                    isValid = false;
-                } else {
-                    this.formErrors.cardHolder = '';
-                }
-            
-                if (this.cardExpirationMonth === 'month') {
-                    this.formErrors.cardExpirationMonth = 'Selecione um mês válido';
-                    isValid = false;
-                } else {
-                    this.formErrors.cardExpirationMonth = '';
-                }
-            
-                if (this.cardYear === 'year') {
-                    this.formErrors.year = 'Selecione um ano válido';
-                    isValid = false;
-                } else {
-                    this.formErrors.year = '';
-                }
-            
-                if (!/^\d{3}$/.test(this.cardCVV)) {
-                    this.formErrors.cardCVV = 'CVV inválido';
-                    isValid = false;
-                } else {
-                    this.formErrors.cardCVV = '';
-                }
-        
-                return isValid;
-            },
-        },
-    };
-</script>
-<style setup>
+        };
+    },
 
-.container {
-    min-height: 100vh;
+    created() {
+        this.years = this.generateYears(2023, 2040);
+        this.months = this.generateMonth(1, 12);
+    },
+    methods: {
+        generateYears(startYear, endYear) {
+            const years = [];
+            for (let year = startYear; year <= endYear; year++) {
+                years.push(year);
+            }
+            return years;
+        },
+        submitForm() {
+            if (this.validateForm()) {
+                console.log('Formulário válido');
+            }
+        },
+        generateMonth(startMonth, endMonth) {
+            const months = [];
+            for (let month = startMonth; month <= endMonth; month++) {
+                months.push(month);
+            }
+            return months;
+        },
+
+        validateForm() {
+            let isValid = true;
+
+            const cardNumberWithoutSpaces = this.cardNumber.replace(/[-\s]/g, '');
+
+            if (!/^(?:\d[- ]*){15}\d$/.test(cardNumberWithoutSpaces)) {
+                this.formErrors.cardNumber = 'Número de cartão inválido';
+                isValid = false;
+            } else {
+                this.formErrors.cardNumber = '';
+            }
+
+            if (this.cardHolder.trim() === '') {
+                this.formErrors.cardHolder = 'Campo obrigatório';
+                isValid = false;
+            } else {
+                this.formErrors.cardHolder = '';
+            }
+
+            if (this.cardExpirationMonth === 'month') {
+                this.formErrors.cardExpirationMonth = 'Selecione um mês válido';
+                isValid = false;
+            } else {
+                this.formErrors.cardExpirationMonth = '';
+            }
+
+            if (this.cardYear === 'year') {
+                this.formErrors.year = 'Selecione um ano válido';
+                isValid = false;
+            } else {
+                this.formErrors.year = '';
+            }
+
+            if (!/^\d{3}$/.test(this.cardCVV)) {
+                this.formErrors.cardCVV = 'CVV inválido';
+                isValid = false;
+            } else {
+                this.formErrors.cardCVV = '';
+            }
+
+            return isValid;
+        },
+    },
+};
+</script>
+<style scoped>
+.card {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -181,7 +181,7 @@
     text-transform: uppercase;
 }
 
-.container form {
+form {
     background-color: var(--white100);
     border-radius: .313rem;
     box-shadow: 0 10px 0.938rem rgba(0, 0, 0, .1);
@@ -190,18 +190,18 @@
     padding-top: 160px;
 }
 
-.container form .inputBox {
+form .inputBox {
     margin-top: 20px;
 }
 
-.container form .inputBox span {
+form .inputBox span {
     display: block;
     color: var(--gray300);
     padding-bottom: .313rem;
 }
 
-.container form .inputBox input,
-.container form .inputBox select {
+form .inputBox input,
+form .inputBox select {
     width: 100%;
     padding: 10px;
     border-radius: 10px;
@@ -209,18 +209,20 @@
     color: var(--gray500);
 }
 
-.container form .flexbox {
+form .flexbox {
     display: flex;
     gap: 0.938rem;
 }
 
-.container form .flexbox .inputBox {
+form .flexbox .inputBox {
     flex: 1 1 150px;
 }
 
-.container form .submit-btn {
-    width: 100%;
-    background: linear-gradient(45deg, rgb(228, 242, 148), rgb(78, 78, 78));
+form .submit-btn {
+    /* background: linear-gradient(45deg, rgb(228, 242, 148), rgb(78, 78, 78)); */
+    margin: auto;
+    display: block;
+    background: var( --yellow500);
     margin-top: 20px;
     padding: 10px;
     font-size: 20px;
@@ -229,22 +231,23 @@
     border: none;
     cursor: pointer;
     border: none;
-    transition: .2s linear;
+    text-transform: capitalize;
+    /*transition: .2s linear;*/
 }
 
-.container form .submit-btn:hover {
+/* form .submit-btn:hover {
     letter-spacing: 2px;
     opacity: .8;
-}
+} */
 
-.container .card-container {
+.card-container {
     margin-bottom: -150px;
     position: relative;
     height: 250px;
     width: 400px;
 }
 
-.container .card-container .front {
+.card-container .front {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -259,38 +262,38 @@
     transition: transform .4s ease-out;
 }
 
-.container .card-container .front .image {
+.card-container .front .image {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding-top: 10px;
 }
 
-.container .card-container .front .image img {
+.card-container .front .image img {
     height: 3.125rem;
     border-radius: 10%;
 }
 
-.container .card-container .front .card-number-box {
+.card-container .front .card-number-box {
     padding: 1.875rem 0;
     font-size: 22px;
     color: var(--white100);
 }
 
-.container .card-container .front .flexbox {
+.card-container .front .flexbox {
     display: flex;
 }
 
-.container .card-container .front .flexbox .box:nth-child(1) {
+.card-container .front .flexbox .box:nth-child(1) {
     margin-right: auto;
 }
 
-.container .card-container .front .flexbox .box {
+.card-container .front .flexbox .box {
     font-size: 0.938rem;
     color: var(--white100);
 }
 
-.container .card-container .back {
+.card-container .back {
     position: absolute;
     top: 0;
     left: 0;
@@ -306,23 +309,23 @@
     transition: transform .4s ease-out;
 }
 
-.container .card-container .back .stripe {
+.card-container .back .stripe {
     background-color: var(--black100);
     width: 100%;
     margin: 10px 0;
     height: 3.125rem;
 }
 
-.container .card-container .back .box {
+.card-container .back .box {
     padding: 0 20px;
 }
 
-.container .card-container .back .box span {
+.card-container .back .box span {
     color: var(--white100);
     font-size: 0.938rem;
 }
 
-.container .card-container .back .box .cvv-box {
+.card-container .back .box .cvv-box {
     height: 3.125rem;
     padding: 10px;
     margin-top: .313rem;
@@ -332,7 +335,7 @@
     width: 100%;
 }
 
-.container .card-container .back .box img {
+.card-container .back .box img {
     margin-top: 1.875rem;
     height: 1.875rem;
 }

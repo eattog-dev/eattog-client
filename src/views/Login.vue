@@ -1,47 +1,50 @@
 <template>
   <section id="login">
-    <div class="loading-overlay" v-if="loading">
-      <div class="loading-spinner"></div>
-    </div>
+
     <el-row>
-      <el-col :span="12" class="login-bg-white">
+      <el-col :xs="24" :span="12" class="login-bg-white">
         <Logo class="" text="Eattog" icon="🟨"></Logo>
         <p class="login-slogan">Delicious Food, Delivered Fast</p>
       </el-col>
-      <el-col :span="12">
-        <el-form class="login-container-form" ref="loginForm" :model="formData" label-width="100px" label-position="top">
-          <el-header>
+      <el-col :xs="24" :span="12">
+        <el-form class="login-container-form" ref="loginForm" :model="formulario" label-width="6.25rem"
+          label-position="top">
+          <el-header class="custom-header">
             <el-divider class="text-login" content-position="center">Login</el-divider>
           </el-header>
 
           <div class="login-account">
             <el-form-item label="E-mail" prop="email" :rules="emailRules">
-              <el-input type="email" v-model="formData.email"></el-input>
+              <el-input type="email" v-model="formulario.email"></el-input>
             </el-form-item>
-            <el-form-item label="Password" prop="password" :rules="passwordRules">
-              <el-input v-model="formData.password" :type="showPassword ? 'text' : 'password'"></el-input>
-              <el-button class="password-toggle-button" @click="togglePassword">
+            <el-form-item label="Senha" prop="password" :rules="passwordRules">
+              <el-input v-model="formulario.password" :type="showPassword ? 'text' : 'password'">
+              </el-input>
+              <el-button class="password-login" @click="togglePassword()">
                 <span v-if="showPassword">🙉</span>
                 <span v-else>🙈</span>
               </el-button>
+
             </el-form-item>
-            <RouterLink class="link-esqueceu-senha" to="#">Esqueceu sua senha?</RouterLink>
+            <span class="login-esqueceu-senha" @click="goToCadastro()">Nao tem conta ainda? Cadastre-se agora</span>
             <el-form-item>
-              <el-button type="primary" @click="submitForm">Login</el-button>
+              <el-button class="login-button" type="primary" @click="submitForm(loginForm)">Login</el-button>
             </el-form-item>
           </div>
           <el-form-item>
-            <el-alert v-if="errorMsg" title="Please fill in all required fields." type="error" show-icon></el-alert>
+            <el-alert v-if="errorMsg" class="login-alert" title="Please fill in all required fields." type="error"
+              show-icon></el-alert>
           </el-form-item>
         </el-form>
       </el-col>
     </el-row>
   </section>
 </template>
-
 <script setup>
+import axios from "axios";
+
 import Logo from "../components/Logo.vue";
-import { ref } from "vue";
+import { ref, computed, onMounted } from "vue";
 import {
   ElForm,
   ElFormItem,
@@ -54,114 +57,111 @@ import {
   ElAlert,
 } from "element-plus";
 
-const formData = ref({
-  email: "",
-  password: "",
-});
+import { useRouter, useRoute } from 'vue-router';
+
+const router = useRouter();
+
+
+const goToCadastro = () => router.push("/cadastro");
+
+const formulario = ref({})
 
 const emailRules = [
-  { required: true, message: "Please enter your email", trigger: "blur" },
+  { required: true, message: "Por favor digite um email", trigger: "blur" },
   {
     type: "email",
-    message: "Please enter a valid email address",
+    message: "Please digite um email válido",
     trigger: "blur",
   },
 ];
 
-const passwordRules = [
-  { required: true, message: "Please enter a password", trigger: "blur" },
-  {
-    validator: (rule, value, callback) => {
-      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,}$/;
-      if (!regex.test(value)) {
-        callback(
-          new Error(
-            "Password must have at least 6 characters, one uppercase letter, one lowercase letter, and one special character"
-          )
-        );
-      } else {
-        callback();
-      }
-    },
-    trigger: "blur",
-  },
-];
+const passwordRules = { required: true, message: "Por Favor digite a senha", trigger: "blur" };
+
+
+const loginForm = ref(null);
+const errorMsg = ref(false);
 
 const showPassword = ref(false);
-const loading = ref(false);
 
 const togglePassword = () => {
   showPassword.value = !showPassword.value;
-};
+}
 
-const submitForm = () => {
-  loading.value = true;
-
-  loginForm.value.validate((valid) => {
+const submitForm = (cadastroForm) => {
+  cadastroForm.validate(async (valid) => {
     if (valid) {
-      console.log("Form Data:", formData.value);
-      errorMsg.value = "";
-      setTimeout(() => {
-        loading.value = false;
-      }, 2000);
+      await axios
+        .post("https://api.eattog.jera.com.br/users/sign-in", {
+          "email": formulario.value.email,
+          "senha": formulario.value.password
+        })
+        .then(response => {
+          sessionStorage.setItem("token", response.data.accessToken);
+          alert("logado com sucesso")
+          router.push("/inicio");
+        })
+        .catch(error => {
+          alert('Algo deu errado. Tente Novamente');
+        })
     } else {
-      errorMsg.value = "Please fill in all required fields.";
-      loading.value = false;
+      errorMsgPassword = "";
+      const errorMsg = ref(true);
+      alert('Algo deu errado. Tente Novamente');
     }
   });
-};
-
-const loginForm = ref(null);
-const errorMsg = ref("");
+}
 </script>
 
-<style setup>
-@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Indie+Flower&display=swap");
-
+<style scoped>
+footer.cmp-footer{
+  display: none !important;
+}
 #login {
   --el-color-primary: var(--yellow100);
 }
 
-#login .login-bg-white {
+.login-bg-white {
   background-color: rgba(240, 252, 172, 0.849);
 }
 
-#login .login-container-form {
-  width: 80%;
-  height: 99vh;
-  margin: 12.5rem auto 0 0;
+.login-container-form {
+  padding: 1.5rem;
+  margin: 20rem auto 0 0;
   text-align: center;
   font-family: "Roboto", sans-serif;
 }
 
-#login .login-slogan {
+.login-slogan {
   display: flex;
-  font-size: 1rem;
+  font-size: 1.6rem;
   color: var(--gray400);
-  margin: 0.625rem 0% 0 0%;
+  margin: 1rem 0 0 0;
   justify-content: center;
 }
 
-#login .login-account {
+.login-account {
   display: block;
 }
 
-#login .el-form {
-  width: 80%;
+.el-form {
   margin: auto;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: center;
   align-content: center;
+  height: 99vh;
+
 }
 
-#login .link-esqueceu-senha {
+.login-esqueceu-senha {
   display: flex;
   justify-content: flex-end;
+  color: var(--black100);
+  cursor: pointer;
 }
 
-#login .el-alert {
+.login-alert {
   display: flex;
   justify-content: center;
   position: fixed;
@@ -171,31 +171,47 @@ const errorMsg = ref("");
   z-index: 999999;
 }
 
-#login .password-toggle-button {
+.password-login {
   background-color: transparent !important;
   border-color: transparent !important;
   width: auto !important;
-  margin: 0rem!important;
+  margin: 0rem !important;
+  position: absolute;
+  right: 0.625rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  padding: 0;
+  color: var(--gray400);
 }
 
-#login .el-button {
+.password-login .el-input {
+  position: relative;
+  background-image: url(../assets/img-login/monkeySee.svg) !important;
+  background-size: 20px !important;
+}
+
+.login-button {
   background-color: var(--yellow400);
   color: rgba(0, 0, 0, 0.813);
   border-color: var(--yellow400);
-  border-radius: 0.625rem;
-  width: 50%;
-  margin: 1.25rem auto;
-  padding: 1rem 0;
+  border-radius: 1rem !important;
+  width: 20rem !important;
+  margin: 0.25rem auto;
+  padding: 1.6rem 0 !important;
 }
 
-#login .el-button:hover,
-.el-button:focus {
+.login-button:hover,
+.login-button:focus {
   background-color: rgba(255, 255, 0, 0.418);
   color: var(--black100);
   border-color: var(--yellow400);
 }
 
-#login .loading-overlay {
+.loading-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -208,12 +224,13 @@ const errorMsg = ref("");
   z-index: 9999;
 }
 
-#login .loading-spinner {
-  border: 0.375rem solid var(--white200);
-  border-top: 0.375rem solid var(--rgba-yellow);
-  border-radius: 50%;
-  width: 3.125rem;
-  height: 3.125rem;
+
+.loading-spinner {
+  border: 0.6rem solid var(--white200);
+  border-top: 0.6rem solid var(--rgba-yellow);
+  border-radius: 5rem;
+  width: 5rem;
+  height: 5rem;
   animation: spin 2s linear infinite;
 }
 
@@ -227,58 +244,61 @@ const errorMsg = ref("");
   }
 }
 
-@media (max-width: 800px) {
-  #login .login-slogan {
-    font-size: 1rem;
+/*@media (max-width: 50rem) {
+  .login-slogan {
+    font-size: 1.6rem;
     display: flex;
     color: var(--gray400);
-    margin: 0.625rem 0% 1.125rem 0%;
+    margin: 1rem 0 1.8rem 0;
     justify-content: center;
   }
 
-  #login .login-account {
+  .login-account {
     display: block;
-    margin: 1.688rem 0 0rem 0;
+    margin: 2.7rem 0 0 0;
   }
 
-  #login .login-container-form {
-    width: 80%;
-    height: 45vh;
+  .custom-header {
+    height: 3rem;
   }
 
-  #login .el-header {
-    height: 1.875rem;
+  .custom-form-item__label {
+    margin-top: 1.5rem;
   }
 
-  #login .el-form-item__label {
-    margin-top: 0.938rem;
-  }
-
-  #login .el-divider {
+  .custom-divider {
     margin: 4rem 0 0 0;
   }
 
-  #login .el-divider__text {
-    padding: 0 0.125rem;
+  .custom-divider__text {
+    padding: 0 0.2rem;
   }
 
-  #login.el-divider__text.is-center {
+  .custom-divider__text.is-center {
     transform: translate(-50%, -30%);
   }
 
-  #login .el-form {
-    width: 80%;
-    margin: auto;
-  }
-
-  #login .el-alert {
+  .custom-alert {
     display: flex;
     justify-content: center;
     position: fixed;
     top: 60%;
     left: auto;
-    width: 80%;
+    width: 8rem;
     z-index: 999999;
+  }
+}
+*/
+@media (max-width: 768px) {
+
+  .el-form {
+    min-height: 30rem;
+
+  }
+
+  .logotipo,
+  .login-slogan {
+    margin: unset;
   }
 }
 </style>
