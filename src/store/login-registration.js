@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import axios from "axios";
 import { useRouter } from 'vue-router';
 
 export const useLoginStore = defineStore("login", {
@@ -58,7 +57,6 @@ export const useLoginStore = defineStore("login", {
             })
             .then(response => {
               if (!response.ok) {
-                // console.log("Erro ao fazer login")
                 throw new Error('Erro ao fazer login');
               }
               return response.json(); 
