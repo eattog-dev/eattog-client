@@ -19,6 +19,9 @@
                 <el-menu-item class="cmp-admin-tabs-item" index="create" @click="changeToCreate('create')">
                     Equipe 
                 </el-menu-item>
+                <el-menu-item class="cmp-admin-tabs-item" index="create" @click="returnHome">
+                    Sair 
+                </el-menu-item>
             </el-menu>
         </el-aside>
 
