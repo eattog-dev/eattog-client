@@ -434,7 +434,7 @@ export default {
     },
 
     fetchRestaurantesDoUsuario() {
-      axios.get('http://api.eattog.jera.com.br/meus-restaurantes', {
+      axios.get('https://api.eattog.jera.com.br/meus-restaurantes', {
         headers: { 'Authorization': sessionStorage.getItem("token-admin") }
       }).then(response => {
         this.restaurantesDoUsuario = response.data;
