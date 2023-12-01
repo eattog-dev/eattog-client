@@ -122,7 +122,7 @@ export const useCadastroStore = defineStore("owner-registration", {
           });
 
           console.log(cadastro.data)
-          this.router.push("login/proprietario")
+          this.router.push({name: OwnerLogin})
           this.success(`seja bem vindo ao sistema ${this.formulario.nome}`)
         } else {
           this.errorMsgPassword = "";

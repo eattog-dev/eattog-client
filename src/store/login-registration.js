@@ -66,7 +66,7 @@ export const useLoginStore = defineStore("login", {
             .then(data => {
               this.token = data.accessToken; 
               sessionStorage.setItem("token-admin", this.token);
-              this.router.push("/admin");
+              this.router.push({name: Admin});
             })
             .catch(error => {
               console.error('Erro ao fazer login:', error);
