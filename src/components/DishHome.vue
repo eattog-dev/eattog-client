@@ -78,7 +78,7 @@ const handlePratoClicado = () => {
 .cmp-card-prato .cmp-tag-alimentacao .tag-aliment {
   position: relative;
   top: -19px;
-  z-index: 9999999;
+  z-index: 9;
   background-color: var(--yellow100);
   padding: 5px;
   border-radius: 5px;
