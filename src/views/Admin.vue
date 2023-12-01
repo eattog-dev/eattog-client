@@ -223,7 +223,7 @@
         <el-input v-model="novoPrato.valor_desconto" class="cmp-admin-form-input"></el-input>
       </el-form-item>
       <el-form-item label="Selecione categoria">
-        <el-select v-model="restaurantMealType" class="cmp-admin-form-select" required>
+        <el-select v-model="novoPrato.categoriaid" class="cmp-admin-form-select" required>
           <el-option v-for="c in categorias" :key="c.id" :label="c.categoria" :value="c.id"></el-option>
         </el-select>
       </el-form-item>
@@ -579,7 +579,7 @@ export default {
         formDataPrato.append('tempo_preparo', this.novoPrato.tempo_preparo);
         formDataPrato.append('restaurante_id', this.novoPrato.restaurantid);
         formDataPrato.append('descricao', this.novoPrato.descricao);
-        formDataPrato.append('categoria_prato', this.novoPrato.categoria_prato);
+        formDataPrato.append('categoria_prato', this.novoPrato.categoriaid);
         formDataPrato.append('desconto', this.novoPrato.desconto);
         formDataPrato.append('valor_desconto', this.novoPrato.valor_desconto);
 
