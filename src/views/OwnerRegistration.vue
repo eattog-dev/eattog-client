@@ -11,7 +11,7 @@
                 <el-input class="cmp-owner-form-input" type="text" v-model="formulario.nome"></el-input>
             </el-form-item>
             <div class="cmp-owner-form-item">
-                <el-form-item label="Data de nascimento" prop="data_nascimento" :rules="dateOfBirthRules">
+                <el-form-item label="Data de nascimento (AAAA/MM/DD)" prop="data_nascimento" :rules="dateOfBirthRules">
                     <el-input class="cmp-owner-form-input" type="text" v-mask="'####-##-##'" v-model="formulario.data_nascimento"></el-input>
                 </el-form-item>
                 <el-form-item label="Número de telefone" prop="numberPhone" :rules="phoneRules">
