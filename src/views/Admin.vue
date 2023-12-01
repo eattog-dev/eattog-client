@@ -227,6 +227,12 @@
           <el-option v-for="c in categorias" :key="c.id" :label="c.categoria" :value="c.id"></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="Selecione um restaurante">
+        <el-select v-model="restaurantMealType" class="cmp-admin-form-select" required>
+          <el-option v-for="rest in restaurantesDoUsuario" :key="rest.id"
+            :label="rest.razao_social" :value="rest.id"></el-option>
+        </el-select>
+      </el-form-item>
       <!-- <el-form-item label="Imagem">
                 <input type="file" class="cmp-admin-upload-input" @change="uploadImagePrato" accept="image/*">
             </el-form-item> -->
@@ -437,6 +443,7 @@ export default {
       axios.get('https://api.eattog.jera.com.br/meus-restaurantes', {
         headers: { 'Authorization': sessionStorage.getItem("token-admin") }
       }).then(response => {
+        console.log(response);
         this.restaurantesDoUsuario = response.data;
       })
         .catch(error => {
@@ -597,7 +604,7 @@ export default {
       fetch('https://api.eattog.jera.com.br/criar/prato', {
         method: "POST",
         headers: {
-          'Authorization': `Bearer ${sessionStorage.getItem("token-admin")}`
+          'Authorization': sessionStorage.getItem("token-admin")
         },
         body: formDataPrato
       })
