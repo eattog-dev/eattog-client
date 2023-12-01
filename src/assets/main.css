@@ -44,11 +44,13 @@ body {
     --transp-gray100: #c3c3c31c;
 
     --rgba-yellow: rgba(255, 255, 0, 0.642);
+    --rgba-yellow200: rgba(255, 255, 0, 0.642);
 
     --rgba-gray100: rgba(0, 0, 0, 0.857);
     --rgba-gray200: rgba(0, 0, 0, 0.1);
 
     --rgba-lightgray100: rgba(255, 254, 212, 0.409);
+    --rgba-lightgray200: rgba(255, 254, 212, 0.268);
 
     --laptop: 1024px;
     --tablet: 768px;
@@ -104,6 +106,10 @@ body {
 .el-select .el-input.is-focus .el-input__wrapper {
     box-shadow: 0 0 0 1px var(--yellow100) inset!important;
 }
+.el-menu-item:focus {
+    background-color: var(--rgba-lightgray200);
+}
+
 @media (max-width: 768px){
     .el-menu-item{
         height: unset!important;

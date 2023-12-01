@@ -281,6 +281,10 @@
 </script>
 
 <style>
+    .cmp-admin .el-menu {
+    height: 99% !important;
+    z-index: 9999;
+    }
     .cmp-admin_dark-overlay {
         position: fixed;
         top: 0;

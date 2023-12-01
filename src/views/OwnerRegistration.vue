@@ -12,7 +12,7 @@
             </el-form-item>
             <div class="cmp-owner-form-item">
                 <el-form-item label="Data de nascimento" prop="data_nascimento" :rules="dateOfBirthRules">
-                    <el-input class="cmp-owner-form-input" type="text" v-mask="'####-##-##'" v-model="formulario.data_nascimento"></el-input>
+                    <el-input class="cmp-owner-form-input" placeholder="AAAA/MM/DD" type="text" v-mask="'####-##-##'" v-model="formulario.data_nascimento"></el-input>
                 </el-form-item>
                 <el-form-item label="Número de telefone" prop="numberPhone" :rules="phoneRules">
                     <el-input class="cmp-owner-form-input" type="text" v-mask="'(##)#####-####'" v-model="formulario.numberPhone"></el-input>
@@ -256,6 +256,9 @@
     }
     .cmp-owner-form-item {
         display: block;
+    }
+    .cmp-owner-format-link {
+        flex-direction: column-reverse;
     }
 }
 </style>

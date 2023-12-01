@@ -20,8 +20,8 @@
                         <el-date-picker class="cadastro-inputDate" v-model="formulario.data_nascimento" type="date"
                             placeholder="Selecione a data" format="DD/MM/YYYY" value-format="DD/MM/YYYY"></el-date-picker>
                     </el-form-item> -->
-                    <el-form-item label="Data de Nascimento" prop="data_nascimento" :rules="dateOfBirthRules">
-                        <el-input type="text" v-mask="'####-##-##'" v-model="formulario.data_nascimento"></el-input>
+                    <el-form-item label="Data de nascimento" prop="data_nascimento" :rules="dateOfBirthRules">
+                        <el-input type="text" placeholder="AAAA/MM/DD" v-mask="'####-##-##'" v-model="formulario.data_nascimento"></el-input>
                     </el-form-item  >
                     <!-- value-format="YYYY/MM/DD" -->
                     <el-form-item label="Número de Telefone" prop="numberPhone" :rules="phoneRules">

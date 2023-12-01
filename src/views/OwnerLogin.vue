@@ -210,15 +210,18 @@ const togglePassword = () => {
 }
 @media (max-width: 768px) {
     .cmp-owner-form-container {
-        right: inherit;
-        top: inherit;
-        border-radius: none;
+        right: 0 !important;
+        left: 0 !important;
+        border-radius: 0 !important;
     }
     .cmp-owner-form-container .el-form {
         width: 100%;
     }
     .cmp-owner-form-item {
         display: block;
+    }
+    .cmp-owner-format-link {
+        flex-direction: column-reverse;
     }
 }
 </style>

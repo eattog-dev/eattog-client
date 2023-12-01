@@ -219,6 +219,10 @@
         text-align: center;
         border-top: .063rem solid var(--gray600);
     }
+    
+    .cmp-modaldialog--terms {
+        width: 100% !important;
+    }
 }
 </style>
 
