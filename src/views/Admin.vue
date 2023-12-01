@@ -340,7 +340,7 @@ export default {
 
             if (restauranteId) {
                 axios.get(`https://api.eattog.jera.com.br/restaurante/${restauranteId}`, {
-                    headers: { 'Authorization': sessionStorage.getItem("token-admin") }
+                    headers: { 'Authorization': `Bearer ${sessionStorage.getItem("token-admin")}` }
                 })
                 .then(response => {
                     this.restaurantName =  response.data.razao_social || '';
@@ -369,7 +369,7 @@ export default {
         
         removerPrato(pratoId, index) {
             axios.delete(`https://api.eattog.jera.com.br/deletar/prato/${pratoId}`, {
-                headers: { 'Authorization': sessionStorage.getItem("token-admin") }
+                headers: { 'Authorization': `Bearer ${sessionStorage.getItem("token-admin")}` }
             }).then(response => {
                 this.pratos.splice(index, 1); 
             })
@@ -383,7 +383,7 @@ export default {
                 .then(response => {
                     this.pratos = response.data; 
                 }, {
-                    headers: { 'Authorization': sessionStorage.getItem("token-admin") }
+                    headers: { 'Authorization': `Bearer ${sessionStorage.getItem("token-admin")}` }
                 })
                 .catch(error => {
                     this.pratos = []; 
@@ -520,7 +520,7 @@ export default {
                 fetch('https://api.eattog.jera.com.br/criar/restaurante', {
                     method: "POST",
                     headers: {
-                        'Authorization': sessionStorage.getItem("token-admin")
+                        'Authorization': `Bearer ${sessionStorage.getItem("token-admin")}`
                     },
                     body: formData
                 })
@@ -574,7 +574,7 @@ export default {
                 fetch('https://api.eattog.jera.com.br/criar/prato', {
                     method: "POST",
                     headers: {
-                        'Authorization': sessionStorage.getItem("token-admin")
+                        'Authorization': `Bearer ${sessionStorage.getItem("token-admin")}`
                     },
                     body: formDataPrato
                 })
